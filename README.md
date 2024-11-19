@@ -6,4 +6,4 @@
 
 
 
-<img src="./MP-Pop-Diagramv3.drawio.png"/>
+<img src="./MP-Pop-v3Diagram.drawio.png"/>
