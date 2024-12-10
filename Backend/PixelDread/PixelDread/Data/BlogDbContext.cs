@@ -52,13 +52,32 @@ namespace PixelDread.Data
                 .HasOne(bc => bc.Category)
                 .WithMany(c => c.BlogCategories)
                 .HasForeignKey(bc => bc.CategoryId);
-            //BlogArticle
+            // Nastavení spojovací tabulky
+            modelBuilder.Entity<BlogArticle>()
+                .HasKey(ba => new { ba.BlogId, ba.ArticlePartId });
+
             modelBuilder.Entity<BlogArticle>()
                 .HasOne(ba => ba.Blog)
                 .WithMany(b => b.BlogArticles)
                 .HasForeignKey(ba => ba.BlogId);
 
+            modelBuilder.Entity<BlogArticle>()
+                .HasOne(ba => ba.ArticlePart)
+                .WithMany()
+                .HasForeignKey(ba => ba.ArticlePartId);
 
+            // Nastavení dědičnosti
+            modelBuilder.Entity<ArticlePart>()
+                .HasDiscriminator<string>("ArticleType")
+                .HasValue<FAQArticlePart>("FAQ")
+                .HasValue<ImageArticlePart>("Image")
+                .HasValue<LinkArticlePart>("Link")
+                .HasValue<TextArticlePart>("Text");
         }
+
+
+
     }
+    
+
 }
