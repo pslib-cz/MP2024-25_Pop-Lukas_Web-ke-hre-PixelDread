@@ -66,6 +66,7 @@ namespace PixelDread.Data
                 .WithMany()
                 .HasForeignKey(ba => ba.ArticlePartId);
 
+
             // Nastavení dědičnosti
             modelBuilder.Entity<ArticlePart>()
                 .HasDiscriminator<string>("ArticleType")
