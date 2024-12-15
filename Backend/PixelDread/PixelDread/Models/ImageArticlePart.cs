@@ -4,7 +4,7 @@ namespace PixelDread.Models
 {
     public class ImageArticlePart : ArticlePart
     {
-        public IFormFile Image { get; set; }
+        public byte[] Media { get; set; }
         public string Description { get; set; } 
 
     }

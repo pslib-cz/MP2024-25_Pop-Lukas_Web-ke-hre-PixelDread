@@ -13,7 +13,7 @@ using System.Reflection;
 
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("1387aff1-8f87-4d37-9c51-558c9148fb74")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("PixelDread")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b02b855ccd1f396fdf9c68f7c8099bcc0851e514")]
 [assembly: System.Reflection.AssemblyProductAttribute("PixelDread")]
