@@ -1,16 +1,25 @@
 ﻿using PixelDread.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace PixelDread.Data
 {
-    public class BlogDbContext : DbContext
+    public class BlogDbContext : IdentityDbContext<IdentityUser>
     {
-        public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
+            base.OnConfiguring(optionsBuilder);
         }
 
+        public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options)
+        {
+
+        }
+        #region DbSets
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<BlogCategory> BlogCategories { get; set; }
@@ -20,18 +29,11 @@ namespace PixelDread.Data
         public DbSet<TextArticlePart> TextBlogParts { get; set; }
         public DbSet<FAQArticlePart> FAQArticleParts { get; set; }
         public DbSet<LinkArticlePart> LinkArticleParts { get; set; }
+        #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //JSON OGData
-            modelBuilder.Entity<OGData>()
-                .Property(o => o.Keywords)
-                .HasConversion(
-                    new ValueConverter<List<string>, string>(
-                        v => JsonConvert.SerializeObject(v), // Serialize
-                        v => JsonConvert.DeserializeObject<List<string>>(v)) // Deserialize
-                )
-                .HasColumnType("jsonb"); // PostgreSQL typ sloupce
+
 
             //OGData
             modelBuilder.Entity<Blog>()
@@ -74,11 +76,8 @@ namespace PixelDread.Data
                 .HasValue<ImageArticlePart>("Image")
                 .HasValue<LinkArticlePart>("Link")
                 .HasValue<TextArticlePart>("Text");
+            modelBuilder.Entity<IdentityUser>().ToTable("Admins");
+            DbSeeder.Seed(modelBuilder);
         }
-
-
-
     }
-    
-
 }

@@ -10,7 +10,7 @@ namespace PixelDread.Models
         public bool Visibility { get; set; }
         public int OGDataId { get; set; }
         public IdentityUser ? Author { get; set; }
-        public int AuthorId { get; set; }
+        public string AuthorId { get; set; }
 
 
         public List<BlogCategory> BlogCategories { get; set; }
