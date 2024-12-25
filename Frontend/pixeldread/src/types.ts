@@ -5,6 +5,8 @@ export type BlogState = {
     categories: Category[];
     blogCategories: BlogCategory[];
     blogArticles: BlogArticle[];
+    loading: boolean,
+    error: null | string,
 }
 
 export const defaultState: BlogState = {
@@ -13,6 +15,8 @@ export const defaultState: BlogState = {
     categories: [],
     blogCategories: [],
     blogArticles: [],
+    loading: false,
+    error: null,
   };
 
 export interface Blog {
