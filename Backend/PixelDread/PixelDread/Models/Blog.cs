@@ -13,9 +13,10 @@ namespace PixelDread.Models
         public string AuthorId { get; set; }
 
 
+
         public List<BlogCategory> BlogCategories { get; set; }
         public List<BlogArticle> BlogArticles { get; set; }
-        public OGData OGData { get; set; }
+        public OGData ? OGData { get; set; }
 
     }
 }

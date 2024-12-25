@@ -3,21 +3,17 @@ using PixelDread.Data;
 using PixelDread.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.BearerToken;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BlogDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+builder.Services.AddIdentityApiEndpoints<IdentityUser>(options =>
 {
     // Password settings
     options.Password.RequireDigit = false;
@@ -26,27 +22,26 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
     options.Password.RequireUppercase = false;
     options.Password.RequireLowercase = false;
     options.Password.RequiredUniqueChars = 4;
-    // Lockout settings
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-    options.Lockout.MaxFailedAccessAttempts = 5;
-    options.Lockout.AllowedForNewUsers = true;
     // User settings
     options.User.RequireUniqueEmail = true;
 })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<BlogDbContext>();
+builder.Services.AddControllers();
 
-builder.Services.ConfigureApplicationCookie(options =>
-  {
-      // Cookie settings
-      options.Cookie.HttpOnly = true;
-      options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyCors", builder =>
+    {
+        builder.WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
-      options.LoginPath = "/Admin/Account/Login";
-      options.AccessDeniedPath = "/Admin/Account/AccessDenied";
-      options.SlidingExpiration = true;
-  });
- 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -63,5 +58,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapGroup("/api").MapCustomIdentityApi<IdentityUser>();
+app.UseCors("MyCors");
 
 app.Run();

@@ -132,19 +132,19 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "edb2d0fe-76b0-435c-9c9c-87f8e70dbf5d",
+                            Id = "426bd3f3-5e75-47b3-8c75-b6cd87537b85",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "72288105-701d-499f-bc38-5f37cd092467",
-                            Email = "Lukas@gmail.com",
+                            ConcurrencyStamp = "27f06d40-aa42-4168-a30b-bc550952f7da",
+                            Email = "lukas@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "LUKAS@GMAIL.COM",
-                            NormalizedUserName = "LUKAS",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDwG7JaRB6aeFdBKf0sNASjVXAUPQb4dAdASiZcOPL9LLLYdJ7g1f0ijYBzg/6nqAw==",
+                            NormalizedUserName = "LUKAS@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEC1l1EUi+hSUEHOXETYmapUfc1D8CtQp4xwgEsyHByCuwtVWznzndrWJpQeDNanghA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1558086d-137c-4290-92fc-090a8170c9fa",
+                            SecurityStamp = "a75052a3-9aaf-4910-aeae-58b44dd52157",
                             TwoFactorEnabled = false,
-                            UserName = "lukas"
+                            UserName = "lukas@gmail.com"
                         });
                 });
 
@@ -283,8 +283,8 @@ namespace PixelDread.Migrations
                         new
                         {
                             Id = 1,
-                            AuthorId = "edb2d0fe-76b0-435c-9c9c-87f8e70dbf5d",
-                            Date = new DateTime(2024, 12, 16, 17, 22, 42, 51, DateTimeKind.Local).AddTicks(4698),
+                            AuthorId = "426bd3f3-5e75-47b3-8c75-b6cd87537b85",
+                            Date = new DateTime(2024, 12, 18, 14, 44, 18, 209, DateTimeKind.Local).AddTicks(4510),
                             Name = "Blog",
                             OGDataId = 1,
                             Visibility = true

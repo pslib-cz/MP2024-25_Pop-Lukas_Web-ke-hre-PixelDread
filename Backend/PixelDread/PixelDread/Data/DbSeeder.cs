@@ -17,9 +17,9 @@ namespace PixelDread.Data
                 new IdentityUser
                 {
                     Id = firstAdminGuid,
-                    UserName = "lukas",
-                    NormalizedUserName = "LUKAS",
-                    Email = "Lukas@gmail.com",
+                    UserName = "lukas@gmail.com",
+                    NormalizedUserName = "LUKAS@GMAIL.COM",
+                    Email = "lukas@gmail.com",
                     EmailConfirmed = true,
                     NormalizedEmail = "LUKAS@GMAIL.COM",
                     SecurityStamp = securityStamp,

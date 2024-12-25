@@ -9,12 +9,13 @@ namespace PixelDread.Data
 {
     public class BlogDbContext : IdentityDbContext<IdentityUser>
     {
+      
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
             base.OnConfiguring(optionsBuilder);
         }
-
+       
         public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options)
         {
 
