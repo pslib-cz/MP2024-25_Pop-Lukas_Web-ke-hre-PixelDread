@@ -46,7 +46,7 @@ namespace PixelDread.Data
                 new BlogCategory { BlogId = 1, CategoryId = 1 }
             );
 
-            modelBuilder.Entity<BlogArticle>().HasData(
+            modelBuilder.Entity<BlogArticle>().HasData( 
                 new BlogArticle { BlogId = 1, ArticlePartId = 1 },
                 new BlogArticle { BlogId = 1, ArticlePartId = 2 },
                 new BlogArticle { BlogId = 1, ArticlePartId = 3 },

@@ -50,6 +50,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("MyCors");
 
 app.UseHttpsRedirection();
 
@@ -59,6 +60,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapGroup("/api").MapCustomIdentityApi<IdentityUser>();
-app.UseCors("MyCors");
 
 app.Run();

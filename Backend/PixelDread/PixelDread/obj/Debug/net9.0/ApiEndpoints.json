@@ -20,6 +20,32 @@
     ]
   },
   {
+    "ContainingType": "PixelDread.Controllers.BlogController",
+    "Method": "GetBlog",
+    "RelativePath": "api/Blog/GetBlog/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PixelDread.Models.Blog",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "PixelDread.Controllers.CategoryController",
     "Method": "GetCategories",
     "RelativePath": "api/Category",

@@ -1,6 +1,8 @@
 
 export type BlogState = {
-    usertoken: string;
+    userToken: string;
+    isUserLoggedIn: boolean;
+    email: string;
     blogs: Blog[];
     categories: Category[];
     blogCategories: BlogCategory[];
@@ -10,7 +12,9 @@ export type BlogState = {
 }
 
 export const defaultState: BlogState = {
-    usertoken: '',
+    userToken: '',
+    isUserLoggedIn: false,
+    email: '',
     blogs: [],
     categories: [],
     blogCategories: [],
@@ -51,7 +55,7 @@ export interface TextArticlePart extends ArticlePart
 
 export interface ImageArticlePart extends ArticlePart
 {
-    media: File;
+    media: File | null;
     description: string;
 }
 export interface FAQArticlePart extends ArticlePart
@@ -65,7 +69,7 @@ export interface OGData {
     title: string;
     description: string;
     slug: string;
-    media: File;    
+    media: File | null;    
 }
 
 export interface BlogCategory {
