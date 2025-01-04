@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { BlogContext, api_url } from "../BlogContext";
+import { Link } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>(""); 
@@ -68,6 +69,7 @@ const Login: React.FC = () => {
         <div>
           <p>Logged in as: {state.email}</p>
           <button onClick={handleLogout}>Logout</button>
+          <Link to="/admin">Admin</Link>
         </div>
       ) : (
         <form onSubmit={handleSubmit}>

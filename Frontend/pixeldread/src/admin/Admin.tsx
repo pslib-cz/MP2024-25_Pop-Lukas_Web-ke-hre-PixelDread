@@ -2,8 +2,7 @@ import { useContext } from "react";
 import { Outlet, Link } from "react-router-dom";
 import { BlogContext } from "../BlogContext";
 export default function Admin() {
-  const { state, dispatch } = useContext(BlogContext);
-
+  const { state } = useContext(BlogContext);
   if(!state.isUserLoggedIn){
     return (
       <>
@@ -16,7 +15,6 @@ export default function Admin() {
   else{
     return (
       <>
-      return (
       <div>
         <nav>
           <Link to="settings">Settings</Link> |{" "}
@@ -29,7 +27,6 @@ export default function Admin() {
         <h1>Admin</h1>
         <Outlet />
       </div>
-    )
       </>
     )
   }

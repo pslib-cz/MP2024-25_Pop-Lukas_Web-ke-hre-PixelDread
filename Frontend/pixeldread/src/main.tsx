@@ -1,13 +1,16 @@
-import { StrictMode } from 'react';
+import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App.tsx';
+import { BlogProvider } from './BlogContext.tsx';
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+  <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <BlogProvider>
+        <App />
+      </BlogProvider>
     </BrowserRouter>
-  </StrictMode>
+  </React.StrictMode>
 );
