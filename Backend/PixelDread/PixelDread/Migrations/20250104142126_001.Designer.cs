@@ -11,8 +11,8 @@ using PixelDread.Data;
 namespace PixelDread.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    [Migration("20241218134418_johnyJeAmerickejZmrd")]
-    partial class johnyJeAmerickejZmrd
+    [Migration("20250104142126_001")]
+    partial class _001
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,17 +135,17 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "426bd3f3-5e75-47b3-8c75-b6cd87537b85",
+                            Id = "224df757-26d3-45e6-840e-88813ed7e7c1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "27f06d40-aa42-4168-a30b-bc550952f7da",
+                            ConcurrencyStamp = "18a29945-aadf-4d55-aca0-20cb371e188b",
                             Email = "lukas@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "LUKAS@GMAIL.COM",
                             NormalizedUserName = "LUKAS@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEC1l1EUi+hSUEHOXETYmapUfc1D8CtQp4xwgEsyHByCuwtVWznzndrWJpQeDNanghA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKFkgvJABLEMAq4RRicidnZyZnVQNPaZON1NKAZvIbupY4ZEdApHFSFt/SIaP5Y+PA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a75052a3-9aaf-4910-aeae-58b44dd52157",
+                            SecurityStamp = "01474c1e-604d-4e93-aea0-3383da0787e7",
                             TwoFactorEnabled = false,
                             UserName = "lukas@gmail.com"
                         });
@@ -286,8 +286,8 @@ namespace PixelDread.Migrations
                         new
                         {
                             Id = 1,
-                            AuthorId = "426bd3f3-5e75-47b3-8c75-b6cd87537b85",
-                            Date = new DateTime(2024, 12, 18, 14, 44, 18, 209, DateTimeKind.Local).AddTicks(4510),
+                            AuthorId = "224df757-26d3-45e6-840e-88813ed7e7c1",
+                            Date = new DateTime(2025, 1, 4, 15, 21, 25, 785, DateTimeKind.Local).AddTicks(4762),
                             Name = "Blog",
                             OGDataId = 1,
                             Visibility = true

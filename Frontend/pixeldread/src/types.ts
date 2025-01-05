@@ -68,6 +68,7 @@ export interface OGData {
     id: number;
     title: string;
     description: string;
+    keywords: string;
     slug: string;
     media: File | null;    
 }
@@ -82,6 +83,15 @@ export interface BlogArticle {
     articlePartId: number;
     articleType: ArticleType;
     order: number;
+}
+export type BlogDraft = {
+    blog: Blog | null;
+    ogData: OGData | null;
+    categories: Category[];
+    FAQArticleParts: FAQArticlePart[] ;
+    TextArticleParts: TextArticlePart[];
+    ImageArticleParts: ImageArticlePart[];
+    LinkArticleParts: LinkArticlePart[];
 }
 
 enum ArticleType {

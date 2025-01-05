@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PixelDread.Migrations
 {
     /// <inheritdoc />
-    public partial class johnyJeAmerickejZmrd : Migration
+    public partial class _001 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -291,7 +291,7 @@ namespace PixelDread.Migrations
             migrationBuilder.InsertData(
                 table: "Admins",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "426bd3f3-5e75-47b3-8c75-b6cd87537b85", 0, "27f06d40-aa42-4168-a30b-bc550952f7da", "lukas@gmail.com", true, false, null, "LUKAS@GMAIL.COM", "LUKAS@GMAIL.COM", "AQAAAAIAAYagAAAAEC1l1EUi+hSUEHOXETYmapUfc1D8CtQp4xwgEsyHByCuwtVWznzndrWJpQeDNanghA==", null, false, "a75052a3-9aaf-4910-aeae-58b44dd52157", false, "lukas@gmail.com" });
+                values: new object[] { "224df757-26d3-45e6-840e-88813ed7e7c1", 0, "18a29945-aadf-4d55-aca0-20cb371e188b", "lukas@gmail.com", true, false, null, "LUKAS@GMAIL.COM", "LUKAS@GMAIL.COM", "AQAAAAIAAYagAAAAEKFkgvJABLEMAq4RRicidnZyZnVQNPaZON1NKAZvIbupY4ZEdApHFSFt/SIaP5Y+PA==", null, false, "01474c1e-604d-4e93-aea0-3383da0787e7", false, "lukas@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "ArticlePart",
@@ -331,7 +331,7 @@ namespace PixelDread.Migrations
             migrationBuilder.InsertData(
                 table: "Blogs",
                 columns: new[] { "Id", "AuthorId", "Date", "Name", "OGDataId", "Visibility" },
-                values: new object[] { 1, "426bd3f3-5e75-47b3-8c75-b6cd87537b85", new DateTime(2024, 12, 18, 14, 44, 18, 209, DateTimeKind.Local).AddTicks(4510), "Blog", 1, true });
+                values: new object[] { 1, "224df757-26d3-45e6-840e-88813ed7e7c1", new DateTime(2025, 1, 4, 15, 21, 25, 785, DateTimeKind.Local).AddTicks(4762), "Blog", 1, true });
 
             migrationBuilder.InsertData(
                 table: "BlogArticles",

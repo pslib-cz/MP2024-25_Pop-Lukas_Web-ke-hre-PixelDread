@@ -6,7 +6,7 @@ export default function Home() {
     console.log(state);
     return (
     <>
-      <h1>Welcome to the Home Page</h1>
+      <h1>PixelDread</h1>
     </>
     );
   }
