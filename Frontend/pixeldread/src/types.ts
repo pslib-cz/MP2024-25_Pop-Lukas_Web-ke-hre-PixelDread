@@ -100,3 +100,8 @@ enum ArticleType {
     Link = 3,
     Video = 4
 }
+
+export type option {
+    value: string;
+    label: string;
+}

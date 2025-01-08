@@ -11,11 +11,11 @@ namespace PixelDread.Models
         public int OGDataId { get; set; }
         public IdentityUser ? Author { get; set; }
         public string AuthorId { get; set; }
+        public string Content { get; set; }
 
 
 
         public List<BlogCategory> BlogCategories { get; set; }
-        public List<BlogArticle> BlogArticles { get; set; }
         public OGData ? OGData { get; set; }
 
     }

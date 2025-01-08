@@ -39,26 +39,6 @@ namespace PixelDread.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ArticlePart",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ArticleType = table.Column<string>(type: "TEXT", maxLength: 13, nullable: false),
-                    Question = table.Column<string>(type: "TEXT", nullable: true),
-                    Answer = table.Column<string>(type: "TEXT", nullable: true),
-                    Media = table.Column<byte[]>(type: "BLOB", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    url = table.Column<string>(type: "TEXT", nullable: true),
-                    placeholder = table.Column<string>(type: "TEXT", nullable: true),
-                    Content = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ArticlePart", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -78,7 +58,8 @@ namespace PixelDread.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Basic = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -219,7 +200,8 @@ namespace PixelDread.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Visibility = table.Column<bool>(type: "INTEGER", nullable: false),
                     OGDataId = table.Column<int>(type: "INTEGER", nullable: false),
-                    AuthorId = table.Column<string>(type: "TEXT", nullable: false)
+                    AuthorId = table.Column<string>(type: "TEXT", nullable: false),
+                    Content = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -234,32 +216,6 @@ namespace PixelDread.Migrations
                         name: "FK_Blogs_OGData_OGDataId",
                         column: x => x.OGDataId,
                         principalTable: "OGData",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BlogArticles",
-                columns: table => new
-                {
-                    BlogId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ArticlePartId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ArticleType = table.Column<int>(type: "INTEGER", nullable: false),
-                    Order = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BlogArticles", x => new { x.BlogId, x.ArticlePartId });
-                    table.ForeignKey(
-                        name: "FK_BlogArticles_ArticlePart_ArticlePartId",
-                        column: x => x.ArticlePartId,
-                        principalTable: "ArticlePart",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BlogArticles_Blogs_BlogId",
-                        column: x => x.BlogId,
-                        principalTable: "Blogs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -291,36 +247,16 @@ namespace PixelDread.Migrations
             migrationBuilder.InsertData(
                 table: "Admins",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "224df757-26d3-45e6-840e-88813ed7e7c1", 0, "18a29945-aadf-4d55-aca0-20cb371e188b", "lukas@gmail.com", true, false, null, "LUKAS@GMAIL.COM", "LUKAS@GMAIL.COM", "AQAAAAIAAYagAAAAEKFkgvJABLEMAq4RRicidnZyZnVQNPaZON1NKAZvIbupY4ZEdApHFSFt/SIaP5Y+PA==", null, false, "01474c1e-604d-4e93-aea0-3383da0787e7", false, "lukas@gmail.com" });
-
-            migrationBuilder.InsertData(
-                table: "ArticlePart",
-                columns: new[] { "Id", "ArticleType", "Description", "Media" },
-                values: new object[] { 1, "Image", "popis", new byte[] { 0, 1, 2, 3 } });
-
-            migrationBuilder.InsertData(
-                table: "ArticlePart",
-                columns: new[] { "Id", "ArticleType", "Content" },
-                values: new object[] { 2, "Text", "Hello World" });
-
-            migrationBuilder.InsertData(
-                table: "ArticlePart",
-                columns: new[] { "Id", "Answer", "ArticleType", "Question" },
-                values: new object[] { 3, "This is a blog.", "FAQ", "What is this?" });
-
-            migrationBuilder.InsertData(
-                table: "ArticlePart",
-                columns: new[] { "Id", "ArticleType", "placeholder", "url" },
-                values: new object[] { 4, "Link", "Google", "https://www.google.com" });
+                values: new object[] { "fc4d7d5a-67a7-4c7d-8028-73a68346d763", 0, "f60ea137-fa7b-447e-b55b-402e9f4e68d0", "lukas@gmail.com", true, false, null, "LUKAS@GMAIL.COM", "LUKAS@GMAIL.COM", "AQAAAAIAAYagAAAAEO2Ymc0VZTasy1YIwCsVGJi/WOCaVQkq0UmN7W5wD7o15SICyHKNElcw1pCb9gG3jA==", null, false, "69bfc1de-e7d3-42d5-9ed3-c4c2259def38", false, "lukas@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "Name" },
+                columns: new[] { "Id", "Basic", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Blog" },
-                    { 2, "FAQ" },
-                    { 3, "PatchNotes" }
+                    { 1, false, "Blog" },
+                    { 2, false, "FAQ" },
+                    { 3, false, "PatchNotes" }
                 });
 
             migrationBuilder.InsertData(
@@ -330,19 +266,8 @@ namespace PixelDread.Migrations
 
             migrationBuilder.InsertData(
                 table: "Blogs",
-                columns: new[] { "Id", "AuthorId", "Date", "Name", "OGDataId", "Visibility" },
-                values: new object[] { 1, "224df757-26d3-45e6-840e-88813ed7e7c1", new DateTime(2025, 1, 4, 15, 21, 25, 785, DateTimeKind.Local).AddTicks(4762), "Blog", 1, true });
-
-            migrationBuilder.InsertData(
-                table: "BlogArticles",
-                columns: new[] { "ArticlePartId", "BlogId", "ArticleType", "Order" },
-                values: new object[,]
-                {
-                    { 1, 1, 0, 0 },
-                    { 2, 1, 0, 0 },
-                    { 3, 1, 0, 0 },
-                    { 4, 1, 0, 0 }
-                });
+                columns: new[] { "Id", "AuthorId", "Content", "Date", "Name", "OGDataId", "Visibility" },
+                values: new object[] { 1, "fc4d7d5a-67a7-4c7d-8028-73a68346d763", "<h1>Něco</h1>", new DateTime(2025, 1, 8, 18, 8, 42, 250, DateTimeKind.Local).AddTicks(4258), "Blog", 1, true });
 
             migrationBuilder.InsertData(
                 table: "BlogCategories",
@@ -387,11 +312,6 @@ namespace PixelDread.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BlogArticles_ArticlePartId",
-                table: "BlogArticles",
-                column: "ArticlePartId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_BlogCategories_CategoryId",
                 table: "BlogCategories",
                 column: "CategoryId");
@@ -427,16 +347,10 @@ namespace PixelDread.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BlogArticles");
-
-            migrationBuilder.DropTable(
                 name: "BlogCategories");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "ArticlePart");
 
             migrationBuilder.DropTable(
                 name: "Blogs");

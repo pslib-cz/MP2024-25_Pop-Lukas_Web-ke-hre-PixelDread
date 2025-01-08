@@ -35,7 +35,7 @@ namespace PixelDread.Data
             );
 
             modelBuilder.Entity<Blog>().HasData(
-                new Blog { Id = 1, Date = System.DateTime.Now, Name = "Blog", Visibility = true, OGDataId = 1, AuthorId = firstAdminGuid }
+                new Blog { Id = 1, Date = System.DateTime.Now, Name = "Blog", Content = "<h1>Něco</h1>", Visibility = true, OGDataId = 1, AuthorId = firstAdminGuid }
             );
 
             modelBuilder.Entity<OGData>().HasData(
@@ -46,28 +46,6 @@ namespace PixelDread.Data
                 new BlogCategory { BlogId = 1, CategoryId = 1 }
             );
 
-            modelBuilder.Entity<BlogArticle>().HasData( 
-                new BlogArticle { BlogId = 1, ArticlePartId = 1 },
-                new BlogArticle { BlogId = 1, ArticlePartId = 2 },
-                new BlogArticle { BlogId = 1, ArticlePartId = 3 },
-                new BlogArticle { BlogId = 1, ArticlePartId = 4 }
-            );
-
-            modelBuilder.Entity<ImageArticlePart>().HasData(
-                new ImageArticlePart { Id = 1, Media = new byte[] { 0x00, 0x01, 0x02, 0x03 }, Description = "popis" }
-            );
-
-            modelBuilder.Entity<TextArticlePart>().HasData(
-                new TextArticlePart { Id = 2, Content = "Hello World" }
-            );
-
-            modelBuilder.Entity<FAQArticlePart>().HasData(
-                new FAQArticlePart { Id = 3, Question = "What is this?", Answer = "This is a blog." }
-            );
-
-            modelBuilder.Entity<LinkArticlePart>().HasData(
-                new LinkArticlePart { Id = 4, url = "https://www.google.com", placeholder = "Google" }
-                );
             
         }
     }

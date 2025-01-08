@@ -11,7 +11,7 @@ using PixelDread.Data;
 namespace PixelDread.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    [Migration("20250104142126_001")]
+    [Migration("20250108170843_001")]
     partial class _001
     {
         /// <inheritdoc />
@@ -135,17 +135,17 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "224df757-26d3-45e6-840e-88813ed7e7c1",
+                            Id = "fc4d7d5a-67a7-4c7d-8028-73a68346d763",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "18a29945-aadf-4d55-aca0-20cb371e188b",
+                            ConcurrencyStamp = "f60ea137-fa7b-447e-b55b-402e9f4e68d0",
                             Email = "lukas@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "LUKAS@GMAIL.COM",
                             NormalizedUserName = "LUKAS@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKFkgvJABLEMAq4RRicidnZyZnVQNPaZON1NKAZvIbupY4ZEdApHFSFt/SIaP5Y+PA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEO2Ymc0VZTasy1YIwCsVGJi/WOCaVQkq0UmN7W5wD7o15SICyHKNElcw1pCb9gG3jA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "01474c1e-604d-4e93-aea0-3383da0787e7",
+                            SecurityStamp = "69bfc1de-e7d3-42d5-9ed3-c4c2259def38",
                             TwoFactorEnabled = false,
                             UserName = "lukas@gmail.com"
                         });
@@ -230,26 +230,6 @@ namespace PixelDread.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("PixelDread.Models.ArticlePart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ArticleType")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ArticlePart");
-
-                    b.HasDiscriminator<string>("ArticleType").HasValue("ArticlePart");
-
-                    b.UseTphMappingStrategy();
-                });
-
             modelBuilder.Entity("PixelDread.Models.Blog", b =>
                 {
                     b.Property<int>("Id")
@@ -257,6 +237,10 @@ namespace PixelDread.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("AuthorId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -286,62 +270,12 @@ namespace PixelDread.Migrations
                         new
                         {
                             Id = 1,
-                            AuthorId = "224df757-26d3-45e6-840e-88813ed7e7c1",
-                            Date = new DateTime(2025, 1, 4, 15, 21, 25, 785, DateTimeKind.Local).AddTicks(4762),
+                            AuthorId = "fc4d7d5a-67a7-4c7d-8028-73a68346d763",
+                            Content = "<h1>Něco</h1>",
+                            Date = new DateTime(2025, 1, 8, 18, 8, 42, 250, DateTimeKind.Local).AddTicks(4258),
                             Name = "Blog",
                             OGDataId = 1,
                             Visibility = true
-                        });
-                });
-
-            modelBuilder.Entity("PixelDread.Models.BlogArticle", b =>
-                {
-                    b.Property<int>("BlogId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ArticlePartId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ArticleType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("BlogId", "ArticlePartId");
-
-                    b.HasIndex("ArticlePartId");
-
-                    b.ToTable("BlogArticles");
-
-                    b.HasData(
-                        new
-                        {
-                            BlogId = 1,
-                            ArticlePartId = 1,
-                            ArticleType = 0,
-                            Order = 0
-                        },
-                        new
-                        {
-                            BlogId = 1,
-                            ArticlePartId = 2,
-                            ArticleType = 0,
-                            Order = 0
-                        },
-                        new
-                        {
-                            BlogId = 1,
-                            ArticlePartId = 3,
-                            ArticleType = 0,
-                            Order = 0
-                        },
-                        new
-                        {
-                            BlogId = 1,
-                            ArticlePartId = 4,
-                            ArticleType = 0,
-                            Order = 0
                         });
                 });
 
@@ -373,6 +307,9 @@ namespace PixelDread.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("Basic")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -385,16 +322,19 @@ namespace PixelDread.Migrations
                         new
                         {
                             Id = 1,
+                            Basic = false,
                             Name = "Blog"
                         },
                         new
                         {
                             Id = 2,
+                            Basic = false,
                             Name = "FAQ"
                         },
                         new
                         {
                             Id = 3,
+                            Basic = false,
                             Name = "PatchNotes"
                         });
                 });
@@ -440,93 +380,6 @@ namespace PixelDread.Migrations
                             Keywords = "[\"something\",\"nothing\"]",
                             Slug = "sdasdas",
                             Title = "Blog"
-                        });
-                });
-
-            modelBuilder.Entity("PixelDread.Models.FAQArticlePart", b =>
-                {
-                    b.HasBaseType("PixelDread.Models.ArticlePart");
-
-                    b.Property<string>("Answer")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Question")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasDiscriminator().HasValue("FAQ");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 3,
-                            Answer = "This is a blog.",
-                            Question = "What is this?"
-                        });
-                });
-
-            modelBuilder.Entity("PixelDread.Models.ImageArticlePart", b =>
-                {
-                    b.HasBaseType("PixelDread.Models.ArticlePart");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<byte[]>("Media")
-                        .IsRequired()
-                        .HasColumnType("BLOB");
-
-                    b.HasDiscriminator().HasValue("Image");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "popis",
-                            Media = new byte[] { 0, 1, 2, 3 }
-                        });
-                });
-
-            modelBuilder.Entity("PixelDread.Models.LinkArticlePart", b =>
-                {
-                    b.HasBaseType("PixelDread.Models.ArticlePart");
-
-                    b.Property<string>("placeholder")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("url")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasDiscriminator().HasValue("Link");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 4,
-                            placeholder = "Google",
-                            url = "https://www.google.com"
-                        });
-                });
-
-            modelBuilder.Entity("PixelDread.Models.TextArticlePart", b =>
-                {
-                    b.HasBaseType("PixelDread.Models.ArticlePart");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasDiscriminator().HasValue("Text");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            Content = "Hello World"
                         });
                 });
 
@@ -600,25 +453,6 @@ namespace PixelDread.Migrations
                     b.Navigation("OGData");
                 });
 
-            modelBuilder.Entity("PixelDread.Models.BlogArticle", b =>
-                {
-                    b.HasOne("PixelDread.Models.ArticlePart", "ArticlePart")
-                        .WithMany()
-                        .HasForeignKey("ArticlePartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PixelDread.Models.Blog", "Blog")
-                        .WithMany("BlogArticles")
-                        .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ArticlePart");
-
-                    b.Navigation("Blog");
-                });
-
             modelBuilder.Entity("PixelDread.Models.BlogCategory", b =>
                 {
                     b.HasOne("PixelDread.Models.Blog", "Blog")
@@ -640,8 +474,6 @@ namespace PixelDread.Migrations
 
             modelBuilder.Entity("PixelDread.Models.Blog", b =>
                 {
-                    b.Navigation("BlogArticles");
-
                     b.Navigation("BlogCategories");
                 });
 
