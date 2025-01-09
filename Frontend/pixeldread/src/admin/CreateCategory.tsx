@@ -9,7 +9,7 @@ const CreateCategory = () => {
     const [isChecking, setIsChecking] = useState(false);
 
     const checkCategoryExists = async (categoryName:string) => {
-        setIsChecking(true); // Optional loading state
+        setIsChecking(true); 
         try {
             const response = await fetch(`${api_url}/Categories`, {
                 method: 'GET',
@@ -23,7 +23,7 @@ const CreateCategory = () => {
             return categories.some((category:Category) => category.name.toLowerCase() === categoryName.toLowerCase());
         } catch (error) {
             console.error('Error checking category existence:', error);
-            return false; // Fallback if checking fails
+            return false;
         } finally {
             setIsChecking(false);
         }
@@ -38,14 +38,12 @@ const CreateCategory = () => {
         }
 
         try {
-            // Check if the category exists
             const exists = await checkCategoryExists(name);
             if (exists) {
                 setMessage('Category already exists.');
                 return;
             }
 
-            // Proceed to create the category
             const response = await fetch(`${api_url}/Categories`, {
                 method: 'POST',
                 headers: {
@@ -78,7 +76,7 @@ const CreateCategory = () => {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
-                        disabled={isChecking} // Disable input during category check
+                        disabled={isChecking}
                     />
                 </div>
                 <button type="submit" disabled={isChecking}>

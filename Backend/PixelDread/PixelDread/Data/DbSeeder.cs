@@ -29,9 +29,9 @@ namespace PixelDread.Data
              );
             // seed data
             modelBuilder.Entity<Category>().HasData(
-                new Category { Id = 1, Name = "Blog" },
-                new Category { Id = 2, Name = "FAQ" },
-                new Category { Id = 3, Name = "PatchNotes" }
+                new Category { Id = 1, Name = "Blog", Basic = true },
+                new Category { Id = 2, Name = "FAQ", Basic = true },
+                new Category { Id = 3, Name = "PatchNotes", Basic = true }
             );
 
             modelBuilder.Entity<Blog>().HasData(

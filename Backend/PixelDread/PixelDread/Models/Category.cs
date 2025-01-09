@@ -11,7 +11,7 @@ namespace PixelDread.Models
 
         [Required]
         public string Name { get; set; }
-        public bool Basic { get; set; }
+        public bool ? Basic { get; set; }
 
         public ICollection<BlogCategory> ? BlogCategories { get; set; }
 

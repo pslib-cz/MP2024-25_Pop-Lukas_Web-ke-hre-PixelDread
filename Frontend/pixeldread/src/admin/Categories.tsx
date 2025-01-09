@@ -1,155 +1,110 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { BlogContext, api_url } from '../BlogContext';
+import React, { useState, useEffect } from 'react';
+import { Category } from '../types';
+import Select from 'react-select';
+import { api_url } from '../BlogContext';
+import EditCategoryModal from '../components/EditCategoryModal';
 
-interface Category {
-    id: number;
-    name: string;
-}
+// Modal component for editing category
 
-const Categories: React.FC = () => {
-    const { state, dispatch } = useContext(BlogContext);
-    const [categories, setCategories] = useState<Category[]>([]);
-    const [name, setName] = useState<string>('');
-    const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
-    const [error, setError] = useState<string>('');
-    const [loading, setLoading] = useState<boolean>(false);
+const Categories = () => {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
 
-    // Fetch categories from the API
-    useEffect(() => {
-        const fetchCategories = async () => {
-            try {
-                setLoading(true);
-                const response = await fetch(`${api_url}/Categories`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch categories');
-                }
-                const data: Category[] = await response.json();
-                setCategories(data);
-                dispatch({ type: 'FIRST_FETCH_SUCCESS', blogs: [], categories: data, blogCategories: [], blogArticles: [], FAQArticleParts: [], TextArticleParts: [], ImageArticleParts: [], LinkArticleParts: [] });
-            } catch (err) {
-                setError((err as Error).message || 'An error occurred');
-                dispatch({ type: 'FETCH_ERROR', error: (err as Error).message });
-            } finally {
-                setLoading(false);
-            }
-        };
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${api_url}/Categories`, {
+          method: 'GET',
+        });
 
-        fetchCategories();
-    }, [dispatch]);
-
-    // Handle category update (PUT)
-    const handleUpdate = async () => {
-        if (!name.trim() || !selectedCategory) {
-            setError('Category name cannot be empty.');
-            return;
+        if (!response.ok) {
+          console.error('Failed to fetch categories');
+          return;
         }
 
-        try {
-            setLoading(true);
-            const response = await fetch(`${api_url}/Categories/${selectedCategory.id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to update category');
-            }
-
-            // Update local state with the new category name
-            setCategories((prev) =>
-                prev.map((category) =>
-                    category.id === selectedCategory.id ? { ...category, name } : category
-                )
-            );
-            setName('');
-            setSelectedCategory(null);
-            setError('');
-        } catch (err) {
-            setError((err as Error).message || 'An error occurred while updating the category.');
-        } finally {
-            setLoading(false);
-        }
+        const data = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
     };
 
-    // Delete category
-    const handleDelete = async (id: number) => {
-        if (!window.confirm('Are you sure you want to delete this category?')) return;
+    fetchCategories();
+  }, []);
 
-        try {
-            setLoading(true);
-            const response = await fetch(`${api_url}/Categories/${id}`, { method: 'DELETE' });
+  const handleEditClick = (category: Category) => {
+    setSelectedCategory(category);
+    setShowModal(true);
+  };
 
-            if (!response.ok) {
-                throw new Error('Failed to delete category');
-            }
+  const handleDeleteClick = async (id: number) => {
+    try {
+      const response = await fetch(`${api_url}/Categories/DeleteCategory/${id}`, {
+        method: 'DELETE',
+      });
 
-            setCategories((prev) => prev.filter((category) => category.id !== id));
-            setError('');
-        } catch (err) {
-            setError((err as Error).message || 'An error occurred while deleting the category.');
-        } finally {
-            setLoading(false);
-        }
-    };
+      if (!response.ok) {
+        console.error('Failed to delete category');
+        return;
+      }
 
-    // Select category for updating
-    const handleSelectCategory = (category: Category) => {
-        setSelectedCategory(category);
-        setName(category.name);
-    };
+      setCategories(categories.filter(cat => cat.id !== id));
+    } catch (error) {
+      console.error('Error deleting category:', error);
+    }
+  };
 
-    return (
-        <div>
-            <h1>Categories</h1>
+  const handleSave = async (id: number, newName: string) => {
+    try {
+      const response = await fetch(`${api_url}/Categories/PutCategory/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: newName, id }),
+      });
 
-            {/* Update Category */}
-            {selectedCategory && (
-                <div>
-                    <h2>Update Category</h2>
-                    <input
-                        type="text"
-                        placeholder="Enter category name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                    <button onClick={handleUpdate} disabled={loading}>
-                        {loading ? 'Updating...' : 'Update'}
-                    </button>
-                </div>
-            )}
+      if (!response.ok) {
+        return;
+      }
 
-            {/* Error Message */}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+      const updatedCategories = categories.map(cat => 
+        cat.id === id ? { ...cat, name: newName } : cat
+      );
+      setCategories(updatedCategories);
+      setShowModal(false);
+    } catch (error) {
+      console.error('Error updating category:', error);
+    }
+  };
 
-            {/* List of Categories */}
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedCategory(null);
+  };
+
+  return (
+    <div>
+      <h2>Categories</h2>
+      {categories.map((category) => (
+        <div key={category.id}>
+          <span>{category.name}</span> {category.basic && <span> (Basic)</span>}
+          {!category.basic && (
             <div>
-                <h2>Existing Categories</h2>
-                {loading ? (
-                    <p>Loading categories...</p>
-                ) : categories.length > 0 ? (
-                    <ul>
-                        {categories.map((category) => (
-                            <li key={category.id}>
-                                {category.name}
-                                <button
-                                    onClick={() => handleSelectCategory(category)}
-                                    style={{ marginLeft: '10px' }}
-                                >
-                                    Edit
-                                </button>
-                                <button onClick={() => handleDelete(category.id)} style={{ marginLeft: '10px' }}>
-                                    Delete
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p>No categories found.</p>
-                )}
+              <button onClick={() => handleEditClick(category)}>Edit</button>
+              <button onClick={() => handleDeleteClick(category.id)}>Delete</button>
             </div>
+          )}
         </div>
-    );
+      ))}
+
+      <EditCategoryModal
+        show={showModal}
+        category={selectedCategory}
+        onClose={closeModal}
+        onSave={handleSave}
+      />
+    </div>
+  );
 };
 
 export default Categories;

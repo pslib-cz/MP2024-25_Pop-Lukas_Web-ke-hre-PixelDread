@@ -1,32 +1,56 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { option } from '../types';
 import Select from 'react-select';
-import { BlogContext } from '../BlogContext';
-import { useContext } from 'react';
+import { api_url } from '../BlogContext';
+import { MultiValue } from 'react-select'
 
 const CategoryAdder = () => {
+  const [selectedOptions, setSelectedOptions] = useState<option[]>([]);
+  const [options, setOptions] = useState<option[]>([]);
 
-//React-select
-const [selectedOption, setSelectedOption] = useState<option | null>(null);
-const { state, dispatch } = useContext(BlogContext);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${api_url}/Categories`, {
+          method: 'GET',
+        });
 
-//make me a mapping function to map the categories to the options
-const options = state.categories.map((category) => {
-  return { value: category.name.toString(), label: category.name.toString() };
-});
+        if (!response.ok) {
+          console.error('Failed to fetch categories');
+          return;
+        }
 
-const handleChange = (selectedOption: option | null) => {
-  setSelectedOption(selectedOption);
-};
+        const data = await response.json();
+        const categoryOptions = data.map((cat: any) => ({
+          value: cat.id,
+          label: cat.name,
+        }));
+
+        setOptions(categoryOptions);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  const handleChange = (newValue: MultiValue<option>) => {
+    // Convert the MultiValue into an array of options and store it
+    setSelectedOptions(newValue.map(option => ({ value: option.value, label: option.label })));
+  };
 
   return (
     <div>
       <Select
-        value={selectedOption}
+        value={selectedOptions}
         onChange={handleChange}
         options={options}
+        placeholder="Select categories"
+        isMulti // This makes the Select component multi-select
       />
     </div>
   );
-}
+};
+
 export default CategoryAdder;

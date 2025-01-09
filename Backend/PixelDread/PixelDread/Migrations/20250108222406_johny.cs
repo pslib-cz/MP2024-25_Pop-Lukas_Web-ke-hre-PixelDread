@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PixelDread.Migrations
 {
     /// <inheritdoc />
-    public partial class _001 : Migration
+    public partial class johny : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -59,7 +59,7 @@ namespace PixelDread.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Basic = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Basic = table.Column<bool>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -247,16 +247,16 @@ namespace PixelDread.Migrations
             migrationBuilder.InsertData(
                 table: "Admins",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "fc4d7d5a-67a7-4c7d-8028-73a68346d763", 0, "f60ea137-fa7b-447e-b55b-402e9f4e68d0", "lukas@gmail.com", true, false, null, "LUKAS@GMAIL.COM", "LUKAS@GMAIL.COM", "AQAAAAIAAYagAAAAEO2Ymc0VZTasy1YIwCsVGJi/WOCaVQkq0UmN7W5wD7o15SICyHKNElcw1pCb9gG3jA==", null, false, "69bfc1de-e7d3-42d5-9ed3-c4c2259def38", false, "lukas@gmail.com" });
+                values: new object[] { "6b270426-d353-40ca-b0b0-bba09103d10f", 0, "8f110306-88a3-427d-829c-c6e7f211ff3d", "lukas@gmail.com", true, false, null, "LUKAS@GMAIL.COM", "LUKAS@GMAIL.COM", "AQAAAAIAAYagAAAAEChNpCBZHhb/w2eLVF81/mBm6LlW6QEM7Bz+nAYco2CR9B+Lp9nHukz+i1EUZF0/mw==", null, false, "cf3c6cf3-04f9-4876-bec2-7e8cbaff216a", false, "lukas@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "Basic", "Name" },
                 values: new object[,]
                 {
-                    { 1, false, "Blog" },
-                    { 2, false, "FAQ" },
-                    { 3, false, "PatchNotes" }
+                    { 1, true, "Blog" },
+                    { 2, true, "FAQ" },
+                    { 3, true, "PatchNotes" }
                 });
 
             migrationBuilder.InsertData(
@@ -267,7 +267,7 @@ namespace PixelDread.Migrations
             migrationBuilder.InsertData(
                 table: "Blogs",
                 columns: new[] { "Id", "AuthorId", "Content", "Date", "Name", "OGDataId", "Visibility" },
-                values: new object[] { 1, "fc4d7d5a-67a7-4c7d-8028-73a68346d763", "<h1>Něco</h1>", new DateTime(2025, 1, 8, 18, 8, 42, 250, DateTimeKind.Local).AddTicks(4258), "Blog", 1, true });
+                values: new object[] { 1, "6b270426-d353-40ca-b0b0-bba09103d10f", "<h1>Něco</h1>", new DateTime(2025, 1, 8, 23, 24, 4, 376, DateTimeKind.Local).AddTicks(5315), "Blog", 1, true });
 
             migrationBuilder.InsertData(
                 table: "BlogCategories",
