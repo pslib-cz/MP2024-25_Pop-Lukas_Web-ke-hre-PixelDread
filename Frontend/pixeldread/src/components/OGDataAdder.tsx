@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { api_url } from "../BlogContext";
 import { OGData } from "../types";
 
-const OGDataAdder = () => {
+/*const OGDataAdder = () => {
     const [ogData, setOGData] = useState<OGData>({
       id: null,
         title: "",
@@ -49,26 +49,7 @@ const OGDataAdder = () => {
       if (ogData.media) {
         formData.append("media", ogData.media);
       }
-  
-      try {
-        const response = await fetch(`${api_url}/Categories`, {
-          method: "POST",
-          body: formData,
-        });
-  
-        if (!response.ok) {
-          throw new Error("Failed to create OG data");
-        }
-  
-        // Reset form and show success message
-        setOGData({id: null, title: "", description: "", keywords: "", slug: "", media: null });
-        setSuccess("OG data created successfully!");
-      } catch (error) {
-        console.error("Error creating OG data:", error);
-        setError("An error occurred while creating OG data. Please try again.");
-      }
-    };
-  
+
     return (
       <div>
         <h2>Create New OG Data</h2>
@@ -85,11 +66,12 @@ const OGDataAdder = () => {
   
         <div>
           <label>Description</label>
-          <textarea
+          <input
+            type="text"
             name="description"
             value={ogData.description}
             onChange={handleInputChange}
-          ></textarea>
+          />
         </div>
   
         <div>
@@ -130,3 +112,4 @@ const OGDataAdder = () => {
   };
   
   export default OGDataAdder;
+  */
