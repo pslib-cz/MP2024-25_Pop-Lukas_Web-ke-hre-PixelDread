@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home.tsx';
-import About from './pages/About.tsx';
 import './App.css'
 import Admin from './admin/Admin.tsx';
 import Statistics from './admin/Statistics.tsx';
@@ -10,6 +9,9 @@ import Settings from './admin/Settings.tsx';
 import CreateCategory from './admin/CreateCategory.tsx';
 import CreateContent from './admin/CreateContent.tsx';
 import Login from './pages/Login.tsx';
+import FAQ from './pages/FAQ.tsx';
+import PatchNotes from './pages/PatchNotes.tsx';
+import Blog from './pages/Blog.tsx';
 
 
 function App() {
@@ -19,7 +21,9 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path='/faq' element={<FAQ />} />
+          <Route path="/patchnotes" element={<PatchNotes />} />
           <Route path="/login" element={<Login/>} />
 
           <Route path="/admin" element={<Admin />}>
