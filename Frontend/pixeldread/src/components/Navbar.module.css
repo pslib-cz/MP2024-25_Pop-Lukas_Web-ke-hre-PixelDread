@@ -1,0 +1,14 @@
+.navbar {
+}
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1a1a1a;
+    padding: 1em 3em;
+    margin: 0;
+    color: white;
+}
+.nav__item {
+    list-style: none;
+}

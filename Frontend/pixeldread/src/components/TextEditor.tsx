@@ -2,8 +2,13 @@ import React, { useState, useRef } from 'react';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 
-const TextEditor: React.FC = () => {
-  const [editorValue, setEditorValue] = useState<string>('');
+interface TextEditorProps {
+  content: string;
+  onUpdateContent: (content: string) => void;
+}
+
+const TextEditor: React.FC<TextEditorProps> = ({ content, onUpdateContent }) => {
+  const [editorValue, setEditorValue] = useState<string>(content);
   const editorRef = useRef<HTMLDivElement | null>(null);
   const quillRef = useRef<Quill | null>(null);
 
@@ -25,10 +30,15 @@ const TextEditor: React.FC = () => {
       });
 
       quillRef.current.on('text-change', () => {
-        console.log(quillRef.current!.root.innerHTML.toString());
-        setEditorValue(quillRef.current!.root.innerHTML);
+        const updatedContent = quillRef.current!.root.innerHTML;
+        setEditorValue(updatedContent);
       });
     }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onUpdateContent(editorValue); // Pass the updated content to parent
   };
 
   React.useLayoutEffect(() => {
@@ -37,17 +47,10 @@ const TextEditor: React.FC = () => {
 
   return (
     <div>
-      <div ref={editorRef} style={{ height: '300px' }}></div>
-      <p><strong>Editor Value:</strong></p>
-      <div
-        style={{
-          border: '1px solid #ccc',
-          padding: '10px',
-          marginTop: '10px',
-          whiteSpace: 'pre-wrap',
-        }}
-        dangerouslySetInnerHTML={{ __html: editorValue }}
-      ></div>
+      <form onSubmit={handleSubmit}>
+        <div ref={editorRef} style={{ height: '300px' }}></div>
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 };

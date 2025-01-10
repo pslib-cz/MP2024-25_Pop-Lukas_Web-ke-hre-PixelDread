@@ -22,7 +22,7 @@ export const defaultState: BlogState = {
   };
 
 export interface Blog {
-    id: number;
+    id: number | null;
     name: string;
     visibility: boolean;
     categories: Category[];
@@ -50,9 +50,8 @@ export interface BlogCategory {
     categoryId: number;
 }
 
-
-
 export type option = {
     value: string;
     label: string;
 }
+    

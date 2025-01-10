@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { option } from '../types';
+import { Category, option } from '../types';
 import Select from 'react-select';
 import { api_url } from '../BlogContext';
 import { MultiValue } from 'react-select'
@@ -7,7 +7,7 @@ import { MultiValue } from 'react-select'
 const CategoryAdder = () => {
   const [selectedOptions, setSelectedOptions] = useState<option[]>([]);
   const [options, setOptions] = useState<option[]>([]);
-
+  const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -21,9 +21,10 @@ const CategoryAdder = () => {
         }
 
         const data = await response.json();
-        const categoryOptions = data.map((cat: any) => ({
+        const categoryOptions = data.map((cat: Category) => ({
           value: cat.id,
           label: cat.name,
+
         }));
 
         setOptions(categoryOptions);
@@ -36,8 +37,8 @@ const CategoryAdder = () => {
   }, []);
 
   const handleChange = (newValue: MultiValue<option>) => {
-    // Convert the MultiValue into an array of options and store it
     setSelectedOptions(newValue.map(option => ({ value: option.value, label: option.label })));
+    console.log('selectedOptions:', selectedOptions);
   };
 
   return (
@@ -47,7 +48,7 @@ const CategoryAdder = () => {
         onChange={handleChange}
         options={options}
         placeholder="Select categories"
-        isMulti // This makes the Select component multi-select
+        isMulti 
       />
     </div>
   );
