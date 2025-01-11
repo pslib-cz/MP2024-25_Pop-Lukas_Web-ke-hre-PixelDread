@@ -8,6 +8,7 @@ export type BlogState = {
     blogCategories: BlogCategory[];
     loading: boolean,
     error: null | string,
+    draft: Blog | null,
 }
 
 export const defaultState: BlogState = {
@@ -19,6 +20,7 @@ export const defaultState: BlogState = {
     blogCategories: [],
     loading: false,
     error: null,
+    draft: null,
   };
 
 export interface Blog {
@@ -54,4 +56,3 @@ export type option = {
     value: string;
     label: string;
 }
-    

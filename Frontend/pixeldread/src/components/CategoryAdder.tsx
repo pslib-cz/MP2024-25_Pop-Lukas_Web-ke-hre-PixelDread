@@ -4,10 +4,15 @@ import Select from 'react-select';
 import { api_url } from '../BlogContext';
 import { MultiValue } from 'react-select'
 
-const CategoryAdder = () => {
+interface CategoryAdderProps {
+  onUpdateCategories: (categories: Category[]) => void;
+}
+
+const CategoryAdder: React.FC<CategoryAdderProps> = ({ onUpdateCategories }) => {
   const [selectedOptions, setSelectedOptions] = useState<option[]>([]);
   const [options, setOptions] = useState<option[]>([]);
-  const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -21,10 +26,10 @@ const CategoryAdder = () => {
         }
 
         const data = await response.json();
+        setCategories(data);
         const categoryOptions = data.map((cat: Category) => ({
-          value: cat.id,
+          value: cat.id.toString(),  // Převod id na string pro výběr
           label: cat.name,
-
         }));
 
         setOptions(categoryOptions);
@@ -37,8 +42,20 @@ const CategoryAdder = () => {
   }, []);
 
   const handleChange = (newValue: MultiValue<option>) => {
-    setSelectedOptions(newValue.map(option => ({ value: option.value, label: option.label })));
-    console.log('selectedOptions:', selectedOptions);
+    const selectedCategories = optionsToCategories(newValue);
+    setSelectedOptions(newValue.map(option => (
+      { value: option.value, label: option.label }
+
+    )))
+    onUpdateCategories(selectedCategories);
+    ;
+  };
+
+  const optionsToCategories = (options: MultiValue<option>) => {
+    return options.map(option => {
+      const category = categories.find(cat => cat.id.toString() === option.value);
+      return category !== undefined ? category : undefined;
+    }).filter(cat => cat !== undefined) as Category[];
   };
 
   return (
