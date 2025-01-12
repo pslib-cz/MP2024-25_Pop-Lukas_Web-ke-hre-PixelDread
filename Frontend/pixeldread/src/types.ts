@@ -21,7 +21,7 @@ const draftDefault : Blog = ({
       id: null,
       title: '',
       description: '',
-      keywords: '',
+      keywords: [],
       slug: '',
       media: null,
     },
@@ -60,7 +60,7 @@ export interface OGData {
     id: number | null;
     title: string;
     description: string;
-    keywords: string;
+    keywords: string[];
     slug: string;
     media: File | null;    
 }

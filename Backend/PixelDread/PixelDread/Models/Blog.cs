@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
 
 
@@ -16,10 +17,11 @@ namespace PixelDread.Models
         public string ? Content { get; set; }
 
 
-
+        [JsonIgnore]
 
         public List<BlogCategory> BlogCategories { get; set; }
         public OGData ? OGData { get; set; }
+
 
     }
 }

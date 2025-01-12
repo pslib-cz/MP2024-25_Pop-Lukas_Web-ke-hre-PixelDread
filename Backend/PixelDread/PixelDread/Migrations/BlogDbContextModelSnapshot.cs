@@ -132,17 +132,17 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7628459e-e45e-4d77-bec2-e3721aafd48d",
+                            Id = "2b0ed7f2-4b40-489d-8071-98aec3e0ea16",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4ea612ab-5703-49d4-b278-e05f65258e47",
+                            ConcurrencyStamp = "05b0157e-3719-4f8c-b17e-63e2dd5cef9f",
                             Email = "lukas@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "LUKAS@GMAIL.COM",
                             NormalizedUserName = "LUKAS@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECnsQIbX2fewFki9s24lmMfiHJUwji4ZoV2YOMB/GIZA461NOlRtM7OmlBRP6gGKpg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAO142TnfopsrxdIc4ML9S2gFP2zLhUBZlTgwLJ6WvQfSesjgzEyR1XtnWCOsOesMw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "200c8ae3-487e-49e6-8a6b-99c2b24c537f",
+                            SecurityStamp = "4b2d74ac-504a-4e24-828f-269a5823c0df",
                             TwoFactorEnabled = false,
                             UserName = "lukas@gmail.com"
                         });
@@ -265,9 +265,9 @@ namespace PixelDread.Migrations
                         new
                         {
                             Id = 1,
-                            AuthorId = "7628459e-e45e-4d77-bec2-e3721aafd48d",
+                            AuthorId = "2b0ed7f2-4b40-489d-8071-98aec3e0ea16",
                             Content = "<h1>Něco</h1>",
-                            Date = new DateTime(2025, 1, 12, 18, 47, 38, 377, DateTimeKind.Local).AddTicks(5618),
+                            Date = new DateTime(2025, 1, 12, 23, 32, 48, 842, DateTimeKind.Local).AddTicks(6740),
                             Name = "Blog",
                             OGDataId = 1,
                             Visibility = true
@@ -349,8 +349,8 @@ namespace PixelDread.Migrations
                     b.PrimitiveCollection<string>("Keywords")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Media")
-                        .HasColumnType("TEXT");
+                    b.Property<byte[]>("Media")
+                        .HasColumnType("BLOB");
 
                     b.Property<string>("Slug")
                         .HasColumnType("TEXT");

@@ -965,35 +965,8 @@
             "type": "string",
             "nullable": true
           },
-          "blogCategories": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/BlogCategory"
-            },
-            "nullable": true
-          },
           "ogData": {
             "$ref": "#/components/schemas/OGData"
-          }
-        },
-        "additionalProperties": false
-      },
-      "BlogCategory": {
-        "type": "object",
-        "properties": {
-          "blogId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "blog": {
-            "$ref": "#/components/schemas/Blog"
-          },
-          "categoryId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "category": {
-            "$ref": "#/components/schemas/Category"
           }
         },
         "additionalProperties": false
@@ -1042,13 +1015,6 @@
           },
           "basic": {
             "type": "boolean",
-            "nullable": true
-          },
-          "blogCategories": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/BlogCategory"
-            },
             "nullable": true
           }
         },
@@ -1262,9 +1228,6 @@
           "blogId": {
             "type": "integer",
             "format": "int32"
-          },
-          "blog": {
-            "$ref": "#/components/schemas/Blog"
           }
         },
         "additionalProperties": false

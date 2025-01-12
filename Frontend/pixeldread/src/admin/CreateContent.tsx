@@ -41,8 +41,8 @@ const CreateContent = () => {
         slug: draft.ogData.slug,
         title: draft.ogData.title,
         description: draft.ogData.description,
-        media: FileToBytes(draft.ogData.media),
-        keywords: draft.ogData.keywords 
+        media: null,//FileToBytes(draft.ogData.media),
+        keywords: draft.ogData.keywords,
       },
       categoryIds: categoryIds,
     };
@@ -125,7 +125,9 @@ const CreateContent = () => {
             <p>Title: {draft.ogData.title}</p>
             <p>Image: {draft.ogData.media?.name}</p>
             <p>Visibility: {draft.visibility.toString()}</p>
-            <p>Keywords: {draft.ogData.keywords}</p>
+            {draft.ogData.keywords.length > 0 && (
+              <p>Keywords: {draft.ogData.keywords.join(", ")}</p>
+            )}
             <p>Description: {draft.ogData.description}</p>
             <p>Slug: {draft.ogData.slug}</p>
             <button onClick={handleDiscard}>Discard</button>

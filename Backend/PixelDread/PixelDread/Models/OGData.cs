@@ -1,4 +1,6 @@
-﻿namespace PixelDread.Models
+﻿using System.Text.Json.Serialization;
+
+namespace PixelDread.Models
 {
     public class OGData
     {
@@ -9,6 +11,8 @@
         public Byte[] ? Media { get; set; } 
         public List<string> ? Keywords { get; set; }
         public int BlogId { get; set; }
+        [JsonIgnore]
+
         public Blog Blog { get; set; }
     }
 }

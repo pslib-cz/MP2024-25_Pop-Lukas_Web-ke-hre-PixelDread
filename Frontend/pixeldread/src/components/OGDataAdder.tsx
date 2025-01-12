@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
 import { BlogContext } from "../BlogContext";
-
+import KeywordsAdder from "./KeywordsAdder";
 const OGDataAdder = () => {
   const { state, dispatch } = useContext(BlogContext);
   const { draft } = state;
   const [fileError, setFileError] = useState<string | null>(null);
+
 
   if (!draft) {
     console.error("Draft is null. Please ensure the draft is initialized in the context.");
@@ -67,13 +68,8 @@ const OGDataAdder = () => {
         />
       </label>
       <label>
-        Keywords:{" "}
-        <input
-          type="text"
-          name="keywords"
-          value={draft.ogData.keywords}
-          onChange={handleInputChange}
-        />
+        Keywords:
+        <KeywordsAdder />
       </label>
       <label>
         Slug:{" "}

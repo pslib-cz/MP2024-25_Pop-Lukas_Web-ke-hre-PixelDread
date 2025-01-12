@@ -14,6 +14,7 @@ type ReducerAction =
 | { type: 'SET_DRAFT_VISIBILITY'; payload: boolean; }
 | { type: 'SET_DRAFT_CONTENT'; payload: string; }
 | { type: 'SET_DRAFT_OGDATA'; payload: OGData; }
+| { type: 'SET_DRAFT_KEYWORDS'; payload: string[]; }
 | { type: 'RESET_DRAFT'; }
 | { type: 'SET_STEP'; payload: number; }
 
@@ -70,6 +71,18 @@ const blogReducer = (state: BlogState, action: ReducerAction): BlogState => {
                 draft: {
                     ...state.draft,
                     content: action.payload,
+                },
+            };
+        case 'SET_DRAFT_KEYWORDS':
+            if (state.draft === null) return state;
+            return {
+                ...state,
+                draft: {
+                    ...state.draft,
+                    ogData: {
+                        ...state.draft.ogData,
+                        keywords: action.payload,
+                    },
                 },
             };
         case 'SET_DRAFT_OGDATA':

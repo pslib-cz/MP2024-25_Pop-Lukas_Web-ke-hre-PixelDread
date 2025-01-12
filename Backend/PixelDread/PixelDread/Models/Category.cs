@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace PixelDread.Models
 {
@@ -12,6 +13,7 @@ namespace PixelDread.Models
         [Required]
         public string Name { get; set; }
         public bool ? Basic { get; set; }
+        [JsonIgnore]
 
         public ICollection<BlogCategory> ? BlogCategories { get; set; }
 
