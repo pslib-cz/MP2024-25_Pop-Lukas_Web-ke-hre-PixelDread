@@ -1,22 +1,74 @@
-import React, { useContext } from "react";
+import  { useContext } from "react";
 import TextEditor from "../components/TextEditor";
 import CategoryAdder from "../components/CategoryAdder";
 import OGDataAdder from "../components/OGDataAdder";
 import NameAdder from "../components/NameAdder";
 import { BlogContext } from "../BlogContext";
+import { api_url } from '../BlogContext';
+
 
 const CreateContent = () => {
   const { state, dispatch } = useContext(BlogContext);
   const { draft, step } = state;
 
+  const FileToBytes = (file: File | null): Promise<Uint8Array> => {
+    return new Promise((resolve, reject) => {
+      if (!file) {
+        reject("No file provided");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const result = event.target?.result;
+        if (result instanceof ArrayBuffer) {
+          resolve(new Uint8Array(result));
+        } else {
+          reject("Failed to convert file to bytes");
+        }
+      };
+      reader.onerror = () => reject("Failed to read file");
+      reader.readAsArrayBuffer(file);
+    });
+  };
 
-    const handleCreate = () => {
-        console.log("Creating blog...");
-        console.log(draft);
-        console.log("Blog created");
-        dispatch({ type: "RESET_DRAFT" });
-        dispatch({ type: "SET_STEP", payload: 5 });
+  const handleCreate = async () => {
+    const categoryIds = draft.categories.map((category) => category.id);
+    const blogData = {
+      name: draft.name,
+      content: draft.content,
+      visibility: draft.visibility,
+      ogData: {
+        slug: draft.ogData.slug,
+        title: draft.ogData.title,
+        description: draft.ogData.description,
+        media: FileToBytes(draft.ogData.media),
+        keywords: draft.ogData.keywords 
+      },
+      categoryIds: categoryIds,
     };
+  
+    try {
+      const response = await fetch(`${api_url}/Blog/CreateBlogWithCategories`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(blogData),
+      });
+      if (response.ok) {
+        dispatch({ type: "SET_STEP", payload: 5 });
+      } else {
+        const error = await response.text();
+        console.log("Error creating blog:", error);
+        alert(`Error: ${error}`);
+
+      }
+    } catch (error) {
+      console.error("Error creating blog:", error);
+      alert("Failed to create blog");
+    }
+  };
+  
   const handleDiscard = () => {
     if (window.confirm("Are you sure you want to discard the draft?")) {
       dispatch({ type: "RESET_DRAFT" });

@@ -9,19 +9,14 @@ namespace PixelDread.Data
 {
     public class BlogDbContext : IdentityDbContext<IdentityUser>
     {
-      
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
                 .ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
-
-
         }
        
         public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options)
         {
-
-
         }
         #region DbSets
         public DbSet<Blog> Blogs { get; set; }
@@ -34,14 +29,11 @@ namespace PixelDread.Data
         {
             base.OnModelCreating(modelBuilder);
 
-
-            //OGData
             modelBuilder.Entity<Blog>()
                 .HasOne(b => b.OGData)
                 .WithOne(o => o.Blog)
                 .HasForeignKey<Blog>(b => b.OGDataId)
                 .OnDelete(DeleteBehavior.Cascade);
-            //BlogCategory
             modelBuilder.Entity<BlogCategory>()
                 .HasKey(bc => new { bc.BlogId, bc.CategoryId });
 
@@ -54,7 +46,7 @@ namespace PixelDread.Data
                 .HasOne(bc => bc.Category)
                 .WithMany(c => c.BlogCategories)
                 .HasForeignKey(bc => bc.CategoryId);
-        
+            
             modelBuilder.Entity<IdentityUser>().ToTable("Admins");
             DbSeeder.Seed(modelBuilder);
         }

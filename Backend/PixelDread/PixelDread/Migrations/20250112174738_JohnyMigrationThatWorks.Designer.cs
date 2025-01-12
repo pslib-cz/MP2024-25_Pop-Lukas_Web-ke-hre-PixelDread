@@ -11,8 +11,8 @@ using PixelDread.Data;
 namespace PixelDread.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    [Migration("20250108222406_johny")]
-    partial class johny
+    [Migration("20250112174738_JohnyMigrationThatWorks")]
+    partial class JohnyMigrationThatWorks
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,17 +135,17 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6b270426-d353-40ca-b0b0-bba09103d10f",
+                            Id = "7628459e-e45e-4d77-bec2-e3721aafd48d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8f110306-88a3-427d-829c-c6e7f211ff3d",
+                            ConcurrencyStamp = "4ea612ab-5703-49d4-b278-e05f65258e47",
                             Email = "lukas@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "LUKAS@GMAIL.COM",
                             NormalizedUserName = "LUKAS@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEChNpCBZHhb/w2eLVF81/mBm6LlW6QEM7Bz+nAYco2CR9B+Lp9nHukz+i1EUZF0/mw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECnsQIbX2fewFki9s24lmMfiHJUwji4ZoV2YOMB/GIZA461NOlRtM7OmlBRP6gGKpg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cf3c6cf3-04f9-4876-bec2-7e8cbaff216a",
+                            SecurityStamp = "200c8ae3-487e-49e6-8a6b-99c2b24c537f",
                             TwoFactorEnabled = false,
                             UserName = "lukas@gmail.com"
                         });
@@ -237,11 +237,9 @@ namespace PixelDread.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("AuthorId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Date")
@@ -251,7 +249,7 @@ namespace PixelDread.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("OGDataId")
+                    b.Property<int?>("OGDataId")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("Visibility")
@@ -270,9 +268,9 @@ namespace PixelDread.Migrations
                         new
                         {
                             Id = 1,
-                            AuthorId = "6b270426-d353-40ca-b0b0-bba09103d10f",
+                            AuthorId = "7628459e-e45e-4d77-bec2-e3721aafd48d",
                             Content = "<h1>Něco</h1>",
-                            Date = new DateTime(2025, 1, 8, 23, 24, 4, 376, DateTimeKind.Local).AddTicks(5315),
+                            Date = new DateTime(2025, 1, 12, 18, 47, 38, 377, DateTimeKind.Local).AddTicks(5618),
                             Name = "Blog",
                             OGDataId = 1,
                             Visibility = true
@@ -349,22 +347,18 @@ namespace PixelDread.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.PrimitiveCollection<string>("Keywords")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<byte[]>("Media")
-                        .HasColumnType("BLOB");
+                    b.Property<string>("Media")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Slug")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -438,15 +432,12 @@ namespace PixelDread.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Author")
                         .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AuthorId");
 
                     b.HasOne("PixelDread.Models.OGData", "OGData")
                         .WithOne("Blog")
                         .HasForeignKey("PixelDread.Models.Blog", "OGDataId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Author");
 

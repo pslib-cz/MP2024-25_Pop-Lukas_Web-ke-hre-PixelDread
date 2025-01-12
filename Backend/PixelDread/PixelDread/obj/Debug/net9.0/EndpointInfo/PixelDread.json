@@ -41,52 +41,6 @@
             }
           }
         }
-      },
-      "post": {
-        "tags": [
-          "Blog"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Blog"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Blog"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Blog"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Blog"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Blog"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Blog"
-                }
-              }
-            }
-          }
-        }
       }
     },
     "/api/Blog/GetBlog/{id}": {
@@ -129,37 +83,62 @@
         }
       }
     },
-    "/api/Blog/DeleteBlog/{id}": {
-      "delete": {
+    "/api/Blog/CreateBlogWithCategories": {
+      "post": {
         "tags": [
           "Blog"
         ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BlogWithCategoriesRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BlogWithCategoriesRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BlogWithCategoriesRequest"
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Blog"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Blog"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Blog"
+                }
+              }
+            }
           }
         }
       }
     },
-    "/api/Blog/PutBlog/{id}": {
+    "/api/Blog/UpdateBlog/{blogId}": {
       "put": {
         "tags": [
           "Blog"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "blogId",
             "in": "path",
             "required": true,
             "schema": {
@@ -172,17 +151,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Blog"
+                "$ref": "#/components/schemas/UpdateBlogRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Blog"
+                "$ref": "#/components/schemas/UpdateBlogRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Blog"
+                "$ref": "#/components/schemas/UpdateBlogRequest"
               }
             }
           }
@@ -194,39 +173,7 @@
         }
       }
     },
-    "/api/Blog/AddCategoryToBlog/{blogId}/{categoryId}": {
-      "post": {
-        "tags": [
-          "Blog"
-        ],
-        "parameters": [
-          {
-            "name": "blogId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "categoryId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Blog/RemoveCategoryFromBlog/{blogId}/{categoryId}": {
+    "/api/Blog/DeleteBlog/{blogId}": {
       "delete": {
         "tags": [
           "Blog"
@@ -240,59 +187,8 @@
               "type": "integer",
               "format": "int32"
             }
-          },
-          {
-            "name": "categoryId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
           }
         ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Blog/AddOGDataToBlog/{blogId}": {
-      "post": {
-        "tags": [
-          "Blog"
-        ],
-        "parameters": [
-          {
-            "name": "blogId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OGData"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OGData"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/OGData"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK"
@@ -320,21 +216,130 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OGData"
+                "$ref": "#/components/schemas/OGDataRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/OGData"
+                "$ref": "#/components/schemas/OGDataRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/OGData"
+                "$ref": "#/components/schemas/OGDataRequest"
               }
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Blog/DeleteOGData/{blogId}": {
+      "delete": {
+        "tags": [
+          "Blog"
+        ],
+        "parameters": [
+          {
+            "name": "blogId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Blog/UpdateBlogCategories/{blogId}": {
+      "put": {
+        "tags": [
+          "Blog"
+        ],
+        "parameters": [
+          {
+            "name": "blogId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Blog/DeleteBlogCategory/{blogId}/{categoryId}": {
+      "delete": {
+        "tags": [
+          "Blog"
+        ],
+        "parameters": [
+          {
+            "name": "blogId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "categoryId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -946,7 +951,8 @@
           },
           "ogDataId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "author": {
             "$ref": "#/components/schemas/IdentityUser"
@@ -988,6 +994,34 @@
           },
           "category": {
             "$ref": "#/components/schemas/Category"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BlogWithCategoriesRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "content": {
+            "type": "string",
+            "nullable": true
+          },
+          "visibility": {
+            "type": "boolean"
+          },
+          "categoryIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
+          },
+          "ogData": {
+            "$ref": "#/components/schemas/OGDataRequest"
           }
         },
         "additionalProperties": false
@@ -1235,6 +1269,36 @@
         },
         "additionalProperties": false
       },
+      "OGDataRequest": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "media": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "RefreshRequest": {
         "required": [
           "refreshToken"
@@ -1358,6 +1422,24 @@
           },
           "isMachineRemembered": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateBlogRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "content": {
+            "type": "string",
+            "nullable": true
+          },
+          "visibility": {
+            "type": "boolean",
+            "nullable": true
           }
         },
         "additionalProperties": false
