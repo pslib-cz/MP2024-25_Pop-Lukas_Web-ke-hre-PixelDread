@@ -1,18 +1,16 @@
-import { useState, useEffect } from 'react';
-import { Category, option } from '../types';
-import Select from 'react-select';
+import React, { useContext, useEffect, useState } from 'react';
+import Select, { MultiValue } from 'react-select';
 import { api_url } from '../BlogContext';
-import { MultiValue } from 'react-select'
+import { Category, option } from '../types';
+import { BlogContext } from '../BlogContext';
 
-interface CategoryAdderProps {
-  onUpdateCategories: (categories: Category[]) => void;
-}
+interface CategoryAdderProps {}
 
-const CategoryAdder: React.FC<CategoryAdderProps> = ({ onUpdateCategories }) => {
+const CategoryAdder: React.FC<CategoryAdderProps> = () => {
+  const { state, dispatch } = useContext(BlogContext);
   const [selectedOptions, setSelectedOptions] = useState<option[]>([]);
   const [options, setOptions] = useState<option[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
-
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -33,22 +31,22 @@ const CategoryAdder: React.FC<CategoryAdderProps> = ({ onUpdateCategories }) => 
         }));
 
         setOptions(categoryOptions);
+
+        // Set selected options based on current draft state
+        const draftCategories = state.draft ? state.draft.categories.map((cat) => ({ value: cat.id.toString(), label: cat.name })) : [];
+        setSelectedOptions(draftCategories);
       } catch (error) {
         console.error('Error fetching categories:', error);
       }
     };
 
     fetchCategories();
-  }, []);
+  }, [state.draft]);
 
   const handleChange = (newValue: MultiValue<option>) => {
     const selectedCategories = optionsToCategories(newValue);
-    setSelectedOptions(newValue.map(option => (
-      { value: option.value, label: option.label }
-
-    )))
-    onUpdateCategories(selectedCategories);
-    ;
+    setSelectedOptions(newValue.map(option => ({ value: option.value, label: option.label })));
+    dispatch({ type: 'SET_DRAFT_CATEGORIES', payload: selectedCategories });
   };
 
   const optionsToCategories = (options: MultiValue<option>) => {

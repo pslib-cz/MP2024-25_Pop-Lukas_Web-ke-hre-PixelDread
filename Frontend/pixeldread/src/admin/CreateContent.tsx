@@ -1,115 +1,96 @@
-
-import { useState } from 'react'
-import TextEditor from '../components/TextEditor'
-import CategoryAdder from '../components/CategoryAdder'
-import OGDataAdder from '../components/OGDataAdder'
-import { Blog, Category, OGData } from '../types'
-import NameAdder from '../components/NameAdder'
+import React, { useContext } from "react";
+import TextEditor from "../components/TextEditor";
+import CategoryAdder from "../components/CategoryAdder";
+import OGDataAdder from "../components/OGDataAdder";
+import NameAdder from "../components/NameAdder";
+import { BlogContext } from "../BlogContext";
 
 const CreateContent = () => {
-    
-    const [step, setStep] = useState(1);
-        
-    const draftDefault : Blog = ({ 
-    id: null,
-    name: '',
-    visibility: true,
-    categories: [],
-    ogData: {
-      id: null,
-      title: '',
-      description: '',
-      keywords: '',
-      slug: '',
-      media: null,
-    },
-    content: '',
-  });
-    
-    const [blogDraft, setBlogDraft] = useState<Blog>(draftDefault);
+  const { state, dispatch } = useContext(BlogContext);
+  const { draft, step } = state;
 
 
-    const handleContentUpdate = (newContent: string) => {
-        setBlogDraft((prevDraft) => ({
-          ...prevDraft,
-          content: newContent,
-        }))
-    }
-
-    const handleOGDataUpdate = (OGData: OGData) => {
-        setBlogDraft((prevDraft) => ({
-            ...prevDraft,
-            ogData: OGData,
-        }));
+    const handleCreate = () => {
+        console.log("Creating blog...");
+        console.log(draft);
+        console.log("Blog created");
+        dispatch({ type: "RESET_DRAFT" });
+        dispatch({ type: "SET_STEP", payload: 5 });
     };
-
-
-    
-    const handleCategoriesUpdate = (categories: Category[]) => {
-        setBlogDraft((prevDraft) => ({
-            ...prevDraft,
-            categories,
-        }));
-        };
-    const handleNameUpdate = (name: string) => {
-
-        setBlogDraft((prevDraft) => ({
-            ...prevDraft,
-            name
-        }));
-    };
-
-    const handleDiscard = () => {
-        setBlogDraft(draftDefault);
-        setStep(1);
+  const handleDiscard = () => {
+    if (window.confirm("Are you sure you want to discard the draft?")) {
+      dispatch({ type: "RESET_DRAFT" });
+      dispatch({ type: "SET_STEP", payload: 1 });
     }
+  };
 
-    console.log(blogDraft)
-    return (
+  const handleNextStep = () => {
+    dispatch({ type: "SET_STEP", payload: step + 1 });
+  };
+
+  const handlePreviousStep = () => {
+    dispatch({ type: "SET_STEP", payload: step - 1 });
+  };
+  const handleCreateAnother = () => {
+    dispatch({ type: "RESET_DRAFT" });
+    dispatch({ type: "SET_STEP", payload: 1 });
+  }
+  console.log(draft);
+  return (
+    <div>
+      <h1>Create Content</h1>
+      {step === 1 && (
         <div>
-            <h1>Create Content</h1>
-            {step === 1 && (
-                <div>
-                    <NameAdder onUpdateName={handleNameUpdate} /> {blogDraft.name.length >= 30 && <p style={{color: 'red'}}>Blog name cannot exceed 30 characters</p>}
-                    <CategoryAdder onUpdateCategories={handleCategoriesUpdate} />
-                    <button onClick={handleDiscard}>Discard</button>
-                    <button onClick={() => setStep(2)}>Next</button>
-                </div>
-            )}
-            {step === 2 && (
-                <div>
-                    <TextEditor content={blogDraft.content} onUpdateContent={handleContentUpdate} />
-                    <button onClick={() => setStep(1)}>Back</button>
-                    <button onClick={() => setStep(3)}>Next</button>
-                </div>
-            )}
-            {step === 3 && (
-                <div>
-                    <OGDataAdder content={blogDraft.ogData} onUpdateOGData={handleOGDataUpdate} />
-                    <button onClick={() => setStep(2)}>Back</button>
-                    <button onClick={() => setStep(4)}>Next</button>
-                </div>
-            )}
-            {step === 4 && (
-                <div>
-                    <h2>Review</h2>
-                    <p>Name: {blogDraft.name}</p>
-                    <p>Categories: {blogDraft.categories.map((category) => category.name).join(', ')}</p>
-                    <p>Content: {blogDraft.content}</p>
-                    <p>OG Data: {blogDraft.ogData.title}</p>
-                    <button onClick={() => setStep(3)}>Back</button>
-                    <button onClick={() => setStep(5)}>Submit</button>
-                </div>
-            )}
-            {step === 5 && (
-                <div>
-                    <h2>Success</h2>
-                    <p>Blog created successfully</p>
-                </div>
-            )}
+          <NameAdder />
+          {draft.name.length >= 30 && (
+            <p style={{ color: "red" }}>Blog name cannot exceed 30 characters</p>
+          )}
+          <CategoryAdder />
+          <button onClick={handleDiscard}>Discard</button>
+          <button onClick={handleNextStep}>Next</button>
         </div>
-        )
-    }
+      )}
+      {step === 2 && (
+        <div>
+          <TextEditor />
+          <button onClick={handlePreviousStep}>Back</button>
+          <button onClick={handleNextStep}>Next</button>
+        </div>
+      )}
+      {step === 3 && (
+        <div>
+          <OGDataAdder />
+          <button onClick={handlePreviousStep}>Back</button>
+          <button onClick={handleNextStep}>Next</button>
+        </div>
+      )}
+      {step === 4 && (
+        <div>
+          <h2>Review</h2>
+            <p>Name: {draft.name}</p>
+            <p>Categories: {draft.categories.map((category) => category.name).join(", ")}</p>
+            <p>Content: {draft.content}</p>
+            <p>Title: {draft.ogData.title}</p>
+            <p>Image: {draft.ogData.media?.name}</p>
+            <p>Visibility: {draft.visibility.toString()}</p>
+            <p>Keywords: {draft.ogData.keywords}</p>
+            <p>Description: {draft.ogData.description}</p>
+            <p>Slug: {draft.ogData.slug}</p>
+            <button onClick={handleDiscard}>Discard</button>
+            <button onClick={handlePreviousStep}>Back</button>
+            <button onClick={handleCreate}>Create</button>
 
+        </div>
+      )}
+      {step === 5 && (
+        <div>
+            <h2>Success</h2>
+            <p>Blog created successfully</p>
+            <button onClick={handleCreateAnother}>Create another</button>
+        </div>
+      )}
+    </div>
+  );
+};
 
-export default CreateContent
+export default CreateContent;

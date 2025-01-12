@@ -9,13 +9,13 @@ type ReducerAction =
 | { type: 'LOGOUT'; }
 | { type: 'LOAD'; newState: BlogState; }
 
-| { type: 'SET_DRAFT_CATEGORY'; payload: Category[]; }
-| { type: 'SET_DRAFT_KEYWORDS'; payload: string; }
+| { type: 'SET_DRAFT_CATEGORIES'; payload: Category[]; }
 | { type: 'SET_DRAFT_NAME'; payload: string; }
 | { type: 'SET_DRAFT_VISIBILITY'; payload: boolean; }
 | { type: 'SET_DRAFT_CONTENT'; payload: string; }
 | { type: 'SET_DRAFT_OGDATA'; payload: OGData; }
 | { type: 'RESET_DRAFT'; }
+| { type: 'SET_STEP'; payload: number; }
 
 
 const blogReducer = (state: BlogState, action: ReducerAction): BlogState => {
@@ -36,25 +36,13 @@ const blogReducer = (state: BlogState, action: ReducerAction): BlogState => {
             };
         case 'LOAD':
             return action.newState;
-        case 'SET_DRAFT_CATEGORY':
+        case 'SET_DRAFT_CATEGORIES':
             if (state.draft === null) return state;
             return {
                 ...state,
                 draft: {
                     ...state.draft,
                     categories: action.payload,
-                },
-            };
-        case 'SET_DRAFT_KEYWORDS':
-            if (state.draft === null) return state;
-            return {
-                ...state,
-                draft: {
-                    ...state.draft,
-                    ogData: {
-                        ...state.draft.ogData,
-                        keywords: action.payload,
-                    },
                 },
             };
         case 'SET_DRAFT_NAME':
@@ -96,7 +84,13 @@ const blogReducer = (state: BlogState, action: ReducerAction): BlogState => {
         case 'RESET_DRAFT':
             return {
                 ...state,
-                draft: null,
+                draft: defaultState.draft,
+                step: 1,
+            };
+        case 'SET_STEP':
+            return {
+                ...state,
+                step: action.payload,
             };
     }
 }

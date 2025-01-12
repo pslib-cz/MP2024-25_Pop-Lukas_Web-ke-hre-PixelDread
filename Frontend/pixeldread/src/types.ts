@@ -8,8 +8,25 @@ export type BlogState = {
     blogCategories: BlogCategory[];
     loading: boolean,
     error: null | string,
-    draft: Blog | null,
+    draft: Blog,
+    step: number,
 }
+
+const draftDefault : Blog = ({ 
+    id: null,
+    name: '',
+    visibility: true,
+    categories: [],
+    ogData: {
+      id: null,
+      title: '',
+      description: '',
+      keywords: '',
+      slug: '',
+      media: null,
+    },
+    content: '',
+  });
 
 export const defaultState: BlogState = {
     userToken: '',
@@ -20,7 +37,8 @@ export const defaultState: BlogState = {
     blogCategories: [],
     loading: false,
     error: null,
-    draft: null,
+    draft: draftDefault,
+    step: 1,
   };
 
 export interface Blog {
