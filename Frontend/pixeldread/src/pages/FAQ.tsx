@@ -1,4 +1,4 @@
-import Navbar from "../components/Navbar"
+import Navbar from "../components/Navbar";
 //fetch data from the backend
 
 const FAQ = () => {
