@@ -47,14 +47,10 @@ namespace PixelDread.Controllers
         [Route("CreateBlogWithCategories")]
         public async Task<ActionResult<Blog>> CreateBlogWithCategories(BlogWithCategoriesRequest request)
         {
-            Console.WriteLine(JsonSerializer.Serialize(request));
-
             if (request == null || string.IsNullOrEmpty(request.Name))
             {
                 return BadRequest();
             }
-
-            Console.WriteLine(request.OGData.Media);
 
             var blog = new Blog
             {

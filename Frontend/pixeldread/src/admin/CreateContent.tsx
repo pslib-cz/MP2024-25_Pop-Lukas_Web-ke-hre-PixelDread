@@ -70,7 +70,6 @@ const CreateContent = () => {
     dispatch({ type: "RESET_DRAFT" });
     dispatch({ type: "SET_STEP", payload: 1 });
   }
-  console.log(draft);
   return (
     <div>
       <h1>Create Content</h1>
