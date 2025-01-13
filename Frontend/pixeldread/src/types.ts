@@ -51,6 +51,17 @@ export interface Blog {
     ogData: OGData;
     content: string;
 }
+export interface BlogFull {
+    id: number;
+    name: string;
+    visibility: boolean;
+    categories: Category[];
+    ogData: OGData;
+    content: string;
+    date: Date;
+    author: string;
+
+}
 
 export interface Category {
     id: number;

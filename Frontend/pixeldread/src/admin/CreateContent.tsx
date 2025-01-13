@@ -11,6 +11,17 @@ const CreateContent = () => {
   const { state, dispatch } = useContext(BlogContext);
   const { draft, step } = state;
 
+  const handleDeleteMedia = () => {
+    dispatch({
+      type: "SET_DRAFT_OGDATA",
+      payload: {
+        ...draft.ogData,
+        media: null,
+        contentType: '',
+        fileName: '',
+      },
+    });
+  }
  
   const handleCreate = async () => {
     const categoryIds = draft.categories.map((category) => category.id);
@@ -35,6 +46,7 @@ const CreateContent = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${state.userToken}`,
         },
         body: JSON.stringify(blogData),
       });
@@ -81,15 +93,18 @@ const CreateContent = () => {
           )}
           <CategoryAdder />
           <button onClick={handleDiscard}>Discard</button>
-          <button onClick={handleNextStep}>Next</button>
-        </div>
-      )}
+          <button onClick={handleNextStep} disabled={draft.name.length === 0 || draft.categories.length === 0}>
+            Next 
+          </button>
+          {draft.name.length === 0 && <p style={{ color: "red" }}>Blog name is required</p>}
+          {draft.categories.length === 0 && <p style={{ color: "red" }}>At least one category is required</p>}
+        </div>)}
       {step === 2 && (
         <div>
           <TextEditor />
           <button onClick={handlePreviousStep}>Back</button>
           <button onClick={handleNextStep}>Next</button>
-        </div>
+          </div>
       )}
       {step === 3 && (
         <div>
@@ -105,7 +120,10 @@ const CreateContent = () => {
             <p>Categories: {draft.categories.map((category) => category.name).join(", ")}</p>
             <p>Content: {draft.content}</p>
             <p>Title: {draft.ogData.title}</p>
-            <p>Media: {draft.ogData.media ? "Uploaded" : "Not uploaded"}</p>
+            <p>Media: {draft.ogData.media ? "Uploaded" : "Not uploaded"}</p> 
+            <button onClick={handleDeleteMedia}>Delete Media</button>
+            <p>Content Type: {draft.ogData.contentType}</p>
+            <p>File Name: {draft.ogData.fileName}</p>
             <p>Visibility: {draft.visibility.toString()}</p>
             {draft.ogData.keywords.length > 0 && (
               <p>Keywords: {draft.ogData.keywords.join(", ")}</p>

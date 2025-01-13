@@ -12,6 +12,7 @@ using System.Text.Json;
 
 namespace PixelDread.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
 
@@ -24,8 +25,9 @@ namespace PixelDread.Controllers
             _context = context;
         }
 
-        // GET: api/Blogs
+        // GET: api/Blog
         [HttpGet]
+
         public async Task<ActionResult<IEnumerable<Blog>>> GetBlogs()
         {
             return await _context.Blogs.ToListAsync();
@@ -33,6 +35,7 @@ namespace PixelDread.Controllers
         // GET: api/Blogs/GetBlog/{id}
         [HttpGet]
         [Route("GetBlog/{id}")]
+
         public async Task<ActionResult<Blog>> GetBlog(int id)
         {
             var blog = await _context.Blogs.FindAsync(id);
@@ -45,6 +48,7 @@ namespace PixelDread.Controllers
         // POST: api/Blogs/CreateBlogWithCategories
         [HttpPost]
         [Route("CreateBlogWithCategories")]
+
         public async Task<ActionResult<Blog>> CreateBlogWithCategories(BlogWithCategoriesRequest request)
         {
             if (request == null || string.IsNullOrEmpty(request.Name))
@@ -123,5 +127,7 @@ namespace PixelDread.Controllers
             return CreatedAtAction("GetBlog", new { id = blog.Id }, blog);
         }
     }
+
+
 
 }

@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PixelDread")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4262c4b1a34a354a5d0dd0f82fb87c2fbac7f90d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+427be42ed5b5000d00c30d20d0ced4199135542b")]
 [assembly: System.Reflection.AssemblyProductAttribute("PixelDread")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PixelDread")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

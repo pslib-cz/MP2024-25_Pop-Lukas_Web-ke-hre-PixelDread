@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Category } from '../types';
-import { api_url } from '../BlogContext';
 
 // Modal component for editing category
 interface EditCategoryModalProps {

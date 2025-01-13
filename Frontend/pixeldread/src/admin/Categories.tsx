@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Category } from '../types';
-import Select from 'react-select';
 import { api_url } from '../BlogContext';
 import EditCategoryModal from '../components/EditCategoryModal';
 

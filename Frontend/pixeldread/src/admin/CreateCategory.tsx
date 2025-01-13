@@ -1,5 +1,5 @@
 
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { api_url } from '../BlogContext';
 import { Category } from '../types';
 

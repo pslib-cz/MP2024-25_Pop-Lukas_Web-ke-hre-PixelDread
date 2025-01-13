@@ -1,6 +1,9 @@
 import Navbar from "../components/Navbar"
+//fetch data from the backend
 
 const FAQ = () => {
+    
+
     return (
         <div>
         <Navbar />

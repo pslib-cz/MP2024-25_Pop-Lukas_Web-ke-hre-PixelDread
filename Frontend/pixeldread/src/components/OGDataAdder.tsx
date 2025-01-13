@@ -23,6 +23,7 @@ const OGDataAdder = () => {
       },
     });
   };
+  
 
   async function fileFormater(file: File) { 
     const arrayBuffer = await file.arrayBuffer();
@@ -98,6 +99,8 @@ const OGDataAdder = () => {
       <label>
         Media: <input type="file" onChange={handleFileChange} />
       </label>
+
+      
       {fileError && <p style={{ color: "red" }}>{fileError}</p>}
     </div>
   );
