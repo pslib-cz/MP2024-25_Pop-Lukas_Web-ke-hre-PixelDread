@@ -11,40 +11,23 @@ const CreateContent = () => {
   const { state, dispatch } = useContext(BlogContext);
   const { draft, step } = state;
 
-  function fileToByteArray(file: File): Promise<Uint8Array> {
-    return new Promise((resolve, reject) => {
-      if (file) {
-        const blob = new Blob([file], { type: file.type });
-        
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          resolve(new Uint8Array(reader.result as ArrayBuffer));
-        };
-        reader.onerror = function(error) {
-          reject(error);
-        };
-        reader.readAsArrayBuffer(blob);  // Použijeme Blob místo File
-        console.log("Blob", blob);
-      } else {
-        reject("File is null or undefined.");
-      }
-    });
-  }
-
+ 
   const handleCreate = async () => {
     const categoryIds = draft.categories.map((category) => category.id);
     const blogData = {
-      name: draft.name,
-      content: draft.content,
-      visibility: draft.visibility,
-      ogData: {
-        slug: draft.ogData.slug,
-        title: draft.ogData.title,
-        description: draft.ogData.description,
-        media: draft.ogData.media ? await fileToByteArray(draft.ogData.media) : null,
-        keywords: draft.ogData.keywords,
-      },
-      categoryIds: categoryIds,
+        name: draft.name,
+        content: draft.content,
+        visibility: draft.visibility,
+        ogData: {
+          slug: draft.ogData.slug,
+          title: draft.ogData.title,
+          description: draft.ogData.description,
+          media: draft.ogData.media?.toString(),
+          contentType: draft.ogData.contentType,
+          fileName: draft.ogData.fileName,
+          keywords: draft.ogData.keywords,
+        },
+        categoryIds: categoryIds,
     };
   
     try {

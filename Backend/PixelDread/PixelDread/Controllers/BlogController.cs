@@ -8,6 +8,7 @@ using PixelDread.DTOs;
 using System;
 using System.Security.Claims;
 using System.Reflection.Metadata;
+using System.Text.Json;
 
 namespace PixelDread.Controllers
 {
@@ -44,256 +45,87 @@ namespace PixelDread.Controllers
         // POST: api/Blogs/CreateBlogWithCategories
         [HttpPost]
         [Route("CreateBlogWithCategories")]
-        public async Task<ActionResult<Blog>> CreateBlogWithCategories([FromBody] BlogWithCategoriesRequest request)
+        public async Task<ActionResult<Blog>> CreateBlogWithCategories(BlogWithCategoriesRequest request)
         {
+            Console.WriteLine(JsonSerializer.Serialize(request));
+
             if (request == null || string.IsNullOrEmpty(request.Name))
             {
-                return BadRequest("Invalid blog data.");
+                return BadRequest();
             }
 
-            var newBlog = new Blog
+            Console.WriteLine(request.OGData.Media);
+
+            var blog = new Blog
             {
                 Name = request.Name,
                 Content = request.Content,
-                Date = DateTime.Now,
-                AuthorId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                 Visibility = request.Visibility,
+                Date = DateTime.Now,
+                AuthorId = User.FindFirstValue(ClaimTypes.NameIdentifier)
             };
-
             try
             {
                 if (request.OGData != null)
                 {
-                    using var memoryStream = new MemoryStream();
-
                     if (request.OGData.Media != null)
                     {
-                        await request.OGData.Media.CopyToAsync(memoryStream);
-                    }
+                        var ogData = new OGData
+                        {
+                            Media = request.OGData.Media,
+                            ContentType = request.OGData.ContentType,
+                            FileName = request.OGData.FileName,
 
-                    var ogData = new OGData
+                            Description = request.OGData.Description,
+                            Title = request.OGData.Title,
+                            Slug = request.OGData.Slug,
+                            Keywords = request.OGData.Keywords ?? new List<string>()
+
+                        };
+                        _context.OGData.Add(ogData);
+                        await _context.SaveChangesAsync();
+                        blog.OGData = ogData;
+                    }
+                    else
                     {
-                        Slug = request.OGData.Slug,
-                        Title = request.OGData.Title,
-                        Description = request.OGData.Description,
-                        Media = request.OGData.Media != null ? memoryStream.ToArray() : null,
-                        Keywords = request.OGData.Keywords ?? new List<string>()
-                    };
-                    newBlog.OGData = ogData;
+                        var ogData = new OGData
+                        {
+                            Description = request.OGData.Description,
+                            Title = request.OGData.Title,
+                            Slug = request.OGData.Slug,
+                            Keywords = request.OGData.Keywords ?? new List<string>()
+                        };
+                        _context.OGData.Add(ogData);
+                        await _context.SaveChangesAsync();
+                        blog.OGData = ogData;
+                    }
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"An error occurred while processing the file: {ex.Message}");
+                return BadRequest(ex.Message);
             }
-
-            _context.Blogs.Add(newBlog);
+            _context.Blogs.Add(blog);
             await _context.SaveChangesAsync();
-
             if (request.CategoryIds != null && request.CategoryIds.Any())
             {
                 foreach (var categoryId in request.CategoryIds)
                 {
                     var category = await _context.Categories.FindAsync(categoryId);
-                    if (category == null)
+                    if (category != null)
                     {
-                        return NotFound($"Category with ID {categoryId} not found.");
+                        var blogCategory = new BlogCategory
+                        {
+                            BlogId = blog.Id,
+                            CategoryId = category.Id
+                        };
+                        _context.BlogCategories.Add(blogCategory);
                     }
-
-                    _context.BlogCategories.Add(new BlogCategory
-                    {
-                        BlogId = newBlog.Id,
-                        CategoryId = categoryId
-                    });
                 }
                 await _context.SaveChangesAsync();
             }
-
-            return CreatedAtAction("GetBlog", new { id = newBlog.Id }, newBlog);
-        }
-        // PUT: api/Blogs/UpdateBlog
-        [HttpPut]
-        [Route("UpdateBlog/{blogId}")]
-        public async Task<IActionResult> UpdateBlog(int blogId, [FromBody] UpdateBlogRequest request)
-        {
-            var blog = await _context.Blogs.FindAsync(blogId);
-            if (blog == null)
-            {
-                return NotFound($"Blog with ID {blogId} not found.");
-            }
-
-            blog.Name = request.Name ?? blog.Name;
-            blog.Content = request.Content ?? blog.Content;
-            blog.Visibility = request.Visibility ?? blog.Visibility;
-
-            _context.Entry(blog).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-        // DELETE: api/Blogs/DeleteBlog/{blogId}
-        [HttpDelete]
-        [Route("DeleteBlog/{blogId}")]
-        public async Task<IActionResult> DeleteBlog(int blogId)
-        {
-            var blog = await _context.Blogs
-                .Include(b => b.BlogCategories)
-                .Include(b => b.OGData)
-                .FirstOrDefaultAsync(b => b.Id == blogId);
-
-            if (blog == null)
-            {
-                return NotFound($"Blog with ID {blogId} not found.");
-            }
-
-            _context.BlogCategories.RemoveRange(blog.BlogCategories);
-
-            if (blog.OGData != null)
-            {
-                _context.OGData.Remove(blog.OGData);
-            }
-
-            _context.Blogs.Remove(blog);
-
-            await _context.SaveChangesAsync();
-            return NoContent();
-        }
-        // PUT: api/Blogs/UpdateOGData/{blogId}
-        [HttpPut]
-        [Route("UpdateOGData/{blogId}")]
-        public async Task<IActionResult> UpdateOGData(int blogId, [FromBody] OGDataRequest request)
-        {
-            var blog = await _context.Blogs
-                .Include(b => b.OGData)
-                .FirstOrDefaultAsync(b => b.Id == blogId);
-
-            if (blog == null)
-            {
-                return NotFound($"Blog with ID {blogId} not found.");
-            }
-
-            if (blog.OGData == null)
-            {
-                using var memoryStream = new MemoryStream();
-
-                if (request.Media != null)
-                {
-                    await request.Media.CopyToAsync(memoryStream);
-                }
-
-                var ogData = new OGData
-                {
-                    Slug = request.Slug,
-                    Title = request.Title,
-                    Description = request.Description,
-                    Media = request.Media != null ? memoryStream.ToArray() : null,
-                    Keywords = request.Keywords ?? new List<string>()
-                };
-                blog.OGData = ogData;
-                _context.Entry(ogData).State = EntityState.Added;
-            }
-            else
-            {
-                using var memoryStream = new MemoryStream();
-
-                if (request.Media != null)
-                {
-                    await request.Media.CopyToAsync(memoryStream);
-                }
-
-                blog.OGData.Slug = request.Slug ?? blog.OGData.Slug;
-                blog.OGData.Title = request.Title ?? blog.OGData.Title;
-                blog.OGData.Description = request.Description ?? blog.OGData.Description;
-
-                if (request.Media != null)
-                {
-                    blog.OGData.Media = memoryStream.ToArray();
-                }
-
-                blog.OGData.Keywords = request.Keywords ?? blog.OGData.Keywords;
-
-                _context.Entry(blog.OGData).State = EntityState.Modified;
-            }
-
-            await _context.SaveChangesAsync();
-            return NoContent();
-        }
-        // DELETE: api/Blogs/DeleteOGData/{blogId}
-        [HttpDelete]
-        [Route("DeleteOGData/{blogId}")]
-        public async Task<IActionResult> DeleteOGData(int blogId)
-        {
-            var blog = await _context.Blogs
-                .Include(b => b.OGData)
-                .FirstOrDefaultAsync(b => b.Id == blogId);
-
-            if (blog == null)
-            {
-                return NotFound($"Blog with ID {blogId} not found.");
-            }
-
-            if (blog.OGData == null)
-            {
-                return BadRequest($"Blog with ID {blogId} does not have associated OGData.");
-            }
-
-            _context.OGData.Remove(blog.OGData);
-            blog.OGData = null;
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-        // PUT: api/Blogs/UpdateBlogCategories/{blogId}
-        [HttpPut]
-        [Route("UpdateBlogCategories/{blogId}")]
-        public async Task<IActionResult> UpdateBlogCategories(int blogId, [FromBody] List<int> categoryIds)
-        {
-            var blog = await _context.Blogs.FindAsync(blogId);
-            if (blog == null)
-            {
-                return NotFound($"Blog with ID {blogId} not found.");
-            }
-            else if (categoryIds == null || !categoryIds.Any())
-            {
-                return BadRequest("Invalid category IDs.");
-            }
-            else if (categoryIds.Any(id => _context.Categories.Find(id) == null))
-            {
-                return NotFound("One or more categories not found.");
-            }
-            else if (categoryIds.Any(id => _context.BlogCategories.Any(bc => bc.BlogId == blogId && bc.CategoryId == id)))
-            {
-                return BadRequest("One or more categories already associated with the blog.");
-            }
-            else
-            {
-                foreach (var categoryId in categoryIds)
-                {
-                    _context.BlogCategories.Add(new BlogCategory
-                    {
-                        BlogId = blogId,
-                        CategoryId = categoryId
-                    });
-                }
-                await _context.SaveChangesAsync();
-                return NoContent();
-            }
-        }
-        // DELETE: api/Blogs/DeleteBlogCategory/{blogId}/{categoryId}
-        [HttpDelete]
-        [Route("DeleteBlogCategory/{blogId}/{categoryId}")]
-        public
-            async Task<IActionResult> DeleteBlogCategory(int blogId, int categoryId)
-        {
-            var blogCategory = await _context.BlogCategories
-                .FirstOrDefaultAsync(bc => bc.BlogId == blogId && bc.CategoryId == categoryId);
-            if (blogCategory == null)
-            {
-                return NotFound($"Blog with ID {blogId} does not have category with ID {categoryId}.");
-            }
-            _context.BlogCategories.Remove(blogCategory);
-            await _context.SaveChangesAsync();
-            return NoContent();
+            return CreatedAtAction("GetBlog", new { id = blog.Id }, blog);
         }
     }
+
 }

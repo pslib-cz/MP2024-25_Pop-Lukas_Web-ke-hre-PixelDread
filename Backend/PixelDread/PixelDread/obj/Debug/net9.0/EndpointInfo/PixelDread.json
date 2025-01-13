@@ -131,222 +131,6 @@
         }
       }
     },
-    "/api/Blog/UpdateBlog/{blogId}": {
-      "put": {
-        "tags": [
-          "Blog"
-        ],
-        "parameters": [
-          {
-            "name": "blogId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateBlogRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateBlogRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateBlogRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Blog/DeleteBlog/{blogId}": {
-      "delete": {
-        "tags": [
-          "Blog"
-        ],
-        "parameters": [
-          {
-            "name": "blogId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Blog/UpdateOGData/{blogId}": {
-      "put": {
-        "tags": [
-          "Blog"
-        ],
-        "parameters": [
-          {
-            "name": "blogId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OGDataRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OGDataRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/OGDataRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Blog/DeleteOGData/{blogId}": {
-      "delete": {
-        "tags": [
-          "Blog"
-        ],
-        "parameters": [
-          {
-            "name": "blogId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Blog/UpdateBlogCategories/{blogId}": {
-      "put": {
-        "tags": [
-          "Blog"
-        ],
-        "parameters": [
-          {
-            "name": "blogId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              }
-            },
-            "text/json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Blog/DeleteBlogCategory/{blogId}/{categoryId}": {
-      "delete": {
-        "tags": [
-          "Blog"
-        ],
-        "parameters": [
-          {
-            "name": "blogId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "categoryId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/Categories": {
       "get": {
         "tags": [
@@ -1215,7 +999,14 @@
           },
           "media": {
             "type": "string",
-            "format": "byte",
+            "nullable": true
+          },
+          "fileName": {
+            "type": "string",
+            "nullable": true
+          },
+          "contentType": {
+            "type": "string",
             "nullable": true
           },
           "keywords": {
@@ -1249,7 +1040,14 @@
           },
           "media": {
             "type": "string",
-            "format": "binary",
+            "nullable": true
+          },
+          "fileName": {
+            "type": "string",
+            "nullable": true
+          },
+          "contentType": {
+            "type": "string",
             "nullable": true
           },
           "keywords": {
@@ -1385,24 +1183,6 @@
           },
           "isMachineRemembered": {
             "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "UpdateBlogRequest": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "content": {
-            "type": "string",
-            "nullable": true
-          },
-          "visibility": {
-            "type": "boolean",
-            "nullable": true
           }
         },
         "additionalProperties": false

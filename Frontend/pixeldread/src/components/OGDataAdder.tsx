@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { BlogContext } from "../BlogContext";
+import { FileWithFormat } from "../types";
 import KeywordsAdder from "./KeywordsAdder";
 const OGDataAdder = () => {
   const { state, dispatch } = useContext(BlogContext);
@@ -23,18 +24,33 @@ const OGDataAdder = () => {
     });
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files ? e.target.files[0] : null;
+  async function fileFormater(file: File) { 
+    const arrayBuffer = await file.arrayBuffer();
+    const byteArray = new Uint8Array(arrayBuffer); 
+    const base64String = btoa(String.fromCharCode(...byteArray));
+    const fileWithFormat : FileWithFormat = {
+      contentType: file.type,
+      fileName: file.name,
+      fileData: base64String,
+    };
+    return fileWithFormat;
+  }
 
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (file && (file.type.startsWith("image/") || file.type === "application/pdf") && file.size <= 10485760 /* 10MB*/) {
-      dispatch({
-        type: "SET_DRAFT_OGDATA",
-        payload: {
-          ...draft.ogData,
-          media: file,
-        },
+      fileFormater(file).then((fileWithFormat) => {
+        dispatch({
+          type: "SET_DRAFT_OGDATA",
+          payload: {
+            ...draft.ogData,
+            media:  fileWithFormat.fileData.toString(),
+            contentType: fileWithFormat.contentType,
+            fileName: fileWithFormat.fileName,
+          },
+        });
+        setFileError(null);
       });
-      setFileError(null);
     } else {
       setFileError("Please upload a valid image (jpg, jpeg, png, gif) or PDF.");
       dispatch({
@@ -46,7 +62,6 @@ const OGDataAdder = () => {
       });
     }
   };
-
   return (
     <div>
       <label>

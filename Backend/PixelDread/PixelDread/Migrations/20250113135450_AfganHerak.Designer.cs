@@ -11,8 +11,8 @@ using PixelDread.Data;
 namespace PixelDread.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    [Migration("20250112223249_FML")]
-    partial class FML
+    [Migration("20250113135450_AfganHerak")]
+    partial class AfganHerak
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,17 +135,17 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2b0ed7f2-4b40-489d-8071-98aec3e0ea16",
+                            Id = "e4579604-b276-4eeb-bf4c-d0ed563004de",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "05b0157e-3719-4f8c-b17e-63e2dd5cef9f",
+                            ConcurrencyStamp = "458016e0-4c51-4589-9056-cde414abd16a",
                             Email = "lukas@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "LUKAS@GMAIL.COM",
                             NormalizedUserName = "LUKAS@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAO142TnfopsrxdIc4ML9S2gFP2zLhUBZlTgwLJ6WvQfSesjgzEyR1XtnWCOsOesMw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEE4tYawuB0XChNGgdIqeNAHaQbol9/OUV6QcWniJGs0pql7WuZUxtRjJU1UNtroFA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4b2d74ac-504a-4e24-828f-269a5823c0df",
+                            SecurityStamp = "1d4f8792-f3c2-4f12-b39b-ee10458c8f3a",
                             TwoFactorEnabled = false,
                             UserName = "lukas@gmail.com"
                         });
@@ -268,9 +268,9 @@ namespace PixelDread.Migrations
                         new
                         {
                             Id = 1,
-                            AuthorId = "2b0ed7f2-4b40-489d-8071-98aec3e0ea16",
+                            AuthorId = "e4579604-b276-4eeb-bf4c-d0ed563004de",
                             Content = "<h1>Něco</h1>",
-                            Date = new DateTime(2025, 1, 12, 23, 32, 48, 842, DateTimeKind.Local).AddTicks(6740),
+                            Date = new DateTime(2025, 1, 13, 14, 54, 49, 951, DateTimeKind.Local).AddTicks(970),
                             Name = "Blog",
                             OGDataId = 1,
                             Visibility = true
@@ -346,7 +346,13 @@ namespace PixelDread.Migrations
                     b.Property<int>("BlogId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("ContentType")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FileName")
                         .HasColumnType("TEXT");
 
                     b.PrimitiveCollection<string>("Keywords")
@@ -475,8 +481,7 @@ namespace PixelDread.Migrations
 
             modelBuilder.Entity("PixelDread.Models.OGData", b =>
                 {
-                    b.Navigation("Blog")
-                        .IsRequired();
+                    b.Navigation("Blog");
                 });
 #pragma warning restore 612, 618
         }

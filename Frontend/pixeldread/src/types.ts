@@ -24,6 +24,8 @@ const draftDefault : Blog = ({
       keywords: [],
       slug: '',
       media: null,
+      contentType: '',
+      fileName: '',
     },
     content: '',
   });
@@ -62,8 +64,16 @@ export interface OGData {
     description: string;
     keywords: string[];
     slug: string;
-    media: File | null;    
+    media: string | null;
+    contentType: string;
+    fileName: string;
 }
+
+export type FileWithFormat = {
+    contentType: string;
+    fileName: string;
+    fileData: string;
+  }
 
 export interface BlogCategory {
     blogId: number;

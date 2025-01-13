@@ -47,59 +47,6 @@
   },
   {
     "ContainingType": "PixelDread.Controllers.BlogController",
-    "Method": "DeleteBlog",
-    "RelativePath": "api/Blog/DeleteBlog/{blogId}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "blogId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.BlogController",
-    "Method": "DeleteBlogCategory",
-    "RelativePath": "api/Blog/DeleteBlogCategory/{blogId}/{categoryId}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "blogId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "categoryId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.BlogController",
-    "Method": "DeleteOGData",
-    "RelativePath": "api/Blog/DeleteOGData/{blogId}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "blogId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.BlogController",
     "Method": "GetBlog",
     "RelativePath": "api/Blog/GetBlog/{id}",
     "HttpMethod": "GET",
@@ -123,69 +70,6 @@
         "StatusCode": 200
       }
     ]
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.BlogController",
-    "Method": "UpdateBlog",
-    "RelativePath": "api/Blog/UpdateBlog/{blogId}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "blogId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "request",
-        "Type": "PixelDread.DTOs.UpdateBlogRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.BlogController",
-    "Method": "UpdateBlogCategories",
-    "RelativePath": "api/Blog/UpdateBlogCategories/{blogId}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "blogId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "categoryIds",
-        "Type": "System.Collections.Generic.List\u00601[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.BlogController",
-    "Method": "UpdateOGData",
-    "RelativePath": "api/Blog/UpdateOGData/{blogId}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "blogId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "request",
-        "Type": "PixelDread.DTOs.OGDataRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
   },
   {
     "ContainingType": "PixelDread.Controllers.CategoriesController",

@@ -92,6 +92,7 @@ const blogReducer = (state: BlogState, action: ReducerAction): BlogState => {
                 draft: {
                     ...state.draft,
                     ogData: action.payload,
+                    
                 },
             };
         case 'RESET_DRAFT':
