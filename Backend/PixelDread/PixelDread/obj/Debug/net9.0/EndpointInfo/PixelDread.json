@@ -1249,7 +1249,7 @@
           },
           "media": {
             "type": "string",
-            "format": "byte",
+            "format": "binary",
             "nullable": true
           },
           "keywords": {

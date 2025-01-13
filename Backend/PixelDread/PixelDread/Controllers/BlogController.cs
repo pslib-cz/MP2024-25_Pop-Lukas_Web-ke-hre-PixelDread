@@ -7,6 +7,7 @@ using PixelDread.Models;
 using PixelDread.DTOs;
 using System;
 using System.Security.Claims;
+using System.Reflection.Metadata;
 
 namespace PixelDread.Controllers
 {
@@ -52,26 +53,38 @@ namespace PixelDread.Controllers
 
             var newBlog = new Blog
             {
-
                 Name = request.Name,
                 Content = request.Content,
                 Date = DateTime.Now,
                 AuthorId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-
                 Visibility = request.Visibility,
             };
 
-            if (request.OGData != null)
+            try
             {
-                var ogData = new OGData
+                if (request.OGData != null)
                 {
-                    Slug = request.OGData.Slug,
-                    Title = request.OGData.Title,
-                    Description = request.OGData.Description,
-                    Media = request.OGData.Media,
-                    Keywords = request.OGData.Keywords ?? new List<string>()
-                };
-                newBlog.OGData = ogData;
+                    using var memoryStream = new MemoryStream();
+
+                    if (request.OGData.Media != null)
+                    {
+                        await request.OGData.Media.CopyToAsync(memoryStream);
+                    }
+
+                    var ogData = new OGData
+                    {
+                        Slug = request.OGData.Slug,
+                        Title = request.OGData.Title,
+                        Description = request.OGData.Description,
+                        Media = request.OGData.Media != null ? memoryStream.ToArray() : null,
+                        Keywords = request.OGData.Keywords ?? new List<string>()
+                    };
+                    newBlog.OGData = ogData;
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while processing the file: {ex.Message}");
             }
 
             _context.Blogs.Add(newBlog);
@@ -161,12 +174,19 @@ namespace PixelDread.Controllers
 
             if (blog.OGData == null)
             {
+                using var memoryStream = new MemoryStream();
+
+                if (request.Media != null)
+                {
+                    await request.Media.CopyToAsync(memoryStream);
+                }
+
                 var ogData = new OGData
                 {
                     Slug = request.Slug,
                     Title = request.Title,
                     Description = request.Description,
-                    Media = request.Media,
+                    Media = request.Media != null ? memoryStream.ToArray() : null,
                     Keywords = request.Keywords ?? new List<string>()
                 };
                 blog.OGData = ogData;
@@ -174,10 +194,22 @@ namespace PixelDread.Controllers
             }
             else
             {
+                using var memoryStream = new MemoryStream();
+
+                if (request.Media != null)
+                {
+                    await request.Media.CopyToAsync(memoryStream);
+                }
+
                 blog.OGData.Slug = request.Slug ?? blog.OGData.Slug;
                 blog.OGData.Title = request.Title ?? blog.OGData.Title;
                 blog.OGData.Description = request.Description ?? blog.OGData.Description;
-                blog.OGData.Media = request.Media ?? blog.OGData.Media;
+
+                if (request.Media != null)
+                {
+                    blog.OGData.Media = memoryStream.ToArray();
+                }
+
                 blog.OGData.Keywords = request.Keywords ?? blog.OGData.Keywords;
 
                 _context.Entry(blog.OGData).State = EntityState.Modified;

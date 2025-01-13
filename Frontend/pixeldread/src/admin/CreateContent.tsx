@@ -11,25 +11,25 @@ const CreateContent = () => {
   const { state, dispatch } = useContext(BlogContext);
   const { draft, step } = state;
 
-  const FileToBytes = (file: File | null): Promise<Uint8Array> => {
+  function fileToByteArray(file: File): Promise<Uint8Array> {
     return new Promise((resolve, reject) => {
-      if (!file) {
-        reject("No file provided");
-        return;
+      if (file) {
+        const blob = new Blob([file], { type: file.type });
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          resolve(new Uint8Array(reader.result as ArrayBuffer));
+        };
+        reader.onerror = function(error) {
+          reject(error);
+        };
+        reader.readAsArrayBuffer(blob);  // Použijeme Blob místo File
+        console.log("Blob", blob);
+      } else {
+        reject("File is null or undefined.");
       }
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const result = event.target?.result;
-        if (result instanceof ArrayBuffer) {
-          resolve(new Uint8Array(result));
-        } else {
-          reject("Failed to convert file to bytes");
-        }
-      };
-      reader.onerror = () => reject("Failed to read file");
-      reader.readAsArrayBuffer(file);
     });
-  };
+  }
 
   const handleCreate = async () => {
     const categoryIds = draft.categories.map((category) => category.id);
@@ -41,7 +41,7 @@ const CreateContent = () => {
         slug: draft.ogData.slug,
         title: draft.ogData.title,
         description: draft.ogData.description,
-        media: null,//FileToBytes(draft.ogData.media),
+        media: draft.ogData.media ? await fileToByteArray(draft.ogData.media) : null,
         keywords: draft.ogData.keywords,
       },
       categoryIds: categoryIds,
@@ -123,7 +123,7 @@ const CreateContent = () => {
             <p>Categories: {draft.categories.map((category) => category.name).join(", ")}</p>
             <p>Content: {draft.content}</p>
             <p>Title: {draft.ogData.title}</p>
-            <p>Image: {draft.ogData.media?.name}</p>
+            <p>Media: {draft.ogData.media ? "Uploaded" : "Not uploaded"}</p>
             <p>Visibility: {draft.visibility.toString()}</p>
             {draft.ogData.keywords.length > 0 && (
               <p>Keywords: {draft.ogData.keywords.join(", ")}</p>
