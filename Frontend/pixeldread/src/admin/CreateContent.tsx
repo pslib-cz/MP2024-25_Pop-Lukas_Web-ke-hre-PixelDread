@@ -22,7 +22,7 @@ const CreateContent = () => {
           slug: draft.ogData.slug,
           title: draft.ogData.title,
           description: draft.ogData.description,
-          media: draft.ogData.media?.toString(),
+          media: draft.ogData.media ? draft.ogData.media?.toString() : null,
           contentType: draft.ogData.contentType,
           fileName: draft.ogData.fileName,
           keywords: draft.ogData.keywords,
