@@ -1,87 +1,86 @@
 @import url('../index.css');
- 
+
 * {
   margin: 0;
   padding: 0;
- }
+}
 
 .hamburger {
-  width: 60px;
-  height: 45px;
+  width: 32px; /* Výchozí velikost */
+  height: 24px; /* Poměrná výška */
   position: relative;
-  -webkit-transform: rotate(0deg);
-  -moz-transform: rotate(0deg);
-  -o-transform: rotate(0deg);
   transform: rotate(0deg);
-  -webkit-transition: .5s ease-in-out;
-  -moz-transition: .5s ease-in-out;
-  -o-transition: .5s ease-in-out;
   transition: .5s ease-in-out;
   cursor: pointer;
 }
 
 .hamburger span {
-    display: block;
-    position: absolute;
-    height: 9px;
-    width: 100%;
-    background: #d3531a;
-    border-radius: 9px;
-    opacity: 1;
-    left: 0;
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-    -webkit-transition: .25s ease-in-out;
-    -moz-transition: .25s ease-in-out;
-    -o-transition: .25s ease-in-out;
-    transition: .25s ease-in-out;
+  display: block;
+  position: absolute;
+  height: 5px; /* Dynamická výška odpovídá velikosti */
+  width: 100%;
+  background: var(--bg);
+  border-radius: 9px;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: .25s ease-in-out;
 }
 
 .hamburger span:nth-child(1) {
   top: 0px;
-  -webkit-transform-origin: left center;
-  -moz-transform-origin: left center;
-  -o-transform-origin: left center;
-  transform-origin: left center;
+  transform-origin: center center; /* Umožní symetrické otáčení */
 }
 
 .hamburger span:nth-child(2) {
-  top: 18px;
-  -webkit-transform-origin: left center;
-  -moz-transform-origin: left center;
-  -o-transform-origin: left center;
-  transform-origin: left center;
+  top: 10px; /* Dynamická vzdálenost mezi čarami */
+  transform-origin: center center;
 }
 
 .hamburger span:nth-child(3) {
-  top: 36px;
-  -webkit-transform-origin: left center;
-  -moz-transform-origin: left center;
-  -o-transform-origin: left center;
-  transform-origin: left center;
+  top: 20px; /* Dynamická vzdálenost mezi čarami */
+  transform-origin: center center;
 }
 
 .hamburger.open span:nth-child(1) {
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
-  top: -3px;
-  left: 8px;
+  transform: rotate(45deg); /* Čára se otočí o 45° */
+  top: 10px; /* Vycentrování do středu */
 }
 
 .hamburger.open span:nth-child(2) {
-  width: 0%;
+  width: 0%; /* Skryje prostřední čáru */
   opacity: 0;
 }
 
 .hamburger.open span:nth-child(3) {
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  top: 39px;
-  left: 8px;
+  transform: rotate(-45deg); /* Čára se otočí o -45° */
+  top: 10px; /* Vycentrování do středu */
+}
+
+/* Media Query pro zvětšení hamburgeru */
+@media (min-width: 400px) {
+  .hamburger {
+    width: 48px; /* Nová velikost */
+    height: 36px; /* Poměrná výška */
+  }
+
+  .hamburger span {
+    height: 7px; /* Větší tloušťka čar */
+  }
+
+  .hamburger span:nth-child(2) {
+    top: 14px; /* Větší vzdálenost mezi čarami */
+  }
+
+  .hamburger span:nth-child(3) {
+    top: 28px; /* Větší vzdálenost mezi čarami */
+  }
+
+  .hamburger.open span:nth-child(1) {
+    top: 18px; /* Vycentrování při zvětšení */
+  }
+
+  .hamburger.open span:nth-child(3) {
+    top: 18px; /* Vycentrování při zvětšení */
+  }
 }

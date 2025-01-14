@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
-import Hamburger from "./Hamburger";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

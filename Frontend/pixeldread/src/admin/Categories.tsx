@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Category } from '../types';
 import { api_url } from '../BlogContext';
+import { useNavigate } from 'react-router-dom';
 import EditCategoryModal from '../components/EditCategoryModal';
 
 // Modal component for editing category
@@ -80,10 +81,17 @@ const Categories = () => {
     setShowModal(false);
     setSelectedCategory(null);
   };
+  const navigate = useNavigate();
 
   return (
+    <>
+    <div className="container">
+    
+      <h1>Manage categories</h1>
+      <div className='line'></div>
+      <button className="add-button" onClick={() => navigate('/admin/createCategory')}>Add Category</button>
+    </div>
     <div>
-      <h2>Categories</h2>
       {categories.map((category) => (
         <div key={category.id}>
           <span>{category.name}</span> {category.basic && <span> (Basic)</span>}
@@ -94,6 +102,7 @@ const Categories = () => {
             </div>
           )}
         </div>
+        
       ))}
 
       <EditCategoryModal
@@ -103,6 +112,7 @@ const Categories = () => {
         onSave={handleSave}
       />
     </div>
+    </>
   );
 };
 
