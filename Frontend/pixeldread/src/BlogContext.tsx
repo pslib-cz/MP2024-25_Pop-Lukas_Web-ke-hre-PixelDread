@@ -18,7 +18,6 @@ type ReducerAction =
 | { type: 'RESET_DRAFT'; }
 | { type: 'SET_STEP'; payload: number; }
 
-
 const blogReducer = (state: BlogState, action: ReducerAction): BlogState => {
     switch (action.type) {
         case 'LOGIN':
@@ -106,6 +105,7 @@ const blogReducer = (state: BlogState, action: ReducerAction): BlogState => {
                 ...state,
                 step: action.payload,
             };
+        
     }
 }
 export const BlogContext = createContext<{

@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home.tsx';
-import './App.css'
 import Admin from './admin/Admin.tsx';
 import Statistics from './admin/Statistics.tsx';
 import Categories from './admin/Categories.tsx';
@@ -12,12 +11,12 @@ import Login from './pages/Login.tsx';
 import FAQ from './pages/FAQ.tsx';
 import PatchNotes from './pages/PatchNotes.tsx';
 import Blog from './pages/Blog.tsx';
-
+import { useEffect } from 'react';
+import { BlogContext } from './BlogContext.tsx';
+import { useContext } from 'react';
 
 function App() {
-
   return (
-    
       <div>
         <Routes>
           <Route path="/" element={<Home />} />

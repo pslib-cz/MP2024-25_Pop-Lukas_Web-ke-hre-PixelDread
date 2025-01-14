@@ -1,23 +1,19 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-
+  font-family: Gilroy, sans-serif;
+  --bg: #FFFFFF;
+  --item-bg: #F7FAFC;
+  --details-bg: #E2E8F0;
+  --primary-color: #103054;
+  --sidebar-bg: #EDF2F7;
+  --three-dots: #718096;
+  --heading-nav: #4299E1;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+body {
+  margin: 0;
+  padding: 0;
+
+  font-family: var(--font-family);
+  background-color: #f4f4f4;
+  color: #333;
 }

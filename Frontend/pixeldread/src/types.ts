@@ -10,7 +10,7 @@ export type BlogState = {
     error: null | string,
     draft: Blog,
     step: number,
-}
+  };
 
 const draftDefault : Blog = ({ 
     id: null,
