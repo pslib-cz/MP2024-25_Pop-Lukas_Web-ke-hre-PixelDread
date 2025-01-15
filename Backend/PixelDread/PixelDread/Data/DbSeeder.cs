@@ -27,6 +27,14 @@ namespace PixelDread.Data
 
                 }
              );
+            ´// make sure to add the role to the user
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string>
+                {
+                    RoleId = "1",
+                    UserId = firstAdminGuid
+                }
+            );
             // seed data
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "Blog", Basic = true },

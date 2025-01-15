@@ -6,8 +6,8 @@
 }
 
 .hamburger {
-  width: 32px; /* Výchozí velikost */
-  height: 24px; /* Poměrná výška */
+  width: 32px;
+  height: 24px;
   position: relative;
   transform: rotate(0deg);
   transition: .5s ease-in-out;
@@ -17,7 +17,7 @@
 .hamburger span {
   display: block;
   position: absolute;
-  height: 5px; /* Dynamická výška odpovídá velikosti */
+  height: 5px;
   width: 100%;
   background: var(--bg);
   border-radius: 9px;
@@ -29,58 +29,57 @@
 
 .hamburger span:nth-child(1) {
   top: 0px;
-  transform-origin: center center; /* Umožní symetrické otáčení */
+  transform-origin: center center;
 }
 
 .hamburger span:nth-child(2) {
-  top: 10px; /* Dynamická vzdálenost mezi čarami */
+  top: 10px;
   transform-origin: center center;
 }
 
 .hamburger span:nth-child(3) {
-  top: 20px; /* Dynamická vzdálenost mezi čarami */
+  top: 20px;
   transform-origin: center center;
 }
 
 .hamburger.open span:nth-child(1) {
-  transform: rotate(45deg); /* Čára se otočí o 45° */
-  top: 10px; /* Vycentrování do středu */
+  transform: rotate(45deg);
+  top: 10px;
 }
 
 .hamburger.open span:nth-child(2) {
-  width: 0%; /* Skryje prostřední čáru */
+  width: 0%;
   opacity: 0;
 }
 
 .hamburger.open span:nth-child(3) {
-  transform: rotate(-45deg); /* Čára se otočí o -45° */
-  top: 10px; /* Vycentrování do středu */
+  transform: rotate(-45deg);
+  top: 10px;
 }
 
-/* Media Query pro zvětšení hamburgeru */
 @media (min-width: 400px) {
   .hamburger {
-    width: 48px; /* Nová velikost */
-    height: 36px; /* Poměrná výška */
+    width: 48px;
+    height: 36px;
   }
 
   .hamburger span {
-    height: 7px; /* Větší tloušťka čar */
+    height: 7px;
   }
 
   .hamburger span:nth-child(2) {
-    top: 14px; /* Větší vzdálenost mezi čarami */
+    top: 14px;
   }
 
   .hamburger span:nth-child(3) {
-    top: 28px; /* Větší vzdálenost mezi čarami */
+    top: 28px;
   }
 
   .hamburger.open span:nth-child(1) {
-    top: 18px; /* Vycentrování při zvětšení */
+    top: 18px;
   }
 
   .hamburger.open span:nth-child(3) {
-    top: 18px; /* Vycentrování při zvětšení */
+    top: 18px;
   }
 }

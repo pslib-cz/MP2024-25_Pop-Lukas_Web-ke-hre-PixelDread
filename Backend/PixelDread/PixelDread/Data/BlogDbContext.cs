@@ -28,7 +28,9 @@ namespace PixelDread.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" }
+                );
             modelBuilder.Entity<Blog>()
                 .HasOne(b => b.OGData)
                 .WithOne(o => o.Blog)
