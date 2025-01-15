@@ -89,11 +89,13 @@ const Categories = () => {
     
       <h1>Manage categories</h1>
       <div className='line'></div>
-      <button className="add-button" onClick={() => navigate('/admin/createCategory')}>Add Category</button>
+      <button className="addbutton" onClick={() => navigate('/admin/createCategory')}> <img src='/categoryplus.png'/>Add Category</button>
     </div>
     <div>
       {categories.map((category) => (
-        <div key={category.id}>
+        <div key={category.id} className="container--list">
+
+
           <span>{category.name}</span> {category.basic && <span> (Basic)</span>}
           {!category.basic && (
             <div>

@@ -64,13 +64,16 @@ const CreateCategory = () => {
         }
     };
 
-    return (
-        <div>
-            <h1>Create Category</h1>
-            <form onSubmit={handleSubmit}>
+    return (<>
+        <form onSubmit={handleSubmit}>
+            <div className='container'>
+                <h1>Create Category</h1>
+                <div className='line'></div>
+                
                 <div>
                     <label htmlFor="name">Category Name:</label>
                     <input
+                        placeholder='Enter category name'
                         id="name"
                         type="text"
                         value={name}
@@ -79,12 +82,19 @@ const CreateCategory = () => {
                         disabled={isChecking}
                     />
                 </div>
-                <button type="submit" disabled={isChecking}>
-                    {isChecking ? 'Checking...' : 'Create'}
-                </button>
-            </form>
-            {message && <p>{message}</p>}
-        </div>
+            </div>
+            <button className='addbutton addbutton--center' type="submit" disabled={isChecking}>
+                {isChecking ? 'Checking...' : 'Create'}
+            </button>
+            
+            {message && (            
+            setTimeout(() => setMessage(''), 5000),
+            <div className='message-container'>
+                <p className='message'>{message}</p>
+            </div>
+        )}     
+        </form>
+        </>
     );
 };
 
