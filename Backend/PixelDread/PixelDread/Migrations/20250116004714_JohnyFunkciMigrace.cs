@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PixelDread.Migrations
 {
     /// <inheritdoc />
-    public partial class AfganHerak : Migration
+    public partial class JohnyFunkciMigrace : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -75,7 +75,7 @@ namespace PixelDread.Migrations
                     Slug = table.Column<string>(type: "TEXT", nullable: true),
                     Title = table.Column<string>(type: "TEXT", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
-                    Media = table.Column<byte[]>(type: "BLOB", nullable: true),
+                    Media = table.Column<string>(type: "TEXT", nullable: true),
                     FileName = table.Column<string>(type: "TEXT", nullable: true),
                     ContentType = table.Column<string>(type: "TEXT", nullable: true),
                     Keywords = table.Column<string>(type: "TEXT", nullable: true),
@@ -248,7 +248,12 @@ namespace PixelDread.Migrations
             migrationBuilder.InsertData(
                 table: "Admins",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "e4579604-b276-4eeb-bf4c-d0ed563004de", 0, "458016e0-4c51-4589-9056-cde414abd16a", "lukas@gmail.com", true, false, null, "LUKAS@GMAIL.COM", "LUKAS@GMAIL.COM", "AQAAAAIAAYagAAAAEEE4tYawuB0XChNGgdIqeNAHaQbol9/OUV6QcWniJGs0pql7WuZUxtRjJU1UNtroFA==", null, false, "1d4f8792-f3c2-4f12-b39b-ee10458c8f3a", false, "lukas@gmail.com" });
+                values: new object[] { "a8d1209f-91e7-4c1b-ab51-2385d42e9c43", 0, "e69b81c3-d69f-4481-976c-d3acaf61a3d8", "lukas@gmail.com", true, false, null, "LUKAS@GMAIL.COM", "LUKAS@GMAIL.COM", "AQAAAAIAAYagAAAAEOxl2npANh7CCXF3BTAHx5Fd9qUUfYsCrvG7QeDv+muY9lYCsxd/vd66nIfL9Ich0Q==", null, false, "a60fe988-5b7c-4159-9332-5acef806d91a", false, "lukas@gmail.com" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "b3fe5be0-2a63-43a1-88ed-1e113e0db31e", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
@@ -261,19 +266,14 @@ namespace PixelDread.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "OGData",
-                columns: new[] { "Id", "BlogId", "ContentType", "Description", "FileName", "Keywords", "Media", "Slug", "Title" },
-                values: new object[] { 1, 0, null, "Blog", null, "[\"something\",\"nothing\"]", null, "sdasdas", "Blog" });
+                table: "AspNetUserClaims",
+                columns: new[] { "Id", "ClaimType", "ClaimValue", "UserId" },
+                values: new object[] { 1, "Admin", "true", "a8d1209f-91e7-4c1b-ab51-2385d42e9c43" });
 
             migrationBuilder.InsertData(
-                table: "Blogs",
-                columns: new[] { "Id", "AuthorId", "Content", "Date", "Name", "OGDataId", "Visibility" },
-                values: new object[] { 1, "e4579604-b276-4eeb-bf4c-d0ed563004de", "<h1>Něco</h1>", new DateTime(2025, 1, 13, 14, 54, 49, 951, DateTimeKind.Local).AddTicks(970), "Blog", 1, true });
-
-            migrationBuilder.InsertData(
-                table: "BlogCategories",
-                columns: new[] { "BlogId", "CategoryId" },
-                values: new object[] { 1, 1 });
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "b3fe5be0-2a63-43a1-88ed-1e113e0db31e", "a8d1209f-91e7-4c1b-ab51-2385d42e9c43" });
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",

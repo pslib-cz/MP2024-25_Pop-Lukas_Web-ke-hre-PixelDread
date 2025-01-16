@@ -41,6 +41,14 @@ namespace PixelDread.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b3fe5be0-2a63-43a1-88ed-1e113e0db31e",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -132,17 +140,17 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e4579604-b276-4eeb-bf4c-d0ed563004de",
+                            Id = "a8d1209f-91e7-4c1b-ab51-2385d42e9c43",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "458016e0-4c51-4589-9056-cde414abd16a",
+                            ConcurrencyStamp = "e69b81c3-d69f-4481-976c-d3acaf61a3d8",
                             Email = "lukas@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "LUKAS@GMAIL.COM",
                             NormalizedUserName = "LUKAS@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEE4tYawuB0XChNGgdIqeNAHaQbol9/OUV6QcWniJGs0pql7WuZUxtRjJU1UNtroFA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOxl2npANh7CCXF3BTAHx5Fd9qUUfYsCrvG7QeDv+muY9lYCsxd/vd66nIfL9Ich0Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1d4f8792-f3c2-4f12-b39b-ee10458c8f3a",
+                            SecurityStamp = "a60fe988-5b7c-4159-9332-5acef806d91a",
                             TwoFactorEnabled = false,
                             UserName = "lukas@gmail.com"
                         });
@@ -169,6 +177,15 @@ namespace PixelDread.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AspNetUserClaims", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClaimType = "Admin",
+                            ClaimValue = "true",
+                            UserId = "a8d1209f-91e7-4c1b-ab51-2385d42e9c43"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -206,6 +223,13 @@ namespace PixelDread.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "a8d1209f-91e7-4c1b-ab51-2385d42e9c43",
+                            RoleId = "b3fe5be0-2a63-43a1-88ed-1e113e0db31e"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -260,18 +284,6 @@ namespace PixelDread.Migrations
                         .IsUnique();
 
                     b.ToTable("Blogs");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AuthorId = "e4579604-b276-4eeb-bf4c-d0ed563004de",
-                            Content = "<h1>Něco</h1>",
-                            Date = new DateTime(2025, 1, 13, 14, 54, 49, 951, DateTimeKind.Local).AddTicks(970),
-                            Name = "Blog",
-                            OGDataId = 1,
-                            Visibility = true
-                        });
                 });
 
             modelBuilder.Entity("PixelDread.Models.BlogCategory", b =>
@@ -287,13 +299,6 @@ namespace PixelDread.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("BlogCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            BlogId = 1,
-                            CategoryId = 1
-                        });
                 });
 
             modelBuilder.Entity("PixelDread.Models.Category", b =>
@@ -355,8 +360,8 @@ namespace PixelDread.Migrations
                     b.PrimitiveCollection<string>("Keywords")
                         .HasColumnType("TEXT");
 
-                    b.Property<byte[]>("Media")
-                        .HasColumnType("BLOB");
+                    b.Property<string>("Media")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Slug")
                         .HasColumnType("TEXT");
@@ -367,17 +372,6 @@ namespace PixelDread.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("OGData");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BlogId = 0,
-                            Description = "Blog",
-                            Keywords = "[\"something\",\"nothing\"]",
-                            Slug = "sdasdas",
-                            Title = "Blog"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

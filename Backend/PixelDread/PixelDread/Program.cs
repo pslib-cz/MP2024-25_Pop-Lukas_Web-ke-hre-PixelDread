@@ -27,6 +27,7 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>(options =>
 })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<BlogDbContext>();
+
 builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
@@ -41,7 +42,11 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy =>
+        policy.RequireClaim("Admin", "true")); 
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

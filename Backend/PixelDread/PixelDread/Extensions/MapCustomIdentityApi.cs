@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authentication.BearerToken;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Http.Metadata;
 using Microsoft.AspNetCore.Identity;
@@ -44,7 +45,7 @@ public static class IdentityApiEndpointRouteBuilderExtensions
 
         var routeGroup = endpoints.MapGroup("");
 
-        routeGroup.MapPost("/register", async Task<Results<Ok, ValidationProblem>>
+        routeGroup.MapPost("/register", [Authorize(Policy = "AdminPolicy")] async Task<Results<Ok, ValidationProblem>>
             ([FromBody] RegisterCustomRequest registration, HttpContext context, [FromServices] IServiceProvider sp) =>
         {
             var userManager = sp.GetRequiredService<UserManager<TUser>>();
@@ -74,12 +75,26 @@ public static class IdentityApiEndpointRouteBuilderExtensions
             await emailStore.SetEmailAsync(user, email, CancellationToken.None);
             var result = await userManager.CreateAsync(user, registration.Password);
 
+
             if (!result.Succeeded)
             {
                 return CreateValidationProblem(result);
             }
+            var claimResult = await userManager.AddClaimAsync(user, new System.Security.Claims.Claim("Admin", "true"));
 
+            if (!claimResult.Succeeded)
+            {
+                return CreateValidationProblem(claimResult);
+            }
+
+            var roleResult = await userManager.AddToRoleAsync(user, "Admin");
+
+            if (!roleResult.Succeeded)
+            {
+                return CreateValidationProblem(roleResult);
+            }
             await SendConfirmationEmailAsync(user, userManager, context, email);
+
             return TypedResults.Ok();
         });
 

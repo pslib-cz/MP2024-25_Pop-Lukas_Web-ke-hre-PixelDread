@@ -46,6 +46,7 @@ namespace PixelDread.Controllers
             return blog;
         }
         // POST: api/Blogs/CreateBlogWithCategories
+        [Authorize(Policy = "AdminPolicy")]
         [HttpPost]
         [Route("CreateBlogWithCategories")]
 
