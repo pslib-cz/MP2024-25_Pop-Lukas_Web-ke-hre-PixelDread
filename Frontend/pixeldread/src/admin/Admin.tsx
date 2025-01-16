@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate  } from "react-router-dom";
 import { BlogContext } from "../BlogContext";
 import { useState } from "react";
 import MobileMenu from "../components/MobileMenu";
@@ -14,6 +14,7 @@ export default function Admin() {
     setIsOpen(!isOpen);
     console.log(isOpen);
   }
+
 
   if(!state.isUserLoggedIn){
     return (
