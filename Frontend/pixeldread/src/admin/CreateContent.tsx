@@ -1,148 +1,164 @@
-import  { useContext } from "react";
-import TextEditor from "../components/TextEditor";
-import CategoryAdder from "../components/CategoryAdder";
-import OGDataAdder from "../components/OGDataAdder";
-import NameAdder from "../components/NameAdder";
+import React, { useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import { BlogContext } from "../BlogContext";
-import { api_url } from '../BlogContext';
+import { useContext } from "react";
+import Categories from "./Categories";
+import CategoryAdder from "../components/CategoryAdder";
+import { event } from "jquery";
+
+// Validation Schemas
+const Step1Schema = Yup.object({
+  name: Yup.string().required("Name is required"),
+  Categories: Yup.array().min(1, "At least one category is required"),
+});
+
+const Step2Schema = Yup.object({
+  content1: Yup.string().required("Content is required"),
+});
+
+const Step3Schema = Yup.object({
+  content2: Yup.string().required("Content is required"),
+});
 
 
-const CreateContent = () => {
-  const { state, dispatch } = useContext(BlogContext);
-  const { draft, step } = state;
 
-  const handleDeleteMedia = () => {
-    dispatch({
-      type: "SET_DRAFT_OGDATA",
-      payload: {
-        ...draft.ogData,
-        media: null,
-        contentType: '',
-        fileName: '',
-      },
-    });
+// Final Combined Values Type
+
+
+interface FormValues {
+  name: string;
+  content1: string;
+  content2: string;
+}
+
+const CreateContent: React.FC = () => {
+  const [step, setStep] = useState(1);
+
+  const initialValues: FormValues = {
+    name: "",
+    content1: "",
+    content2: "",
+  };
+
+  const nextStep = () => {setStep((prev) => prev + 1)
   }
- 
-  const handleCreate = async () => {
-    const categoryIds = draft.categories.map((category) => category.id);
-    const blogData = {
-        name: draft.name,
-        content: draft.content,
-        visibility: draft.visibility,
-        ogData: {
-          slug: draft.ogData.slug,
-          title: draft.ogData.title,
-          description: draft.ogData.description,
-          media: draft.ogData.media ? draft.ogData.media?.toString() : null,
-          contentType: draft.ogData.contentType,
-          fileName: draft.ogData.fileName,
-          keywords: draft.ogData.keywords,
-        },
-        categoryIds: categoryIds,
-    };
-  
-    try {
-      const response = await fetch(`${api_url}/Blog/CreateBlogWithCategories`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${state.userToken}`,
-        },
-        body: JSON.stringify(blogData),
-      });
-      if (response.ok) {
-        dispatch({ type: "SET_STEP", payload: 5 });
-      } else {
-        const error = await response.text();
-        console.log("Error creating blog:", error);
-        alert(`Error: ${error}`);
+  const prevStep = () => setStep((prev) => prev - 1);
 
-      }
-    } catch (error) {
-      console.error("Error creating blog:", error);
-      alert("Failed to create blog");
-    }
-  };
-  
-  const handleDiscard = () => {
-    if (window.confirm("Are you sure you want to discard the draft?")) {
-      dispatch({ type: "RESET_DRAFT" });
-      dispatch({ type: "SET_STEP", payload: 1 });
-    }
+  const handleSubmit = (values: FormValues) => {
+    console.log("Final Submitted Values:", values);
+    alert("Content created successfully!");
   };
 
-  const handleNextStep = () => {
-    dispatch({ type: "SET_STEP", payload: step + 1 });
-  };
-
-  const handlePreviousStep = () => {
-    dispatch({ type: "SET_STEP", payload: step - 1 });
-  };
-  const handleCreateAnother = () => {
-    dispatch({ type: "RESET_DRAFT" });
-    dispatch({ type: "SET_STEP", payload: 1 });
-  }
   return (
     <div>
-      <h1>Create Content</h1>
-      {step === 1 && (
-        <div>
-          <NameAdder />
-          {draft.name.length >= 30 && (
-            <p style={{ color: "red" }}>Blog name cannot exceed 30 characters</p>
-          )}
-          <CategoryAdder />
-          <button onClick={handleDiscard}>Discard</button>
-          <button onClick={handleNextStep} disabled={draft.name.length === 0 || draft.categories.length === 0}>
-            Next 
-          </button>
-          {draft.name.length === 0 && <p style={{ color: "red" }}>Blog name is required</p>}
-          {draft.categories.length === 0 && <p style={{ color: "red" }}>At least one category is required</p>}
-        </div>)}
-      {step === 2 && (
-        <div>
-          <TextEditor />
-          <button onClick={handlePreviousStep}>Back</button>
-          <button onClick={handleNextStep}>Next</button>
-          </div>
-      )}
-      {step === 3 && (
-        <div>
-          <OGDataAdder />
-          <button onClick={handlePreviousStep}>Back</button>
-          <button onClick={handleNextStep}>Next</button>
-        </div>
-      )}
-      {step === 4 && (
-        <div>
-          <h2>Review</h2>
-            <p>Name: {draft.name}</p>
-            <p>Categories: {draft.categories.map((category) => category.name).join(", ")}</p>
-            <p>Content: {draft.content}</p>
-            <p>Title: {draft.ogData.title}</p>
-            <p>Media: {draft.ogData.media ? "Uploaded" : "Not uploaded"}</p> 
-            <button onClick={handleDeleteMedia}>Delete Media</button>
-            <p>Content Type: {draft.ogData.contentType}</p>
-            <p>File Name: {draft.ogData.fileName}</p>
-            <p>Visibility: {draft.visibility.toString()}</p>
-            {draft.ogData.keywords.length > 0 && (
-              <p>Keywords: {draft.ogData.keywords.join(", ")}</p>
+      <h1>Create new content</h1>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={
+          step === 1
+            ? Step1Schema
+            : step === 2
+            ? Step2Schema
+            : step === 3
+            ? Step3Schema
+            : null
+        }
+        onSubmit={(values, { setTouched }) => {
+          if (step < 5) {
+            setTouched({});
+            nextStep();
+          } else {
+            handleSubmit(values);
+          }
+        }}
+      >
+        {({ errors, touched, isValid }) => (
+          <Form>
+            {step === 1 && (
+              <div>
+                <div>
+                  <label htmlFor="title">Name</label>
+                  <Field id="name" name="name" placeholder="Enter name" />
+                  <div className="errorInput">
+                    <ErrorMessage name="title" />
+                  </div>
+                </div>
+                <button type="button" onClick={nextStep} disabled={!isValid}>
+                  Next
+                </button>
+              </div>
             )}
-            <p>Description: {draft.ogData.description}</p>
-            <p>Slug: {draft.ogData.slug}</p>
-            <button onClick={handleDiscard}>Discard</button>
-            <button onClick={handlePreviousStep}>Back</button>
-            <button onClick={handleCreate}>Create</button>
 
-        </div>
-      )}
-      {step === 5 && (
-        <div>
-            <h2>Success</h2>
-            <p>Blog created successfully</p>
-            <button onClick={handleCreateAnother}>Create another</button>
-        </div>
-      )}
+            {step === 2 && (
+              <div>
+                <div>
+                  <label htmlFor="content1">Content Section 1</label>
+                  <Field id="content1" name="content1" placeholder="Enter content for section 1" />
+                  <div className="errorInput">
+                    <ErrorMessage name="content1" />
+                  </div>
+                </div>
+                <button type="button" onClick={prevStep}>
+                  Back
+                </button>
+                <button type="button" onClick={nextStep} disabled={!isValid}>
+                  Next
+                </button>
+              </div>
+            )}
+
+            {step === 3 && (
+              <div>
+                <div>
+                  <label htmlFor="content2">Content Section 2</label>
+                  <Field id="content2" name="content2" placeholder="Enter content for section 2" />
+                  <div className="errorInput">
+                    <ErrorMessage name="content2" />
+                  </div>
+                </div>
+                <button type="button" onClick={prevStep}>
+                  Back
+                </button>
+                <button type="button" onClick={nextStep} disabled={!isValid}>
+                  Next
+                </button>
+              </div>
+            )}
+
+            {step === 4 && (
+              <div>
+                <h2>Preview</h2>
+                <div>
+                  <strong>Title:</strong> {initialValues.name || "N/A"}
+                </div>
+                <div>
+                  <strong>Content Section 1:</strong> {initialValues.content1 || "N/A"}
+                </div>
+                <div>
+                  <strong>Content Section 2:</strong> {initialValues.content2 || "N/A"}
+                </div>
+                <button type="button" onClick={prevStep}>
+                  Back
+                </button>
+                <button type="button" onClick={nextStep}>
+                  Next
+                </button>
+              </div>
+            )}
+
+            {step === 5 && (
+              <div>
+                <h2>Success</h2>
+                <p>Your content has been successfully created!</p>
+                <button type="button" onClick={() => setStep(1)}>
+                  Create Another
+                </button>
+              </div>
+            )}
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };

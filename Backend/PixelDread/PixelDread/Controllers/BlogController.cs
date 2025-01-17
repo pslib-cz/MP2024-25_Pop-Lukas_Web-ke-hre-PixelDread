@@ -46,8 +46,9 @@ namespace PixelDread.Controllers
             return blog;
         }
         // POST: api/Blogs/CreateBlogWithCategories
+        [HttpPost]  
         [Authorize(Policy = "AdminPolicy")]
-        [HttpPost]
+
         [Route("CreateBlogWithCategories")]
 
         public async Task<ActionResult<Blog>> CreateBlogWithCategories(BlogWithCategoriesRequest request)

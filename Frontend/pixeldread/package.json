@@ -13,6 +13,7 @@
     "@tiptap/starter-kit": "^2.11.0",
     "@types/react-select": "^5.0.0",
     "draft-js": "^0.11.7",
+    "formik": "^2.4.6",
     "jquery": "^3.7.1",
     "quill": "^2.0.3",
     "quill-image-drop-module": "^1.0.3",
@@ -23,7 +24,8 @@
     "react-select": "^5.9.0",
     "slate": "^0.112.0",
     "slate-react": "^0.112.0",
-    "summernote": "^0.9.1"
+    "summernote": "^0.9.1",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

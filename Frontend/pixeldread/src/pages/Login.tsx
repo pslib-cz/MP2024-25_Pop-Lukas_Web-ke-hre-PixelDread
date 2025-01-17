@@ -42,8 +42,7 @@ const Login: React.FC = () => {
         payload: {
           isUserLoggedIn: true,
           email: email,
-          token: data.token,
-          
+          token: data.accessToken,
         },
       });
 

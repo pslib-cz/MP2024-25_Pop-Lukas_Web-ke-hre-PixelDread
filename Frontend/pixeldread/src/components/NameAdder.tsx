@@ -7,9 +7,7 @@ const NameAdder: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    if (value.length <= 30) {
-      dispatch({ type: "SET_DRAFT_NAME", payload: value });
-    }
+    dispatch({ type: "SET_DRAFT_NAME", payload: value });
   };
 
   return (
@@ -22,9 +20,6 @@ const NameAdder: React.FC = () => {
           onChange={handleInputChange}
         />
       </label>
-      { draft && draft.name.length >= 30 && (
-        <p style={{ color: "red" }}>Blog name cannot exceed 30 characters</p>
-      )}
     </div>
   );
 };

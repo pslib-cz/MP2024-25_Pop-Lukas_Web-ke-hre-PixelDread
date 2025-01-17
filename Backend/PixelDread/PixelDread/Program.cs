@@ -15,14 +15,12 @@ builder.Services.AddDbContext<BlogDbContext>(options =>
 );
 builder.Services.AddIdentityApiEndpoints<IdentityUser>(options =>
 {
-    // Password settings
     options.Password.RequireDigit = false;
     options.Password.RequiredLength = 8;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
     options.Password.RequireLowercase = false;
     options.Password.RequiredUniqueChars = 4;
-    // User settings
     options.User.RequireUniqueEmail = true;
 })
     .AddRoles<IdentityRole>()
@@ -47,9 +45,9 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("AdminPolicy", policy =>
         policy.RequireClaim("Admin", "true")); 
 });
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

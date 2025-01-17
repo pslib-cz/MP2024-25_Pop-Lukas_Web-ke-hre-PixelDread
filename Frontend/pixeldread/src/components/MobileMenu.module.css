@@ -1,19 +1,78 @@
+@import url('../index.css');
 .mobileMenu {
-    display: block;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
-    background-color: #000;
-    z-index: 1000;
-    overflow: hidden;
-    transition: transform 0.3s ease-in-out;
-    transform: translateX(-100%);
+    background-color: var(--item-bg);
+    color: var(--text-color);
+    z-index: 999; 
+    overflow: auto;
+    transition: transform 0.5s;
+    transform: translateY(-100%);
+}  
+
+.mobileMenu.open {
+    transform: translateY(0);
 }
+
+.mobileMenu ul {
+    margin-top: 75px;
+    list-style: none;
+    gap: 1.5em;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.mobileMenu ul li {
+    color : var(--primary-color-lighter);
+    display: flex;
+    align-items: center;
+    gap: .5em;
+    width: 200px;
+    font-size: 24px;
+    font-weight: 400;
+}
+.mobileMenu ul li a {
+    display: flex;
+    align-items: center;
+    color: var(--primary-color-lighter);
+    text-decoration: none;
+}
+
+.mobileMenu h2 {
+    text-align: center;
+    margin: 1em 0 0 0;
+    color: var(--heading-nav);
+    font-weight: 500;
+}
+
+.mobileMenu h2:first-of-type {
+    margin-top: 2em;
+}
+
+.mobileMenu div {
+    color: var(--primary-color-lighter);
+    cursor: pointer;
+    margin-bottom: 1em;
+
+}
+
+.mobileMenu div:hover {
+    color: var(--primary-color);
+}
+
+.divider {
+    width: 65%;
+    height: 1px;
+    background-color: var(--details-bg);
+    margin: 0 0 1em 0;
+}
+
 @media screen and (min-width: 768px) {
     .mobileMenu {
         display: none;
     }
-    
 }

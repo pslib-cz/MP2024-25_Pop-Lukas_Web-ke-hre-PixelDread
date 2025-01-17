@@ -2,11 +2,14 @@
 import React, { useState } from 'react';
 import { api_url } from '../BlogContext';
 import { Category } from '../types';
+import { BlogContext } from '../BlogContext';
+import { useContext } from 'react';
 
 const CreateCategory = () => {
     const [name, setName] = useState('');
     const [message, setMessage] = useState('');
     const [isChecking, setIsChecking] = useState(false);
+    const { state } = useContext(BlogContext);
 
     const checkCategoryExists = async (categoryName:string) => {
         setIsChecking(true); 
@@ -48,6 +51,7 @@ const CreateCategory = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${state.userToken}`
                 },
                 body: JSON.stringify({ name }),
             });

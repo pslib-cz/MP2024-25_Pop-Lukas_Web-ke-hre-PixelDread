@@ -7,15 +7,12 @@ const Content = () => {
   const [blogs, setBlogs] = useState<BlogFull[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { state } = React.useContext(BlogContext);
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
         setLoading(true); 
         const response = await fetch(`${api_url}/Blog`, {
-          headers: {
-            Authorization: `Bearer ${state.userToken}`,
-          }
+          method: 'GET',
         });
 
         if (!response.ok) {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace PixelDread.Controllers
@@ -39,6 +40,7 @@ namespace PixelDread.Controllers
         }
         //POST: api/Categories
         [HttpPost]
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<ActionResult<Category>> PostCategory(Category category)
         {
             _context.Categories.Add(category);
@@ -47,6 +49,7 @@ namespace PixelDread.Controllers
         }
         //PUT: api/Categories/id
         [HttpPut]
+        [Authorize(Policy = "AdminPolicy")]
         [Route("PutCategory/{id}")]
         public async Task<IActionResult> PutCategory(int id, Category category)
         {
@@ -60,6 +63,7 @@ namespace PixelDread.Controllers
         }
         //DELETE: api/Categories/id
         [HttpDelete]
+        [Authorize(Policy = "AdminPolicy")]
         [Route("DeleteCategory/{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {

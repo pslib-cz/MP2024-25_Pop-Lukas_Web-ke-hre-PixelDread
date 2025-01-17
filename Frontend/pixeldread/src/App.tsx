@@ -11,6 +11,7 @@ import Login from './pages/Login.tsx';
 import FAQ from './pages/FAQ.tsx';
 import PatchNotes from './pages/PatchNotes.tsx';
 import Blog from './pages/Blog.tsx';
+import Admins from './admin/Admins.tsx';
 import { useEffect } from 'react';
 import { BlogContext } from './BlogContext.tsx';
 import { useContext } from 'react';
@@ -27,6 +28,7 @@ function App() {
 
           <Route path="/admin" element={<Admin />}>
               <Route path="statistics" element={<Statistics />} />
+              <Route path="admins" element={<Admins />} />
               <Route path="categories" element={<Categories />} />
               <Route path="content" element={<Content />} />
               <Route path="settings" element={<Settings />} />

@@ -1,6 +1,6 @@
 
 export type BlogState = {
-    userToken: string;
+    userToken: string | null;
     isUserLoggedIn: boolean;
     email: string;
     blogs: Blog[];
@@ -31,7 +31,7 @@ const draftDefault : Blog = ({
   });
 
 export const defaultState: BlogState = {
-    userToken: '',
+    userToken: null,
     isUserLoggedIn: false,
     email: '',
     blogs: [],

@@ -8,13 +8,11 @@ import PixelDreadIcon from "../components/PixelDreadIcon";
 
 export default function Admin() {
   const { state } = useContext(BlogContext);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const handleClick = () => {
-    setIsOpen(!isOpen);
-    console.log(isOpen);
-  }
-
+    setIsOpen((prevState) => !prevState); 
+  };
 
   if(!state.isUserLoggedIn){
     return (
@@ -29,11 +27,12 @@ export default function Admin() {
       <>
         <nav className="navbarAdmin">
           <PixelDreadIcon />
-          <Hamburger onClick={handleClick} />
+          <Hamburger onClick={handleClick} setIsOpen={setIsOpen} isOpen={isOpen} />
         </nav>
+        <div className="navbar-filler"></div>
         <div>
           <Outlet />
-          {isOpen && <MobileMenu />}
+          <MobileMenu isOpen={isOpen} onClose={handleClick}/>
         </div>
       </>
 
