@@ -15,7 +15,8 @@ const Cookies = () => {
 	<h3>3. Personalizované cookies</h3>
 	<p>Personalizované cookies slouží k poskytování personalizovaného obsahu a reklam. Tyto cookies mohou být vytvořeny třetími stranami a používají se k analýze vašeho používání webové stránky a zobrazování reklam na míru.</p>
 	<h2>Váš souhlas</h2>
-	<p>Používáním této webové stránky vyjadřujete souhlas se zpracováním vašich údajů v souladu s našimi zásadami cookies. Možnost omezit <button type="button" aria-label="Podívat se na nastavení cookies" data-cc="c-settings">Cookies</button>. Pokud však zakážete cookies, může to omezit funkčnost webové stránky a omezit vaše zážitky z prohlížení webové stránky.</p>
+	<p>Používáním této webové stránky vyjadřujete souhlas se zpracováním vašich údajů v souladu s našimi zásadami cookies. Možnost omezit <button type="button" data-cc="show-preferencesModal">Manage cookie preferences</button>
+	. Pokud však zakážete cookies, může to omezit funkčnost webové stránky a omezit vaše zážitky z prohlížení webové stránky.</p>
 	<h2>Změny v naších zásadách cookies</h2>
 	<p>Můžeme aktualizovat naše zásady cookies v budoucnu. Pokud dojde k nějakým změnám, budeme tyto změny zveřejňovat na této stránce. Doporučujeme vám pravidelně kontrolovat tuto stránku pro aktualizace zásad cookies.</p>
 	<h2>Kontakt</h2>
