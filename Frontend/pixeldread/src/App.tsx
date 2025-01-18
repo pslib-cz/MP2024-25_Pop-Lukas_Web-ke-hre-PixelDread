@@ -22,34 +22,10 @@ import { useEffect } from 'react';
 function App() {
   useEffect(() => {
       CookieConsent.run({
-        onChange: function({changedCategories, changedServices}) {
-          if (changedCategories.includes('analytics')) {
-  
-              if (CookieConsent.acceptedCategory('analytics')) {
-                  console.log('Analytics category was just enabled');
-                  // Integrace Google Analytics zde
-                  // např. zahájit odesílání dat k Google Analytics
-              } else {
-                  console.log('Analytics category was just disabled');
-                  // Zavřít připojení k Google Analytics
-              }
-  
-              if (changedServices['analytics'].includes('Google Analytics')) {
-                  if (CookieConsent.acceptedService('Google Analytics', 'analytics')) {
-                      console.log('Google Analytics was just enabled');
-                      // Akce po povolení Google Analytics, zahájit měření
-                      // Např. inicializace Google Analytics scriptu
-                  } else {
-                      console.log('Google Analytics was just disabled');
-                      // Zastavit sběr dat pro Google Analytics
-                  }
-              }
-          }
-        },
         categories: {
             necessary: {
-                enabled: true,  // this category is enabled by default
-                readOnly: true  // this category cannot be disabled
+                enabled: true,  
+                readOnly: true
             },
             analytics: {}
         },
