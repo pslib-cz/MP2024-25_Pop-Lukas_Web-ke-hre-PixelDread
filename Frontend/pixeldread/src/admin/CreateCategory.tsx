@@ -17,7 +17,7 @@ const CreateCategory = () => {
             const response = await fetch(`${api_url}/Categories`, {
                 method: 'GET',
             });
-
+                  
             if (!response.ok) {
                 throw new Error('Failed to fetch categories');
             }
