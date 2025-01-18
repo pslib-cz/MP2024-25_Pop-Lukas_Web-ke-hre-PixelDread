@@ -12,9 +12,8 @@ import FAQ from './pages/FAQ.tsx';
 import PatchNotes from './pages/PatchNotes.tsx';
 import Blog from './pages/Blog.tsx';
 import Admins from './admin/Admins.tsx';
-import { useEffect } from 'react';
-import { BlogContext } from './BlogContext.tsx';
-import { useContext } from 'react';
+import GDPR from './pages/Gdpr.tsx';
+import Cookies from './pages/Cookies.tsx';
 
 function App() {
   return (
@@ -25,6 +24,8 @@ function App() {
           <Route path='/faq' element={<FAQ />} />
           <Route path="/patchnotes" element={<PatchNotes />} />
           <Route path="/login" element={<Login/>} />
+          <Route path="/gdpr" element={<GDPR />} />
+          <Route path="/cookies" element={<Cookies />} />
 
           <Route path="/admin" element={<Admin />}>
               <Route path="statistics" element={<Statistics />} />

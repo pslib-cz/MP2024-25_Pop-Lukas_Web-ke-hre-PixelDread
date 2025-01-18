@@ -64,7 +64,7 @@ namespace PixelDread.Controllers
                 Content = request.Content,
                 Visibility = request.Visibility,
                 Date = DateTime.Now,
-                AuthorId = User.FindFirstValue(ClaimTypes.NameIdentifier)
+                AuthorId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
             };
             try
             {
@@ -109,6 +109,7 @@ namespace PixelDread.Controllers
             }
             _context.Blogs.Add(blog);
             await _context.SaveChangesAsync();
+
             if (request.CategoryIds != null && request.CategoryIds.Any())
             {
                 foreach (var categoryId in request.CategoryIds)
