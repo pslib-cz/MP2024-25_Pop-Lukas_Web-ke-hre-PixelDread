@@ -10,6 +10,7 @@ export type BlogState = {
     error: null | string,
     draft: Blog,
     step: number,
+    adminId: number | null;
   };
 
 const draftDefault : Blog = ({ 
@@ -41,7 +42,13 @@ export const defaultState: BlogState = {
     error: null,
     draft: draftDefault,
     step: 1,
+    adminId: null,
   };
+  
+export interface Admin {
+  id: number;
+  email: string;
+}
 
 export interface Blog {
     id: number | null;

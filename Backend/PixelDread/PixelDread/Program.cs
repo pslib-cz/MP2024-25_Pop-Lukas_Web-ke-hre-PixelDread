@@ -16,11 +16,11 @@ builder.Services.AddDbContext<BlogDbContext>(options =>
 builder.Services.AddIdentityApiEndpoints<IdentityUser>(options =>
 {
     options.Password.RequireDigit = false;
-    options.Password.RequiredLength = 8;
+    options.Password.RequiredLength = 6;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
     options.Password.RequireLowercase = false;
-    options.Password.RequiredUniqueChars = 4;
+    options.Password.RequiredUniqueChars = 1;
     options.User.RequireUniqueEmail = true;
 })
     .AddRoles<IdentityRole>()

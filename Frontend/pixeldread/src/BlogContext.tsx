@@ -9,6 +9,8 @@ type ReducerAction =
 | { type: 'LOGOUT'; }
 | { type: 'LOAD'; newState: BlogState; }
 
+| { type: 'SET_USER_ID'; payload: number; }
+
 | { type: 'SET_DRAFT_CATEGORIES'; payload: Category[]; }
 | { type: 'SET_DRAFT_NAME'; payload: string; }
 | { type: 'SET_DRAFT_VISIBILITY'; payload: boolean; }
@@ -25,7 +27,7 @@ const blogReducer = (state: BlogState, action: ReducerAction): BlogState => {
                 ...state,
                 isUserLoggedIn: action.payload.isUserLoggedIn,
                 email: action.payload.email,
-                userToken: action.payload.token,
+                userToken: action.payload.token
             };
         case 'LOGOUT':
             return {
@@ -33,6 +35,7 @@ const blogReducer = (state: BlogState, action: ReducerAction): BlogState => {
                 isUserLoggedIn: false,
                 email: '',
                 userToken: '',
+                adminId: null,
             };
         case 'LOAD':
             return action.newState;
@@ -104,6 +107,11 @@ const blogReducer = (state: BlogState, action: ReducerAction): BlogState => {
             return {
                 ...state,
                 step: action.payload,
+            };
+        case 'SET_USER_ID':
+            return {
+                ...state,
+                adminId: action.payload
             };
         
     }

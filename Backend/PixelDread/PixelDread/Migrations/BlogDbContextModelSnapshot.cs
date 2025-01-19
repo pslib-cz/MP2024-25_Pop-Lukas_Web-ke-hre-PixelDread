@@ -45,7 +45,7 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b3fe5be0-2a63-43a1-88ed-1e113e0db31e",
+                            Id = "ffc3e6c0-9d0c-4899-8284-e693d703265e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -140,17 +140,17 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a8d1209f-91e7-4c1b-ab51-2385d42e9c43",
+                            Id = "80f125ee-3c9d-4c41-82f1-8436d78d2e5a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e69b81c3-d69f-4481-976c-d3acaf61a3d8",
+                            ConcurrencyStamp = "d82c8601-e5c7-458f-9228-2735a7a8880a",
                             Email = "lukas@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "LUKAS@GMAIL.COM",
                             NormalizedUserName = "LUKAS@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOxl2npANh7CCXF3BTAHx5Fd9qUUfYsCrvG7QeDv+muY9lYCsxd/vd66nIfL9Ich0Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGV+/zfbP+nNKlSqQltJ456DLw3KExkKF2jtTfl9SjVeXhWwIcCHkGOG53cSkf/m2g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a60fe988-5b7c-4159-9332-5acef806d91a",
+                            SecurityStamp = "9650c5d5-5d07-435c-8a36-1cc6b9d30fd0",
                             TwoFactorEnabled = false,
                             UserName = "lukas@gmail.com"
                         });
@@ -184,7 +184,7 @@ namespace PixelDread.Migrations
                             Id = 1,
                             ClaimType = "Admin",
                             ClaimValue = "true",
-                            UserId = "a8d1209f-91e7-4c1b-ab51-2385d42e9c43"
+                            UserId = "80f125ee-3c9d-4c41-82f1-8436d78d2e5a"
                         });
                 });
 
@@ -227,8 +227,8 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "a8d1209f-91e7-4c1b-ab51-2385d42e9c43",
-                            RoleId = "b3fe5be0-2a63-43a1-88ed-1e113e0db31e"
+                            UserId = "80f125ee-3c9d-4c41-82f1-8436d78d2e5a",
+                            RoleId = "ffc3e6c0-9d0c-4899-8284-e693d703265e"
                         });
                 });
 

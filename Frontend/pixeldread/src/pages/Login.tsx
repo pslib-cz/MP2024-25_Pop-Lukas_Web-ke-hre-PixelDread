@@ -30,13 +30,26 @@ const Login: React.FC = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }), 
+      })
+        
+      const response2 = await fetch(`${api_url}/Admin/CurrentUserId`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${state.userToken}`,
+        },
       });
 
       if (!response.ok) {
         throw new Error("Login failed. Please check your credentials.");
       }
-
+      if (!response2.ok) {
+        throw new Error("Failed to get user ID.");
+      }
+      
       const data = await response.json();
+      const data2 = await response2.json();
+
       dispatch({
         type: 'LOGIN',
         payload: {
@@ -44,6 +57,10 @@ const Login: React.FC = () => {
           email: email,
           token: data.accessToken,
         },
+      });
+      dispatch({
+        type: 'SET_USER_ID',
+        payload: data2,
       });
 
       console.log("Login successful:", data, state);
@@ -57,6 +74,7 @@ const Login: React.FC = () => {
       setLoading(false);
     }
   };
+  
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });

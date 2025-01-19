@@ -121,14 +121,12 @@ a {
 }
 
 input {
-  width: 90%;
   padding: 10px 12px; 
   border: 1px solid var(--details-bg); 
   border-radius: 8px; 
   background-color: var(--bg);
   color: var(--text-color-lighter); 
   font-size: 16px; 
-  margin-bottom: 2.5em;
    
   transition: border-color 0.3s ease-in-out;
 }
@@ -171,6 +169,26 @@ form {
   margin-bottom: 1em;
   color: var(--text-color-lighter);
 }
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.875rem;
+}
+
+.is-invalid {
+  border-color: red;
+}
+
+.has-error label {
+  color: red;
+}
+
+
+
 
 @media (min-width: 420px) {
   .container h1 {

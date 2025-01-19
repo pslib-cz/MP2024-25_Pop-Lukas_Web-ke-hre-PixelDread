@@ -14,6 +14,7 @@ import Blog from './pages/Blog.tsx';
 import Admins from './admin/Admins.tsx';
 import GDPR from './pages/Gdpr.tsx';
 import Cookies from './pages/Cookies.tsx';
+import CreateAdmin from './admin/CreateAdmin.tsx';
 
 import "vanilla-cookieconsent/dist/cookieconsent.css";
 import * as CookieConsent from "vanilla-cookieconsent";
@@ -27,29 +28,24 @@ function App() {
   
               if (CookieConsent.acceptedCategory('analytics')) {
                   console.log('Analytics category was just enabled');
-                  // Integrace Google Analytics zde
-                  // např. zahájit odesílání dat k Google Analytics
               } else {
                   console.log('Analytics category was just disabled');
-                  // Zavřít připojení k Google Analytics
               }
   
               if (changedServices['analytics'].includes('Google Analytics')) {
                   if (CookieConsent.acceptedService('Google Analytics', 'analytics')) {
                       console.log('Google Analytics was just enabled');
-                      // Akce po povolení Google Analytics, zahájit měření
-                      // Např. inicializace Google Analytics scriptu
+
                   } else {
                       console.log('Google Analytics was just disabled');
-                      // Zastavit sběr dat pro Google Analytics
                   }
               }
           }
         },
         categories: {
             necessary: {
-                enabled: true,  // this category is enabled by default
-                readOnly: true  // this category cannot be disabled
+                enabled: true,
+                readOnly: true 
             },
             analytics: {}
         },
@@ -110,8 +106,9 @@ function App() {
           <Route path="/cookies" element={<Cookies />} />
 
           <Route path="/admin" element={<Admin />}>
+            <Route path="createAdmin" element={<CreateAdmin />} />              
               <Route path="statistics" element={<Statistics />} />
-              <Route path="admins" element={<Admins />} />
+              <Route path="admins" element={<Admins />}/>
               <Route path="categories" element={<Categories />} />
               <Route path="content" element={<Content />} />
               <Route path="settings" element={<Settings />} />
