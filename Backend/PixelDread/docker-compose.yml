@@ -1,0 +1,6 @@
+services:
+  pixeldread:
+    image: ${DOCKER_REGISTRY-}pixeldread
+    build:
+      context: .
+      dockerfile: PixelDread/Dockerfile

@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35521.163 d17.12
+VisualStudioVersion = 17.12.35521.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelDread", "PixelDread\PixelDread.csproj", "{DDEB63FD-5B1D-43AF-8EA3-75E7FB7983E5}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{33DE45EF-E1C5-4B34-9899-3878C59162D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{DDEB63FD-5B1D-43AF-8EA3-75E7FB7983E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDEB63FD-5B1D-43AF-8EA3-75E7FB7983E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDEB63FD-5B1D-43AF-8EA3-75E7FB7983E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33DE45EF-E1C5-4B34-9899-3878C59162D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33DE45EF-E1C5-4B34-9899-3878C59162D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33DE45EF-E1C5-4B34-9899-3878C59162D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33DE45EF-E1C5-4B34-9899-3878C59162D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
