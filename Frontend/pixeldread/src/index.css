@@ -46,32 +46,65 @@ button {
   justify-content: center;
   align-items: center;
 }
+
+.start {
+  justify-content: flex-start;
+  align-items: center;
+}
+
 a {
   text-decoration: none;
   color: var(--text-color);
 }
 
+.adminContainer {
+  margin-top: 75px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
 .container {
-  margin: 2em 1em 1em 1em;
+  margin: 2em 1em 1em;
+  width: 65%;
   display: flex;
   flex-direction: column;
   background-color: var(--item-bg);
-  padding: 1em 2em;
+  padding: 1.5em 2.5em;
   align-items: center;
+  background-color: var(--item-bg);
+  box-shadow: 0 0 10px 0 var(--details-bg);
 }
 .container--list {
-  margin:  1em;
+  margin: 1em;
+  width: 65%;
   display: flex;
   background-color: var(--item-bg);
-  padding: 1em 2em;
+  padding: 1.5em 2.5em;
   align-items: center;
-  gap: 1em;
+  justify-content: space-between;
+  background-color: var(--item-bg);
+  box-shadow: 0 0 10px 0 var(--details-bg);
 }
+
 .container h1 {
   text-align: center;
   margin: 1em 0 0.5em 0;
   font-size: 1.5em;
   font-weight: 700;
+}
+
+.strong {
+  font-weight: 700;
+  color: var(--text-color-lighter)
+}
+
+.iconButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 .line {
@@ -109,18 +142,11 @@ a {
   justify-content: center; 
   gap: 1em;
   padding: 1em 1.5em;
-
-  max-width: 240px;
+  max-width: 220px;
   color: var(--text-color-oposite);
   font-weight: 700;
   width: 240px;
 }
-
-.addbutton > img {
-  filter: brightness(0) invert(1);
-  width: 20px;
-  height: 20px;
-}   
 .addbutton:focus {
   outline: none;
 }
@@ -164,12 +190,11 @@ label {
   margin-bottom: 0.75em;
   color: var(--text-color-lighter);
 }
-
-form {
-  padding: 4em;
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 2em;
 }
 
 .message {
@@ -187,6 +212,13 @@ form {
   color: red;
   font-size: 0.875rem;
   margin-top: 0.5rem;
+}
+.errorNote {
+  text-align: center;
+  color: red;
+  font-size: 0.875rem;
+  margin-bottom: 1em;
+  max-width: 220px;
 }
 
 .is-invalid {

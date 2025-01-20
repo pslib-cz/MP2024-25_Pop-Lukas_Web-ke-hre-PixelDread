@@ -26,13 +26,11 @@ const CategoryAdder: React.FC<CategoryAdderProps> = () => {
         const data = await response.json();
         setCategories(data);
         const categoryOptions = data.map((cat: Category) => ({
-          value: cat.id.toString(),  // Převod id na string pro výběr
+          value: cat.id.toString(), 
           label: cat.name,
         }));
 
         setOptions(categoryOptions);
-
-        // Set selected options based on current draft state
         const draftCategories = state.draft ? state.draft.categories.map((cat) => ({ value: cat.id.toString(), label: cat.name })) : [];
         setSelectedOptions(draftCategories);
       } catch (error) {

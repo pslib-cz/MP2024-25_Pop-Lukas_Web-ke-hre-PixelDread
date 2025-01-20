@@ -15,6 +15,7 @@ import Admins from './admin/Admins.tsx';
 import GDPR from './pages/Gdpr.tsx';
 import Cookies from './pages/Cookies.tsx';
 import CreateAdmin from './admin/CreateAdmin.tsx';
+import BlogDetails from './pages/BlogDetails.tsx';
 
 import "vanilla-cookieconsent/dist/cookieconsent.css";
 import * as CookieConsent from "vanilla-cookieconsent";
@@ -98,7 +99,8 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/blog" element={<BlogList />} />
+          <Route  path="/blog" element={<BlogList />} />
+          <Route path="/blog/:id" element={<BlogDetails />} />
           <Route path='/faq' element={<FAQ />} />
           <Route path="/patchnotes" element={<PatchNotes />} />
           <Route path="/login" element={<Login/>} />

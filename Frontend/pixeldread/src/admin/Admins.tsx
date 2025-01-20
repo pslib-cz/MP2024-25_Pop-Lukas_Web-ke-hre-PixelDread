@@ -3,11 +3,12 @@ import { useEffect, useState, useContext } from "react";
 import { api_url } from "../BlogContext";
 import { BlogContext } from "../BlogContext";
 import { Admin } from "../types";
+import { useNavigate } from "react-router-dom";
 
 const Admins = () => {
     const { state, dispatch } = useContext(BlogContext);
     const [admins, setAdmins] = useState<Admin[]>([]);
-
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchAdmins = async () => {
             try {
@@ -102,17 +103,25 @@ const Admins = () => {
     };
 
     return (
-        <div>
+        <>
+        <div className="container column center">
             <h1>Admins</h1>
-            {admins.map((admin) => (
-                <div key={admin.id}>
+            <div className="line"></div>
+            <button className="addbutton" onClick={() => navigate('/admin/createAdmin')}>Create Admin</button>
+
+
+        </div>
+        <div style={{width: "100%"}} className="flexcontainer column start">
+        {admins.map((admin) => (
+                <div className="container--list" key={admin.id}>
                     <p>{admin.email}</p>
                     <button onClick={() => handleDelete(admin.id)}>Delete</button>
                 </div>
             ))}
             
-            <Link to="/admin/createAdmin">Create Admin</Link>
+
         </div>
+        </>
     );
 };
 

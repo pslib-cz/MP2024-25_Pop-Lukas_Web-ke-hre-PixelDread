@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PixelDread.Migrations
 {
     /// <inheritdoc />
-    public partial class AsiBychNemelDovolitMazatVlastniAcc : Migration
+    public partial class Migration005 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -248,12 +248,12 @@ namespace PixelDread.Migrations
             migrationBuilder.InsertData(
                 table: "Admins",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "80f125ee-3c9d-4c41-82f1-8436d78d2e5a", 0, "d82c8601-e5c7-458f-9228-2735a7a8880a", "lukas@gmail.com", true, false, null, "LUKAS@GMAIL.COM", "LUKAS@GMAIL.COM", "AQAAAAIAAYagAAAAEGV+/zfbP+nNKlSqQltJ456DLw3KExkKF2jtTfl9SjVeXhWwIcCHkGOG53cSkf/m2g==", null, false, "9650c5d5-5d07-435c-8a36-1cc6b9d30fd0", false, "lukas@gmail.com" });
+                values: new object[] { "0cb81ad5-acc4-4b45-8f63-71c35d982c4e", 0, "de14215c-fbc3-4b85-93b7-c5547a0451e9", "lukas@gmail.com", true, false, null, "LUKAS@GMAIL.COM", "LUKAS@GMAIL.COM", "AQAAAAIAAYagAAAAEO9ZGLr8UZxQ6aOoVEUDjn8tW2B0Pn2vTPSVi8e7+aWG/v8+1DNKNon11O5dgW+biQ==", null, false, "25931eb4-a00f-4c8e-a63c-8b008a76678f", false, "lukas@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "ffc3e6c0-9d0c-4899-8284-e693d703265e", null, "Admin", "ADMIN" });
+                values: new object[] { "5e445507-d9d0-4cf8-88f4-1161f02de0f9", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
@@ -268,12 +268,12 @@ namespace PixelDread.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserClaims",
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "UserId" },
-                values: new object[] { 1, "Admin", "true", "80f125ee-3c9d-4c41-82f1-8436d78d2e5a" });
+                values: new object[] { 1, "Admin", "true", "0cb81ad5-acc4-4b45-8f63-71c35d982c4e" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "ffc3e6c0-9d0c-4899-8284-e693d703265e", "80f125ee-3c9d-4c41-82f1-8436d78d2e5a" });
+                values: new object[] { "5e445507-d9d0-4cf8-88f4-1161f02de0f9", "0cb81ad5-acc4-4b45-8f63-71c35d982c4e" });
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",

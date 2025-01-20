@@ -1,14 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { api_url } from '../BlogContext';
 import { Category } from '../types';
 import { BlogContext } from '../BlogContext';
-import { useContext } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 const CreateCategory = () => {
     const { state } = useContext(BlogContext);
-    
+
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    // Fetch categories from API with Long Polling mechanism
+    const fetchCategories = async () => {
+        try {
+            const response = await fetch(`${api_url}/Categories`, { method: 'GET' });
+            if (response.ok) {
+                const data = await response.json();
+                setCategories(data);
+                setLoading(false); // Finished loading
+            }
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchCategories(); // Initial load
+    }, []);
+
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -16,26 +36,30 @@ const CreateCategory = () => {
         validationSchema: Yup.object({
             name: Yup.string()
                 .required('Category name is required.')
-                .test('categoryExists', 'Category already exists.', async (value) => {
+                .test('categoryExists', 'Category already exists.', (value) => {
                     if (!value) return false;
-                    const response = await fetch(`${api_url}/Categories`, { method: 'GET' });
-                    const categories = await response.json();
                     return !categories.some((category: Category) => category.name.toLowerCase() === value.toLowerCase());
                 }),
         }),
-        onSubmit: async (values, { setSubmitting, setStatus }) => {
+        onSubmit: async (values, { setSubmitting, setStatus, resetForm }) => {
             try {
                 const response = await fetch(`${api_url}/Categories`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${state.userToken}`
+                        'Authorization': `Bearer ${state.userToken}`,
                     },
                     body: JSON.stringify({ name: values.name }),
                 });
 
                 if (response.ok) {
                     setStatus({ message: 'Category created successfully!' });
+                    fetchCategories(); // Refresh categories
+
+                    setTimeout(() => {
+                        setStatus(null);
+                        resetForm();
+                    }, 3000); // 3 second timeout
                 } else {
                     const error = await response.text();
                     setStatus({ message: `Error: ${error}` });
@@ -48,12 +72,15 @@ const CreateCategory = () => {
         },
     });
 
+    if (loading) {
+        return <div>Loading categories...</div>;
+    }
+
     return (
-        <>
-        
-            <form onSubmit={formik.handleSubmit}>
+        <div className='flexcontainer column'>
+            <form onSubmit={formik.handleSubmit} className='form'>
                 <div className='container'>
-                    <h1>Create Category</h1>
+                    <h1>Create category</h1>
                     <div className='line'></div>
 
                     <div className='inputWithLabel'>
@@ -80,7 +107,7 @@ const CreateCategory = () => {
                     </div>
                 ) : null}
             </form>
-        </>
+        </div>
     );
 };
 

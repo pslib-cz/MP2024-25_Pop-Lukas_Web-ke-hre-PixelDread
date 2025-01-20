@@ -51,7 +51,7 @@ const Content = () => {
         <div key={blog.id}>
           <h2>{blog.name}</h2>
           {blog.content ? (
-        <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+        <div style={{width: "400px"}} dangerouslySetInnerHTML={{ __html: blog.content }} />
         ) : (
           <p>No content available</p>
         )}

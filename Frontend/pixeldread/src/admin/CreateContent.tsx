@@ -119,7 +119,7 @@ const CreateContent = () => {
           <h2>Review</h2>
             <p>Name: {draft.name}</p>
             <p>Categories: {draft.categories.map((category) => category.name).join(", ")}</p>
-            <p>Content: {draft.content}</p>
+            <p style={{maxWidth: "400px"}}>Content: {draft.content}</p>
             <p>Title: {draft.ogData.title}</p>
             <p>Media: {draft.ogData.media ? "Uploaded" : "Not uploaded"}</p> 
             <button onClick={handleDeleteMedia}>Delete Media</button>

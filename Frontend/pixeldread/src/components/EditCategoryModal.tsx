@@ -1,24 +1,40 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Category } from '../types';
+import { api_url } from '../BlogContext';
 
-// Modal component for editing category
 interface EditCategoryModalProps {
-    show: boolean;
-    category: Category | null;
-    onClose: () => void;
-    onSave: (id: number, newName: string) => void;
+  show: boolean;
+  category: Category | null;
+  onClose: () => void;
+  onSave: (id: number, newName: string) => void;
+  onDelete?: () => void;
 }
-const EditCategoryModal = ({ show, category, onClose, onSave }:EditCategoryModalProps) => {
+
+const EditCategoryModal: React.FC<EditCategoryModalProps> = ({ 
+  show, 
+  category, 
+  onClose, 
+  onSave, 
+  onDelete 
+}) => {
+
   const [newName, setNewName] = useState(category?.name || '');
 
   useEffect(() => {
-    console.log('category:', category);
-    setNewName(category?.name || '');
+    if (category) {
+      setNewName(category.name || '');
+    }
   }, [category]);
 
   const handleSave = () => {
     if (category) {
       onSave(category.id, newName);
+    }
+  };
+
+  const handleDelete = () => {
+    if (onDelete) {
+      onDelete();
     }
   };
 
@@ -36,10 +52,15 @@ const EditCategoryModal = ({ show, category, onClose, onSave }:EditCategoryModal
             onChange={(e) => setNewName(e.target.value)}
           />
         </label>
-        <button onClick={handleSave}>Save</button>
+        <button onClick={handleDelete}>Delete</button>
+      <div>
         <button onClick={onClose}>Cancel</button>
+
+        <button onClick={handleSave}>Save</button>
+      </div>
       </div>
     </div>
   );
 };
+
 export default EditCategoryModal;

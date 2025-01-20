@@ -1,3 +1,8 @@
 export default function Statistics() {
-    return <h1>Statistics</h1>;
+    return (
+      <div className="container column">
+        <h1>Statistics</h1>
+        <p>Coming soon...</p>
+      </div>
+    );
   }

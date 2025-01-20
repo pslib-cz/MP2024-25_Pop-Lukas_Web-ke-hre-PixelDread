@@ -92,48 +92,6 @@
     ]
   },
   {
-    "ContainingType": "PixelDread.Controllers.AdminController",
-    "Method": "UpdateEmail",
-    "RelativePath": "api/Admin/UpdateEmail/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
-        "IsRequired": true
-      },
-      {
-        "Name": "emailModel",
-        "Type": "PixelDread.Controllers.AdminController\u002BUpdateEmailModel",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.AdminController",
-    "Method": "UpdatePassword",
-    "RelativePath": "api/Admin/UpdatePassword/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
-        "IsRequired": true
-      },
-      {
-        "Name": "passwordModel",
-        "Type": "PixelDread.Controllers.AdminController\u002BUpdatePasswordModel",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "PixelDread.Controllers.BlogController",
     "Method": "GetBlogs",
     "RelativePath": "api/Blog",
