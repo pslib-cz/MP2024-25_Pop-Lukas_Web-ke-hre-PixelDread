@@ -57,7 +57,6 @@ const Content = () => {
         )}
           <p>Visibility: {blog.visibility.toString()}</p>
           <p>Date: {blog.date.toLocaleString()}</p>
-          <p>Author: {blog.author}</p>
         </div>
       ))}
     </div>

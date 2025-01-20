@@ -51,34 +51,7 @@ namespace PixelDread.Controllers
             }
             return admin;
         }
-        [HttpPut]
-        [Route("UpdatePassword/{id}")]
-        public async Task<IActionResult> UpdatePassword(string id, [FromBody] UpdatePasswordModel passwordModel)
-        {
-            var user = await _context.Users.FindAsync(id);
-            if(user == null)
-            {
-                return NotFound();
-            }
-            user.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(user, passwordModel.NewPassword);
-            await _context.SaveChangesAsync();
-            return Ok();
-        }
-        [HttpPut]
-        [Route("UpdateEmail/{id}")]
-        public async Task<IActionResult> UpdateEmail(string id, [FromBody] UpdateEmailModel emailModel)
-        {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            user.Email = emailModel.NewEmail;
-            user.NormalizedEmail = emailModel.NewEmail.ToUpper();
-            await _context.SaveChangesAsync();
-            return Ok();
-        }
-
+        
         [HttpDelete]
         [Route("DeleteAdmin/{id}")]
         public async Task<ActionResult<IdentityUser>> DeleteAdmin(string id)

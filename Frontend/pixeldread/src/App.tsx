@@ -10,7 +10,7 @@ import CreateContent from './admin/CreateContent.tsx';
 import Login from './pages/Login.tsx';
 import FAQ from './pages/FAQ.tsx';
 import PatchNotes from './pages/PatchNotes.tsx';
-import Blog from './pages/Blog.tsx';
+import BlogList from './pages/BlogList.tsx';
 import Admins from './admin/Admins.tsx';
 import GDPR from './pages/Gdpr.tsx';
 import Cookies from './pages/Cookies.tsx';
@@ -98,7 +98,7 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog" element={<BlogList />} />
           <Route path='/faq' element={<FAQ />} />
           <Route path="/patchnotes" element={<PatchNotes />} />
           <Route path="/login" element={<Login/>} />
