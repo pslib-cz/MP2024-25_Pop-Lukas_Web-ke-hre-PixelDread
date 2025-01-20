@@ -6,15 +6,13 @@
   background-color: var(--bg);
 }
 .logincontainer > form {
-  display: flex;
-  flex-direction: column;
   padding: 1em 2em;
   background-color: var(--item-bg);
   border-radius: 10px;
   box-shadow: 0 0 10px 0 var(--details-bg);
 }
-.logincontainer > form > div {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
+form > div {
+  display: flex;
+  flex-direction: column;
+  margin: 1em 0;
 }

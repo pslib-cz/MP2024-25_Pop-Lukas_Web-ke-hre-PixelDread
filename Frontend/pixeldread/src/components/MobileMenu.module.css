@@ -41,6 +41,9 @@
     color: var(--primary-color-lighter);
     text-decoration: none;
 }
+.last {
+    margin-bottom: 2%;
+}
 
 .mobileMenu h2 {
     text-align: center;

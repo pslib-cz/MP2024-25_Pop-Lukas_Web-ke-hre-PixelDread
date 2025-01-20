@@ -50,12 +50,13 @@ const CreateCategory = () => {
 
     return (
         <>
+        
             <form onSubmit={formik.handleSubmit}>
                 <div className='container'>
                     <h1>Create Category</h1>
                     <div className='line'></div>
 
-                    <div>
+                    <div className='inputWithLabel'>
                         <label htmlFor="name">Category Name:</label>
                         <input
                             placeholder='Enter category name'

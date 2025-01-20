@@ -57,7 +57,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                     </li>
                 </Link>
 
-                <Link to="createContent" onClick={onClose}>
+                <Link to="createContent" onClick={onClose} className={styles.last}>
 
                     <li>
                         <svg xmlns="http://www.w3.org/2000/svg" width={iconWidth} height={iconHeight} viewBox="0 0 24 24"><g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M8 12h8m-4-4v8"/></g></svg>
@@ -65,10 +65,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                     </li>
                 </Link>
 
-                <div className={styles.divider}></div>
-                <div onClick={onClose}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M20 20L4 4m16 0L4 20"/></svg>            
-                </div>
                 
                 </ul>
         </div>
