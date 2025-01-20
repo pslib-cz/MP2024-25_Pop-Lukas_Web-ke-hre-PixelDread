@@ -156,3 +156,4 @@ C:\Users\lukas\Downloads\PixelDread\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\Ba
 C:\Users\lukas\Downloads\PixelDread\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\Backend\PixelDread\PixelDread\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\lukas\Downloads\PixelDread\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\Backend\PixelDread\PixelDread\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\lukas\Downloads\PixelDread\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\Backend\PixelDread\PixelDread\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\lukas\Downloads\PixelDread\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\Backend\PixelDread\PixelDread\bin\Debug\net9.0\BouncyCastle.Crypto.dll

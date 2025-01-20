@@ -3,10 +3,13 @@ import { Category } from '../types';
 import { api_url } from '../BlogContext';
 import { useNavigate } from 'react-router-dom';
 import EditCategoryModal from '../components/EditCategoryModal';
+import { BlogContext } from '../BlogContext';
+import { useContext } from 'react';
 
 // Modal component for editing category
 
 const Categories = () => {
+  const {state} = useContext(BlogContext);
   const [categories, setCategories] = useState<Category[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
@@ -42,6 +45,8 @@ const Categories = () => {
     try {
       const response = await fetch(`${api_url}/Categories/DeleteCategory/${id}`, {
         method: 'DELETE',
+        headers: { 'Content-Type': 'application/json',
+        'Authorization': `Bearer ${state.userToken}`},
       });
 
       if (!response.ok) {
@@ -59,7 +64,9 @@ const Categories = () => {
     try {
       const response = await fetch(`${api_url}/Categories/PutCategory/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json',
+        'Authorization': `Bearer ${state.userToken}`
+         },
         body: JSON.stringify({ name: newName, id }),
       });
 

@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { BlogContext, api_url } from "../BlogContext";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styles from './Login.module.css';
 import '../index.css';
@@ -9,6 +10,7 @@ const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const { state, dispatch } = useContext(BlogContext);
 
@@ -31,24 +33,12 @@ const Login: React.FC = () => {
         },
         body: JSON.stringify({ email, password }), 
       })
-        
-      const response2 = await fetch(`${api_url}/Admin/CurrentUserId`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${state.userToken}`,
-        },
-      });
-
+    
       if (!response.ok) {
         throw new Error("Login failed. Please check your credentials.");
       }
-      if (!response2.ok) {
-        throw new Error("Failed to get user ID.");
-      }
       
       const data = await response.json();
-      const data2 = await response2.json();
 
       dispatch({
         type: 'LOGIN',
@@ -58,12 +48,7 @@ const Login: React.FC = () => {
           token: data.accessToken,
         },
       });
-      dispatch({
-        type: 'SET_USER_ID',
-        payload: data2,
-      });
-
-      console.log("Login successful:", data, state);
+      navigate("/admin/content");
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
@@ -73,6 +58,7 @@ const Login: React.FC = () => {
     } finally {
       setLoading(false);
     }
+
   };
   
 
@@ -87,7 +73,7 @@ const Login: React.FC = () => {
         <div>
           <p>Logged in as: {state.email}</p>
           <button onClick={handleLogout}>Logout</button>
-          <Link to="/admin">Admin</Link>
+          <Link to="/admin/content">Admin</Link>
         </div>
       ) : (
         <form onSubmit={handleSubmit}>

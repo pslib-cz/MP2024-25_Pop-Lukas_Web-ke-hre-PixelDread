@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Crypto.Generators;
 using PixelDread.Data;
 
 namespace PixelDread.Controllers
 {
+    [Authorize(Policy = "AdminPolicy")]
 
     [Route("api/[controller]")]
-    [Authorize(Policy = "AdminPolicy")]
 
     [ApiController]
     public class AdminController : ControllerBase
@@ -20,38 +21,64 @@ namespace PixelDread.Controllers
             _context = context;
         }
 
-        // GET: api/Admin
         [HttpGet]
         public async Task<ActionResult<IEnumerable<IdentityUser>>> GetAdmins()
         {
             return await _context.Users.ToListAsync();
         }
+
         [HttpGet]
         [Route("CurrentUserId")]
         public ActionResult<string> GetCurrentUserId()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
             if (userId == null)
             {
                 return NotFound("User ID not found.");
             }
             return Ok(userId);
         }
-
-        // PUT: api/UpdateAdmin/{id}
-        [HttpPut]
-        [Route("UpdateAdmin/{id}")]
-        public async Task<ActionResult<IdentityUser>> UpdateAdmin(string id, IdentityUser admin)
+        // GET: api/GetAdmin/{id}
+        [HttpGet]
+        [Route("GetAdmin/{id}")]
+        public async Task<ActionResult<IdentityUser>> GetAdmin(string id)
         {
-            if (id != admin.Id)
+            var admin = await _context.Users.FindAsync(id);
+            if (admin == null)
             {
-                return BadRequest();
+                return NotFound();
             }
-            _context.Entry(admin).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
             return admin;
         }
-        // DELETE: api/DeleteAdmin/{id}
+        [HttpPut]
+        [Route("UpdatePassword/{id}")]
+        public async Task<IActionResult> UpdatePassword(string id, [FromBody] UpdatePasswordModel passwordModel)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if(user == null)
+            {
+                return NotFound();
+            }
+            user.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(user, passwordModel.NewPassword);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+        [HttpPut]
+        [Route("UpdateEmail/{id}")]
+        public async Task<IActionResult> UpdateEmail(string id, [FromBody] UpdateEmailModel emailModel)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            user.Email = emailModel.NewEmail;
+            user.NormalizedEmail = emailModel.NewEmail.ToUpper();
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
         [HttpDelete]
         [Route("DeleteAdmin/{id}")]
         public async Task<ActionResult<IdentityUser>> DeleteAdmin(string id)
@@ -66,6 +93,15 @@ namespace PixelDread.Controllers
             return admin;
         }
 
+        public class UpdateEmailModel
+        {
+            public string NewEmail { get; set; }
+        }
+
+        public class UpdatePasswordModel
+        {
+            public string NewPassword { get; set; }
+        }
     }
 
 }

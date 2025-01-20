@@ -9,7 +9,7 @@ type ReducerAction =
 | { type: 'LOGOUT'; }
 | { type: 'LOAD'; newState: BlogState; }
 
-| { type: 'SET_USER_ID'; payload: number; }
+| { type: 'SET_ADMIN_ID'; payload: string; }
 
 | { type: 'SET_DRAFT_CATEGORIES'; payload: Category[]; }
 | { type: 'SET_DRAFT_NAME'; payload: string; }
@@ -108,7 +108,7 @@ const blogReducer = (state: BlogState, action: ReducerAction): BlogState => {
                 ...state,
                 step: action.payload,
             };
-        case 'SET_USER_ID':
+        case 'SET_ADMIN_ID':
             return {
                 ...state,
                 adminId: action.payload

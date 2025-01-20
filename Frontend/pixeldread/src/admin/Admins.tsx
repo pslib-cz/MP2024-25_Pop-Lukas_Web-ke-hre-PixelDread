@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
-
+import { useEffect, useState, useContext } from "react";
 import { api_url } from "../BlogContext";
-import { useEffect, useState } from "react";
-import { Admin } from "../types";
-import { useContext } from "react";
 import { BlogContext } from "../BlogContext";
+import { Admin } from "../types";
 
 const Admins = () => {
-    const { state } = useContext(BlogContext);
-    const [admins, setAdmins] = useState([]);
+    const { state, dispatch } = useContext(BlogContext);
+    const [admins, setAdmins] = useState<Admin[]>([]);
+
     useEffect(() => {
         const fetchAdmins = async () => {
             try {
@@ -21,23 +20,59 @@ const Admins = () => {
                 });
 
                 if (!response.ok) {
-                    console.error('Failed to fetch admins');
+                    console.error(`Failed to fetch admins. Status: ${response.status}`);
                     return;
                 }
 
-                const data = await response.json();
-                setAdmins(data);
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.includes("application/json")) {
+                    const data = await response.json();
+                    setAdmins(data);
+                } else {
+                    console.error("Unexpected response format:", await response.text());
+                }
             } catch (error) {
                 console.error('Error fetching admins:', error);
             }
         };
 
+        const fetchAdminId = async () => {
+            try {
+                const response = await fetch(`${api_url}/Admin/CurrentUserId`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${state.userToken}`,
+                    }
+                });
+        
+                if (!response.ok) {
+                    console.error(`Failed to fetch admin ID. Status: ${response.status}`);
+                    return;
+                }
+        
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.includes("application/json")) {
+                    // If it's JSON, parse it.
+                    const data = await response.json();
+                    dispatch({ type: 'SET_ADMIN_ID', payload: data });
+                } else {
+                    // Otherwise, treat it as plain text (e.g., a GUID).
+                    const adminId = await response.text();
+                    dispatch({ type: 'SET_ADMIN_ID', payload: adminId });
+                }
+            } catch (error) {
+                console.error('Error fetching admin ID:', error);
+            }
+        };
+        
+
         fetchAdmins();
+        fetchAdminId();
+    }, [state.userToken, dispatch]);
 
-    }, [state.userToken]);
-
-    const handleDelete = async (id: number) => {
-        if (id === state.adminId) {
+    const handleDelete = async (id: string) => {
+        if (id == state.adminId) {
             alert("You cannot delete your own account.");
             return;
         }
@@ -45,6 +80,7 @@ const Admins = () => {
         if (!window.confirm("Are you sure you want to delete this admin?")) {
             return;
         }
+
         try {
             const response = await fetch(`${api_url}/Admin/DeleteAdmin/${id}`, {
                 method: 'DELETE',
@@ -53,26 +89,31 @@ const Admins = () => {
                     'Authorization': `Bearer ${state.userToken}`,
                 },
             });
+
             if (!response.ok) {
-                console.error('Failed to delete admin');
+                console.error(`Failed to delete admin. Status: ${response.status}`);
                 return;
             }
-            setAdmins(admins.filter((admin: Admin) => admin.id !== id));
+
+            setAdmins((prevAdmins) => prevAdmins.filter((admin) => admin.id !== id));
         } catch (error) {
             console.error('Error deleting admin:', error);
         }
-    }
+    };
 
     return (
         <div>
             <h1>Admins</h1>
-            {admins.map((admin: Admin) => (
+            {admins.map((admin) => (
                 <div key={admin.id}>
-                    <span>{admin.email}</span><button onClick={() => handleDelete(admin.id)}>Delete</button>
+                    <p>{admin.email}</p>
+                    <button onClick={() => handleDelete(admin.id)}>Delete</button>
                 </div>
             ))}
+            
             <Link to="/admin/createAdmin">Create Admin</Link>
         </div>
     );
-}
+};
+
 export default Admins;
