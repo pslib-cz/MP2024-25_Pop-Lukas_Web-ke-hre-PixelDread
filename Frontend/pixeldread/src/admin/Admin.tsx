@@ -29,6 +29,7 @@ export default function Admin() {
           <PixelDreadIcon />
           <Hamburger onClick={handleClick} setIsOpen={setIsOpen} isOpen={isOpen} />
         </nav>
+        <div className="filler"></div>
         <div className="adminContainer">
           <Outlet />
           <MobileMenu isOpen={isOpen} onClose={handleClick}/>

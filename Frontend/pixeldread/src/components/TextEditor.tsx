@@ -42,7 +42,7 @@ const TextEditor: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="text-editor">
       <div ref={editorRef} style={{ height: "300px" }}></div>
     </div>
   );

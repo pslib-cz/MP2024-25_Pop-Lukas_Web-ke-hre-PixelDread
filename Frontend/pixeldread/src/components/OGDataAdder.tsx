@@ -64,42 +64,54 @@ const OGDataAdder = () => {
     }
   };
   return (
-    <div>
+    <div className="adder">
+      <div className="inputWithLabel">
       <label>
-        Title:{" "}
+        Title:
+      </label>
         <input
           type="text"
           name="title"
           value={draft.ogData.title}
           onChange={handleInputChange}
         />
-      </label>
+      </div>
+
+      <div className="inputWithLabel">
       <label>
-        Description:{" "}
+        Description:
+      </label>
         <input
           type="text"
           name="description"
           value={draft.ogData.description}
           onChange={handleInputChange}
         />
-      </label>
+      </div>
+      <div className="inputWithLabel">
+        <label>
+          Keywords:
+        </label>
+          <KeywordsAdder />
+      </div>
+
+      <div className="inputWithLabel">
       <label>
-        Keywords:
-        <KeywordsAdder />
+        Slug:
       </label>
-      <label>
-        Slug:{" "}
         <input
           type="text"
           name="slug"
           value={draft.ogData.slug}
           onChange={handleInputChange}
         />
-      </label>
+      </div>
+      <div className="inputWithLabel">
       <label>
-        Media: <input type="file" onChange={handleFileChange} />
+        Media: 
       </label>
-
+        <input type="file" onChange={handleFileChange} />
+      </div>
       
       {fileError && <p style={{ color: "red" }}>{fileError}</p>}
     </div>

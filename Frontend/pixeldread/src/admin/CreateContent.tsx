@@ -84,22 +84,26 @@ const CreateContent = () => {
     dispatch({ type: "SET_STEP", payload: 1 });
   }
   return (
-    <div>
+    <div className="container">
       <h1>Create Content</h1>
+      <div className="line"></div>
       {step === 1 && (
-        <div>
+        <>
           <NameAdder />
           {draft.name.length >= 30 && (
             <p style={{ color: "red" }}>Blog name cannot exceed 30 characters</p>
           )}
+          <div style={{maxWidth: "220px"}} className="inputWithLabel">
+          <label>Categories: </label>
           <CategoryAdder />
+          </div>
           <button onClick={handleDiscard}>Discard</button>
           <button onClick={handleNextStep} disabled={draft.name.length === 0 || draft.categories.length === 0}>
             Next 
           </button>
           {draft.name.length === 0 && <p style={{ color: "red" }}>Blog name is required</p>}
           {draft.categories.length === 0 && <p style={{ color: "red" }}>At least one category is required</p>}
-        </div>)}
+        </>)}
       {step === 2 && (
         <div>
           <TextEditor />
@@ -108,11 +112,15 @@ const CreateContent = () => {
           </div>
       )}
       {step === 3 && (
-        <div>
-          <OGDataAdder />
-          <button onClick={handlePreviousStep}>Back</button>
-          <button onClick={handleNextStep}>Next</button>
-        </div>
+        <>
+          <div style={{maxWidth: "100%"}}>
+            <OGDataAdder />
+          </div>
+          <div>
+            <button onClick={handlePreviousStep}>Back</button>
+            <button onClick={handleNextStep}>Next</button>
+          </div>
+        </>
       )}
       {step === 4 && (
         <div>

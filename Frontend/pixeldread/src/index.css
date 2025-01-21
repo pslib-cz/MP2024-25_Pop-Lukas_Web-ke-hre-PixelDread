@@ -16,6 +16,13 @@
   --text-color-oposite: #FFFFFF;
 }
 
+@font-face {
+  font-family: 'EditUndo';
+  src: url('./assets/fonts/editundo.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -36,7 +43,7 @@ button {
   transition: border-color 0.25s;
 }
 .flexcontainer {
-  height: 100vh;
+  height: calc(100vh - 75px);
   display: flex;
 }
 .column {
@@ -58,11 +65,10 @@ a {
 }
 
 .adminContainer {
-  margin-top: 75px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  height: calc(100vh - 75px);
 }
 
 .container {
@@ -133,8 +139,12 @@ a {
 {
   margin: 0em 2em;
 }
-.navbar-filler{
+.filler{
   height: 75px;
+}
+.text-editor
+{
+  background-color: var(--bg);
 }
 .addbutton {
   display: flex;
@@ -191,6 +201,7 @@ label {
   color: var(--text-color-lighter);
 }
 .form {
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;

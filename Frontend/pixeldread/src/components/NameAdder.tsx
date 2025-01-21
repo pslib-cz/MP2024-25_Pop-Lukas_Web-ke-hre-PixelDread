@@ -11,15 +11,16 @@ const NameAdder: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="inputWithLabel">
       <label>
-        Name:{" "}
+        Name:
+      </label>
         <input
           type="text"
           value={draft?.name}
           onChange={handleInputChange}
         />
-      </label>
+      
     </div>
   );
 };

@@ -1,0 +1,12 @@
+@import "../index.css";
+.heroContainer {
+    background-color: gray;
+
+}
+.heroContainer > h1 {
+    font-family: 'EditUndo', sans-serif;
+    text-align: center;
+    font-size: 4rem;
+    color: var(--text-color-oposite);
+    text-shadow: 6px 6px 0px #000; /* X, Y, bez rozostření, tmavá barva */
+}

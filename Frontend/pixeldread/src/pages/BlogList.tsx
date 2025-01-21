@@ -1,6 +1,6 @@
-import Navbar from "../components/Navbar";
 import { api_url } from "../BlogContext";
 import { BlogContext } from "../BlogContext";
+import PublicNavbar from "../components/PublicNavbar";
 import type { BlogFull } from "../types";
 import { useContext, useEffect, useState } from "react";
 
@@ -29,7 +29,7 @@ const BlogList = () => {
 
   return (
     <>
-      <Navbar />
+      <PublicNavbar />
 
       <h1>Blog view</h1>
       {filteredBlogs.length > 0 ? (

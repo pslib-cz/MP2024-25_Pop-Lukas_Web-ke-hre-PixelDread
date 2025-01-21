@@ -55,7 +55,7 @@ const CategoryAdder: React.FC<CategoryAdderProps> = () => {
   };
 
   return (
-    <div>
+    <div style={{ minWidth: '220px' }}>
       <Select
         value={selectedOptions}
         onChange={handleChange}

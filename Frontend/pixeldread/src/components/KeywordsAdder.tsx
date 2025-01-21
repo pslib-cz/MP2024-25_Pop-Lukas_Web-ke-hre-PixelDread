@@ -25,20 +25,12 @@ const KeywordsAdder: React.FC = () => {
     dispatch({ type: "SET_DRAFT_KEYWORDS", payload: keywords });
   };
 
-  const customStyles = {
-    container: (provided: any) => ({
-      ...provided,
-      marginTop: "1rem",
-      width: "400px",
-    }),
-  };
 
   return (
     <CreatableSelect
       isMulti
       value={selectedOptions}
       onChange={handleChange}
-      styles={customStyles}
       placeholder="Add or type a value..."
       noOptionsMessage={() => "Add new value"}
       formatCreateLabel={(inputValue) => `Create "${inputValue}"`}

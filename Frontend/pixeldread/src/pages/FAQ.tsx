@@ -1,12 +1,13 @@
-import Navbar from "../components/Navbar";
 //fetch data from the backend
+
+import PublicNavbar from "../components/PublicNavbar";
 
 const FAQ = () => {
     
 
     return (
         <div>
-        <Navbar />
+        <PublicNavbar />
         <h1>FAQ</h1>
         <p>Coming soon...</p>
         </div>

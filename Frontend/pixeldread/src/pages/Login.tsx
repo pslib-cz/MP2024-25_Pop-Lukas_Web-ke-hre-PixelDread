@@ -72,8 +72,10 @@ const Login: React.FC = () => {
         {state.isUserLoggedIn ? (
           <div>
             <p>Logged in as: {state.email}</p>
-            <button onClick={handleLogout}>Logout</button>
-            <Link to="/admin/content">Admin</Link>
+          <div className={styles.buttoncontainer}>
+            <button className="addbutton" onClick={() => navigate("/admin/content")}>Go to Content</button>
+            <button className="addbutton" onClick={handleLogout}>Logout</button>
+          </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit}>

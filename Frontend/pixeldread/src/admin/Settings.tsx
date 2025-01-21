@@ -113,8 +113,9 @@ const Settings: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>Settings</h1>
+      <div className="line"></div>
       <button onClick={() => handleOpenModal("email")}>
         Update Email
       </button>

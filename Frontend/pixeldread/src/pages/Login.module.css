@@ -5,14 +5,22 @@
   align-items: center;
   background-color: var(--bg);
 }
-.logincontainer > form {
+.logincontainer > form, .logincontainer > div {
   padding: 1em 2em;
   background-color: var(--item-bg);
   border-radius: 10px;
   box-shadow: 0 0 10px 0 var(--details-bg);
 }
+
 form > div {
   display: flex;
   flex-direction: column;
   margin: 1em 0;
+}
+.buttoncontainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  justify-content: center;
+  margin-top: 1em;
 }

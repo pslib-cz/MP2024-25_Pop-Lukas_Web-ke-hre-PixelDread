@@ -1,14 +1,20 @@
 import { useContext } from "react";
 import { BlogContext } from "../BlogContext";
-import Navbar from "../components/Navbar";
-export default function Home() {
+import styles from "./Home.module.css"
+import PublicNavbar from "../components/PublicNavbar";
+const Home = () => {
 
     return (
     <>
-          <Navbar />
+      <div>
+            <PublicNavbar />
 
-          <h1>PixelDread</h1>
-      
+            <div className={styles.heroContainer}>
+
+            <h1>PIXELDREAD</h1>
+            </div>
+      </div>
     </>
     );
   }
+export default Home
