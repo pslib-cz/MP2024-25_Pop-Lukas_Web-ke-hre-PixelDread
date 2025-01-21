@@ -1,4 +1,5 @@
 #Web ke hře PixelDread
+
 Tato maturitní práce se zaměřuje na vývoj webové aplikace s proprietárním redakčním systémem pro mobilní hru PixelDread. Web zahrnuje následující klíčové funkce:
 
 Blog
