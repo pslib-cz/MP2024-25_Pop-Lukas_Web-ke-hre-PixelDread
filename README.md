@@ -9,7 +9,7 @@
 - Stránku s ochranou osobních údajů
 - FAQ (Často kladené otázky)
 
-Prostředky
+## Prostředky
 - Frontend: React, TypeScript
 - Backend: ASP.NET Core
 - Design: Figma
