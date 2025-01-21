@@ -45,7 +45,7 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5e445507-d9d0-4cf8-88f4-1161f02de0f9",
+                            Id = "27dca933-91d2-4be8-afcb-cf4a1463a7f2",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -140,17 +140,17 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0cb81ad5-acc4-4b45-8f63-71c35d982c4e",
+                            Id = "56b540c9-043c-4505-ac2a-582a088d275a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "de14215c-fbc3-4b85-93b7-c5547a0451e9",
+                            ConcurrencyStamp = "9c1c0411-47ed-48f6-930d-e6620a8c64eb",
                             Email = "lukas@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "LUKAS@GMAIL.COM",
                             NormalizedUserName = "LUKAS@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEO9ZGLr8UZxQ6aOoVEUDjn8tW2B0Pn2vTPSVi8e7+aWG/v8+1DNKNon11O5dgW+biQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJY1AyIoRiKt3eFfjEe2wjhDlXU6mOAyKjdbXNEINn41VLEqhvDyCx1Tr3BzscIz1w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "25931eb4-a00f-4c8e-a63c-8b008a76678f",
+                            SecurityStamp = "5ef564c7-e52f-4d32-94e7-4f3073c46591",
                             TwoFactorEnabled = false,
                             UserName = "lukas@gmail.com"
                         });
@@ -184,7 +184,7 @@ namespace PixelDread.Migrations
                             Id = 1,
                             ClaimType = "Admin",
                             ClaimValue = "true",
-                            UserId = "0cb81ad5-acc4-4b45-8f63-71c35d982c4e"
+                            UserId = "56b540c9-043c-4505-ac2a-582a088d275a"
                         });
                 });
 
@@ -227,8 +227,8 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "0cb81ad5-acc4-4b45-8f63-71c35d982c4e",
-                            RoleId = "5e445507-d9d0-4cf8-88f4-1161f02de0f9"
+                            UserId = "56b540c9-043c-4505-ac2a-582a088d275a",
+                            RoleId = "27dca933-91d2-4be8-afcb-cf4a1463a7f2"
                         });
                 });
 
@@ -335,7 +335,7 @@ namespace PixelDread.Migrations
                         {
                             Id = 3,
                             Basic = true,
-                            Name = "PatchNotes"
+                            Name = "Patch"
                         });
                 });
 

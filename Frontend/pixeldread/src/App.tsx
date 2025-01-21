@@ -9,7 +9,7 @@ import CreateCategory from './admin/CreateCategory.tsx';
 import CreateContent from './admin/CreateContent.tsx';
 import Login from './pages/Login.tsx';
 import FAQ from './pages/FAQ.tsx';
-import PatchNotes from './pages/PatchNotes.tsx';
+import Patches from './pages/Patches.tsx';
 import BlogList from './pages/BlogList.tsx';
 import Admins from './admin/Admins.tsx';
 import GDPR from './pages/Gdpr.tsx';
@@ -121,7 +121,7 @@ function App() {
           <Route  path="/blog" element={<BlogList />} />
           <Route path="/blog/:id" element={<BlogDetails />} />
           <Route path='/faq' element={<FAQ />} />
-          <Route path="/patchnotes" element={<PatchNotes />} />
+          <Route path="/patchnotes" element={<Patches />} />
           <Route path="/login" element={<Login/>} />
           <Route path="/gdpr" element={<GDPR />} />
           <Route path="/cookies" element={<Cookies />} />

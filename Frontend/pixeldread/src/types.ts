@@ -70,6 +70,12 @@ export interface BlogFull {
 
 }
 
+export interface BlogCategory {
+  blogId: number;
+  categoryId: number;
+}
+
+
 export interface Category {
     id: number;
     name: string;

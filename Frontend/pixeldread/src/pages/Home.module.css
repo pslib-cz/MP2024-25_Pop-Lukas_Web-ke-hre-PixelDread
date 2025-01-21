@@ -13,6 +13,7 @@
 .heroContainer > h1 {
     font-family: 'EditUndo', sans-serif;
     text-align: center;
+    font-size: 48px;
     color: var(--text-color-oposite);
-    text-shadow: 6px 6px 0px #000; 
+    text-shadow: 4px 4px 0px #000; 
 }

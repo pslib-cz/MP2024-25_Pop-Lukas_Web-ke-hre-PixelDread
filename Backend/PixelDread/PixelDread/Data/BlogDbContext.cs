@@ -99,7 +99,7 @@ namespace PixelDread.Data
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "Blog", Basic = true },
                 new Category { Id = 2, Name = "FAQ", Basic = true },
-                new Category { Id = 3, Name = "PatchNotes", Basic = true }
+                new Category { Id = 3, Name = "Patch", Basic = true }
             );
         }
 

@@ -1,5 +1,6 @@
 .navbar {
     z-index: 1000; 
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -34,11 +35,24 @@
     font-size: 1.5rem;
     font-family: 'EditUndo', sans-serif;
 }
+
 .mobileMenu ul {
-    margin-top: 50px; 
+    margin-top: 2em;
     list-style: none;
     gap: 1.5em;
     align-items: center;
     display: flex;
     flex-direction: column;
+}
+.mobileMenu ul li {
+    color : var(--primary-color-lighter);
+    justify-content: center;
+    display: flex;
+    gap: .5em;
+    width: 200px;
+    font-size: 24px;
+    font-weight: 400;
+}
+.mobileMenu ul li a:hover {
+    color: var(--primary-color);
 }
