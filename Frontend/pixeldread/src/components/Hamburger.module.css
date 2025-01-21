@@ -56,30 +56,4 @@
   transform: rotate(-45deg);
   top: 10px;
 }
-
-@media (min-width: 400px) {
-  .hamburger {
-    width: 48px;
-    height: 36px;
-  }
-
-  .hamburger span {
-    height: 7px;
-  }
-
-  .hamburger span:nth-child(2) {
-    top: 14px;
-  }
-
-  .hamburger span:nth-child(3) {
-    top: 28px;
-  }
-
-  .hamburger.open span:nth-child(1) {
-    top: 18px;
-  }
-
-  .hamburger.open span:nth-child(3) {
-    top: 18px;
-  }
-}
+  

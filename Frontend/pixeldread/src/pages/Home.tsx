@@ -6,12 +6,13 @@ const Home = () => {
 
     return (
     <>
-      <div>
+      <div className="flex column">
             <PublicNavbar />
 
             <div className={styles.heroContainer}>
 
-            <h1>PIXELDREAD</h1>
+                  <h1>PIXELDREAD</h1>
+      
             </div>
       </div>
     </>

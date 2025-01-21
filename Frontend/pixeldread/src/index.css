@@ -46,6 +46,9 @@ button {
   height: calc(100vh - 75px);
   display: flex;
 }
+.flex {
+  display: flex;
+}
 .column {
   flex-direction: column;
 }
@@ -273,3 +276,4 @@ label {
     font-weight: 700;
   }
 }
+

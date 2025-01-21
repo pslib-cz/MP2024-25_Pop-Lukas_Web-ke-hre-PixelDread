@@ -1,12 +1,18 @@
 @import "../index.css";
 .heroContainer {
-    background-color: gray;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 50px);
+    background-image: url("../../public/Background.png");
+    background-repeat: no-repeat;   
+    background-position: center; 
+    background-size: cover;
 }
 .heroContainer > h1 {
     font-family: 'EditUndo', sans-serif;
     text-align: center;
-    font-size: 4rem;
     color: var(--text-color-oposite);
-    text-shadow: 6px 6px 0px #000; /* X, Y, bez rozostření, tmavá barva */
+    text-shadow: 6px 6px 0px #000; 
 }

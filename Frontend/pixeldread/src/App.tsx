@@ -23,6 +23,18 @@ import * as CookieConsent from "vanilla-cookieconsent";
 import { useEffect } from 'react';
 function App() {
   useEffect(() => {
+    let positionMobile: CookieConsent.ConsentModalPosition = 'bottom center';
+    let positionDesktop: CookieConsent.ConsentModalPosition = 'bottom right';
+    const windowSize = window.innerWidth;
+    
+    let pos;
+    
+    if (windowSize > 480)
+    {
+        pos = positionDesktop
+    }
+    else pos = positionMobile
+
       CookieConsent.run({
         onChange: function({changedCategories, changedServices}) {
           if (changedCategories.includes('analytics')) {
@@ -50,8 +62,15 @@ function App() {
             },
             analytics: {}
         },
+        guiOptions: {
+            consentModal: {
+                position: pos,
+                layout: 'box'
+            }
+        },
         language: {
             default: 'en',
+            
             translations: {
                 en: {
                     consentModal: {
