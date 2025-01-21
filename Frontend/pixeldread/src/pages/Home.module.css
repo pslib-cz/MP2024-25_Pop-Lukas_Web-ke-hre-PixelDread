@@ -4,7 +4,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: calc(100vh - 50px);
+    height: calc(100vh - 75px);
     background-image: url("../../public/Background.png");
     background-repeat: no-repeat;   
     background-position: center; 

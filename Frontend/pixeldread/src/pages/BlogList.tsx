@@ -14,19 +14,15 @@ const BlogCategoryList: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch Blogs
         const blogsResponse = await fetch(`${api_url}/Blog`);
         const blogsData: BlogFull[] = await blogsResponse.json();
 
-        // Fetch Categories
         const categoriesResponse = await fetch(`${api_url}/Categories`);
         const categoriesData: Category[] = await categoriesResponse.json();
 
-        // Fetch BlogCategories
         const blogCategoriesResponse = await fetch(`${api_url}/BlogCategory`);
         const blogCategoriesData: BlogCategory[] = await blogCategoriesResponse.json();
 
-        // Filtrovat blogy podle kategorií
         const excludedCategories = ["FAQ", "Patch"];
         const filteredBlogs = blogsData.filter((blog) => {
           const blogCategoryIds = blogCategories
@@ -56,12 +52,11 @@ const BlogCategoryList: React.FC = () => {
     fetchData();
   }, []);
 
-  // Získání kategorií pro blog
   const getCategoriesForBlog = (blogId: number): string[] => {
     return blogCategories
       .filter((bc) => bc.blogId === blogId)
       .map((bc) => categories.find((c) => c.id === bc.categoryId)?.name || "")
-      .filter(Boolean); // Odstranění prázdných hodnot
+      .filter(Boolean); 
   };
 
   if (blogs.length === 0) {
