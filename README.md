@@ -1,9 +1,23 @@
-# Tohle je moje maturitní práce 
-### tenhle text změním a bude to tady vypadat nádherně a reprezentativně
-[Katalog požadavků](https://pslib-my.sharepoint.com/:w:/g/personal/lukas_pop_021_pslib_cz/EZrSBQFCEfdIgVHRQU2w-cMBUPIYNECkvbUb9ilaTk43cg?e=A3VXRI)
+# Web ke hře PixelDread
 
-[Návrh endpointů](https://pslib-my.sharepoint.com/:x:/g/personal/lukas_pop_021_pslib_cz/EcowdafPZ31BnSbk6yahbj4BMvjsQbOugvnotL5Lat1buA?e=q0jeV7)
+## Tato maturitní práce se zaměřuje na vývoj webové aplikace s proprietárním redakčním systémem pro mobilní hru PixelDread. Web zahrnuje následující klíčové funkce:
+
+- Blog
+- Seznam aktualizací
+- Přihlašovací systém
+- Rozhraní pro správu obsahu
+- Stránku s ochranou osobních údajů
+- FAQ (Často kladené otázky)
+
+## Prostředky
+- Frontend: React, TypeScript
+- Backend: ASP.NET Core
+- Design: Figma
+- Deployment: Docker
+- Hosting: VPS
 
 
 
-<img src="./MP-Pop-v3Diagram.drawio.png"/>
+
+
+<img src="./MP-Pop-v5Diagram.drawio.png"/>
