@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<BlogCategory> BlogCategories { get; set; }
+        public ICollection<PostCategory> BlogCategories { get; set; }
 
     }
 }

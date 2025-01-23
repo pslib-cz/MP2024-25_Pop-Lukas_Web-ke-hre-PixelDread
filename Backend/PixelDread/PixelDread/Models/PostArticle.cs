@@ -1,9 +1,9 @@
 ﻿namespace PixelDread.Models
 {
-    public class BlogArticle
+    public class PostArticle
     {
-        public int BlogId { get; set; }
-        public Blog Blog { get; set; }
+        public int PostId { get; set; }
+        public Post Post { get; set; }
         public int ArticlePartId { get; set; }  
         public ArticleType ArticleType { get; set; }
 

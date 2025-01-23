@@ -12,7 +12,7 @@
 
 
         public int BlogId { get; set; }
-        public Blog Blog { get; set; }
+        public Post Blog { get; set; }
 
     }
 }
