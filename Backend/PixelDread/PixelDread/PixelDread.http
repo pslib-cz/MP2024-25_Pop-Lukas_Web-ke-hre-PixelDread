@@ -1,6 +1,0 @@
-@PixelDread_HostAddress = http://localhost:5056
-
-GET {{PixelDread_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
