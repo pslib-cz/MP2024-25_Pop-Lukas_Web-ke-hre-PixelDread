@@ -2,7 +2,8 @@
 {
     public class ArticleMedia : Article
     {
-        public FileInfo Media { get; set; }
+        public FileInfo FileInfo { get; set; }
+        public int FileInfoId { get; set; }
         public string ? Description { get; set; } 
         public string ? Alt { get; set; }
     }
