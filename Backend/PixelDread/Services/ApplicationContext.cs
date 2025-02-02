@@ -33,7 +33,6 @@ namespace PixelDread.Services
 
             base.OnModelCreating(modelBuilder);
 
-            // Pevně stanovené GUID hodnoty
             var adminRoleGuid = Guid.NewGuid().ToString();
             var firstAdminGuid = Guid.NewGuid().ToString();
             var securityStamp = Guid.NewGuid().ToString();
