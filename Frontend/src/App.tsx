@@ -1,6 +1,8 @@
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
+
 import AdminPage from './admin/AdminPage'
+import AdminLayout from './admin/AdminLayout'
 
 import { Routes, Route } from 'react-router-dom'
 
@@ -10,9 +12,15 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path='/blog' element={<h1>Blog</h1>} />          
+          <Route path='/blog/:id' element={<h1>Blog Post</h1>} />
 
-          <Route path="/admin" element={<AdminPage />}>
-              <Route path="testpage" element={<div>Lol</div>} />
+          <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminPage />} />
+              <Route path="home" element={<HomePage />} />
+              <Route path="login" element={<LoginPage />} />
+              <Route path='blog' element={<h1>Blog</h1>} />
+              <Route path='blog/:id' element={<h1>Blog Post</h1>} />
           </Route>
         </Routes>
     </div>
