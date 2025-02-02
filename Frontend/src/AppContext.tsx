@@ -1,7 +1,7 @@
 import React, { createContext, PropsWithChildren, useReducer } from 'react';
 import { useEffect } from 'react';
 import { AppState } from './Types';
-export const api_url = "https://localhost:7131/api";
+export const api_url = "https://localhost:7256/api";
 
 const defaultState: AppState = {
     token: null,
