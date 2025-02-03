@@ -212,9 +212,8 @@ namespace PixelDread.Migrations
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
                     Visibility = table.Column<bool>(type: "INTEGER", nullable: false),
                     UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    PostCategoryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    OGDataId = table.Column<int>(type: "INTEGER", nullable: true),
-                    CategoryId = table.Column<int>(type: "INTEGER", nullable: true)
+                    CategoryId = table.Column<int>(type: "INTEGER", nullable: true),
+                    OGDataId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -341,12 +340,12 @@ namespace PixelDread.Migrations
             migrationBuilder.InsertData(
                 table: "Admins",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "76d26159-aba5-402a-bfb0-e17148d31b0f", 0, "12b20b1f-5398-4e2a-98b6-dd4782cc0c5b", "lukas@gmail.com", true, false, null, "LUKAS@GMAIL.COM", "LUKAS@GMAIL.COM", "AQAAAAIAAYagAAAAEN1oUHD6IDpV62DYKaC4vDaB0d8Vud1uVskHp164WBmddMDRo2Gh4e6OvM0avJUG4w==", null, false, "58b9ee1a-ce7f-44c0-aa26-a97377940d42", false, "lukas@gmail.com" });
+                values: new object[] { "5338f9c7-430e-409a-af9b-de27f5fde230", 0, "310d9472-06fa-4147-bbcc-9a167d7a19f7", "lukas@gmail.com", true, false, null, "LUKAS@GMAIL.COM", "LUKAS@GMAIL.COM", "AQAAAAIAAYagAAAAEFn3es9ogeDMgbrQm1lF4vH2UiRM73RsY0ZEN9A+PhkiQSPQ2+X+PaoLI2RsVbnLJQ==", null, false, "870c80af-6a0c-43d8-82e9-2741e78e2e52", false, "lukas@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "48838764-4ca5-413e-a263-1a1622d9358b", null, "Admin", "ADMIN" });
+                values: new object[] { "5cc189de-d54b-45db-bd96-b499a4527ef7", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
@@ -361,12 +360,12 @@ namespace PixelDread.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserClaims",
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "UserId" },
-                values: new object[] { 1, "Admin", "true", "76d26159-aba5-402a-bfb0-e17148d31b0f" });
+                values: new object[] { 1, "Admin", "true", "5338f9c7-430e-409a-af9b-de27f5fde230" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "48838764-4ca5-413e-a263-1a1622d9358b", "76d26159-aba5-402a-bfb0-e17148d31b0f" });
+                values: new object[] { "5cc189de-d54b-45db-bd96-b499a4527ef7", "5338f9c7-430e-409a-af9b-de27f5fde230" });
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",

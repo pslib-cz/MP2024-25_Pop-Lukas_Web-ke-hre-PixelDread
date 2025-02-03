@@ -5,14 +5,13 @@ using System.Threading.Tasks;
 using PixelDread.Models;
 using PixelDread.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PixelDread.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
     public class PostController : ControllerBase
-
     {
         private readonly ApplicationContext _context;
         private readonly UserManager<IdentityUser> _userManager;
@@ -21,7 +20,6 @@ namespace PixelDread.Controllers
         {
             _context = context;
             _userManager = userManager;
-
         }
 
         // GET: api/Post
@@ -36,10 +34,12 @@ namespace PixelDread.Controllers
         public async Task<ActionResult<Post>> GetPost(int id)
         {
             var post = await _context.Posts.FindAsync(id);
+
             if (post == null)
             {
                 return NotFound();
             }
+
             return post;
         }
 
@@ -47,9 +47,26 @@ namespace PixelDread.Controllers
         [HttpPost]
         public async Task<ActionResult<Post>> PostPost(Post post)
         {
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user != null)
+            {
+                post.UserId = user.Id; // Nastavení ID uživatele, který vytvořil příspěvek
+                post.User = user;  // Přiřazení uživatele jako autora
+            }
+            else
+            {
+                post.UserId = null;
+                post.User = null; // Pokud není přihlášený uživatel, autor bude null
+            }
+
+            post.CreatedAt = DateTime.UtcNow;
+
             _context.Posts.Add(post);
             await _context.SaveChangesAsync();
-            return CreatedAtAction("GetPost", new { id = post.Id }, post);
+
+            return CreatedAtAction(nameof(GetPost), new { id = post.Id }, post);
         }
+
     }
 }

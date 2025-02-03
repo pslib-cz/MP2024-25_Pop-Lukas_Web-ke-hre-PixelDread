@@ -5,6 +5,130 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/Category": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Category"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Category"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Category"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Category/{id}": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/register": {
       "post": {
         "tags": [
@@ -492,6 +616,171 @@
           }
         }
       }
+    },
+    "/api/PostTag": {
+      "get": {
+        "tags": [
+          "PostTag"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PostTag"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PostTag"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PostTag"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "PostTag"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostTag"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostTag"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostTag"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostTag"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostTag"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostTag"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/PostTag/{PostId}": {
+      "get": {
+        "tags": [
+          "PostTag"
+        ],
+        "parameters": [
+          {
+            "name": "PostId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PostTag"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PostTag"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PostTag"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/PostTag/{PostId}/{TagId}": {
+      "delete": {
+        "tags": [
+          "PostTag"
+        ],
+        "parameters": [
+          {
+            "name": "PostId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "TagId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -524,55 +813,26 @@
         },
         "additionalProperties": false
       },
-      "Article": {
+      "Category": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
             "format": "int32"
           },
-          "postId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "postArticle": {
-            "$ref": "#/components/schemas/PostArticle"
-          }
-        },
-        "additionalProperties": false
-      },
-      "ArticleType": {
-        "enum": [
-          1,
-          2,
-          3,
-          4
-        ],
-        "type": "integer",
-        "format": "int32"
-      },
-      "FileInfo": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "fileName": {
+          "name": {
             "type": "string",
             "nullable": true
           },
-          "filePath": {
-            "type": "string",
+          "default": {
+            "type": "boolean",
             "nullable": true
           },
-          "fileSize": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "uploadedAt": {
-            "type": "string",
-            "format": "date-time",
+          "posts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Post"
+            },
             "nullable": true
           }
         },
@@ -752,39 +1012,11 @@
         },
         "additionalProperties": false
       },
-      "OGData": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "fileInfo": {
-            "$ref": "#/components/schemas/FileInfo"
-          },
-          "fileInfoId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "postId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "post": {
-            "$ref": "#/components/schemas/Post"
-          }
-        },
-        "additionalProperties": false
-      },
       "Post": {
+        "required": [
+          "name",
+          "visibility"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -792,8 +1024,8 @@
             "format": "int32"
           },
           "name": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -815,58 +1047,15 @@
             "type": "string",
             "nullable": true
           },
-          "postCategoryId": {
+          "categoryId": {
             "type": "integer",
-            "format": "int32"
-          },
-          "postTags": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PostTag"
-            },
-            "nullable": true
-          },
-          "postArticles": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PostArticle"
-            },
+            "format": "int32",
             "nullable": true
           },
           "ogDataId": {
             "type": "integer",
             "format": "int32",
             "nullable": true
-          },
-          "ogData": {
-            "$ref": "#/components/schemas/OGData"
-          }
-        },
-        "additionalProperties": false
-      },
-      "PostArticle": {
-        "type": "object",
-        "properties": {
-          "postId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "post": {
-            "$ref": "#/components/schemas/Post"
-          },
-          "articleId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "article": {
-            "$ref": "#/components/schemas/Article"
-          },
-          "articleType": {
-            "$ref": "#/components/schemas/ArticleType"
-          },
-          "order": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false

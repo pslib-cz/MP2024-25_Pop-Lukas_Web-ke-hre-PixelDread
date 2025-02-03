@@ -1,4 +1,6 @@
-﻿namespace PixelDread.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace PixelDread.Models
 {
     public class OGData
     {
