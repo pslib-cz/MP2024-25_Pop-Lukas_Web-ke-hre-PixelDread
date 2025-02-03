@@ -14,9 +14,9 @@ namespace PixelDread.Models
         public string ? UserId { get; set; }
 
         public int PostCategoryId { get; set; }
-        public List<PostTag> PostTags { get; set; }
-        public List<PostArticle> PostArticles { get; set; }
-        public int OGDataId { get; set; }
-        public OGData OGData { get; set; }
+        public List<PostTag> PostTags { get; set; } = new List<PostTag>();
+        public List<PostArticle> PostArticles { get; set; } = new List<PostArticle>();
+        public int ? OGDataId { get; set; }
+        public OGData ? OGData { get; set; }
     }
 }

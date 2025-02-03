@@ -6,7 +6,7 @@
         public string Name { get; set; }
         public bool ? Default { get; set; }
 
-        public ICollection<Post> Posts { get; set; }
+        public ICollection<Post> Posts { get; set; } = new List<Post>();
 
     }
 }
