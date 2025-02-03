@@ -3,8 +3,9 @@
     public enum ArticleType
     {
         Text = 1,
-        Image = 2,
+        Media = 2,
         Link = 3,
-        Video = 4
+        FAQ = 4
     }
+
 }

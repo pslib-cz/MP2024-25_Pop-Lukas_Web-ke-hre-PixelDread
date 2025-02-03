@@ -1,6 +1,6 @@
 ﻿namespace PixelDread.Models
 {
-    public class FileInfo
+    public class FileInformations
     {
         public int Id { get; set; }
         public string FileName { get; set; }

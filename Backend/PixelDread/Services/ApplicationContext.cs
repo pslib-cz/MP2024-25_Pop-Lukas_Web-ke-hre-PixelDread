@@ -17,15 +17,19 @@ namespace PixelDread.Services
 
         public DbSet<Post> Posts { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public OGData OGData { get; set; }
+        public DbSet<OGData> OGDatas { get; set; }
         public DbSet<Tag> Tags { get; set; }
+
         public DbSet<PostTag> PostTags { get; set; }
         public DbSet<PostArticle> PostArticles { get; set; }
+
         public DbSet<Article> Articles { get; set; }
         public DbSet<ArticleFAQ> ArticleFAQs { get; set; }
         public DbSet<ArticleLink> ArticleLinks { get; set; }
         public DbSet<ArticleMedia> ArticleMedias { get; set; }
         public DbSet<ArticleText> ArticleTexts { get; set; }
+
+        public DbSet<FileInformations> FileInformations { get; set; }
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -52,15 +56,15 @@ namespace PixelDread.Services
 
             // OGData
             modelBuilder.Entity<OGData>()
-                .HasOne(o => o.FileInfo)
+                .HasOne(o => o.FileInformations)
                 .WithOne()
-                .HasForeignKey<OGData>(o => o.FileInfoId);
+                .HasForeignKey<OGData>(o => o.FileInformationsId);
 
             // ArticleMedia
             modelBuilder.Entity<ArticleMedia>()
                 .HasOne(a => a.FileInfo)
                 .WithOne()
-                .HasForeignKey<ArticleMedia>(a => a.FileInfoId);
+                .HasForeignKey<ArticleMedia>(a => a.FileInformationsId);
 
             // PostTag
             modelBuilder.Entity<PostTag>()
@@ -90,8 +94,8 @@ namespace PixelDread.Services
 
             modelBuilder.Entity<PostArticle>()
                 .HasOne(pa => pa.Article)
-                .WithOne(a => a.PostArticle)
-                .HasForeignKey<PostArticle>(pa => pa.ArticleId)
+                .WithMany()
+                .HasForeignKey(pa => pa.ArticleId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // ArticleTypes

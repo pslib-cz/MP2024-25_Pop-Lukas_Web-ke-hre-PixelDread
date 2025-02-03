@@ -67,7 +67,7 @@ namespace PixelDread.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FileInfo",
+                name: "FileInformations",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -79,7 +79,7 @@ namespace PixelDread.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FileInfo", x => x.Id);
+                    table.PrimaryKey("PK_FileInformations", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -243,7 +243,7 @@ namespace PixelDread.Migrations
                     Answer = table.Column<string>(type: "TEXT", nullable: true),
                     url = table.Column<string>(type: "TEXT", nullable: true),
                     placeholder = table.Column<string>(type: "TEXT", nullable: true),
-                    FileInfoId = table.Column<int>(type: "INTEGER", nullable: true),
+                    FileInformationsId = table.Column<int>(type: "INTEGER", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     Alt = table.Column<string>(type: "TEXT", nullable: true),
                     Content = table.Column<string>(type: "TEXT", nullable: true)
@@ -252,35 +252,35 @@ namespace PixelDread.Migrations
                 {
                     table.PrimaryKey("PK_Articles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Articles_FileInfo_FileInfoId",
-                        column: x => x.FileInfoId,
-                        principalTable: "FileInfo",
+                        name: "FK_Articles_FileInformations_FileInformationsId",
+                        column: x => x.FileInformationsId,
+                        principalTable: "FileInformations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "OGData",
+                name: "OGDatas",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
-                    FileInfoId = table.Column<int>(type: "INTEGER", nullable: false),
+                    FileInformationsId = table.Column<int>(type: "INTEGER", nullable: false),
                     PostId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OGData", x => x.Id);
+                    table.PrimaryKey("PK_OGDatas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OGData_FileInfo_FileInfoId",
-                        column: x => x.FileInfoId,
-                        principalTable: "FileInfo",
+                        name: "FK_OGDatas_FileInformations_FileInformationsId",
+                        column: x => x.FileInformationsId,
+                        principalTable: "FileInformations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OGData_Posts_PostId",
+                        name: "FK_OGDatas_Posts_PostId",
                         column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "Id",
@@ -340,12 +340,12 @@ namespace PixelDread.Migrations
             migrationBuilder.InsertData(
                 table: "Admins",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "5338f9c7-430e-409a-af9b-de27f5fde230", 0, "310d9472-06fa-4147-bbcc-9a167d7a19f7", "lukas@gmail.com", true, false, null, "LUKAS@GMAIL.COM", "LUKAS@GMAIL.COM", "AQAAAAIAAYagAAAAEFn3es9ogeDMgbrQm1lF4vH2UiRM73RsY0ZEN9A+PhkiQSPQ2+X+PaoLI2RsVbnLJQ==", null, false, "870c80af-6a0c-43d8-82e9-2741e78e2e52", false, "lukas@gmail.com" });
+                values: new object[] { "eb06583d-3d26-4732-a191-d5e9af5eeccd", 0, "0dcdf4e7-edcf-4702-ab7a-e8e1294b2183", "lukas@gmail.com", true, false, null, "LUKAS@GMAIL.COM", "LUKAS@GMAIL.COM", "AQAAAAIAAYagAAAAEPKj4NKuu5G5b6KKyDNIa94ZUE3xRFzjIX/dQoYSjjpzS0h93EXb3ssWEi+KA/xdkQ==", null, false, "27b26122-e989-4ee1-a120-2002dd721419", false, "lukas@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "5cc189de-d54b-45db-bd96-b499a4527ef7", null, "Admin", "ADMIN" });
+                values: new object[] { "7564cf80-99ee-4902-be08-8cb9fa50ef41", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
@@ -360,12 +360,12 @@ namespace PixelDread.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserClaims",
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "UserId" },
-                values: new object[] { 1, "Admin", "true", "5338f9c7-430e-409a-af9b-de27f5fde230" });
+                values: new object[] { 1, "Admin", "true", "eb06583d-3d26-4732-a191-d5e9af5eeccd" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "5cc189de-d54b-45db-bd96-b499a4527ef7", "5338f9c7-430e-409a-af9b-de27f5fde230" });
+                values: new object[] { "7564cf80-99ee-4902-be08-8cb9fa50ef41", "eb06583d-3d26-4732-a191-d5e9af5eeccd" });
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
@@ -379,9 +379,9 @@ namespace PixelDread.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Articles_FileInfoId",
+                name: "IX_Articles_FileInformationsId",
                 table: "Articles",
-                column: "FileInfoId",
+                column: "FileInformationsId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -411,22 +411,21 @@ namespace PixelDread.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OGData_FileInfoId",
-                table: "OGData",
-                column: "FileInfoId",
+                name: "IX_OGDatas_FileInformationsId",
+                table: "OGDatas",
+                column: "FileInformationsId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_OGData_PostId",
-                table: "OGData",
+                name: "IX_OGDatas_PostId",
+                table: "OGDatas",
                 column: "PostId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PostArticles_ArticleId",
                 table: "PostArticles",
-                column: "ArticleId",
-                unique: true);
+                column: "ArticleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_CategoryId",
@@ -463,7 +462,7 @@ namespace PixelDread.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "OGData");
+                name: "OGDatas");
 
             migrationBuilder.DropTable(
                 name: "PostArticles");
@@ -484,7 +483,7 @@ namespace PixelDread.Migrations
                 name: "Tags");
 
             migrationBuilder.DropTable(
-                name: "FileInfo");
+                name: "FileInformations");
 
             migrationBuilder.DropTable(
                 name: "Admins");

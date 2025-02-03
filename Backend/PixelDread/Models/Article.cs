@@ -5,6 +5,5 @@
         public int Id { get; set; }
         public int PostId { get; set; }
 
-        public PostArticle PostArticle { get; set; }
     }
 }

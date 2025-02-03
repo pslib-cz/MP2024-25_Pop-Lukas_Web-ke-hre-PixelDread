@@ -1,11 +1,11 @@
 import Navbar from "../components/Navbar"
 
-const HomePage = () => {
+const BlogPage = () => {
     return (
         <div>
             <Navbar />
-            <h2>Home Page</h2>
+            <h2>Blog Page</h2>
         </div>
     )
 }
-export default HomePage
+export default BlogPage
