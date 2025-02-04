@@ -1,11 +1,6 @@
-import Navbar from "../components/Navbar"
-
 const HomePage = () => {
-    return (
-        <div>
-            <Navbar />
-            <h2>Home Page</h2>
-        </div>
-    )
-}
-export default HomePage
+    return <h1>Welcome to PixelDread CMS</h1>;
+  };
+  
+  export default HomePage;
+  

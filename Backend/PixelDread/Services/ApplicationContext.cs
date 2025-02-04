@@ -62,7 +62,7 @@ namespace PixelDread.Services
 
             // ArticleMedia
             modelBuilder.Entity<ArticleMedia>()
-                .HasOne(a => a.FileInfo)
+                .HasOne(a => a.FileInformations)
                 .WithOne()
                 .HasForeignKey<ArticleMedia>(a => a.FileInformationsId);
 

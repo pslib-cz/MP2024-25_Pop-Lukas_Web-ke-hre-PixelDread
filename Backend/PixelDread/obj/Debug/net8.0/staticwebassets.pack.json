@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\8e4945ea-f48f-4186-8e17-dd41655d0186_shamrock-malphite-malphite.png",
+      "PackagePath": "staticwebassets\\uploads\\8e4945ea-f48f-4186-8e17-dd41655d0186_shamrock-malphite-malphite.png"
+    },
+    {
+      "Id": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite.png",
+      "PackagePath": "staticwebassets\\uploads\\912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.PixelDread.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.PixelDread.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.PixelDread.props",
+      "PackagePath": "build\\PixelDread.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.PixelDread.props",
+      "PackagePath": "buildMultiTargeting\\PixelDread.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.PixelDread.props",
+      "PackagePath": "buildTransitive\\PixelDread.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -1,0 +1,28 @@
+﻿<Project>
+  <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/PixelDread/uploads/8e4945ea-f48f-4186-8e17-dd41655d0186_shamrock-malphite-malphite.bd9fpt7dav.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\8e4945ea-f48f-4186-8e17-dd41655d0186_shamrock-malphite-malphite.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"bd9fpt7dav"},{"Name":"integrity","Value":"sha256-L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4="},{"Name":"label","Value":"_content/PixelDread/uploads/8e4945ea-f48f-4186-8e17-dd41655d0186_shamrock-malphite-malphite.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"112376"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=\u0022"},{"Name":"Last-Modified","Value":"Tue, 04 Feb 2025 07:38:44 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/PixelDread/uploads/8e4945ea-f48f-4186-8e17-dd41655d0186_shamrock-malphite-malphite.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\8e4945ea-f48f-4186-8e17-dd41655d0186_shamrock-malphite-malphite.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"112376"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=\u0022"},{"Name":"Last-Modified","Value":"Tue, 04 Feb 2025 07:38:44 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/PixelDread/uploads/912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite.bd9fpt7dav.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"bd9fpt7dav"},{"Name":"integrity","Value":"sha256-L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4="},{"Name":"label","Value":"_content/PixelDread/uploads/912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"112376"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=\u0022"},{"Name":"Last-Modified","Value":"Tue, 04 Feb 2025 08:27:04 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/PixelDread/uploads/912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"112376"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=\u0022"},{"Name":"Last-Modified","Value":"Tue, 04 Feb 2025 08:27:04 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+  </ItemGroup>
+</Project>
