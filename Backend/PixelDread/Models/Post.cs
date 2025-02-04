@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
-namespace PixelDread.Models
+ namespace PixelDread.Models
 {
     public class Post
     {
@@ -24,18 +24,14 @@ namespace PixelDread.Models
 
         public int? CategoryId { get; set; }
 
-        [JsonIgnore]
         public Category? Category { get; set; }
 
-        [JsonIgnore]
         public List<PostTag> PostTags { get; set; } = new List<PostTag>();
 
-        [JsonIgnore]
         public List<PostArticle> PostArticles { get; set; } = new List<PostArticle>();
 
         public int? OGDataId { get; set; }
 
-        [JsonIgnore]
         public OGData? OGData { get; set; }
     }
 }
