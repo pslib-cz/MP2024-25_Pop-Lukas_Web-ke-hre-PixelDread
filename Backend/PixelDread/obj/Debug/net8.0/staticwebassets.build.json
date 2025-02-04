@@ -1,12 +1,20 @@
 {
   "Version": 1,
-  "Hash": "dzVh1J3aZjf6yk1jAu/CtGBpOde7+fA8Et48u8lwZdo=",
+  "Hash": "teVuSISwIFIQM7+qmzNSDhLoOAkyhd/Ye7OGbvcRgss=",
   "Source": "PixelDread",
   "BasePath": "_content/PixelDread",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "PixelDread\\wwwroot",
+      "Source": "PixelDread",
+      "ContentRoot": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\",
+      "BasePath": "_content/PixelDread",
+      "Pattern": "**"
+    }
+  ],
   "Assets": [],
   "Endpoints": []
 }
