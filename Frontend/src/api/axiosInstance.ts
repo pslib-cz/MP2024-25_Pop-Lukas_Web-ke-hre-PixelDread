@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_URL = "https://localhost:7256/api"; // Uprav podle backendu
+export const API_URL = "https://localhost:7256/api"; // Upravte podle backendu
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
   },
 });
 
-// ✅ Přidání tokenu do všech požadavků
+// Přidání tokenu do všech požadavků
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {

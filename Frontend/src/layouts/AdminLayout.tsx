@@ -1,16 +1,15 @@
-import { Navigate, Outlet } from "react-router-dom";
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import styles from "./AdminLayout.module.css";
 
 const AdminLayout: React.FC = () => {
-  const token = localStorage.getItem("token");
-
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
-
   return (
-    <div>
-      <h1>Admin Dashboard</h1>
-      <Outlet />
+    <div className={styles["admin-layout"]}>
+      <Navbar />
+      <main className={styles["admin-layout__content"]}>
+        <Outlet />
+      </main>
     </div>
   );
 };

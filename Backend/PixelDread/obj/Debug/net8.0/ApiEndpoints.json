@@ -1,182 +1,5 @@
 [
   {
-    "ContainingType": "ArticleController",
-    "Method": "CreateArticle",
-    "RelativePath": "api/articles",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "articleDto",
-        "Type": "PixelDread.DTO.CreateArticleDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ArticleController",
-    "Method": "GetAllArticles",
-    "RelativePath": "api/articles",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ArticleController",
-    "Method": "AttachArticleToPost",
-    "RelativePath": "api/articles/{articleId}/attach-to-post/{postId}",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "articleId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "postId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "order",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ArticleController",
-    "Method": "GetArticleById",
-    "RelativePath": "api/articles/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ArticleController",
-    "Method": "UpdateArticle",
-    "RelativePath": "api/articles/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "articleDto",
-        "Type": "PixelDread.DTO.CreateArticleDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ArticleController",
-    "Method": "DeleteArticle",
-    "RelativePath": "api/articles/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.CategoryController",
-    "Method": "GetCategories",
-    "RelativePath": "api/Category",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[PixelDread.Models.Category, PixelDread, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.CategoryController",
-    "Method": "PostCategory",
-    "RelativePath": "api/Category",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "category",
-        "Type": "PixelDread.Models.Category",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "PixelDread.Models.Category",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.CategoryController",
-    "Method": "GetCategory",
-    "RelativePath": "api/Category/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "PixelDread.Models.Category",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
     "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__1\u00601[[Microsoft.AspNetCore.Identity.IdentityUser, Microsoft.Extensions.Identity.Stores, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]",
     "Method": "\u003CMapCustomIdentityApi\u003Eb__1_4",
     "RelativePath": "api/confirmEmail",
@@ -235,16 +58,6 @@
     "Parameters": [
       {
         "Name": "Title",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "Description",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "Alt",
         "Type": "System.String",
         "IsRequired": false
       },
@@ -449,237 +262,44 @@
     ]
   },
   {
-    "ContainingType": "PixelDread.Controllers.OGDataController",
-    "Method": "GetOGData",
-    "RelativePath": "api/ogdata",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[PixelDread.Models.OGData, PixelDread, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.OGDataController",
-    "Method": "CreateOGData",
-    "RelativePath": "api/ogdata",
+    "ContainingType": "PixelDread.Controllers.PostController",
+    "Method": "CreatePost",
+    "RelativePath": "api/Post",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "ogData",
-        "Type": "PixelDread.Models.OGData",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "PixelDread.Models.OGData",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.OGDataController",
-    "Method": "GetOGDataById",
-    "RelativePath": "api/ogdata/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "PixelDread.Models.OGData",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.OGDataController",
-    "Method": "UpdateOGData",
-    "RelativePath": "api/ogdata/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
+        "Name": "Name",
+        "Type": "System.String",
+        "IsRequired": false
       },
       {
-        "Name": "ogData",
-        "Type": "PixelDread.Models.OGData",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.OGDataController",
-    "Method": "DeleteOGData",
-    "RelativePath": "api/ogdata/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
+        "Name": "Articles",
+        "Type": "System.Collections.Generic.List\u00601[[PixelDread.DTO.ArticleDto, PixelDread, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": false
+      },
       {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.OGDataController",
-    "Method": "GetOGDataBySlug",
-    "RelativePath": "api/ogdata/slug/{slug}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
+        "Name": "CategoryId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
       {
-        "Name": "slug",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
+        "Name": "TagIds",
+        "Type": "System.Collections.Generic.List\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
       {
-        "Type": "PixelDread.Models.OGData",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.PostController",
-    "Method": "GetPosts",
-    "RelativePath": "api/Post",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[PixelDread.Models.Post, PixelDread, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.PostController",
-    "Method": "PostPost",
-    "RelativePath": "api/Post",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "post",
-        "Type": "PixelDread.Models.Post",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "PixelDread.Models.Post",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "PostArticleController",
-    "Method": "AttachArticleToPost",
-    "RelativePath": "api/post-articles/attach",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "postArticleDto",
-        "Type": "PixelDread.DTO.PostArticleDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PostArticleController",
-    "Method": "DetachArticleFromPost",
-    "RelativePath": "api/post-articles/detach",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "postArticleDto",
-        "Type": "PixelDread.DTO.PostArticleDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PostArticleController",
-    "Method": "GetArticlesByPost",
-    "RelativePath": "api/post-articles/post/{postId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "postId",
-        "Type": "System.Int32",
-        "IsRequired": true
+        "Name": "OGDataId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
   },
   {
     "ContainingType": "PixelDread.Controllers.PostController",
-    "Method": "GetPost",
+    "Method": "GetPostById",
     "RelativePath": "api/Post/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -687,109 +307,6 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "PixelDread.Models.Post",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.PostTagController",
-    "Method": "GetPostTags",
-    "RelativePath": "api/PostTag",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[PixelDread.Models.PostTag, PixelDread, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.PostTagController",
-    "Method": "PostPostTag",
-    "RelativePath": "api/PostTag",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "postTag",
-        "Type": "PixelDread.Models.PostTag",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "PixelDread.Models.PostTag",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.PostTagController",
-    "Method": "GetPostTags",
-    "RelativePath": "api/PostTag/{PostId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "PostId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[PixelDread.Models.PostTag, PixelDread, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "PixelDread.Controllers.PostTagController",
-    "Method": "DeletePostTag",
-    "RelativePath": "api/PostTag/{PostId}/{TagId}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "PostId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "TagId",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -899,116 +416,5 @@
         "StatusCode": 400
       }
     ]
-  },
-  {
-    "ContainingType": "TagController",
-    "Method": "CreateTag",
-    "RelativePath": "api/tags",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "tagDto",
-        "Type": "PixelDread.DTO.TagDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "TagController",
-    "Method": "GetAllTags",
-    "RelativePath": "api/tags",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "TagController",
-    "Method": "GetTagById",
-    "RelativePath": "api/tags/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "TagController",
-    "Method": "UpdateTag",
-    "RelativePath": "api/tags/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "tagDto",
-        "Type": "PixelDread.DTO.TagDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "TagController",
-    "Method": "DeleteTag",
-    "RelativePath": "api/tags/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "TagController",
-    "Method": "AssignTagToPost",
-    "RelativePath": "api/tags/assign",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "postTagDto",
-        "Type": "PixelDread.DTO.PostTagDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "TagController",
-    "Method": "RemoveTagFromPost",
-    "RelativePath": "api/tags/remove",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "postTagDto",
-        "Type": "PixelDread.DTO.PostTagDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
   }
 ]

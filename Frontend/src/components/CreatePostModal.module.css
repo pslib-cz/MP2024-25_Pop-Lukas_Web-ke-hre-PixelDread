@@ -1,4 +1,5 @@
-/* Modal Overlay */
+/* src/components/CreatePostModal.module.css */
+
 .create-post-modal__overlay {
     position: fixed;
     top: 0;
@@ -11,7 +12,6 @@
     align-items: center;
   }
   
-  /* Modal Container */
   .create-post-modal {
     background: white;
     padding: 20px;
@@ -20,11 +20,15 @@
     max-width: 90%;
   }
   
-  /* Modal Header */
   .create-post-modal__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  
+  .create-post-modal__title {
+    font-size: 24px;
+    margin: 0;
   }
   
   .create-post-modal__close-button {
@@ -34,7 +38,21 @@
     cursor: pointer;
   }
   
-  /* Article Type Selection */
+  .create-post-modal__form-group {
+    margin-bottom: 15px;
+  }
+  
+  .create-post-modal__label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .create-post-modal__input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+  }
+  
   .create-post-modal__article-type-selection {
     display: flex;
     gap: 10px;
@@ -56,19 +74,20 @@
     border-color: #007bff;
   }
   
-  /* Form Groups */
-  .create-post-modal__form-group {
-    margin-bottom: 15px;
+  .create-post-modal__article-list {
+    margin: 15px 0;
+    max-height: 300px;
+    overflow-y: auto;
   }
   
-  .create-post-modal__form-group input,
-  .create-post-modal__form-group textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
+  .create-post-modal__article-item {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 5px;
+    border-radius: 4px;
+    background: #f1f1f1;
   }
   
-  /* Modal Footer */
   .create-post-modal__footer {
     display: flex;
     justify-content: flex-end;

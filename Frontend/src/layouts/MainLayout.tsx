@@ -1,11 +1,15 @@
+import React from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import styles from "./MainLayout.module.css";
 
-const MainLayout = () => {
+const MainLayout: React.FC = () => {
   return (
-    <div>
+    <div className={styles["main-layout"]}>
       <Navbar />
-      <Outlet />
+      <main className={styles["main-layout__content"]}>
+        <Outlet />
+      </main>
     </div>
   );
 };

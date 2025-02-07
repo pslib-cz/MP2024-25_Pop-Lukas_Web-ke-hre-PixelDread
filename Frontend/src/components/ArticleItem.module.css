@@ -1,0 +1,26 @@
+/* src/components/ArticleItem.module.css */
+
+.article-item {
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+  
+  .article-item__title {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+  }
+  
+  .article-item__content {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  .article-item__image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  

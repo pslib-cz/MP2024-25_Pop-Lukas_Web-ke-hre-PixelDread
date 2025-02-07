@@ -2,8 +2,8 @@
 {
     public class ArticleLink : Article
     {
-        public string url { get; set; }
-        public string ? placeholder { get; set; }
+        public string Url { get; set; }
+        public string ? Placeholder { get; set; }
 
     }
 }

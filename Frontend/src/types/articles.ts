@@ -28,4 +28,3 @@ export interface ArticleMedia extends Article {
   description?: string;
   alt?: string;
 }
-

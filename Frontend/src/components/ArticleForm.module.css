@@ -1,4 +1,5 @@
-/* Article Form Container */
+/* src/components/ArticleForm.module.css */
+
 .article-form {
     display: flex;
     flex-direction: column;
@@ -9,31 +10,27 @@
     background: #f9f9f9;
   }
   
-  /* Input Group */
   .article-form__group {
     display: flex;
     flex-direction: column;
   }
   
-  .article-form__group label {
+  .article-form__label {
     font-weight: bold;
     margin-bottom: 5px;
   }
   
-  .article-form__group input,
-  .article-form__group textarea {
+  .article-form__input {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
   
-  /* File Upload */
-  .article-form__group input[type="file"] {
+  .article-form__input[type="file"] {
     border: none;
   }
   
-  /* Add Button */
   .article-form__add-button {
     background: #007bff;
     color: white;

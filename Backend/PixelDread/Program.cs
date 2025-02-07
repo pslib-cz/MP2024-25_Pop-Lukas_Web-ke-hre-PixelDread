@@ -23,17 +23,19 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>(options =>
     .AddEntityFrameworkStores<ApplicationContext>();
 
 builder.Services.AddControllers()
-        .AddJsonOptions(options =>
-        {
-            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-            options.JsonSerializerOptions.MaxDepth = 2;
-        });
+    .AddJsonOptions(options =>
+    {
+        // Povolení zpracování cyklických referencí
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+        // Zvýšení maximální hloubky (výchozí je 64), aby se zabránilo chybì pøi pøíliš hlubokém objektovém grafu
+        options.JsonSerializerOptions.MaxDepth = 64;
+    });
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("MyCors", builder =>
+    options.AddPolicy("MyCors", policyBuilder =>
     {
-        builder.WithOrigins("http://localhost:5173")
+        policyBuilder.WithOrigins("http://localhost:5173")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
@@ -41,6 +43,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminPolicy", policy =>
@@ -54,16 +57,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseCors("MyCors");
 
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapControllers();
 
+// Používáme vlastní mapování Identity API – ujistìte se, že MapCustomIdentityApi<TUser>() je správnì implementováno
 app.MapGroup("/api").MapCustomIdentityApi<IdentityUser>();
 
 app.Run();

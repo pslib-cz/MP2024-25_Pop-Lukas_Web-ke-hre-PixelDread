@@ -8,20 +8,17 @@ interface ArticleFormProps {
 }
 
 const ArticleForm: React.FC<ArticleFormProps> = ({ type, onSave }) => {
-  const [formData, setFormData] = useState<Article>({
-    type,
-    order: 0,
-  });
+  const [formData, setFormData] = useState<any>({ type, order: 0 });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev: any) => ({ ...prev, [name]: value }));
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setFormData((prev) => ({ ...prev, file }));
+      setFormData((prev: any) => ({ ...prev, file }));
     }
   };
 
@@ -33,47 +30,47 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ type, onSave }) => {
     <div className={styles["article-form"]}>
       {type === "text" && (
         <div className={styles["article-form__group"]}>
-          <label>Content</label>
-          <textarea name="content" onChange={handleChange} />
+          <label className={styles["article-form__label"]}>Content</label>
+          <textarea name="content" onChange={handleChange} className={styles["article-form__input"]} />
         </div>
       )}
       {type === "faq" && (
         <>
           <div className={styles["article-form__group"]}>
-            <label>Question</label>
-            <input type="text" name="question" onChange={handleChange} />
+            <label className={styles["article-form__label"]}>Question</label>
+            <input type="text" name="question" onChange={handleChange} className={styles["article-form__input"]} />
           </div>
           <div className={styles["article-form__group"]}>
-            <label>Answer</label>
-            <textarea name="answer" onChange={handleChange} />
+            <label className={styles["article-form__label"]}>Answer</label>
+            <textarea name="answer" onChange={handleChange} className={styles["article-form__input"]} />
           </div>
         </>
       )}
       {type === "link" && (
         <>
           <div className={styles["article-form__group"]}>
-            <label>URL</label>
-            <input type="text" name="url" onChange={handleChange} />
+            <label className={styles["article-form__label"]}>URL</label>
+            <input type="text" name="url" onChange={handleChange} className={styles["article-form__input"]} />
           </div>
           <div className={styles["article-form__group"]}>
-            <label>Placeholder (Optional)</label>
-            <input type="text" name="placeholder" onChange={handleChange} />
+            <label className={styles["article-form__label"]}>Placeholder (Optional)</label>
+            <input type="text" name="placeholder" onChange={handleChange} className={styles["article-form__input"]} />
           </div>
         </>
       )}
       {type === "media" && (
         <>
           <div className={styles["article-form__group"]}>
-            <label>Upload File</label>
-            <input type="file" onChange={handleFileChange} />
+            <label className={styles["article-form__label"]}>Upload File</label>
+            <input type="file" onChange={handleFileChange} className={styles["article-form__input"]} />
           </div>
           <div className={styles["article-form__group"]}>
-            <label>Description</label>
-            <input type="text" name="description" onChange={handleChange} />
+            <label className={styles["article-form__label"]}>Description</label>
+            <input type="text" name="description" onChange={handleChange} className={styles["article-form__input"]} />
           </div>
           <div className={styles["article-form__group"]}>
-            <label>Alt Text</label>
-            <input type="text" name="alt" onChange={handleChange} />
+            <label className={styles["article-form__label"]}>Alt Text</label>
+            <input type="text" name="alt" onChange={handleChange} className={styles["article-form__input"]} />
           </div>
         </>
       )}
