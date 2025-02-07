@@ -13,7 +13,7 @@ export const login = async (email: string, password: string): Promise<boolean> =
     const response = await axios.post<AuthResponse>(`${API_URL}/login`, { email, password });
 
     if (response.data && response.data.accessToken) {
-      const token = `${response.data.tokenType} ${response.data.accessToken}`;
+      const token = `${response.data.tokenType} ${response.data.accessToken}`; 
       localStorage.setItem("token", token);
       return true;
     } else {
@@ -22,7 +22,7 @@ export const login = async (email: string, password: string): Promise<boolean> =
     }
   } catch (error: any) {
     console.error("Login failed:", error.response?.data || error.message);
-    return false;
+    return false; 
   }
 };
 

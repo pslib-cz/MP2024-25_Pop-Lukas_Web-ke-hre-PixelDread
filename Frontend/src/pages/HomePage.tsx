@@ -1,6 +1,14 @@
-const HomePage = () => {
-    return <h1>Welcome to PixelDread CMS</h1>;
-  };
-  
-  export default HomePage;
-  
+import React from "react";
+import CreatePost from "../components/CreatePost";
+
+const Home: React.FC = () => {
+
+  return (
+    <div>
+      <h1>Pixel Dread</h1>
+      <CreatePost />
+    </div>
+  );
+};
+
+export default Home;

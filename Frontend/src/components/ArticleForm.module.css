@@ -1,0 +1,50 @@
+/* Article Form Container */
+.article-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+  }
+  
+  /* Input Group */
+  .article-form__group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .article-form__group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .article-form__group input,
+  .article-form__group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* File Upload */
+  .article-form__group input[type="file"] {
+    border: none;
+  }
+  
+  /* Add Button */
+  .article-form__add-button {
+    background: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .article-form__add-button:hover {
+    background: #0056b3;
+  }
+  

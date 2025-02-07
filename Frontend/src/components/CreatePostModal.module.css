@@ -1,0 +1,92 @@
+/* Modal Overlay */
+.create-post-modal__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Modal Container */
+  .create-post-modal {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+  }
+  
+  /* Modal Header */
+  .create-post-modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .create-post-modal__close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  /* Article Type Selection */
+  .create-post-modal__article-type-selection {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .create-post-modal__article-type-button {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid #ddd;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .create-post-modal__article-type-button--active {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+  
+  /* Form Groups */
+  .create-post-modal__form-group {
+    margin-bottom: 15px;
+  }
+  
+  .create-post-modal__form-group input,
+  .create-post-modal__form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Modal Footer */
+  .create-post-modal__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  .create-post-modal__cancel-button {
+    background: #ccc;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .create-post-modal__save-button {
+    background: #007bff;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+  }
+  

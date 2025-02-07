@@ -1,9 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
 
 const AdminLayout: React.FC = () => {
-  const isAdmin = !!localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
-  if (!isAdmin) {
+  if (!token) {
     return <Navigate to="/login" />;
   }
 
