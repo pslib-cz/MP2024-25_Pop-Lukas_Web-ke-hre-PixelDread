@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
-import styles from "./CreatePostModal.module.css";
 import { Article, ArticleType } from "../types/articles";
 import ArticleForm from "./ArticleForm";
 
@@ -43,38 +42,43 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave
   if (!show) return null;
 
   return (
-    <div className={styles["create-post-modal__overlay"]}>
-      <div className={styles["create-post-modal"]}>
-        <div className={styles["create-post-modal__header"]}>
-          <h2 className={styles["create-post-modal__title"]}>Create New Post</h2>
-          <button
-            className={styles["create-post-modal__close-button"]}
-            onClick={() => {
-              resetForm();
-              onClose();
-            }}
-          >
-            &times;
-          </button>
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        background: "rgba(0,0,0,0.5)",
+      }}
+    >
+      <div
+        style={{
+          background: "white",
+          padding: "20px",
+          margin: "auto",
+          maxWidth: "400px",
+        }}
+      >
+        <div>
+          <h2>Create New Post</h2>
+          <button onClick={() => { resetForm(); onClose(); }}>&times;</button>
         </div>
-        <div className={styles["create-post-modal__form-group"]}>
-          <label className={styles["create-post-modal__label"]}>Post Name (Optional)</label>
+        <div>
+          <label>Post Name (Optional)</label>
           <input
             type="text"
             placeholder="Enter post name..."
             value={postName}
             onChange={(e) => setPostName(e.target.value)}
-            className={styles["create-post-modal__input"]}
           />
         </div>
-        <div className={styles["create-post-modal__article-type-selection"]}>
+        <div>
           {(["text", "faq", "link", "media"] as ArticleType[]).map((type) => (
             <div
               key={type}
-              className={`${styles["create-post-modal__article-type-button"]} ${
-                selectedType === type ? styles["create-post-modal__article-type-button--active"] : ""
-              }`}
               onClick={() => setSelectedType(type)}
+              style={{ cursor: "pointer", margin: "5px 0" }}
             >
               {type.toUpperCase()}
             </div>
@@ -84,7 +88,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave
         <DragDropContext onDragEnd={handleDragEnd}>
           <Droppable droppableId="articles">
             {(provided) => (
-              <div {...provided.droppableProps} ref={provided.innerRef} className={styles["create-post-modal__article-list"]}>
+              <div {...provided.droppableProps} ref={provided.innerRef}>
                 {articles.map((article, index) => (
                   <Draggable key={index} draggableId={index.toString()} index={index}>
                     {(provided) => (
@@ -92,7 +96,12 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        className={styles["create-post-modal__article-item"]}
+                        style={{
+                          border: "1px solid #ccc",
+                          padding: "5px",
+                          marginBottom: "5px",
+                          ...provided.draggableProps.style,
+                        }}
                       >
                         <strong>{article.type.toUpperCase()}:</strong> {JSON.stringify(article)}
                       </div>
@@ -104,13 +113,9 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave
             )}
           </Droppable>
         </DragDropContext>
-        <div className={styles["create-post-modal__footer"]}>
-          <button className={styles["create-post-modal__cancel-button"]} onClick={() => { resetForm(); onClose(); }}>
-            Cancel
-          </button>
-          <button className={styles["create-post-modal__save-button"]} onClick={handleSubmit} disabled={articles.length === 0}>
-            Create Post
-          </button>
+        <div>
+          <button onClick={() => { resetForm(); onClose(); }}>Cancel</button>{" "}
+          <button onClick={handleSubmit} disabled={articles.length === 0}>Create Post</button>
         </div>
       </div>
     </div>

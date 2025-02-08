@@ -1,6 +1,19 @@
 import React, { useState } from "react";
-import styles from "./ArticleForm.module.css";
 import { Article, ArticleType } from "../types/articles";
+
+// Definice vlastního typu, který zahrnuje všechny možné klíče z jednotlivých typů článků.
+interface ArticleFormData {
+  type: ArticleType;
+  order: number;
+  content?: string;
+  question?: string;
+  answer?: string;
+  url?: string;
+  placeholder?: string;
+  file?: File;
+  description?: string;
+  alt?: string;
+}
 
 interface ArticleFormProps {
   type: ArticleType;
@@ -8,75 +21,76 @@ interface ArticleFormProps {
 }
 
 const ArticleForm: React.FC<ArticleFormProps> = ({ type, onSave }) => {
-  const [formData, setFormData] = useState<any>({ type, order: 0 });
+  const [formData, setFormData] = useState<ArticleFormData>({ type, order: 0 });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData((prev: any) => ({ ...prev, [name]: value }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setFormData((prev: any) => ({ ...prev, file }));
+      setFormData(prev => ({ ...prev, file }));
     }
   };
 
   const handleSubmit = () => {
-    onSave({ ...formData, order: 0 });
+    // Předáváme data, která by měla odpovídat jednomu z typů článku
+    onSave(formData as Article);
   };
 
   return (
-    <div className={styles["article-form"]}>
+    <div>
       {type === "text" && (
-        <div className={styles["article-form__group"]}>
-          <label className={styles["article-form__label"]}>Content</label>
-          <textarea name="content" onChange={handleChange} className={styles["article-form__input"]} />
+        <div>
+          <label>Content</label>
+          <textarea name="content" onChange={handleChange} />
         </div>
       )}
       {type === "faq" && (
         <>
-          <div className={styles["article-form__group"]}>
-            <label className={styles["article-form__label"]}>Question</label>
-            <input type="text" name="question" onChange={handleChange} className={styles["article-form__input"]} />
+          <div>
+            <label>Question</label>
+            <input type="text" name="question" onChange={handleChange} />
           </div>
-          <div className={styles["article-form__group"]}>
-            <label className={styles["article-form__label"]}>Answer</label>
-            <textarea name="answer" onChange={handleChange} className={styles["article-form__input"]} />
+          <div>
+            <label>Answer</label>
+            <textarea name="answer" onChange={handleChange} />
           </div>
         </>
       )}
       {type === "link" && (
         <>
-          <div className={styles["article-form__group"]}>
-            <label className={styles["article-form__label"]}>URL</label>
-            <input type="text" name="url" onChange={handleChange} className={styles["article-form__input"]} />
+          <div>
+            <label>URL</label>
+            <input type="text" name="url" onChange={handleChange} />
           </div>
-          <div className={styles["article-form__group"]}>
-            <label className={styles["article-form__label"]}>Placeholder (Optional)</label>
-            <input type="text" name="placeholder" onChange={handleChange} className={styles["article-form__input"]} />
+          <div>
+            <label>Placeholder (Optional)</label>
+            <input type="text" name="placeholder" onChange={handleChange} />
           </div>
         </>
       )}
       {type === "media" && (
         <>
-          <div className={styles["article-form__group"]}>
-            <label className={styles["article-form__label"]}>Upload File</label>
-            <input type="file" onChange={handleFileChange} className={styles["article-form__input"]} />
+          <div>
+            <label>Upload File</label>
+            <input type="file" onChange={handleFileChange} />
           </div>
-          <div className={styles["article-form__group"]}>
-            <label className={styles["article-form__label"]}>Description</label>
-            <input type="text" name="description" onChange={handleChange} className={styles["article-form__input"]} />
+          <div>
+            <label>Description</label>
+            <input type="text" name="description" onChange={handleChange} />
           </div>
-          <div className={styles["article-form__group"]}>
-            <label className={styles["article-form__label"]}>Alt Text</label>
-            <input type="text" name="alt" onChange={handleChange} className={styles["article-form__input"]} />
+          <div>
+            <label>Alt Text</label>
+            <input type="text" name="alt" onChange={handleChange} />
           </div>
         </>
       )}
-      <button className={styles["article-form__add-button"]} onClick={handleSubmit}>
-        Add Article
-      </button>
+      <button onClick={handleSubmit}>Add Article</button>
     </div>
   );
 };

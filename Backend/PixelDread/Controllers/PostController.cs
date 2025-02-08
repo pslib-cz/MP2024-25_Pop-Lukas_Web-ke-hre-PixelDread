@@ -29,6 +29,20 @@ namespace PixelDread.Controllers
             _env = env;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
+        {
+            var posts = await _context.Posts
+                .Include(p => p.Category)
+                .Include(p => p.User)
+                .Include(p => p.PostTags).ThenInclude(pt => pt.Tag)
+                .Include(p => p.PostArticles).ThenInclude(pa => pa.Article)
+                .Include(p => p.OGData).ThenInclude(og => og.FileInformations)
+                .ToListAsync();
+
+            return Ok(posts);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreatePost([FromForm] PostDto postDto)
         {
@@ -214,3 +228,7 @@ namespace PixelDread.Controllers
         }
     }
 }
+
+
+
+

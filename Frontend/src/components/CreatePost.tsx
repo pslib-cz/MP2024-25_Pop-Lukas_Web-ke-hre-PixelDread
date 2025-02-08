@@ -28,12 +28,10 @@ const CreatePost: React.FC = () => {
     const formData = new FormData();
     formData.append("Name", postData.name || "");
 
-    // Přidáme volitelné položky, pokud jsou předány a nejsou nulové (např. 0)
     if (postData.categoryId && postData.categoryId !== 0) {
       formData.append("CategoryId", postData.categoryId.toString());
     }
     if (postData.tagIds && postData.tagIds.length > 0) {
-      // Pokud API očekává pole, lze poslat každý tag zvlášť, např. tagIds[0], tagIds[1], ...
       postData.tagIds.forEach((tagId, index) => {
         formData.append(`TagIds[${index}]`, tagId.toString());
       });
@@ -43,10 +41,8 @@ const CreatePost: React.FC = () => {
     }
 
     postData.articles.forEach((article, index) => {
-      // Použijeme mapování typu na odpovídající číslo
       formData.append(`Articles[${index}][type]`, mapArticleTypeToEnum(article.type));
       formData.append(`Articles[${index}][order]`, article.order.toString());
-
       switch (article.type) {
         case "text": {
           const textArticle = article as ArticleText;
@@ -95,10 +91,8 @@ const CreatePost: React.FC = () => {
   };
 
   return (
-    <div className="create-post">
-      <button className="create-post__button" onClick={() => setShowModal(true)}>
-        Create Post
-      </button>
+    <div>
+      <button onClick={() => setShowModal(true)}>Create Post</button>
       {showModal && <CreatePostModal show={showModal} onClose={() => setShowModal(false)} onSave={handleSavePost} />}
     </div>
   );

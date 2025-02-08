@@ -1,9 +1,23 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import styles from "./AdminLayout.module.css";
 
 const AdminLayout: React.FC = () => {
+  // Získání tokenu z localStorage (nebo použij stavovou správu jako Redux)
+  const token = localStorage.getItem("token");
+
+  // Pokud uživatel není přihlášený, zobrazíme hlášku
+  if (!token) {
+    return (
+      <div className={styles["admin-layout__denied"]}>
+        <h2>Access Denied</h2>
+        <p>Please log in to continue.</p>
+        <Navigate to="/login" replace />
+      </div>
+    );
+  }
+
   return (
     <div className={styles["admin-layout"]}>
       <Navbar />

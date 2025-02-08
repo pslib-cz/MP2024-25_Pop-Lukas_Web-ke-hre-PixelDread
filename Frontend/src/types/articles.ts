@@ -28,3 +28,5 @@ export interface ArticleMedia extends Article {
   description?: string;
   alt?: string;
 }
+
+export type ArticleUnion = ArticleText | ArticleFAQ | ArticleLink | ArticleMedia;

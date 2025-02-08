@@ -19,6 +19,7 @@ const AppRouter: React.FC = () => {
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminPage />} />
           <Route path="blog" element={<BlogPage />} />
+          <Route path="*" element={<h1>Not Found EDIT THIS CODE LUKAS</h1>} /> 
         </Route>
       </Routes>
     </Router>

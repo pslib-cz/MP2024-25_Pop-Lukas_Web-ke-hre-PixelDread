@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import CreatePost from "../components/CreatePost";
-import ArticlesList from "../components/ArticlesList";
 import { Article } from "../types/articles";
 import { getPosts } from "../api/postService";
 
@@ -10,10 +9,10 @@ const HomePage: React.FC = () => {
   useEffect(() => {
     getPosts()
       .then((data: any) => {
-        // Předpokládáme, že API vrací pole článků nebo příspěvků obsahujících články.
-        // Podle potřeby upravte mapování.
+        console.log(data);
         if (data && data.length > 0) {
           setArticles(data);
+          console.log(articles);
         }
       })
       .catch((error) => {
@@ -25,7 +24,6 @@ const HomePage: React.FC = () => {
     <div className="home">
       <h1 className="home__title">Pixel Dread</h1>
       <CreatePost />
-      <ArticlesList articles={articles} />
     </div>
   );
 };
