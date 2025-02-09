@@ -1,23 +1,5 @@
 ﻿<Project>
   <ItemGroup>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\0f6fc53b-59b2-4425-8ca6-1cbecfc18d9f_Search2.png'))">
-      <SourceType>Package</SourceType>
-      <SourceId>PixelDread</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/PixelDread</BasePath>
-      <RelativePath>uploads/0f6fc53b-59b2-4425-8ca6-1cbecfc18d9f_Search2.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>imvkl9tqqs</Fingerprint>
-      <Integrity>GiYad4Hs305YALLbBtGRUH0WKm/jb1mfIvjVkgzFx90=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\0f6fc53b-59b2-4425-8ca6-1cbecfc18d9f_Search2.png'))</OriginalItemSpec>
-    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\8e4945ea-f48f-4186-8e17-dd41655d0186_shamrock-malphite-malphite.png'))">
       <SourceType>Package</SourceType>
       <SourceId>PixelDread</SourceId>
@@ -35,24 +17,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\8e4945ea-f48f-4186-8e17-dd41655d0186_shamrock-malphite-malphite.png'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite.png'))">
-      <SourceType>Package</SourceType>
-      <SourceId>PixelDread</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/PixelDread</BasePath>
-      <RelativePath>uploads/912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>bd9fpt7dav</Fingerprint>
-      <Integrity>L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite.png'))</OriginalItemSpec>
     </StaticWebAsset>
   </ItemGroup>
 </Project>

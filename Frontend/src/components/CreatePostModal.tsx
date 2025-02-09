@@ -25,6 +25,13 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave
     setSelectedType(null);
   };
 
+  // Přidána funkce pro odstranění článku podle indexu
+  const removeArticle = (indexToRemove: number) => {
+    const updated = articles.filter((_, index) => index !== indexToRemove)
+      .map((article, index) => ({ ...article, order: index + 1 }));
+    setArticles(updated);
+  };
+
   const handleSubmit = () => {
     if (articles.length === 0) return;
     onSave({ name: postName, articles });
@@ -42,24 +49,8 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave
   if (!show) return null;
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        background: "rgba(0,0,0,0.5)",
-      }}
-    >
-      <div
-        style={{
-          background: "white",
-          padding: "20px",
-          margin: "auto",
-          maxWidth: "400px",
-        }}
-      >
+    <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", background: "rgba(0,0,0,0.5)" }}>
+      <div style={{ background: "white", padding: "20px", margin: "auto", maxWidth: "400px" }}>
         <div>
           <h2>Create New Post</h2>
           <button onClick={() => { resetForm(); onClose(); }}>&times;</button>
@@ -100,10 +91,16 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave
                           border: "1px solid #ccc",
                           padding: "5px",
                           marginBottom: "5px",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
                           ...provided.draggableProps.style,
                         }}
                       >
-                        <strong>{article.type.toUpperCase()}:</strong> {JSON.stringify(article)}
+                        <span>
+                          <strong>{article.type.toUpperCase()}:</strong> {JSON.stringify(article)}
+                        </span>
+                        <button onClick={() => removeArticle(index)}>Remove</button>
                       </div>
                     )}
                   </Draggable>

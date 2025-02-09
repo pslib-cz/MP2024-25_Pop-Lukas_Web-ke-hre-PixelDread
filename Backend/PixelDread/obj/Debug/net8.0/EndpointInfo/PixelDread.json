@@ -5,7 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/files/upload": {
+    "/api/File/upload": {
       "post": {
         "tags": [
           "File"
@@ -16,27 +16,26 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "Title": {
-                    "type": "string"
-                  },
                   "File": {
                     "type": "string",
                     "format": "binary"
                   },
-                  "PostId": {
-                    "type": "integer",
-                    "format": "int32"
+                  "Name": {
+                    "type": "string"
+                  },
+                  "Description": {
+                    "type": "string"
                   }
                 }
               },
               "encoding": {
-                "Title": {
-                  "style": "form"
-                },
                 "File": {
                   "style": "form"
                 },
-                "PostId": {
+                "Name": {
+                  "style": "form"
+                },
+                "Description": {
                   "style": "form"
                 }
               }
@@ -50,7 +49,7 @@
         }
       }
     },
-    "/api/files/{id}": {
+    "/api/File/{id}": {
       "get": {
         "tags": [
           "File"
@@ -646,9 +645,9 @@
             "type": "string",
             "nullable": true
           },
-          "file": {
-            "type": "string",
-            "format": "binary",
+          "fileId": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           }
         },

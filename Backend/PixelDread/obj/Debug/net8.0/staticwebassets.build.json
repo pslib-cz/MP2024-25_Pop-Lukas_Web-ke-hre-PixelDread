@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "+kIJp2L7a43GhnB+NhEf2kYtRjOiiMNO1sk4SsFGZ7w=",
+  "Hash": "kGIO3mnfYAZtmtwaZY3fpFLtufXqFgptIYd+ePN8/Bg=",
   "Source": "PixelDread",
   "BasePath": "_content/PixelDread",
   "Mode": "Default",
@@ -16,27 +16,6 @@
     }
   ],
   "Assets": [
-    {
-      "Identity": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\0f6fc53b-59b2-4425-8ca6-1cbecfc18d9f_Search2.png",
-      "SourceId": "PixelDread",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\",
-      "BasePath": "_content/PixelDread",
-      "RelativePath": "uploads/0f6fc53b-59b2-4425-8ca6-1cbecfc18d9f_Search2#[.{fingerprint}]?.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "imvkl9tqqs",
-      "Integrity": "GiYad4Hs305YALLbBtGRUH0WKm/jb1mfIvjVkgzFx90=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\0f6fc53b-59b2-4425-8ca6-1cbecfc18d9f_Search2.png"
-    },
     {
       "Identity": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\8e4945ea-f48f-4186-8e17-dd41655d0186_shamrock-malphite-malphite.png",
       "SourceId": "PixelDread",
@@ -57,112 +36,9 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\8e4945ea-f48f-4186-8e17-dd41655d0186_shamrock-malphite-malphite.png"
-    },
-    {
-      "Identity": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite.png",
-      "SourceId": "PixelDread",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\",
-      "BasePath": "_content/PixelDread",
-      "RelativePath": "uploads/912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite#[.{fingerprint}]?.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "bd9fpt7dav",
-      "Integrity": "L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite.png"
     }
   ],
   "Endpoints": [
-    {
-      "Route": "uploads/0f6fc53b-59b2-4425-8ca6-1cbecfc18d9f_Search2.imvkl9tqqs.png",
-      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\0f6fc53b-59b2-4425-8ca6-1cbecfc18d9f_Search2.png",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "361822"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/png"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"GiYad4Hs305YALLbBtGRUH0WKm/jb1mfIvjVkgzFx90=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 07 Feb 2025 19:02:58 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "imvkl9tqqs"
-        },
-        {
-          "Name": "label",
-          "Value": "uploads/0f6fc53b-59b2-4425-8ca6-1cbecfc18d9f_Search2.png"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-GiYad4Hs305YALLbBtGRUH0WKm/jb1mfIvjVkgzFx90="
-        }
-      ]
-    },
-    {
-      "Route": "uploads/0f6fc53b-59b2-4425-8ca6-1cbecfc18d9f_Search2.png",
-      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\0f6fc53b-59b2-4425-8ca6-1cbecfc18d9f_Search2.png",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "361822"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/png"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"GiYad4Hs305YALLbBtGRUH0WKm/jb1mfIvjVkgzFx90=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 07 Feb 2025 19:02:58 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-GiYad4Hs305YALLbBtGRUH0WKm/jb1mfIvjVkgzFx90="
-        }
-      ]
-    },
     {
       "Route": "uploads/8e4945ea-f48f-4186-8e17-dd41655d0186_shamrock-malphite-malphite.bd9fpt7dav.png",
       "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\8e4945ea-f48f-4186-8e17-dd41655d0186_shamrock-malphite-malphite.png",
@@ -232,88 +108,6 @@
         {
           "Name": "Last-Modified",
           "Value": "Tue, 04 Feb 2025 07:38:44 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4="
-        }
-      ]
-    },
-    {
-      "Route": "uploads/912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite.bd9fpt7dav.png",
-      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite.png",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "112376"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/png"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 04 Feb 2025 08:27:04 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "bd9fpt7dav"
-        },
-        {
-          "Name": "label",
-          "Value": "uploads/912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite.png"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4="
-        }
-      ]
-    },
-    {
-      "Route": "uploads/912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite.png",
-      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite.png",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "112376"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/png"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 04 Feb 2025 08:27:04 GMT"
         },
         {
           "Name": "Cache-Control",

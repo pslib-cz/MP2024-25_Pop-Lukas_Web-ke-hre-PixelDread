@@ -5,12 +5,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PixelDread.DTO;
 using PixelDread.Models;
+using PixelDread.Services;
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
-using PixelDread.Services;
 
 namespace PixelDread.Controllers
 {
@@ -20,13 +19,11 @@ namespace PixelDread.Controllers
     {
         private readonly ApplicationContext _context;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IWebHostEnvironment _env;
 
-        public PostController(ApplicationContext context, UserManager<IdentityUser> userManager, IWebHostEnvironment env)
+        public PostController(ApplicationContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _userManager = userManager;
-            _env = env;
         }
 
         [HttpGet]
@@ -43,37 +40,40 @@ namespace PixelDread.Controllers
             return Ok(posts);
         }
 
+        // Zde předpokládáme, že data přijdou jako JSON (application/json),
+        // takže používáme [FromBody]. Pokud byste chtěl multipart/form-data,
         [HttpPost]
         public async Task<IActionResult> CreatePost([FromForm] PostDto postDto)
         {
-            // Kontrola, zda jsou k dispozici nějaké články
             if (postDto.Articles == null || postDto.Articles.Count == 0)
             {
                 return BadRequest("Příspěvek musí obsahovat alespoň jeden článek.");
             }
 
-            // Získání přihlášeného uživatele
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return Unauthorized("Uživatel musí být přihlášen.");
             }
 
-            // Vytvoření nového příspěvku
+            // Vytvoříme a uložíme Post, abychom získali jeho ID.
             var post = new Post
             {
                 Name = postDto.Name,
                 CreatedAt = DateTime.UtcNow,
                 Visibility = true,
                 UserId = user.Id,
+                User = user,  // Uložení informací o autorovi
                 CategoryId = postDto.CategoryId
             };
-            _context.Posts.Add(post);
-            await _context.SaveChangesAsync();
 
+            _context.Posts.Add(post);
+            await _context.SaveChangesAsync(); // Získáme vygenerované post.Id
+
+            // Seznam vazeb mezi příspěvkem a články
             var postArticles = new List<PostArticle>();
 
-            // Zpracování článků
+            // Projdeme všechny články z DTO a vytvoříme entity
             foreach (var articleDto in postDto.Articles)
             {
                 Article article = null;
@@ -85,7 +85,6 @@ namespace PixelDread.Controllers
                             Content = articleDto.Content ?? ""
                         };
                         break;
-
                     case ArticleType.FAQ:
                         article = new ArticleFAQ
                         {
@@ -93,7 +92,6 @@ namespace PixelDread.Controllers
                             Answer = articleDto.Answer ?? ""
                         };
                         break;
-
                     case ArticleType.Link:
                         article = new ArticleLink
                         {
@@ -101,77 +99,54 @@ namespace PixelDread.Controllers
                             Placeholder = articleDto.Placeholder
                         };
                         break;
-
                     case ArticleType.Media:
                         var mediaArticle = new ArticleMedia
                         {
                             Description = articleDto.Description ?? "",
                             Alt = articleDto.Alt ?? ""
+                            // Soubor se neukládá přímo – používáme FileId
                         };
-
-                        if (articleDto.File != null && articleDto.File.Length > 0)
+                        if (articleDto.FileId.HasValue)
                         {
-                            // Vytvoření adresáře pro upload, pokud neexistuje
-                            var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
-                            if (!Directory.Exists(uploadsFolder))
+                            var fileInfo = await _context.FileInformations.FindAsync(articleDto.FileId.Value);
+                            if (fileInfo == null)
                             {
-                                Directory.CreateDirectory(uploadsFolder);
+                                return BadRequest($"Soubor s ID {articleDto.FileId.Value} neexistuje v DB.");
                             }
-                            var uniqueFileName = Guid.NewGuid().ToString() + "_" + articleDto.File.FileName;
-                            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                            // Uložení souboru na disk
-                            using (var stream = new FileStream(filePath, FileMode.Create))
-                            {
-                                await articleDto.File.CopyToAsync(stream);
-                            }
-
-                            // Vytvoření záznamu o souboru
-                            var fileInfo = new FileInformations
-                            {
-                                FileName = uniqueFileName,
-                                FilePath = "/uploads/" + uniqueFileName,
-                                FileSize = articleDto.File.Length,
-                                UploadedAt = DateTime.UtcNow
-                            };
-                            _context.FileInformations.Add(fileInfo);
-                            await _context.SaveChangesAsync(); // Získáme vygenerované ID
-
-                            // Přiřazení nahraného souboru k mediálnímu článku
                             mediaArticle.FileInformationsId = fileInfo.Id;
                             mediaArticle.FileInformations = fileInfo;
                         }
                         article = mediaArticle;
                         break;
-
                     default:
                         continue;
                 }
 
                 if (article != null)
                 {
-                    // Nastavení cizího klíče – vztah článku k příspěvku
+                    // Nastavíme vazbu na post
                     article.PostId = post.Id;
                     _context.Articles.Add(article);
-                    await _context.SaveChangesAsync();
 
+                    // Vytvoříme vazbu s využitím navigační vlastnosti (Article)
                     postArticles.Add(new PostArticle
                     {
                         PostId = post.Id,
-                        ArticleId = article.Id,
+                        Article = article, // Tím EF Core automaticky nastaví ArticleId
                         ArticleType = articleDto.Type,
                         Order = articleDto.Order
                     });
                 }
             }
 
-            if (postArticles.Any())
-            {
-                _context.PostArticles.AddRange(postArticles);
-                await _context.SaveChangesAsync();
-            }
+            // Uložíme všechny články najednou – tím se vygenerují jejich skutečná ID
+            await _context.SaveChangesAsync();
 
-            // Zpracování tagů – přidáme pouze existující tagy
+            // Přidáme vazby mezi Post a Articles
+            _context.PostArticles.AddRange(postArticles);
+            await _context.SaveChangesAsync();
+
+            // Zpracování tagů (pokud existují)
             if (postDto.TagIds != null && postDto.TagIds.Any())
             {
                 foreach (var tagId in postDto.TagIds)
@@ -189,16 +164,14 @@ namespace PixelDread.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            // Zpracování OGData – pouze přiřazení existujícího záznamu
+            // Zpracování OGData (pokud existuje)
             if (postDto.OGDataId.HasValue)
             {
-                // Předpokládáme, že DbSet pro OGData se jmenuje OGDatas
                 var ogData = await _context.OGDatas.FindAsync(postDto.OGDataId.Value);
                 if (ogData != null)
                 {
                     post.OGData = ogData;
                     post.OGDataId = ogData.Id;
-                    // V případě potřeby lze nastavit i zpětné propojení
                     ogData.PostId = post.Id;
                     await _context.SaveChangesAsync();
                 }
@@ -206,6 +179,8 @@ namespace PixelDread.Controllers
 
             return CreatedAtAction(nameof(GetPostById), new { id = post.Id }, post);
         }
+
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPostById(int id)
@@ -228,7 +203,3 @@ namespace PixelDread.Controllers
         }
     }
 }
-
-
-
-

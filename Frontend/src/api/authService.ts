@@ -26,7 +26,6 @@ export const login = async (email: string, password: string): Promise<boolean> =
   }
 };
 
-// Registrace uživatele (POST /api/register)
 export const register = async (email: string, password: string): Promise<boolean> => {
   try {
     await axios.post(`${API_URL}/register`, { email, password });

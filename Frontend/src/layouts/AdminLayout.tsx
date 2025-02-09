@@ -4,10 +4,8 @@ import Navbar from "../components/Navbar";
 import styles from "./AdminLayout.module.css";
 
 const AdminLayout: React.FC = () => {
-  // Získání tokenu z localStorage (nebo použij stavovou správu jako Redux)
   const token = localStorage.getItem("token");
 
-  // Pokud uživatel není přihlášený, zobrazíme hlášku
   if (!token) {
     return (
       <div className={styles["admin-layout__denied"]}>

@@ -33,9 +33,9 @@
     "EndpointName": "MapCustomIdentityApi-/api/confirmEmail"
   },
   {
-    "ContainingType": "FileController",
+    "ContainingType": "PixelDread.Controllers.FileController",
     "Method": "GetFile",
-    "RelativePath": "api/files/{id}",
+    "RelativePath": "api/File/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -49,26 +49,26 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "FileController",
+    "ContainingType": "PixelDread.Controllers.FileController",
     "Method": "UploadFile",
-    "RelativePath": "api/files/upload",
+    "RelativePath": "api/File/upload",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
-      {
-        "Name": "Title",
-        "Type": "System.String",
-        "IsRequired": false
-      },
       {
         "Name": "File",
         "Type": "Microsoft.AspNetCore.Http.IFormFile",
         "IsRequired": false
       },
       {
-        "Name": "PostId",
-        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Name": "Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Description",
+        "Type": "System.String",
         "IsRequired": false
       }
     ],

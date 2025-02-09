@@ -1,16 +1,8 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\0f6fc53b-59b2-4425-8ca6-1cbecfc18d9f_Search2.png",
-      "PackagePath": "staticwebassets\\uploads\\0f6fc53b-59b2-4425-8ca6-1cbecfc18d9f_Search2.png"
-    },
-    {
       "Id": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\8e4945ea-f48f-4186-8e17-dd41655d0186_shamrock-malphite-malphite.png",
       "PackagePath": "staticwebassets\\uploads\\8e4945ea-f48f-4186-8e17-dd41655d0186_shamrock-malphite-malphite.png"
-    },
-    {
-      "Id": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite.png",
-      "PackagePath": "staticwebassets\\uploads\\912ce153-2486-48ca-85d6-99232f8a1f7a_shamrock-malphite-malphite.png"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.PixelDread.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import CreatePostModal from "./CreatePostModal";
-import { Article, ArticleFAQ, ArticleLink, ArticleMedia, ArticleText } from "../types/articles";
+import { Article, ArticleText, ArticleFAQ, ArticleLink, ArticleMedia } from "../types/articles";
 import { createPost } from "../api/postService";
+import uploadFile from "../api/fileService"; // funkce, která nahrává soubor a vrací JSON s id
 
 // Převod řetězcového typu na číselnou hodnotu odpovídající enumu na backendu
 const mapArticleTypeToEnum = (type: string): string => {
@@ -25,6 +26,21 @@ const CreatePost: React.FC = () => {
   const handleSavePost = async (postData: { name: string; articles: Article[]; categoryId?: number; tagIds?: number[]; ogDataId?: number }) => {
     if (postData.articles.length === 0) return;
 
+    // Projdeme články a pokud jde o mediální článek s přiloženým souborem, provedeme upload
+    const processedArticles: Article[] = await Promise.all(
+      postData.articles.map(async (article) => {
+        if (article.type === "media") {
+          const mediaArticle = article as ArticleMedia;
+          if (mediaArticle.file) {
+            const uploadResult = await uploadFile(mediaArticle.file);
+            // Předpokládáme, že uploadResult obsahuje vlastnost id
+            return { ...mediaArticle, file: null, fileId: uploadResult.id };
+          }
+        }
+        return article;
+      })
+    );
+
     const formData = new FormData();
     formData.append("Name", postData.name || "");
 
@@ -40,7 +56,7 @@ const CreatePost: React.FC = () => {
       formData.append("OGDataId", postData.ogDataId.toString());
     }
 
-    postData.articles.forEach((article, index) => {
+    processedArticles.forEach((article, index) => {
       formData.append(`Articles[${index}][type]`, mapArticleTypeToEnum(article.type));
       formData.append(`Articles[${index}][order]`, article.order.toString());
       switch (article.type) {
@@ -65,8 +81,9 @@ const CreatePost: React.FC = () => {
         }
         case "media": {
           const mediaArticle = article as ArticleMedia;
-          if (mediaArticle.file instanceof File) {
-            formData.append(`Articles[${index}][file]`, mediaArticle.file);
+          // Pokud máme fileId, přidáme ho; již nepřenášíme samotný soubor
+          if (mediaArticle.fileId) {
+            formData.append(`Articles[${index}][FileId]`, mediaArticle.fileId.toString());
           }
           if (mediaArticle.description) {
             formData.append(`Articles[${index}][description]`, mediaArticle.description);
