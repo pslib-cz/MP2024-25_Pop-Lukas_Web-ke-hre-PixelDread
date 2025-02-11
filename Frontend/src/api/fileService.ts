@@ -1,3 +1,4 @@
+import axiosInstance from "./axiosInstance";
 import { API_URL } from "./axiosInstance";
 export const uploadFile = async (file: File): Promise<{ id: number; fileName: string; filePath: string; [key: string]: any }> => {
   const formData = new FormData();
@@ -12,4 +13,13 @@ export const uploadFile = async (file: File): Promise<{ id: number; fileName: st
   }
   return response.json();
 };
+
+export const getFileById = async (id: number): Promise<Blob> => {
+  const response = await axiosInstance.get(`/File/${id}`, {
+    responseType: "blob", // important for receiving file data
+  });
+  return response.data;
+};
+
+
 export default uploadFile;

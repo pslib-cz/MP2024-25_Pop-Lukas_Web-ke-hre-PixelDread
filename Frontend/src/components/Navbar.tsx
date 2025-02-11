@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
     <nav>
       <div>
         <Link to="/">Home</Link>{" "}
-        <Link to="/blog">Blog</Link>{" "}
+        <Link to="/post">Post</Link>{" "}
         {isAdmin && <Link to="/admin">Admin</Link>}
       </div>
       <div>

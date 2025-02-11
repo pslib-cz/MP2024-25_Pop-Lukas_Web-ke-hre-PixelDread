@@ -1,6 +1,8 @@
 export type ArticleType = "text" | "faq" | "link" | "media";
 
 export interface Article {
+  id: number;        // přidané – identifikátor článku
+  postId: number;    // přidané – odkaz na příspěvek, ke kterému článek patří
   type: ArticleType;
   order: number;
 }

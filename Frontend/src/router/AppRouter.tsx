@@ -6,6 +6,8 @@ import LoginPage from "../pages/LoginPage";
 import AdminPage from "../pages/AdminPage";
 import AdminLayout from "../layouts/AdminLayout";
 import MainLayout from "../layouts/MainLayout";
+import PostDetail from "../components/PostDetail";
+import PostList from "../components/PostList";
 
 const AppRouter: React.FC = () => {
   return (
@@ -13,7 +15,8 @@ const AppRouter: React.FC = () => {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/post" element={<PostList />} />
+          <Route path="/post/:id" element={<PostDetail />} />
           <Route path="/login" element={<LoginPage />} />
         </Route>
         <Route path="/admin" element={<AdminLayout />}>

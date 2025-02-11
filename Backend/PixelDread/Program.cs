@@ -26,9 +26,11 @@ builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         // Povolení zpracování cyklických referencí
-        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         // Zvýšení maximální hloubky (výchozí je 64), aby se zabránilo chybì pøi pøíliš hlubokém objektovém grafu
+
         options.JsonSerializerOptions.MaxDepth = 64;
+
     });
 
 builder.Services.AddCors(options =>
