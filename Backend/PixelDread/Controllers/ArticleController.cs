@@ -163,6 +163,7 @@ namespace PixelDread.Controllers
                         pa.ArticleId,
                         Type = "media",
                         media.Description,
+                        media.FileInformationsId,
                         media.Alt,
                         pa.Order
                     },

@@ -54,7 +54,6 @@ const PostDetail: React.FC = () => {
               key={key}
               style={{ border: "1px solid #ccc", padding: "10px", marginBottom: "10px" }}
             >
-              <h3>{article.type.toUpperCase()}</h3>
               {article.type === "text" && (
                 <ArticleTextComponent article={article as ArticleText} />
               )}

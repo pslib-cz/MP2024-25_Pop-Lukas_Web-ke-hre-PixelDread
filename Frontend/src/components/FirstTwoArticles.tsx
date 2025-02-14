@@ -31,8 +31,6 @@ const FirstTwoArticles: React.FC<FirstTwoArticlesProps> = ({ postId }) => {
   if (articles.length === 0) {
     return <div>No articles found.</div>;
   }
-  console.log("First two articles:", articles);
-
   return (
     <div>
       {articles.map((article, index) => (

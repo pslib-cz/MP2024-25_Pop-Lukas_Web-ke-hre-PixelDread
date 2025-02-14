@@ -11,9 +11,7 @@ const PostList: React.FC = () => {
   useEffect(() => {
     getPosts()
       .then((data: any) => {
-        // Pokud data nejsou přímo pole, zkusíme extrahovat pole z vlastnosti, např. data.posts nebo data.$values
         const postsArray = Array.isArray(data) ? data : data.posts || data.$values || [];
-        console.log("Fetched posts:", postsArray);
         setPosts(postsArray);
         setLoading(false);
       })
