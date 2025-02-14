@@ -9,7 +9,7 @@ namespace PixelDread.Controllers
 {
 
     [Route("api/[controller]")]
-
+    [Authorize (Roles = "Admin")]
     [ApiController]
     public class AdminController : ControllerBase
     {
@@ -63,15 +63,24 @@ namespace PixelDread.Controllers
             await _context.SaveChangesAsync();
             return admin;
         }
+        [HttpPut]
+        [Route("UpdateAdmin/{id}")]
+        public async Task<ActionResult<IdentityUser>> UpdateAdmin(string id, UpdateEmailModel model)
+        {
+            var admin = await _context.Users.FindAsync(id);
+            if (admin == null)
+            {
+                return NotFound();
+            }
+            admin.Email = model.NewEmail;
+            await _context.SaveChangesAsync();
+            return admin;
+        }
 
         public class UpdateEmailModel
         {
             public string NewEmail { get; set; }
         }
-
-        public class UpdatePasswordModel
-        {
-            public string NewPassword { get; set; }
-        }
+        
     }
 }

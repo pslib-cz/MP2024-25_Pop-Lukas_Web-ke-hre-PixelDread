@@ -2,28 +2,28 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Admin } from "../types/admin";
 import { getAdmins, getCurrentUserId, deleteAdmin as deleteAdminAPI } from "../api/adminService";
-import CreateEditAdminModal from "../components/CreateEditAdminModal";
+import CreateAdminModal from "../components/CreateAdminModal";
 import DeleteConfirmationModal from "../components/DeleteConfirmationModal";
 
 const Admins: React.FC = () => {
   const [admins, setAdmins] = useState<Admin[]>([]);
-  const [showCreateEditModal, setShowCreateEditModal] = useState<boolean>(false);
-  const [adminToEdit, setAdminToEdit] = useState<Admin | null>(null);
+  const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [adminToDelete, setAdminToDelete] = useState<Admin | null>(null);
   const [currentAdminId, setCurrentAdminId] = useState<string>("");
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchAdmins = async () => {
-      try {
-        const adminsData = await getAdmins();
-        setAdmins(adminsData);
-      } catch (error) {
-        console.error("Error fetching admins:", error);
-      }
-    };
+  const fetchAdmins = async () => {
+    try {
+      const adminsData = await getAdmins();
+      setAdmins(adminsData);
+    } catch (error) {
+      console.error("Error fetching admins:", error);
+    }
+  };
 
+  useEffect(() => {
     const fetchCurrentAdminId = async () => {
       try {
         const id = await getCurrentUserId();
@@ -35,16 +35,10 @@ const Admins: React.FC = () => {
 
     fetchAdmins();
     fetchCurrentAdminId();
-  }, [admins]);
+  }, []);
 
   const openCreateModal = () => {
-    setAdminToEdit(null);
-    setShowCreateEditModal(true);
-  };
-
-  const openEditModal = (admin: Admin) => {
-    setAdminToEdit(admin);
-    setShowCreateEditModal(true);
+    setShowCreateModal(true);
   };
 
   const openDeleteModal = (admin: Admin) => {
@@ -71,25 +65,21 @@ const Admins: React.FC = () => {
       <button onClick={openCreateModal}>Create Admin</button>
       <div>
         {admins.map((admin) => (
-          <div key={admin.id}>
+          <div key={admin.id || ""}>
             <p>{admin.email}</p>
-            <button onClick={() => openEditModal(admin)}>Edit</button>
             <button onClick={() => openDeleteModal(admin)}>Delete</button>
           </div>
         ))}
       </div>
 
-      {showCreateEditModal && (
-        <CreateEditAdminModal
-          admin={adminToEdit}
-          onClose={() => setShowCreateEditModal(false)}
+      {showCreateModal && (
+        <CreateAdminModal
+          onClose={() => setShowCreateModal(false)}
           onSave={(savedAdmin) => {
-            if (adminToEdit) {
-              setAdmins((prev) => prev.map((a) => (a.id === savedAdmin.id ? savedAdmin : a)));
-            } else {
-              setAdmins((prev) => [...prev, savedAdmin]);
-            }
-            setShowCreateEditModal(false);
+            // Add the newly created admin to state, then refetch to ensure IDs are correct
+            setAdmins((prev) => [...prev, savedAdmin]);
+            fetchAdmins();
+            setShowCreateModal(false);
           }}
         />
       )}
@@ -101,6 +91,7 @@ const Admins: React.FC = () => {
           onConfirm={() => {
             handleDelete(adminToDelete.id);
             setShowDeleteModal(false);
+            fetchAdmins();
           }}
         />
       )}

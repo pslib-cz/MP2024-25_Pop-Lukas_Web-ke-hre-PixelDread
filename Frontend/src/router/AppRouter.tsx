@@ -9,6 +9,7 @@ import MainLayout from "../layouts/MainLayout";
 import PostDetail from "../components/PostDetail";
 import PostList from "../components/PostList";
 import Admins from "../pages/Admins";
+import NotFoundPage from "../pages/NotFoundPage";
 
 const AppRouter: React.FC = () => {
   return (
@@ -19,12 +20,13 @@ const AppRouter: React.FC = () => {
           <Route path="/post" element={<PostList />} />
           <Route path="/post/:id" element={<PostDetail />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminPage />} />
-          <Route path="admins" element={<Admins />} />
+          <Route path="manageAdmins" element={<Admins />} />
           <Route path="blog" element={<BlogPage />} />
-          <Route path="*" element={<h1>Not Found EDIT THIS CODE LUKAS</h1>} /> 
+          <Route path="*" element={<NotFoundPage />} /> 
         </Route>
       </Routes>
     </Router>

@@ -7,10 +7,12 @@ const AdminNavbar: React.FC = () => {
       <Link to="/admin" style={{ marginRight: "10px", color: "white", textDecoration: "none" }}>
         Dashboard
       </Link>
-      <Link to="/admin/admins" style={{ marginRight: "10px", color: "white", textDecoration: "none" }}>
+      <Link to="/admin/manageAdmins" style={{ marginRight: "10px", color: "white", textDecoration: "none" }}>
         Manage Admins
       </Link>
-      {/* Přidejte další odkazy podle potřeby */}
+      <Link to="/" style={{ marginRight: "10px", color: "white", textDecoration: "none" }}>
+        Home
+      </Link>
     </nav>
   );
 };
