@@ -28,3 +28,8 @@ export const getArticlesByPostId = async (postId: number): Promise<ArticleUnion[
     const response = await axiosInstance.get(`/Article/by-post/${postId}`);
     return response.data;
   };
+  
+export const getFirstTwoArticles = async (postId: number): Promise<any[]> => {
+  const response = await axiosInstance.get(`/Article/first-articles/${postId}`);
+  return response.data;
+};

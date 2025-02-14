@@ -2,9 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using PixelDread.Models;
 using PixelDread.Services;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PixelDread.Controllers
 {
@@ -92,6 +89,7 @@ namespace PixelDread.Controllers
                 media.Id,
                 media.PostId,
                 media.Description,
+                media.FileInformationsId,
                 media.Alt
             };
         default:
@@ -107,5 +105,80 @@ namespace PixelDread.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("first-articles/{postId}")]
+        public async Task<IActionResult> GetFirstArticles(int postId)
+        {
+            // Vezmeme z tabulky PostArticles jen záznamy pro daný postId,
+            // seřadíme podle Order a vezmeme první dva.
+            var postArticles = await _context.PostArticles
+                .Include(pa => pa.Article)
+                .Where(pa => pa.PostId == postId)
+                .OrderBy(pa => pa.Order)
+                .Take(2)
+                .ToListAsync();
+
+            // Pokud žádné články nejsou, vrátíme 404
+            if (!postArticles.Any())
+            {
+                return NotFound($"No articles found for post with ID {postId}.");
+            }
+
+            // Převedeme do anonymních objektů (nebo vlastního DTO), 
+            // aby se subtypové vlastnosti vrátily v JSON
+            var result = postArticles.Select<PostArticle, object>(pa =>
+            {
+                var a = pa.Article;
+                return a switch
+                {
+                    ArticleText text => new
+                    {
+                        pa.PostId,
+                        pa.ArticleId,
+                        Type = "text",
+                        text.Content,
+                        pa.Order
+                    },
+                    ArticleFAQ faq => new
+                    {
+                        pa.PostId,
+                        pa.ArticleId,
+                        Type = "faq",
+                        faq.Question,
+                        faq.Answer,
+                        pa.Order
+                    },
+                    ArticleLink link => new
+                    {
+                        pa.PostId,
+                        pa.ArticleId,
+                        Type = "link",
+                        link.Url,
+                        link.Placeholder,
+                        pa.Order
+                    },
+                    ArticleMedia media => new
+                    {
+                        pa.PostId,
+                        pa.ArticleId,
+                        Type = "media",
+                        media.Description,
+                        media.Alt,
+                        pa.Order
+                    },
+                    _ => new
+                    {
+                        pa.PostId,
+                        pa.ArticleId,
+                        Type = "unknown",
+                        pa.Order
+                    }
+                };
+            });
+
+            return Ok(result);
+        }
+
+
     }
 }

@@ -43,3 +43,5 @@ export const getPostById = async (id: number): Promise<any> => {
 export const deletePost = async (id: number): Promise<void> => {
   await axiosInstance.delete(`/Post/${id}`);
 };
+
+

@@ -82,8 +82,8 @@ const CreatePost: React.FC = () => {
         case "media": {
           const mediaArticle = article as ArticleMedia;
           // Pokud máme fileId, přidáme ho; již nepřenášíme samotný soubor
-          if (mediaArticle.fileId) {
-            formData.append(`Articles[${index}][FileId]`, mediaArticle.fileId.toString());
+          if (mediaArticle.fileInformationsId) {
+            formData.append(`Articles[${index}][FileId]`, mediaArticle.fileInformationsId.toString());
           }
           if (mediaArticle.description) {
             formData.append(`Articles[${index}][description]`, mediaArticle.description);

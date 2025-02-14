@@ -27,7 +27,7 @@ export interface ArticleLink extends Article {
 export interface ArticleMedia extends Article {
   type: "media";
   file?: File;
-  fileId?: number;
+  fileInformationsId?: number;
   description?: string;
   alt?: string;
 }

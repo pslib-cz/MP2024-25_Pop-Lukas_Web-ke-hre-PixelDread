@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "VUJ3mzfh/SsTI2Ni2BDVuuUoTmSvvBp2v0s47sZraO0=",
+  "Hash": "jPyLmtsLxxdrMka54U8cdMAdDi81peJcZJoH/RcpkHM=",
   "Source": "PixelDread",
   "BasePath": "_content/PixelDread",
   "Mode": "Default",
@@ -16,6 +16,111 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\3bee07fe-552b-4a49-91ae-3b8027c653d7_MP-Pop-v7Diagram.drawio.png",
+      "SourceId": "PixelDread",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\",
+      "BasePath": "_content/PixelDread",
+      "RelativePath": "uploads/3bee07fe-552b-4a49-91ae-3b8027c653d7_MP-Pop-v7Diagram.drawio#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "4g1ma466hi",
+      "Integrity": "1GpT+wzr3dg8CqHojKzqrG9gesbIRjo/Rp9O2KITZxE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\3bee07fe-552b-4a49-91ae-3b8027c653d7_MP-Pop-v7Diagram.drawio.png"
+    },
+    {
+      "Identity": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\48047828-fc66-4bce-b443-1cb75a8a26c4_shamrock-malphite-malphite.png",
+      "SourceId": "PixelDread",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\",
+      "BasePath": "_content/PixelDread",
+      "RelativePath": "uploads/48047828-fc66-4bce-b443-1cb75a8a26c4_shamrock-malphite-malphite#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bd9fpt7dav",
+      "Integrity": "L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\48047828-fc66-4bce-b443-1cb75a8a26c4_shamrock-malphite-malphite.png"
+    },
+    {
+      "Identity": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\4e40849b-51b9-4d5b-85e2-a33f358333f8_shamrock-malphite-malphite.png",
+      "SourceId": "PixelDread",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\",
+      "BasePath": "_content/PixelDread",
+      "RelativePath": "uploads/4e40849b-51b9-4d5b-85e2-a33f358333f8_shamrock-malphite-malphite#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bd9fpt7dav",
+      "Integrity": "L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\4e40849b-51b9-4d5b-85e2-a33f358333f8_shamrock-malphite-malphite.png"
+    },
+    {
+      "Identity": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\5397f7fb-2e84-4fcc-84f1-9402387811eb_shamrock-malphite-malphite.png",
+      "SourceId": "PixelDread",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\",
+      "BasePath": "_content/PixelDread",
+      "RelativePath": "uploads/5397f7fb-2e84-4fcc-84f1-9402387811eb_shamrock-malphite-malphite#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bd9fpt7dav",
+      "Integrity": "L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\5397f7fb-2e84-4fcc-84f1-9402387811eb_shamrock-malphite-malphite.png"
+    },
+    {
+      "Identity": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\5d37483d-0c27-4ca1-acd5-df741326c21a_MP-Pop-v7Diagram.drawio.png",
+      "SourceId": "PixelDread",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\",
+      "BasePath": "_content/PixelDread",
+      "RelativePath": "uploads/5d37483d-0c27-4ca1-acd5-df741326c21a_MP-Pop-v7Diagram.drawio#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "4g1ma466hi",
+      "Integrity": "1GpT+wzr3dg8CqHojKzqrG9gesbIRjo/Rp9O2KITZxE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\5d37483d-0c27-4ca1-acd5-df741326c21a_MP-Pop-v7Diagram.drawio.png"
+    },
     {
       "Identity": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\755897ae-df61-4a12-a3c5-157e507733a2_shamrock-malphite-malphite.png",
       "SourceId": "PixelDread",
@@ -38,6 +143,27 @@
       "OriginalItemSpec": "wwwroot\\uploads\\755897ae-df61-4a12-a3c5-157e507733a2_shamrock-malphite-malphite.png"
     },
     {
+      "Identity": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\8aec7b84-2559-4de1-8d0e-0bcff2c7ee5a_shamrock-malphite-malphite.png",
+      "SourceId": "PixelDread",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\",
+      "BasePath": "_content/PixelDread",
+      "RelativePath": "uploads/8aec7b84-2559-4de1-8d0e-0bcff2c7ee5a_shamrock-malphite-malphite#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bd9fpt7dav",
+      "Integrity": "L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\8aec7b84-2559-4de1-8d0e-0bcff2c7ee5a_shamrock-malphite-malphite.png"
+    },
+    {
       "Identity": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\8e4945ea-f48f-4186-8e17-dd41655d0186_shamrock-malphite-malphite.png",
       "SourceId": "PixelDread",
       "SourceType": "Discovered",
@@ -57,9 +183,461 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\8e4945ea-f48f-4186-8e17-dd41655d0186_shamrock-malphite-malphite.png"
+    },
+    {
+      "Identity": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\9ee822e0-3fc3-4825-8415-b019705ad304_shamrock-malphite-malphite.png",
+      "SourceId": "PixelDread",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\",
+      "BasePath": "_content/PixelDread",
+      "RelativePath": "uploads/9ee822e0-3fc3-4825-8415-b019705ad304_shamrock-malphite-malphite#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bd9fpt7dav",
+      "Integrity": "L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\9ee822e0-3fc3-4825-8415-b019705ad304_shamrock-malphite-malphite.png"
+    },
+    {
+      "Identity": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\f79eea6b-5fe9-433c-ba20-5b10c5d950ff_shamrock-malphite-malphite.png",
+      "SourceId": "PixelDread",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\",
+      "BasePath": "_content/PixelDread",
+      "RelativePath": "uploads/f79eea6b-5fe9-433c-ba20-5b10c5d950ff_shamrock-malphite-malphite#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bd9fpt7dav",
+      "Integrity": "L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\f79eea6b-5fe9-433c-ba20-5b10c5d950ff_shamrock-malphite-malphite.png"
     }
   ],
   "Endpoints": [
+    {
+      "Route": "uploads/3bee07fe-552b-4a49-91ae-3b8027c653d7_MP-Pop-v7Diagram.drawio.4g1ma466hi.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\3bee07fe-552b-4a49-91ae-3b8027c653d7_MP-Pop-v7Diagram.drawio.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "116948"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1GpT+wzr3dg8CqHojKzqrG9gesbIRjo/Rp9O2KITZxE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 13 Feb 2025 18:38:01 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "4g1ma466hi"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/3bee07fe-552b-4a49-91ae-3b8027c653d7_MP-Pop-v7Diagram.drawio.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-1GpT+wzr3dg8CqHojKzqrG9gesbIRjo/Rp9O2KITZxE="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/3bee07fe-552b-4a49-91ae-3b8027c653d7_MP-Pop-v7Diagram.drawio.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\3bee07fe-552b-4a49-91ae-3b8027c653d7_MP-Pop-v7Diagram.drawio.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "116948"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1GpT+wzr3dg8CqHojKzqrG9gesbIRjo/Rp9O2KITZxE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 13 Feb 2025 18:38:01 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-1GpT+wzr3dg8CqHojKzqrG9gesbIRjo/Rp9O2KITZxE="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/48047828-fc66-4bce-b443-1cb75a8a26c4_shamrock-malphite-malphite.bd9fpt7dav.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\48047828-fc66-4bce-b443-1cb75a8a26c4_shamrock-malphite-malphite.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "112376"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Feb 2025 10:03:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bd9fpt7dav"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/48047828-fc66-4bce-b443-1cb75a8a26c4_shamrock-malphite-malphite.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/48047828-fc66-4bce-b443-1cb75a8a26c4_shamrock-malphite-malphite.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\48047828-fc66-4bce-b443-1cb75a8a26c4_shamrock-malphite-malphite.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "112376"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Feb 2025 10:03:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/4e40849b-51b9-4d5b-85e2-a33f358333f8_shamrock-malphite-malphite.bd9fpt7dav.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\4e40849b-51b9-4d5b-85e2-a33f358333f8_shamrock-malphite-malphite.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "112376"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Feb 2025 10:03:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bd9fpt7dav"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/4e40849b-51b9-4d5b-85e2-a33f358333f8_shamrock-malphite-malphite.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/4e40849b-51b9-4d5b-85e2-a33f358333f8_shamrock-malphite-malphite.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\4e40849b-51b9-4d5b-85e2-a33f358333f8_shamrock-malphite-malphite.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "112376"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Feb 2025 10:03:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/5397f7fb-2e84-4fcc-84f1-9402387811eb_shamrock-malphite-malphite.bd9fpt7dav.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\5397f7fb-2e84-4fcc-84f1-9402387811eb_shamrock-malphite-malphite.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "112376"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Feb 2025 10:03:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bd9fpt7dav"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/5397f7fb-2e84-4fcc-84f1-9402387811eb_shamrock-malphite-malphite.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/5397f7fb-2e84-4fcc-84f1-9402387811eb_shamrock-malphite-malphite.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\5397f7fb-2e84-4fcc-84f1-9402387811eb_shamrock-malphite-malphite.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "112376"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Feb 2025 10:03:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/5d37483d-0c27-4ca1-acd5-df741326c21a_MP-Pop-v7Diagram.drawio.4g1ma466hi.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\5d37483d-0c27-4ca1-acd5-df741326c21a_MP-Pop-v7Diagram.drawio.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "116948"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1GpT+wzr3dg8CqHojKzqrG9gesbIRjo/Rp9O2KITZxE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 13 Feb 2025 18:37:59 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "4g1ma466hi"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/5d37483d-0c27-4ca1-acd5-df741326c21a_MP-Pop-v7Diagram.drawio.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-1GpT+wzr3dg8CqHojKzqrG9gesbIRjo/Rp9O2KITZxE="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/5d37483d-0c27-4ca1-acd5-df741326c21a_MP-Pop-v7Diagram.drawio.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\5d37483d-0c27-4ca1-acd5-df741326c21a_MP-Pop-v7Diagram.drawio.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "116948"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1GpT+wzr3dg8CqHojKzqrG9gesbIRjo/Rp9O2KITZxE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 13 Feb 2025 18:37:59 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-1GpT+wzr3dg8CqHojKzqrG9gesbIRjo/Rp9O2KITZxE="
+        }
+      ]
+    },
     {
       "Route": "uploads/755897ae-df61-4a12-a3c5-157e507733a2_shamrock-malphite-malphite.bd9fpt7dav.png",
       "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\755897ae-df61-4a12-a3c5-157e507733a2_shamrock-malphite-malphite.png",
@@ -143,6 +721,88 @@
       ]
     },
     {
+      "Route": "uploads/8aec7b84-2559-4de1-8d0e-0bcff2c7ee5a_shamrock-malphite-malphite.bd9fpt7dav.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\8aec7b84-2559-4de1-8d0e-0bcff2c7ee5a_shamrock-malphite-malphite.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "112376"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Feb 2025 10:03:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bd9fpt7dav"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/8aec7b84-2559-4de1-8d0e-0bcff2c7ee5a_shamrock-malphite-malphite.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/8aec7b84-2559-4de1-8d0e-0bcff2c7ee5a_shamrock-malphite-malphite.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\8aec7b84-2559-4de1-8d0e-0bcff2c7ee5a_shamrock-malphite-malphite.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "112376"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Feb 2025 10:03:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4="
+        }
+      ]
+    },
+    {
       "Route": "uploads/8e4945ea-f48f-4186-8e17-dd41655d0186_shamrock-malphite-malphite.bd9fpt7dav.png",
       "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\8e4945ea-f48f-4186-8e17-dd41655d0186_shamrock-malphite-malphite.png",
       "Selectors": [],
@@ -211,6 +871,170 @@
         {
           "Name": "Last-Modified",
           "Value": "Tue, 04 Feb 2025 07:38:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/9ee822e0-3fc3-4825-8415-b019705ad304_shamrock-malphite-malphite.bd9fpt7dav.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\9ee822e0-3fc3-4825-8415-b019705ad304_shamrock-malphite-malphite.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "112376"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Feb 2025 10:06:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bd9fpt7dav"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/9ee822e0-3fc3-4825-8415-b019705ad304_shamrock-malphite-malphite.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/9ee822e0-3fc3-4825-8415-b019705ad304_shamrock-malphite-malphite.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\9ee822e0-3fc3-4825-8415-b019705ad304_shamrock-malphite-malphite.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "112376"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Feb 2025 10:06:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/f79eea6b-5fe9-433c-ba20-5b10c5d950ff_shamrock-malphite-malphite.bd9fpt7dav.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\f79eea6b-5fe9-433c-ba20-5b10c5d950ff_shamrock-malphite-malphite.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "112376"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Feb 2025 10:03:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bd9fpt7dav"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/f79eea6b-5fe9-433c-ba20-5b10c5d950ff_shamrock-malphite-malphite.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/f79eea6b-5fe9-433c-ba20-5b10c5d950ff_shamrock-malphite-malphite.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\f79eea6b-5fe9-433c-ba20-5b10c5d950ff_shamrock-malphite-malphite.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "112376"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"L9qYBDpNK9kCtT6tWIMGfNdSQNIDP5eS5qtuHi1nJL4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Feb 2025 10:03:50 GMT"
         },
         {
           "Name": "Cache-Control",
