@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { logout } from "../api/authService";
+import { logout } from "../../api/authService";
 
 const Navbar: React.FC = () => {
   const isAdmin = !!localStorage.getItem("token");

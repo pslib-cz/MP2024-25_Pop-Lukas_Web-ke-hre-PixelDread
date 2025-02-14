@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet, Navigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import AdminNavbar from "../components/navbars/AdminNavbar";
 import styles from "./AdminLayout.module.css";
 
 const AdminLayout: React.FC = () => {
@@ -18,7 +18,7 @@ const AdminLayout: React.FC = () => {
 
   return (
     <div className={styles["admin-layout"]}>
-      <Navbar />
+    <AdminNavbar />
       <main className={styles["admin-layout__content"]}>
         <Outlet />
       </main>
