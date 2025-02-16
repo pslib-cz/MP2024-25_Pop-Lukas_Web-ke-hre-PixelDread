@@ -55,3 +55,17 @@ export const logout = async (): Promise<void> => {
     localStorage.removeItem("token");
   }
 };
+
+export const me = async (): Promise<boolean> => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) return false;
+    await axios.get(`${API_URL}/Admin/Me`, {
+      headers: { Authorization: token },
+    });
+    return true;
+  } catch (error: any) {
+    console.error("Me failed:", error.response?.data || error.message);
+    return false;
+  }
+}

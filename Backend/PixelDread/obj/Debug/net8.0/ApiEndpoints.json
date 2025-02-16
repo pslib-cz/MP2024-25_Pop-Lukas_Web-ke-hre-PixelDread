@@ -93,23 +93,12 @@
   },
   {
     "ContainingType": "PixelDread.Controllers.AdminController",
-    "Method": "UpdateAdmin",
-    "RelativePath": "api/Admin/UpdateAdmin/{id}",
-    "HttpMethod": "PUT",
+    "Method": "GetMe",
+    "RelativePath": "api/Admin/Me",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
-        "IsRequired": true
-      },
-      {
-        "Name": "model",
-        "Type": "PixelDread.Controllers.AdminController\u002BUpdateEmailModel",
-        "IsRequired": true
-      }
-    ],
+    "Parameters": [],
     "ReturnTypes": [
       {
         "Type": "Microsoft.AspNetCore.Identity.IdentityUser",

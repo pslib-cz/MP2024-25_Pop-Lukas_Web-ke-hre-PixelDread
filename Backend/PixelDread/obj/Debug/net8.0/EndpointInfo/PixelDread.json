@@ -150,40 +150,11 @@
         }
       }
     },
-    "/api/Admin/UpdateAdmin/{id}": {
-      "put": {
+    "/api/Admin/Me": {
+      "get": {
         "tags": [
           "Admin"
         ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateEmailModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateEmailModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateEmailModel"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -1530,16 +1501,6 @@
           },
           "isMachineRemembered": {
             "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "UpdateEmailModel": {
-        "type": "object",
-        "properties": {
-          "newEmail": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false

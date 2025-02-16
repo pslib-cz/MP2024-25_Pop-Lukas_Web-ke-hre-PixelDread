@@ -63,24 +63,18 @@ namespace PixelDread.Controllers
             await _context.SaveChangesAsync();
             return admin;
         }
-        [HttpPut]
-        [Route("UpdateAdmin/{id}")]
-        public async Task<ActionResult<IdentityUser>> UpdateAdmin(string id, UpdateEmailModel model)
+        [HttpGet]
+        [Route("Me")]
+        public async Task<ActionResult<IdentityUser>> GetMe()
         {
-            var admin = await _context.Users.FindAsync(id);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var admin = await _context.Users.FindAsync(userId);
             if (admin == null)
             {
                 return NotFound();
             }
-            admin.Email = model.NewEmail;
-            await _context.SaveChangesAsync();
             return admin;
         }
 
-        public class UpdateEmailModel
-        {
-            public string NewEmail { get; set; }
-        }
-        
-    }
+}
 }

@@ -1,24 +1,38 @@
-import React from "react";
-import { Outlet, Navigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import AdminNavbar from "../components/navbars/AdminNavbar";
 import styles from "./AdminLayout.module.css";
+import { me } from "../api/authService";
 
 const AdminLayout: React.FC = () => {
-  const token = localStorage.getItem("token");
+  const [authorized, setAuthorized] = useState<boolean | null>(null);
+  const navigate = useNavigate();
 
-  if (!token) {
+  useEffect(() => {
+    const checkAuthorization = async () => {
+      const isValid = await me();
+      setAuthorized(isValid);
+    };
+    checkAuthorization();
+  }, [navigate]);
+
+  if (authorized === null) {
+    return <div className={styles["admin-layout__loading"]}>Loading...</div>;
+  }
+
+  if (!authorized) {
     return (
       <div className={styles["admin-layout__denied"]}>
         <h2>Access Denied</h2>
         <p>Please log in to continue.</p>
-        <Navigate to="/login" replace />
+        <Link to="/login">Login</Link>
       </div>
     );
   }
 
   return (
     <div className={styles["admin-layout"]}>
-    <AdminNavbar />
+      <AdminNavbar />
       <main className={styles["admin-layout__content"]}>
         <Outlet />
       </main>
