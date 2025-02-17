@@ -1,0 +1,51 @@
+:root {
+    /* Definice barevných proměnných */
+    --color-primary: #333;
+    --color-secondary: #fff;
+    --color-hover: #ccc;
+    --color-button-bg: transparent;
+    --color-button-border: #fff;
+    --color-button-hover-bg: #fff;
+    --color-button-hover-text: #333;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-primary);
+    padding: 1rem;
+  }
+  
+  .navbar__links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .navbar__link {
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+  }
+  
+  .navbar__link:hover {
+    color: var(--color-hover);
+  }
+  
+  .navbar__logout {
+    margin-left: 1rem;
+    background-color: var(--color-button-bg);
+    border: 1px solid var(--color-button-border);
+    color: var(--color-secondary);
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  
+  .navbar__logout:hover {
+    background-color: var(--color-button-hover-bg);
+    color: var(--color-button-hover-text);
+  }
+  

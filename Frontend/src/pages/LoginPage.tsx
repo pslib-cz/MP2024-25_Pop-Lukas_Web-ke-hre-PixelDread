@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { login } from "../api/authService";
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import styles from "./LoginPage.module.css";
 
@@ -9,6 +9,7 @@ const LoginPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { login } = useAuth(); // Použití AuthContextu
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,7 +19,7 @@ const LoginPage: React.FC = () => {
     }
     setError(null);
     setLoading(true);
-    const success = await login(email, password);
+    const success = await login(email, password); 
     setLoading(false);
     if (success) {
       navigate("/admin");

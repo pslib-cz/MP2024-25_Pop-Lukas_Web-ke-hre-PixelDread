@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getPosts } from "../api/postService";
 import { Post } from "../types/post";
 import FirstTwoArticles from "./FirstTwoArticles";
+import CreatePost from "./CreatePost";
 
 const PostList: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -11,7 +12,9 @@ const PostList: React.FC = () => {
   useEffect(() => {
     getPosts()
       .then((data: any) => {
-        const postsArray = Array.isArray(data) ? data : data.posts || data.$values || [];
+        const postsArray = Array.isArray(data)
+          ? data
+          : data.posts || data.$values || [];
         setPosts(postsArray);
         setLoading(false);
       })
@@ -27,27 +30,29 @@ const PostList: React.FC = () => {
 
   return (
     <div>
+      <CreatePost />
       <h1>Posts</h1>
       {posts.length === 0 ? (
         <p>No posts found.</p>
       ) : (
-        posts.map((post) => {
-          // Přidejme log, abychom viděli, co máme v postArticles
-          
-
-          return (
-            <div
-              key={post.id}
-              style={{ border: "1px solid #ccc", padding: "10px", marginBottom: "10px" }}
+        posts.map((post) => (
+          <div
+            key={post.id}
+            style={{
+              border: "1px solid #ccc",
+              padding: "10px",
+              marginBottom: "10px",
+            }}
+          >
+            <Link
+              to={`/blog/${post.id}`}
+              style={{ textDecoration: "none", color: "inherit" }}
             >
-              <Link to={`/post/${post.id}`} style={{ textDecoration: "none", color: "inherit" }}>
-                {post.name ? <h3>{post.name}</h3> : <h3>Post {post.id}</h3>}
-              </Link>
-              <FirstTwoArticles postId={post.id} />
-
-            </div>
-          );
-        })
+              {post.name ? <h3>{post.name}</h3> : <h3>Post {post.id}</h3>}
+            </Link>
+            <FirstTwoArticles postId={post.id} />
+          </div>
+        ))
       )}
     </div>
   );

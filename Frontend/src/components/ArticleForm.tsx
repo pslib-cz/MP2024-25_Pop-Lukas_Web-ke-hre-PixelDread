@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Article, ArticleType } from "../types/articles";
+import TextEditor from "./TextEditor"; // Ujistěte se, že cesta odpovídá
 
 // Definice vlastního typu, který zahrnuje všechny možné klíče z jednotlivých typů článků.
 interface ArticleFormData {
@@ -47,7 +48,12 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ type, onSave }) => {
       {type === "text" && (
         <div>
           <label>Content</label>
-          <textarea name="content" onChange={handleChange} />
+          <TextEditor
+            initialContent={formData.content || ""}
+            onContentChange={(content: string) =>
+              setFormData(prev => ({ ...prev, content }))
+            }
+          />
         </div>
       )}
       {type === "faq" && (

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import DOMPurify from "dompurify";
 import { getFirstTwoArticles } from "../api/articleService";
 import { ArticleUnion } from "../types/articles";
 import ArticleFAQComponent from "./articles/ArticleFAQComponent";
@@ -14,11 +15,11 @@ const FirstTwoArticles: React.FC<FirstTwoArticlesProps> = ({ postId }) => {
 
   useEffect(() => {
     getFirstTwoArticles(postId)
-      .then((data:any) => {
+      .then((data: any) => {
         setArticles(data);
         setLoading(false);
       })
-      .catch((error:any) => {
+      .catch((error: any) => {
         console.error("Error fetching first two articles:", error);
         setLoading(false);
       });
@@ -31,22 +32,31 @@ const FirstTwoArticles: React.FC<FirstTwoArticlesProps> = ({ postId }) => {
   if (articles.length === 0) {
     return <div>No articles found.</div>;
   }
+
   return (
     <div>
       {articles.map((article, index) => (
         <div key={index} style={{ marginBottom: "10px" }}>
-            {article.type === "text" &&  
-             (() => {
-                let snippet = article.content.substring(0, 200) + (article.content.length > 200 ? "..." : "");
-                return article.type === "text" && <p>{snippet}</p>;
-              })()}
-            {article.type === "faq" && <ArticleFAQComponent article={article} />}
-            {article.type === "link" && <a href={article.url}>{article.placeholder}</a>}
-            {article.type === "media" && <ArticleMediaComponent article={article} />}
+          {article.type === "text" &&
+            (() => {
+              const sanitizedContent = DOMPurify.sanitize(article.content);
+              const parser = new DOMParser();
+              const doc = parser.parseFromString(sanitizedContent, "text/html");
+              const plainText = doc.body.textContent || "";
+              const snippet =
+                plainText.substring(0, 200) +
+                (plainText.length > 200 ? "..." : "");
+              return <p>{snippet}</p>;
+            })()}
+          {article.type === "faq" && <ArticleFAQComponent article={article} />}
+          {article.type === "link" && (
+            <a href={article.url}>{article.placeholder}</a>
+          )}
+          {article.type === "media" && (
+            <ArticleMediaComponent article={article} />
+          )}
         </div>
-  
       ))}
-    
     </div>
   );
 };
