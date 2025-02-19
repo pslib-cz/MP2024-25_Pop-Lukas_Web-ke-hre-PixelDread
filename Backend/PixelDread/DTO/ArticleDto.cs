@@ -20,7 +20,7 @@ namespace PixelDread.DTO
 
         public string? Description { get; set; } // For Media
         public string? Alt { get; set; } // For Media
-        public int? FileId { get; set; } // For Media
+        public int? FileInformationsId { get; set; } // For Media
 
     }
 }

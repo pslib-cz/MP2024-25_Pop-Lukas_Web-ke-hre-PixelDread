@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
-import { Article, ArticleType } from "../types/articles";
-import ArticleForm from "./ArticleForm";
+import { Article, ArticleType } from "../../types/articles";
+import ArticleForm from "../ArticleForm";
 
 interface CreatePostModalProps {
   show: boolean;
+  categoryId: number;
   onClose: () => void;
-  onSave: (postData: { name: string; articles: Article[] }) => void;
+  onSave: (postData: { name: string; categoryId: number; articles: Article[] }) => void;
 }
 
-const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave }) => {
+const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave, categoryId }) => {
   const [postName, setPostName] = useState<string>("");
   const [articles, setArticles] = useState<Article[]>([]);
   const [selectedType, setSelectedType] = useState<ArticleType | null>(null);
@@ -34,7 +35,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave
 
   const handleSubmit = () => {
     if (articles.length === 0) return;
-    onSave({ name: postName, articles });
+    onSave({ name: postName, articles, categoryId: categoryId });
   };
 
   const handleDragEnd = (result: DropResult) => {

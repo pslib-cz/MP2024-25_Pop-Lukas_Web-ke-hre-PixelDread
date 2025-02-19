@@ -11,7 +11,7 @@ using PixelDread.Services;
 namespace PixelDread.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20250209023052_Slahoun")]
+    [Migration("20250218150923_Slahoun")]
     partial class Slahoun
     {
         /// <inheritdoc />
@@ -48,7 +48,7 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "60921401-1f5f-4a06-b147-66b0acf510f2",
+                            Id = "4e36278e-5a3c-4163-9983-ea02c4128dbf",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -143,17 +143,17 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8bf500e9-8572-4b08-888f-5ab4e542bd5f",
+                            Id = "407e2bd3-9b06-4a14-8af5-c713dc9af846",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cf4ceaa6-0f16-4d80-bea3-cdd07e513fa5",
+                            ConcurrencyStamp = "2a646ae1-8830-4d19-bab2-8dc517b16cfb",
                             Email = "lukas@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "LUKAS@GMAIL.COM",
                             NormalizedUserName = "LUKAS@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELvLztFzCqIFrL5z1w6/aEkDUPAtWFOnBnYF+gM7XTW7Gvu4bcAz6LN9o5wMYgj7/A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAsBaJ8tp839tnk4PBlaVaFiB7RUYOysAXUBtJu4Wo7Fgdc07ZsYWtnCH7yGc5qY6g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3700154a-324c-4e1f-b928-273ccd7c57ad",
+                            SecurityStamp = "5d6ebc1d-ca53-4eb7-ba66-96433436fdf0",
                             TwoFactorEnabled = false,
                             UserName = "lukas@gmail.com"
                         });
@@ -187,7 +187,7 @@ namespace PixelDread.Migrations
                             Id = 1,
                             ClaimType = "Admin",
                             ClaimValue = "true",
-                            UserId = "8bf500e9-8572-4b08-888f-5ab4e542bd5f"
+                            UserId = "407e2bd3-9b06-4a14-8af5-c713dc9af846"
                         });
                 });
 
@@ -230,8 +230,8 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "8bf500e9-8572-4b08-888f-5ab4e542bd5f",
-                            RoleId = "60921401-1f5f-4a06-b147-66b0acf510f2"
+                            UserId = "407e2bd3-9b06-4a14-8af5-c713dc9af846",
+                            RoleId = "4e36278e-5a3c-4163-9983-ea02c4128dbf"
                         });
                 });
 
@@ -283,9 +283,6 @@ namespace PixelDread.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool?>("Default")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -298,19 +295,16 @@ namespace PixelDread.Migrations
                         new
                         {
                             Id = 1,
-                            Default = true,
                             Name = "Blog"
                         },
                         new
                         {
                             Id = 2,
-                            Default = true,
                             Name = "FAQ"
                         },
                         new
                         {
                             Id = 3,
-                            Default = true,
                             Name = "PatchNotes"
                         });
                 });

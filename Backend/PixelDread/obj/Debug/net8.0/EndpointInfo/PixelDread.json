@@ -875,6 +875,50 @@
             "description": "OK"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Post"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Post/by-category/{categoryId}": {
+      "get": {
+        "tags": [
+          "Post"
+        ],
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     }
   },
@@ -963,7 +1007,7 @@
             "type": "string",
             "nullable": true
           },
-          "fileId": {
+          "fileInformationsId": {
             "type": "integer",
             "format": "int32",
             "nullable": true
@@ -990,10 +1034,6 @@
           },
           "name": {
             "type": "string",
-            "nullable": true
-          },
-          "default": {
-            "type": "boolean",
             "nullable": true
           },
           "posts": {

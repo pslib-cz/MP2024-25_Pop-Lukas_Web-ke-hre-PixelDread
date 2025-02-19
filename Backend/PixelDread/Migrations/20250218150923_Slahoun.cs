@@ -58,8 +58,7 @@ namespace PixelDread.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Default = table.Column<bool>(type: "INTEGER", nullable: true)
+                    Name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -341,32 +340,32 @@ namespace PixelDread.Migrations
             migrationBuilder.InsertData(
                 table: "Admins",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "8bf500e9-8572-4b08-888f-5ab4e542bd5f", 0, "cf4ceaa6-0f16-4d80-bea3-cdd07e513fa5", "lukas@gmail.com", true, false, null, "LUKAS@GMAIL.COM", "LUKAS@GMAIL.COM", "AQAAAAIAAYagAAAAELvLztFzCqIFrL5z1w6/aEkDUPAtWFOnBnYF+gM7XTW7Gvu4bcAz6LN9o5wMYgj7/A==", null, false, "3700154a-324c-4e1f-b928-273ccd7c57ad", false, "lukas@gmail.com" });
+                values: new object[] { "407e2bd3-9b06-4a14-8af5-c713dc9af846", 0, "2a646ae1-8830-4d19-bab2-8dc517b16cfb", "lukas@gmail.com", true, false, null, "LUKAS@GMAIL.COM", "LUKAS@GMAIL.COM", "AQAAAAIAAYagAAAAEAsBaJ8tp839tnk4PBlaVaFiB7RUYOysAXUBtJu4Wo7Fgdc07ZsYWtnCH7yGc5qY6g==", null, false, "5d6ebc1d-ca53-4eb7-ba66-96433436fdf0", false, "lukas@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "60921401-1f5f-4a06-b147-66b0acf510f2", null, "Admin", "ADMIN" });
+                values: new object[] { "4e36278e-5a3c-4163-9983-ea02c4128dbf", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "Default", "Name" },
+                columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, true, "Blog" },
-                    { 2, true, "FAQ" },
-                    { 3, true, "PatchNotes" }
+                    { 1, "Blog" },
+                    { 2, "FAQ" },
+                    { 3, "PatchNotes" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserClaims",
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "UserId" },
-                values: new object[] { 1, "Admin", "true", "8bf500e9-8572-4b08-888f-5ab4e542bd5f" });
+                values: new object[] { 1, "Admin", "true", "407e2bd3-9b06-4a14-8af5-c713dc9af846" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "60921401-1f5f-4a06-b147-66b0acf510f2", "8bf500e9-8572-4b08-888f-5ab4e542bd5f" });
+                values: new object[] { "4e36278e-5a3c-4163-9983-ea02c4128dbf", "407e2bd3-9b06-4a14-8af5-c713dc9af846" });
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",

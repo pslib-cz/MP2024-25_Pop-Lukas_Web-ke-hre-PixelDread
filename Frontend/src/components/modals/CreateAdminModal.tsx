@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Admin } from "../types/admin";
-import { createAdmin } from "../api/adminService";
+import { Admin } from "../../types/admin";
+import { createAdmin } from "../../api/adminService";
 
 interface CreateAdminModalProps {
   onClose: () => void;

@@ -1,4 +1,4 @@
-import * as CookieConsent from "vanilla-cookieconsent";
+// import * as CookieConsent from "vanilla-cookieconsent";
 const Cookies = () => {
     return(
         <main>

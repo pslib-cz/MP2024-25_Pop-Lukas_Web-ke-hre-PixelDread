@@ -33,10 +33,16 @@ const FirstTwoArticles: React.FC<FirstTwoArticlesProps> = ({ postId }) => {
     return <div>No articles found.</div>;
   }
 
+  // Pokud jsou oba články typu "text", zobrazíme jen první
+  const articlesToDisplay =
+    articles.length === 2 && articles.every((a) => a.type === "text")
+      ? [articles[0]]
+      : articles;
+
   return (
     <div>
-      {articles.map((article, index) => (
-        <div key={index} style={{ marginBottom: "10px" }}>
+      {articlesToDisplay.map((article, index) => (
+        <div key={article.id || index} style={{ marginBottom: "10px" }}>
           {article.type === "text" &&
             (() => {
               const sanitizedContent = DOMPurify.sanitize(article.content);
@@ -50,11 +56,9 @@ const FirstTwoArticles: React.FC<FirstTwoArticlesProps> = ({ postId }) => {
             })()}
           {article.type === "faq" && <ArticleFAQComponent article={article} />}
           {article.type === "link" && (
-            <a href={article.url}>{article.placeholder}</a>
+            <a href={article.url}>{article.placeholder || article.url}</a>
           )}
-          {article.type === "media" && (
-            <ArticleMediaComponent article={article} />
-          )}
+          {article.type === "media" && <ArticleMediaComponent article={article} />}
         </div>
       ))}
     </div>

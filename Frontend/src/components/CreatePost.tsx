@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import CreatePostModal from "./CreatePostModal";
+import CreatePostModal from "./modals/CreatePostModal";
 import { Article, ArticleText, ArticleFAQ, ArticleLink, ArticleMedia } from "../types/articles";
 import { createPost } from "../api/postService";
 import uploadFile from "../api/fileService"; // funkce, která nahrává soubor a vrací JSON s id
-
+import { Category } from "../types/category";
 // Převod řetězcového typu na číselnou hodnotu odpovídající enumu na backendu
 const mapArticleTypeToEnum = (type: string): string => {
   switch (type) {
@@ -20,21 +20,26 @@ const mapArticleTypeToEnum = (type: string): string => {
   }
 };
 
-const CreatePost: React.FC = () => {
+interface CreatePostModalProps {
+  category: Category;
+}
+
+const CreatePost: React.FC<CreatePostModalProps> = ({ category }) => {
   const [showModal, setShowModal] = useState(false);
 
-  const handleSavePost = async (postData: { name: string; articles: Article[]; categoryId?: number; tagIds?: number[]; ogDataId?: number }) => {
+  const handleSavePost = async (postData: { name: string; articles: Article[]; categoryId: number; tagIds?: number[]; ogDataId?: number }) => {
     if (postData.articles.length === 0) return;
 
     // Projdeme články a pokud jde o mediální článek s přiloženým souborem, provedeme upload
     const processedArticles: Article[] = await Promise.all(
       postData.articles.map(async (article) => {
+        
         if (article.type === "media") {
           const mediaArticle = article as ArticleMedia;
           if (mediaArticle.file) {
             const uploadResult = await uploadFile(mediaArticle.file);
             // Předpokládáme, že uploadResult obsahuje vlastnost id
-            return { ...mediaArticle, file: null, fileId: uploadResult.id };
+            return { ...mediaArticle, file: null, fileInformationsId: uploadResult.id };
           }
         }
         return article;
@@ -42,11 +47,10 @@ const CreatePost: React.FC = () => {
     );
 
     const formData = new FormData();
+  
     formData.append("Name", postData.name || "");
 
-    if (postData.categoryId && postData.categoryId !== 0) {
-      formData.append("CategoryId", postData.categoryId.toString());
-    }
+      formData.append("CategoryId", category.id.toString());
     if (postData.tagIds && postData.tagIds.length > 0) {
       postData.tagIds.forEach((tagId, index) => {
         formData.append(`TagIds[${index}]`, tagId.toString());
@@ -81,9 +85,9 @@ const CreatePost: React.FC = () => {
         }
         case "media": {
           const mediaArticle = article as ArticleMedia;
-          // Pokud máme fileId, přidáme ho; již nepřenášíme samotný soubor
+          console.log("Media article:", mediaArticle);
           if (mediaArticle.fileInformationsId) {
-            formData.append(`Articles[${index}][FileId]`, mediaArticle.fileInformationsId.toString());
+            formData.append(`Articles[${index}][FileInformationsId]`, mediaArticle.fileInformationsId.toString());
           }
           if (mediaArticle.description) {
             formData.append(`Articles[${index}][description]`, mediaArticle.description);
@@ -106,11 +110,10 @@ const CreatePost: React.FC = () => {
       console.error("Error creating post:", error);
     }
   };
-
   return (
     <div>
       <button onClick={() => setShowModal(true)}>Create Post</button>
-      {showModal && <CreatePostModal show={showModal} onClose={() => setShowModal(false)} onSave={handleSavePost} />}
+      {showModal && <CreatePostModal show={showModal} onClose={() => setShowModal(false)} onSave={handleSavePost} categoryId={category.id}/>}
     </div>
   );
 };

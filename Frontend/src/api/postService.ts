@@ -8,7 +8,8 @@ import axiosInstance from "./axiosInstance";
  * @returns Odpověď z API s uloženým příspěvkem
  */
 export const createPost = async (formData: FormData): Promise<any> => {
-  const response = await axiosInstance.post("/post", formData, {
+  console.log("formData", formData.values());
+  const response = await axiosInstance.post("/Post", formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
   return response.data;
@@ -44,4 +45,16 @@ export const deletePost = async (id: number): Promise<void> => {
   await axiosInstance.delete(`/Post/${id}`);
 };
 
-
+export const getPostsByCategory = async (categoryId: number): Promise<any[]> => {
+  try {
+    const response = await axiosInstance.get(`/Post/by-category/${categoryId}`);
+    return response.data;
+  } catch (error: any) {
+    if (error.response && error.response.status === 404) {
+      // Pokud není nalezen žádný příspěvek, vrátíme prázdné pole, aniž bychom házeli chybu
+      return [];
+    }
+    // U ostatních chyb je vhodné je předat dál
+    throw error;
+  }
+};

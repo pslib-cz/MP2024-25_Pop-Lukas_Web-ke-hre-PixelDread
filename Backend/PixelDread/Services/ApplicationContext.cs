@@ -148,9 +148,9 @@
                 );
 
                 modelBuilder.Entity<Category>().HasData(
-                    new Category { Id = 1, Name = "Blog", Default = true },
-                    new Category { Id = 2, Name = "FAQ", Default = true },
-                    new Category { Id = 3, Name = "PatchNotes", Default = true }
+                    new Category { Id = 1, Name = "Blog" },
+                    new Category { Id = 2, Name = "FAQ" },
+                    new Category { Id = 3, Name = "PatchNotes" }
                 );
             }
         }
