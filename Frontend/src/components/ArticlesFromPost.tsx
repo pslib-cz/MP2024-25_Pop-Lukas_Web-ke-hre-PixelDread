@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { getPostById } from "../api/postService";
 import { getArticlesByPostId } from "../api/articleService";
 import { Post } from "../types/post";

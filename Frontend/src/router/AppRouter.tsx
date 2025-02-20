@@ -17,6 +17,7 @@ import FAQManagePage from "../pages/Admin/FAQManagePage";
 import PatchManagePage from "../pages/Admin/PatchManagePage";
 import PatchNotesPage from "../pages/PatchNotesPage";
 import FAQPage from "../pages/FAQPage";
+import PostDetailEdit from "../components/PostDetailEdit";
 
 const AppRouter: React.FC = () => {
   return (
@@ -37,6 +38,7 @@ const AppRouter: React.FC = () => {
           <Route index element={<AdminPage />} />
           <Route path="manageAdmins" element={<Admins />} />
           <Route path="blog" element={<BlogManagePage />} />
+          <Route path="blog/edit/:id" element={<PostDetailEdit />} />
           <Route path="faq" element={<FAQManagePage />} />
           <Route path="patch" element={<PatchManagePage />} />
           <Route path="*" element={<NotFoundPage />} /> 

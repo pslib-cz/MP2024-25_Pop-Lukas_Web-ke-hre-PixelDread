@@ -33,3 +33,16 @@ export const getFirstTwoArticles = async (postId: number): Promise<any[]> => {
   const response = await axiosInstance.get(`/Article/first-articles/${postId}`);
   return response.data;
 };
+
+// Update článku – provede PUT request na endpoint /Article/{id}
+export const updateArticle = async (id: number, formData: FormData): Promise<ArticleUnion> => {
+  const response = await axiosInstance.put(`/Article/${id}`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
+};
+
+// Smazání článku – provede DELETE request na endpoint /Article/{id}
+export const deleteArticle = async (id: number): Promise<void> => {
+  await axiosInstance.delete(`/Article/${id}`);
+};

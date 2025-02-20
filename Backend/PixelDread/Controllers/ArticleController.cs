@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PixelDread.DTO;
 using PixelDread.Models;
 using PixelDread.Services;
 
@@ -179,7 +180,99 @@ namespace PixelDread.Controllers
 
             return Ok(result);
         }
+        // PUT: api/Article/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateArticle(int id, [FromForm] ArticleDto articleDto)
+        {
+            var article = await _context.Articles.FindAsync(id);
+            if (article == null)
+            {
+                return NotFound();
+            }
+
+            // Aktualizace podle typu článku
+            switch (articleDto.Type)
+            {
+                case ArticleType.Text:
+                    if (article is ArticleText textArticle)
+                    {
+                        textArticle.Content = articleDto.Content ?? "";
+                    }
+                    else
+                    {
+                        return BadRequest("Článek není typu Text.");
+                    }
+                    break;
+                case ArticleType.FAQ:
+                    if (article is ArticleFAQ faqArticle)
+                    {
+                        faqArticle.Question = articleDto.Question ?? "";
+                        faqArticle.Answer = articleDto.Answer ?? "";
+                    }
+                    else
+                    {
+                        return BadRequest("Článek není typu FAQ.");
+                    }
+                    break;
+                case ArticleType.Link:
+                    if (article is ArticleLink linkArticle)
+                    {
+                        linkArticle.Url = articleDto.Url ?? "";
+                        linkArticle.Placeholder = articleDto.Placeholder;
+                    }
+                    else
+                    {
+                        return BadRequest("Článek není typu Link.");
+                    }
+                    break;
+                case ArticleType.Media:
+                    if (article is ArticleMedia mediaArticle)
+                    {
+                        mediaArticle.Description = articleDto.Description ?? "";
+                        mediaArticle.Alt = articleDto.Alt ?? "";
+                        if (articleDto.FileInformationsId.HasValue)
+                        {
+                            mediaArticle.FileInformationsId = articleDto.FileInformationsId.Value;
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest("Článek není typu Media.");
+                    }
+                    break;
+                default:
+                    return BadRequest("Neznámý typ článku.");
+            }
+
+            await _context.SaveChangesAsync();
+
+            // Načteme záznam z PostArticle, který obsahuje article type
+            var postArticle = await _context.PostArticles.FirstOrDefaultAsync(pa => pa.ArticleId == article.Id);
+
+            return Ok(new
+            {
+                Article = article,
+                ArticleType = postArticle?.ArticleType
+            });
+        }
 
 
+        // DELETE: api/Article/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteArticle(int id)
+        {
+            var article = await _context.Articles.FindAsync(id);
+            if (article == null)
+            {
+                return NotFound();
+            }
+
+            _context.Articles.Remove(article);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
+
 }
+

@@ -276,6 +276,132 @@ namespace PixelDread.Controllers
 
             return Ok(posts);
         }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdatePost(int id, [FromForm] PostDto postDto)
+        {
+            // Kontrola, zda příspěvek obsahuje alespoň jeden článek
+            if (postDto.Articles == null || postDto.Articles.Count == 0)
+            {
+                return BadRequest("Příspěvek musí obsahovat alespoň jeden článek.");
+            }
+
+            // Načtení existujícího příspěvku včetně jeho článků a tagů
+            var post = await _context.Posts
+                .Include(p => p.PostArticles).ThenInclude(pa => pa.Article)
+                .Include(p => p.PostTags)
+                .Include(p => p.OGData)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            // Aktualizace základních údajů příspěvku
+            post.Name = postDto.Name;
+            post.CategoryId = postDto.CategoryId;
+
+            // Odstranění stávajících článků a jejich vazeb
+            foreach (var pa in post.PostArticles.ToList())
+            {
+                // U mediálních článků můžete (podle potřeby) odstranit i související FileInformations
+                _context.Articles.Remove(pa.Article);
+                _context.PostArticles.Remove(pa);
+            }
+
+            // Vytvoření nových článků podle předaných dat
+            var newPostArticles = new List<PostArticle>();
+            foreach (var articleDto in postDto.Articles)
+            {
+                Article article = null;
+                switch (articleDto.Type)
+                {
+                    case ArticleType.Text:
+                        article = new ArticleText
+                        {
+                            Content = articleDto.Content ?? ""
+                        };
+                        break;
+                    case ArticleType.FAQ:
+                        article = new ArticleFAQ
+                        {
+                            Question = articleDto.Question ?? "",
+                            Answer = articleDto.Answer ?? ""
+                        };
+                        break;
+                    case ArticleType.Link:
+                        article = new ArticleLink
+                        {
+                            Url = articleDto.Url ?? "",
+                            Placeholder = articleDto.Placeholder
+                        };
+                        break;
+                    case ArticleType.Media:
+                        var mediaArticle = new ArticleMedia
+                        {
+                            Description = articleDto.Description ?? "",
+                            Alt = articleDto.Alt ?? ""
+                        };
+                        if (!articleDto.FileInformationsId.HasValue)
+                        {
+                            return BadRequest("FileId is required for media article.");
+                        }
+                        var file = await _context.FileInformations.FindAsync(articleDto.FileInformationsId.Value);
+                        if (file == null)
+                        {
+                            return BadRequest("File not found.");
+                        }
+                        mediaArticle.FileInformationsId = file.Id;
+                        article = mediaArticle;
+                        break;
+                    default:
+                        continue;
+                }
+
+                if (article != null)
+                {
+                    article.PostId = post.Id;
+                    _context.Articles.Add(article);
+                    newPostArticles.Add(new PostArticle
+                    {
+                        PostId = post.Id,
+                        Article = article,
+                        ArticleType = articleDto.Type,
+                        Order = articleDto.Order
+                    });
+                }
+            }
+            _context.PostArticles.AddRange(newPostArticles);
+
+            // Aktualizace tagů – odstranění stávajících a přidání nových
+            _context.PostTags.RemoveRange(post.PostTags);
+            if (postDto.TagIds != null && postDto.TagIds.Any())
+            {
+                foreach (var tagId in postDto.TagIds)
+                {
+                    var tag = await _context.Tags.FindAsync(tagId);
+                    if (tag != null)
+                    {
+                        _context.PostTags.Add(new PostTag { PostId = post.Id, TagId = tagId });
+                    }
+                }
+            }
+
+            // Aktualizace OGData, pokud je předána
+            if (postDto.OGDataId.HasValue)
+            {
+                var ogData = await _context.OGDatas.FindAsync(postDto.OGDataId.Value);
+                if (ogData != null)
+                {
+                    post.OGData = ogData;
+                    post.OGDataId = ogData.Id;
+                    ogData.PostId = post.Id;
+                }
+            }
+
+            await _context.SaveChangesAsync();
+            return Ok(post);
+        }
 
     }
 

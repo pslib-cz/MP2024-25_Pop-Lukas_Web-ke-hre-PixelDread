@@ -58,3 +58,11 @@ export const getPostsByCategory = async (categoryId: number): Promise<any[]> => 
     throw error;
   }
 };
+export const updatePost = async (id: number, postDto: any): Promise<any> => {
+  // Pokud potřebujete posílat data jako multipart/form-data, vytvořte FormData a nastavte odpovídající hlavičky.
+  // Předpokládejme, že postDto už je ve správném formátu.
+  const response = await axiosInstance.put(`/Post/${id}`, postDto, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
+};

@@ -55,16 +55,16 @@ const PostDetail: React.FC = () => {
               style={{ border: "1px solid #ccc", padding: "10px", marginBottom: "10px" }}
             >
               {article.type === "text" && (
-                <ArticleTextComponent article={article as ArticleText} />
+                  <ArticleTextComponent article={article as ArticleText} />
               )}
               {article.type === "faq" && (
-                <ArticleFAQComponent article={article as ArticleFAQ} />
+                  <ArticleFAQComponent article={article as ArticleFAQ} />
               )}
               {article.type === "link" && (
-                <ArticleLinkComponent article={article as ArticleLink} />
+                  <ArticleLinkComponent article={article as ArticleLink} />
               )}
               {article.type === "media" && (
-                <ArticleMediaComponent article={article as ArticleMedia} />
+                  <ArticleMediaComponent article={article as ArticleMedia} />
               )}
             </div>
           );

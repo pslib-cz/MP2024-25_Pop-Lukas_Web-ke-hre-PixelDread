@@ -4,14 +4,6 @@ import { getPosts, getPostsByCategory } from "../api/postService";
 import { Post } from "../types/post";
 import FirstTwoArticles from "./FirstTwoArticles";
 import { Category } from "../types/category";
-import ArticleTextComponent from "./articles/ArticleTextComponent";
-import ArticleFAQComponent from "./articles/ArticleFAQComponent";
-import ArticleLinkComponent from "./articles/ArticleLinkComponent";
-import ArticleMediaComponent from "./articles/ArticleMediaComponent";
-import { ArticleText, ArticleFAQ, ArticleLink, ArticleMedia } from "../types/articles";
-import { ArticleUnion } from "../types/articles";
-import { getArticleById } from "../api/articleService";
-import PostDetail from "./PostDetail";
 import ArticlesFromPost from "./ArticlesFromPost";
 interface PostListProps {
   category?: Category; // Pokud je předána, API vrátí jen příspěvky s tímto CategoryId.

@@ -15,6 +15,7 @@ const ArticleFAQComponent: React.FC<ArticleFAQProps> = ({ article }) => {
         <strong>A:</strong> {article.answer}
       </p>
     </div>
+
   );
 };
 
