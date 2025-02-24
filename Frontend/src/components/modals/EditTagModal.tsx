@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getTags, updateTag, deleteTag } from "../../api/tagService";
 import ConfirmationModal from "./ConfirmationModal";
 import NotificationModal from "./NotificationModal";
+import AddTagModal from "./AddTagModal";
 
 interface Tag {
   id: number;
@@ -12,6 +13,7 @@ interface EditTagModalProps {
   onClose: () => void;
 }
 
+
 const EditTagModal: React.FC<EditTagModalProps> = ({ onClose }) => {
   const [tags, setTags] = useState<Tag[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -20,7 +22,7 @@ const EditTagModal: React.FC<EditTagModalProps> = ({ onClose }) => {
   const [editedName, setEditedName] = useState<string>("");
   const [tagToDelete, setTagToDelete] = useState<Tag | null>(null);
   const [notification, setNotification] = useState<{ title: string; message: string } | null>(null);
-
+  const [showAddModal, setShowAddModal] = useState<boolean>(false);
   // Načtení tagů při prvním renderu
   useEffect(() => {
     const fetchTags = async () => {
@@ -99,6 +101,9 @@ const EditTagModal: React.FC<EditTagModalProps> = ({ onClose }) => {
   const cancelDelete = () => {
     setTagToDelete(null);
   };
+  const handleTagAdded = (newTag: Tag) => {
+    setTags([...tags, newTag]);
+  };
 
   if (loading) return <div>Načítám tagy...</div>;
   if (error) return <div>{error}</div>;
@@ -139,6 +144,15 @@ const EditTagModal: React.FC<EditTagModalProps> = ({ onClose }) => {
             </li>
           ))}
         </ul>
+        <div style={{ marginTop: "20px" }}>
+          <button onClick={() => setShowAddModal(true)}>Přidat tag</button>
+        </div>
+        {showAddModal && (
+        <AddTagModal
+          onClose={() => setShowAddModal(false)}
+          onTagAdded={handleTagAdded}
+        />
+      )}
         {tagToDelete && (
           <ConfirmationModal
             title="Potvrzení smazání"

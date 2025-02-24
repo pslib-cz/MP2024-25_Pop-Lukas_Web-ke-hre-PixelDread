@@ -45,7 +45,7 @@ const PostDetail: React.FC = () => {
   }
 
   // Pokud OGData obsahuje pouze FileInformationsId, sestavíme URL pomocí GET endpointu z FileControlleru
-  const ogTitle = post.ogData?.title || post.name;
+  const ogTitle = post.ogData?.title ? `${post.ogData.title} | Můj Blog` : "Detail příspěvku";
   const ogDescription = post.ogData?.description || "Detail příspěvku";
   const ogImage = post.ogData?.fileInformationsId
   ? `${API_URL}/File/${post.ogData.fileInformationsId}`

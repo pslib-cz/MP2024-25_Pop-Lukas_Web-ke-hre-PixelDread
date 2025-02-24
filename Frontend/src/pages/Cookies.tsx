@@ -1,6 +1,10 @@
 // import * as CookieConsent from "vanilla-cookieconsent";
+import { HelmetProvider } from "react-helmet-async";
 const Cookies = () => {
     return(
+    <HelmetProvider>
+                <title>PatchNotes Manage Page</title>
+            <div>
         <main>
             <header>
                 <h1>Cookie Policy</h1>
@@ -22,6 +26,8 @@ const Cookies = () => {
             <h2>Contact</h2>
             <p>If you have any questions regarding our cookies, feel free to contact me via email at <a href="mailto:jansebastiankostlan@gmail.com">jansebastiankostlan@gmail.com</a></p>
         </main>
+        </div>
+        </HelmetProvider>
     )
 }
 export default Cookies;

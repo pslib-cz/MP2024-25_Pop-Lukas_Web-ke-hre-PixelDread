@@ -28,10 +28,11 @@ const mapArticleTypeToEnum = (type: string): string => {
 };
 
 interface CreatePostProps {
+  onClose?: () => void;
   category: Category;
 }
 
-const CreatePost: React.FC<CreatePostProps> = ({ category }) => {
+const CreatePost: React.FC<CreatePostProps> = ({ category, onClose }) => {
   const [showModal, setShowModal] = useState(false);
 
   // Hlavní funkce pro uložení příspěvku
@@ -163,6 +164,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ category }) => {
     try {
       const response = await createPost(formData);
       console.log("Post created successfully:", response);
+      onClose && onClose();
       setShowModal(false);
     } catch (error) {
       console.error("Error creating post:", error);

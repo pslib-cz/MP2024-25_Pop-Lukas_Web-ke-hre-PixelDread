@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import styles from "./LoginPage.module.css";
+import { HelmetProvider } from "react-helmet-async";
+
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -29,6 +31,8 @@ const LoginPage: React.FC = () => {
   };
 
   return (
+    <HelmetProvider>
+      <title>Login</title>
     <div className={styles["login-page"]}>
       <h2 className={styles["login-page__title"]}>Login</h2>
       <form className={styles["login-page__form"]} onSubmit={handleSubmit}>
@@ -55,7 +59,9 @@ const LoginPage: React.FC = () => {
           {loading ? "Logging in..." : "Login"}
         </button>
       </form>
-    </div>
+    </div>    
+    </HelmetProvider>
+
   );
 };
 

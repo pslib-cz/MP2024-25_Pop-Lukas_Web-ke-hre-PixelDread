@@ -3,7 +3,7 @@ import { Admin } from "../../types/admin";
 import { getAdmins, getCurrentUserId, deleteAdmin as deleteAdminAPI } from "../../api/adminService";
 import CreateAdminModal from "../../components/modals/CreateAdminModal";
 import ConfirmationModal from "../../components/modals/ConfirmationModal";
-
+import { HelmetProvider } from "react-helmet-async";
 const Admins: React.FC = () => {
   const [admins, setAdmins] = useState<Admin[]>([]);
   const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
@@ -72,6 +72,8 @@ const Admins: React.FC = () => {
   };
 
   return (
+    <HelmetProvider>
+      <title>Manage admins</title>
     <div>
       <h1>Admins</h1>
       <button onClick={openCreateModal}>Create Admin</button>
@@ -104,6 +106,7 @@ const Admins: React.FC = () => {
         />
       )}
     </div>
+    </HelmetProvider>
   );
 };
 

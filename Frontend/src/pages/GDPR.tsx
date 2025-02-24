@@ -1,6 +1,9 @@
+import { HelmetProvider } from "react-helmet-async";
 import { Link } from "react-router-dom";
 const GDPR = () => {
     return (<>
+    <HelmetProvider>
+        <title>GDPR</title>
             <main>
                 <header>
                     <h1>GDPR</h1>
@@ -36,6 +39,8 @@ const GDPR = () => {
                     If you have any questions or concerns regarding our GDPR compliance or the processing of your personal data, please contact us at <a href="mailto:jansebastiankostlan@gmail.com">jansebastiankostlan@gmail.com</a>.
                 </p>
             </main>
+            </HelmetProvider>
+
         </>
     );
 };
