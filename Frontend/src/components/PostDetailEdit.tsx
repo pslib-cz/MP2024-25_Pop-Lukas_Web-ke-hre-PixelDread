@@ -1,55 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getPostById } from "../api/postService";
+import { getPostById, updatePost } from "../api/postService";
 import { getArticlesByPostId } from "../api/articleService";
-import { updatePost } from "../api/postService";
 import { Post } from "../types/post";
-import {
-  ArticleText,
-  ArticleFAQ,
-  ArticleLink,
-  ArticleMedia,
-  ArticleUnion,
-} from "../types/articles";
-import EditArticleModal from "./modals/EditArticleModal";
+import { ArticleMedia, ArticleUnion } from "../types/articles";
 import EditableArticle from "./EditableArticle";
-
-const mapArticleTypeToEnum = (type: string): string => {
-  switch (type) {
-    case "text":
-      return "1";
-    case "media":
-      return "2";
-    case "link":
-      return "3";
-    case "faq":
-      return "4";
-    default:
-      return "0";
-  }
-};
+import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
 
 const PostDetailEdit: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-
-  const [selectedArticleId, setSelectedArticleId] = useState<number | null>(null);
   const [post, setPost] = useState<Post | null>(null);
   const [articles, setArticles] = useState<ArticleUnion[]>([]);
+  const [postName, setPostName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [articlesLoading, setArticlesLoading] = useState<boolean>(true);
-  const [postName, setPostName] = useState<string>("");
-
-  const refreshArticles = async () => {
-    try {
-      const fetchedArticles = await getArticlesByPostId(Number(id));
-      fetchedArticles.sort((a: ArticleUnion, b: ArticleUnion) => a.order - b.order);
-      setArticles(fetchedArticles);
-    } catch (error) {
-      console.error("Chyba při načítání článků:", error);
-    } finally {
-      setArticlesLoading(false);
-    }
-  };
 
   const fetchData = async () => {
     if (id) {
@@ -58,11 +22,15 @@ const PostDetailEdit: React.FC = () => {
         setPost(fetchedPost);
         setPostName(fetchedPost.name || "");
         setArticlesLoading(true);
-        await refreshArticles();
+        const fetchedArticles = await getArticlesByPostId(Number(id));
+        // Seřadíme články podle pořadí
+        fetchedArticles.sort((a, b) => a.order - b.order);
+        setArticles(fetchedArticles);
       } catch (error) {
         console.error("Chyba při načítání příspěvku:", error);
       } finally {
         setLoading(false);
+        setArticlesLoading(false);
       }
     }
   };
@@ -71,10 +39,17 @@ const PostDetailEdit: React.FC = () => {
     fetchData();
   }, [id]);
 
-  const handleArticleChange = (updatedArticle: ArticleUnion) => {
-    setArticles((prev) =>
-      prev.map((a) => (a.id === updatedArticle.id ? updatedArticle : a))
-    );
+  const handleDragEnd = (result: DropResult) => {
+    if (!result.destination) return;
+    const reorderedArticles = Array.from(articles);
+    const [movedArticle] = reorderedArticles.splice(result.source.index, 1);
+    reorderedArticles.splice(result.destination.index, 0, movedArticle);
+    // Aktualizujeme order pro všechny články
+    const updatedArticles = reorderedArticles.map((article, index) => ({
+      ...article,
+      order: index + 1,
+    }));
+    setArticles(updatedArticles);
   };
 
   const handleSave = async () => {
@@ -84,35 +59,30 @@ const PostDetailEdit: React.FC = () => {
       formData.append("CategoryId", post.category.id.toString());
     }
     articles.forEach((article, index) => {
-      formData.append(`Articles[${index}][type]`, mapArticleTypeToEnum(article.type));
+      // Předpokládáme, že article.type je string odpovídající typu (např. "text", "media", ...)
+      formData.append(`Articles[${index}][type]`, article.type);
       formData.append(`Articles[${index}][order]`, article.order.toString());
+      
+      // Přiřadíme specifická pole dle typu článku
       if (article.type === "text") {
-        const content = (article as ArticleText).content ?? "";
-        formData.append(`Articles[${index}][content]`, content);
+        formData.append(`Articles[${index}][content]`, (article as any).content || "");
       } else if (article.type === "faq") {
-        const question = (article as ArticleFAQ).question ?? "";
-        const answer = (article as ArticleFAQ).answer ?? "";
-        formData.append(`Articles[${index}][question]`, question);
-        formData.append(`Articles[${index}][answer]`, answer);
+        formData.append(`Articles[${index}][question]`, (article as any).question || "");
+        formData.append(`Articles[${index}][answer]`, (article as any).answer || "");
       } else if (article.type === "link") {
-        const url = (article as ArticleLink).url ?? "";
-        formData.append(`Articles[${index}][url]`, url);
-        const placeholder = (article as ArticleLink).placeholder;
-        if (placeholder !== undefined) {
-          formData.append(`Articles[${index}][placeholder]`, placeholder);
+        formData.append(`Articles[${index}][url]`, (article as any).url || "");
+        if ((article as any).placeholder) {
+          formData.append(`Articles[${index}][placeholder]`, (article as any).placeholder);
         }
       } else if (article.type === "media") {
-        const fileId = (article as ArticleMedia).fileInformationsId;
-        if (fileId !== undefined) {
-          formData.append(`Articles[${index}][FileInformationsId]`, fileId.toString());
+        if ((article as any).fileInformationsId !== undefined) {
+          formData.append(`Articles[${index}][FileInformationsId]`, (article as any).fileInformationsId.toString());
         }
-        const description = (article as ArticleMedia).description;
-        if (description !== undefined) {
-          formData.append(`Articles[${index}][description]`, description);
+        if ((article as any).description !== undefined) {
+          formData.append(`Articles[${index}][description]`, (article as any).description);
         }
-        const alt = (article as ArticleMedia).alt;
-        if (alt !== undefined) {
-          formData.append(`Articles[${index}][alt]`, alt);
+        if ((article as any).alt !== undefined) {
+          formData.append(`Articles[${index}][alt]`, (article as any).alt);
         }
       }
     });
@@ -120,7 +90,7 @@ const PostDetailEdit: React.FC = () => {
     try {
       await updatePost(Number(id), formData);
       console.log("Změny byly úspěšně uloženy.");
-      await refreshArticles(); // Po update znovu načteme články
+      await fetchData(); // obnovíme data po úspěšném uložení
     } catch (error) {
       console.error("Chyba při aktualizaci příspěvku:", error);
     }
@@ -136,8 +106,6 @@ const PostDetailEdit: React.FC = () => {
     return <div>Načítám články...</div>;
   }
 
-  const articleToEdit = articles.find((a) => a.id === selectedArticleId) || null;
-
   return (
     <div style={{ padding: "20px" }}>
       <h1>Editace příspěvku</h1>
@@ -150,32 +118,43 @@ const PostDetailEdit: React.FC = () => {
           style={{ width: "100%", padding: "8px", marginTop: "5px" }}
         />
       </div>
-      <div>
-        <h2>Články</h2>
-        {articles.map((article) => (
-          <div
-            key={article.id}
-            style={{ cursor: "pointer", marginBottom: "10px" }}
-            onClick={() => setSelectedArticleId(article.id)}
-          >
-            {selectedArticleId === article.id && articleToEdit && (
-              <EditArticleModal
-                article={articleToEdit}
-                onSave={(updated) => {
-                  handleArticleChange(updated);
-                  setSelectedArticleId(null);
-                  refreshArticles();
-                }}
-                onClose={() => {setSelectedArticleId(null)
-                    fetchData();
-                }}
-              />
-            )}
-              <EditableArticle article={article} isEditing={false} canBeEdited={true} />
-
-          </div>
-        ))}
-      </div>
+      <h2>Články</h2>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Droppable droppableId="articles">
+          {(provided) => (
+            <div {...provided.droppableProps} ref={provided.innerRef}>
+              {articles.map((article, index) => (
+                <Draggable
+                  key={article.id || index}
+                  draggableId={String(article.id || index)}
+                  index={index}
+                >
+                  {(provided) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      style={{
+                        border: "1px solid #ccc",
+                        padding: "10px",
+                        marginBottom: "10px",
+                        ...provided.draggableProps.style,
+                      }}
+                    >
+                      <EditableArticle
+                        article={article}
+                        isEditing={false}
+                        canBeEdited={true}
+                      />
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
       <div>
         <button
           onClick={handleSave}
