@@ -266,7 +266,7 @@ namespace PixelDread.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
-                    FileInformationsId = table.Column<int>(type: "INTEGER", nullable: false),
+                    FileInformationsId = table.Column<int>(type: "INTEGER", nullable: true),
                     Slug = table.Column<string>(type: "TEXT", nullable: true),
                     PostId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
@@ -277,8 +277,7 @@ namespace PixelDread.Migrations
                         name: "FK_OGDatas_FileInformations_FileInformationsId",
                         column: x => x.FileInformationsId,
                         principalTable: "FileInformations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_OGDatas_Posts_PostId",
                         column: x => x.PostId,
@@ -340,12 +339,12 @@ namespace PixelDread.Migrations
             migrationBuilder.InsertData(
                 table: "Admins",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "407e2bd3-9b06-4a14-8af5-c713dc9af846", 0, "2a646ae1-8830-4d19-bab2-8dc517b16cfb", "lukas@gmail.com", true, false, null, "LUKAS@GMAIL.COM", "LUKAS@GMAIL.COM", "AQAAAAIAAYagAAAAEAsBaJ8tp839tnk4PBlaVaFiB7RUYOysAXUBtJu4Wo7Fgdc07ZsYWtnCH7yGc5qY6g==", null, false, "5d6ebc1d-ca53-4eb7-ba66-96433436fdf0", false, "lukas@gmail.com" });
+                values: new object[] { "85b772a4-1162-4098-9555-0dc0a377067f", 0, "21c8a1e4-715b-40db-9dbb-c2a28ba87b20", "lukas@gmail.com", true, false, null, "LUKAS@GMAIL.COM", "LUKAS@GMAIL.COM", "AQAAAAIAAYagAAAAEPPIFsJGq3koTZJ3Ncwlz+Mxyl0kU0Alxlm1PmG7pUhqdJirAsG2Exsz27eeHq3Apg==", null, false, "71688929-1435-406c-85eb-1f733e34128c", false, "lukas@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "4e36278e-5a3c-4163-9983-ea02c4128dbf", null, "Admin", "ADMIN" });
+                values: new object[] { "4cbf45c7-355f-4758-a7fc-04d2f169940d", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
@@ -360,12 +359,12 @@ namespace PixelDread.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserClaims",
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "UserId" },
-                values: new object[] { 1, "Admin", "true", "407e2bd3-9b06-4a14-8af5-c713dc9af846" });
+                values: new object[] { 1, "Admin", "true", "85b772a4-1162-4098-9555-0dc0a377067f" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "4e36278e-5a3c-4163-9983-ea02c4128dbf", "407e2bd3-9b06-4a14-8af5-c713dc9af846" });
+                values: new object[] { "4cbf45c7-355f-4758-a7fc-04d2f169940d", "85b772a4-1162-4098-9555-0dc0a377067f" });
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",

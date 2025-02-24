@@ -8,6 +8,7 @@
         public int? CategoryId { get; set; }
 
         public List<int>? TagIds { get; set; }
-        public int? OGDataId { get; set; }
+        public OGDataDto? OGData { get; set; }
+        
     }
 }

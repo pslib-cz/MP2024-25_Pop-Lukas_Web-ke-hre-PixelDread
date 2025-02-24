@@ -24,4 +24,10 @@ export interface Post {
   categoryId?: number;
   category?: Category;
   postArticles: PostArticle[];
+  ogData?: {
+    title: string;
+    description: string;
+    fileInformationsId?: number;
+  };
 }
+

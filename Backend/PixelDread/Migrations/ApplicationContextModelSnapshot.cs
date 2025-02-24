@@ -45,7 +45,7 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4e36278e-5a3c-4163-9983-ea02c4128dbf",
+                            Id = "4cbf45c7-355f-4758-a7fc-04d2f169940d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -140,17 +140,17 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "407e2bd3-9b06-4a14-8af5-c713dc9af846",
+                            Id = "85b772a4-1162-4098-9555-0dc0a377067f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2a646ae1-8830-4d19-bab2-8dc517b16cfb",
+                            ConcurrencyStamp = "21c8a1e4-715b-40db-9dbb-c2a28ba87b20",
                             Email = "lukas@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "LUKAS@GMAIL.COM",
                             NormalizedUserName = "LUKAS@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAsBaJ8tp839tnk4PBlaVaFiB7RUYOysAXUBtJu4Wo7Fgdc07ZsYWtnCH7yGc5qY6g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPPIFsJGq3koTZJ3Ncwlz+Mxyl0kU0Alxlm1PmG7pUhqdJirAsG2Exsz27eeHq3Apg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5d6ebc1d-ca53-4eb7-ba66-96433436fdf0",
+                            SecurityStamp = "71688929-1435-406c-85eb-1f733e34128c",
                             TwoFactorEnabled = false,
                             UserName = "lukas@gmail.com"
                         });
@@ -184,7 +184,7 @@ namespace PixelDread.Migrations
                             Id = 1,
                             ClaimType = "Admin",
                             ClaimValue = "true",
-                            UserId = "407e2bd3-9b06-4a14-8af5-c713dc9af846"
+                            UserId = "85b772a4-1162-4098-9555-0dc0a377067f"
                         });
                 });
 
@@ -227,8 +227,8 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "407e2bd3-9b06-4a14-8af5-c713dc9af846",
-                            RoleId = "4e36278e-5a3c-4163-9983-ea02c4128dbf"
+                            UserId = "85b772a4-1162-4098-9555-0dc0a377067f",
+                            RoleId = "4cbf45c7-355f-4758-a7fc-04d2f169940d"
                         });
                 });
 
@@ -340,7 +340,7 @@ namespace PixelDread.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("FileInformationsId")
+                    b.Property<int?>("FileInformationsId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("PostId")
@@ -564,9 +564,7 @@ namespace PixelDread.Migrations
                 {
                     b.HasOne("PixelDread.Models.FileInformations", "FileInformations")
                         .WithOne()
-                        .HasForeignKey("PixelDread.Models.OGData", "FileInformationsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PixelDread.Models.OGData", "FileInformationsId");
 
                     b.HasOne("PixelDread.Models.Post", "Post")
                         .WithOne("OGData")

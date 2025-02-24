@@ -1,15 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PixelDread.DTO;
 using PixelDread.Models;
-using PixelDread.Services;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using PixelDread.Services;
 
 namespace PixelDread.Controllers
 {
@@ -21,14 +19,12 @@ namespace PixelDread.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IWebHostEnvironment _env;
 
-
         public PostController(ApplicationContext context, UserManager<IdentityUser> userManager, IWebHostEnvironment env)
         {
             _context = context;
             _userManager = userManager;
             _env = env;
         }
-
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
@@ -44,8 +40,126 @@ namespace PixelDread.Controllers
             return Ok(posts);
         }
 
-        // Zde předpokládáme, že data přijdou jako JSON (application/json),
-        // takže používáme [FromBody]. Pokud byste chtěl multipart/form-data,
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPostById(int id)
+        {
+            var post = await _context.Posts
+                .Include(p => p.PostArticles).ThenInclude(pa => pa.Article)
+                .Include(p => p.User)
+                .Include(p => p.PostTags).ThenInclude(pt => pt.Tag)
+                .Include(p => p.OGData).ThenInclude(og => og.FileInformations)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(post);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePost(int id)
+        {
+            var post = await _context.Posts
+                .Include(p => p.PostArticles).ThenInclude(pa => pa.Article)
+                .Include(p => p.PostTags)
+                .Include(p => p.OGData)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            // Smazání souborů mediálních článků (pokud existují)
+            var fileInfosToDelete = new List<FileInformations>();
+            foreach (var pa in post.PostArticles)
+            {
+                if (pa.Article is ArticleMedia mediaArticle)
+                {
+                    var fileInfo = await _context.FileInformations.FindAsync(mediaArticle.FileInformationsId);
+                    if (fileInfo != null)
+                    {
+                        fileInfosToDelete.Add(fileInfo);
+                    }
+                }
+            }
+
+            // Odstranění příspěvku
+            _context.Posts.Remove(post);
+            await _context.SaveChangesAsync();
+
+            // Odstranění fyzických souborů
+            foreach (var fileInfo in fileInfosToDelete)
+            {
+                var filePath = Path.Combine(_env.WebRootPath, fileInfo.FilePath.TrimStart('/'));
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+                _context.FileInformations.Remove(fileInfo);
+            }
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpGet("by-category/{categoryId}")]
+        public async Task<IActionResult> GetPostsByCategory(int categoryId)
+        {
+            var posts = await _context.Posts
+                .Where(p => p.CategoryId == categoryId)
+                .Include(p => p.Category)
+                .Include(p => p.User)
+                .Include(p => p.PostTags).ThenInclude(pt => pt.Tag)
+                .Include(p => p.PostArticles).ThenInclude(pa => pa.Article)
+                .Include(p => p.OGData).ThenInclude(og => og.FileInformations)
+                .ToListAsync();
+
+            if (!posts.Any())
+            {
+                return NotFound($"No posts found for category ID {categoryId}.");
+            }
+
+            return Ok(posts);
+        }
+
+        [HttpPost("{postId}/tags")]
+        public async Task<IActionResult> AddTagsToPost(int postId, [FromBody] List<int> tagIds)
+        {
+            var post = await _context.Posts
+                .Include(p => p.PostTags)
+                .FirstOrDefaultAsync(p => p.Id == postId);
+
+            if (post == null)
+            {
+                return NotFound($"Příspěvek s ID {postId} nebyl nalezen.");
+            }
+
+            foreach (var tagId in tagIds)
+            {
+                var tag = await _context.Tags.FindAsync(tagId);
+                if (tag == null)
+                {
+                    return BadRequest($"Tag s ID {tagId} nebyl nalezen.");
+                }
+
+                if (!post.PostTags.Any(pt => pt.TagId == tagId))
+                {
+                    post.PostTags.Add(new PostTag
+                    {
+                        PostId = postId,
+                        TagId = tagId
+                    });
+                }
+            }
+
+            await _context.SaveChangesAsync();
+            return Ok(post);
+        }
+
+        // Vytvoření příspěvku
         [HttpPost]
         public async Task<IActionResult> CreatePost([FromForm] PostDto postDto)
         {
@@ -60,24 +174,20 @@ namespace PixelDread.Controllers
                 return Unauthorized("Uživatel musí být přihlášen.");
             }
 
-            // Vytvoříme a uložíme Post, abychom získali jeho ID.
             var post = new Post
             {
                 Name = postDto.Name,
                 CreatedAt = DateTime.UtcNow,
                 Visibility = true,
                 UserId = user.Id,
-                User = user,  // Uložení informací o autorovi
+                User = user,
                 CategoryId = postDto.CategoryId
             };
 
             _context.Posts.Add(post);
-            await _context.SaveChangesAsync(); // Získáme vygenerované post.Id
+            await _context.SaveChangesAsync(); // Získáme post.Id
 
-            // Seznam vazeb mezi příspěvkem a články
             var postArticles = new List<PostArticle>();
-
-            // Projdeme všechny články z DTO a vytvoříme entity
             foreach (var articleDto in postDto.Articles)
             {
                 Article article = null;
@@ -103,7 +213,7 @@ namespace PixelDread.Controllers
                             Placeholder = articleDto.Placeholder
                         };
                         break;
-                    case ArticleType.Media: //error here
+                    case ArticleType.Media:
                         var mediaArticle = new ArticleMedia
                         {
                             Description = articleDto.Description ?? "",
@@ -113,16 +223,13 @@ namespace PixelDread.Controllers
                         {
                             return BadRequest("FileId is required for media article.");
                         }
-
                         var file = await _context.FileInformations.FindAsync(articleDto.FileInformationsId.Value);
                         if (file == null)
                         {
                             return BadRequest("File not found.");
                         }
-
                         mediaArticle.FileInformationsId = file.Id;
                         article = mediaArticle;
-
                         break;
                     default:
                         continue;
@@ -130,29 +237,22 @@ namespace PixelDread.Controllers
 
                 if (article != null)
                 {
-                    // Nastavíme vazbu na post
                     article.PostId = post.Id;
                     _context.Articles.Add(article);
-
-                    // Vytvoříme vazbu s využitím navigační vlastnosti (Article)
                     postArticles.Add(new PostArticle
                     {
                         PostId = post.Id,
-                        Article = article, // Tím EF Core automaticky nastaví ArticleId
+                        Article = article,
                         ArticleType = articleDto.Type,
                         Order = articleDto.Order
                     });
                 }
             }
-
-            // Uložíme všechny články najednou – tím se vygenerují jejich skutečná ID
             await _context.SaveChangesAsync();
-
-            // Přidáme vazby mezi Post a Articles
             _context.PostArticles.AddRange(postArticles);
             await _context.SaveChangesAsync();
 
-            // Zpracování tagů (pokud existují)
+            // Tagy
             if (postDto.TagIds != null && postDto.TagIds.Any())
             {
                 foreach (var tagId in postDto.TagIds)
@@ -170,112 +270,40 @@ namespace PixelDread.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            // Zpracování OGData (pokud existuje)
-            if (postDto.OGDataId.HasValue)
+            // OGData
+            if (postDto.OGData != null)
             {
-                var ogData = await _context.OGDatas.FindAsync(postDto.OGDataId.Value);
-                if (ogData != null)
+                var newOgData = new OGData
                 {
-                    post.OGData = ogData;
-                    post.OGDataId = ogData.Id;
-                    ogData.PostId = post.Id;
-                    await _context.SaveChangesAsync();
+                    Title = postDto.OGData.Title,
+                    Description = postDto.OGData.Description,
+                    Slug = postDto.OGData.Slug,
+                    PostId = post.Id
+                };
+
+                // Pokud existuje FileInformationsId, zkontrolujeme, zda existuje i v DB
+                if (postDto.OGData.FileInformationsId.HasValue)
+                {
+                    var fileInfo = await _context.FileInformations.FindAsync(postDto.OGData.FileInformationsId.Value);
+                    if (fileInfo == null)
+                    {
+                        return BadRequest("FileInformationsId neexistuje v DB.");
+                    }
+                    newOgData.FileInformationsId = fileInfo.Id;
                 }
+
+                _context.OGDatas.Add(newOgData);
+                await _context.SaveChangesAsync();
+
+                post.OGDataId = newOgData.Id;
+                post.OGData = newOgData;
+                await _context.SaveChangesAsync();
             }
 
             return CreatedAtAction(nameof(GetPostById), new { id = post.Id }, post);
         }
 
-
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetPostById(int id)
-        {
-            var post = await _context.Posts
-                .Include(p => p.PostArticles)
-                    .ThenInclude(pa => pa.Article)
-                .Include(p => p.User)
-                .Include(p => p.PostTags)
-                    .ThenInclude(pt => pt.Tag)
-                .Include(p => p.OGData)
-                .FirstOrDefaultAsync(p => p.Id == id);
-
-            if (post == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(post);
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePost(int id)
-        {
-            // Načteme příspěvek včetně navigačních vlastností, abychom měli všechny související entity
-            var post = await _context.Posts
-                .Include(p => p.PostArticles)
-                    .ThenInclude(pa => pa.Article)
-                .Include(p => p.PostTags)
-                .Include(p => p.OGData)
-                .FirstOrDefaultAsync(p => p.Id == id);
-
-            if (post == null)
-            {
-                return NotFound();
-            }
-
-            // Shromáždíme FileInformations, které chceme odstranit – zpracujeme pouze mediální články
-            var fileInfosToDelete = new List<FileInformations>();
-            foreach (var pa in post.PostArticles)
-            {
-                if (pa.Article is ArticleMedia mediaArticle)
-                {
-                    var fileInfo = await _context.FileInformations.FindAsync(mediaArticle.FileInformationsId);
-                    if (fileInfo != null)
-                    {
-                        fileInfosToDelete.Add(fileInfo);
-                    }
-                }
-            }
-
-            // Odstraníme příspěvek – pokud máte správně nastavené cascade delete, odstraní se i PostArticles, Articles, PostTags, OGData
-            _context.Posts.Remove(post);
-            await _context.SaveChangesAsync();
-
-            // Odstraníme fyzické soubory a záznamy FileInformations
-            foreach (var fileInfo in fileInfosToDelete)
-            {
-                // Sestavíme absolutní cestu k souboru (odstraníme případné počáteční '/')
-                var filePath = Path.Combine(_env.WebRootPath, fileInfo.FilePath.TrimStart('/'));
-                if (System.IO.File.Exists(filePath))
-                {
-                    System.IO.File.Delete(filePath);
-                }
-                _context.FileInformations.Remove(fileInfo);
-            }
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-        [HttpGet("by-category/{categoryId}")]
-        public async Task<IActionResult> GetPostsByCategory(int categoryId)
-        {
-            var posts = await _context.Posts
-                .Where(p => p.CategoryId == categoryId)
-                .Include(p => p.Category)
-                .Include(p => p.User)
-                .Include(p => p.PostTags).ThenInclude(pt => pt.Tag)
-                .Include(p => p.PostArticles).ThenInclude(pa => pa.Article)
-                .Include(p => p.OGData).ThenInclude(og => og.FileInformations)
-                .ToListAsync();
-
-            if (!posts.Any())
-            {
-                return NotFound($"No posts found for category ID {categoryId}.");
-            }
-
-            return Ok(posts);
-        }
+        // PUT: api/Post/{id} – update příspěvku (analogicky si upravte dle potřeby)
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePost(int id, [FromForm] PostDto postDto)
         {
@@ -285,7 +313,7 @@ namespace PixelDread.Controllers
                 return BadRequest("Příspěvek musí obsahovat alespoň jeden článek.");
             }
 
-            // Načtení existujícího příspěvku včetně jeho článků a tagů
+            // Načteme existující příspěvek včetně článků, tagů a OGData
             var post = await _context.Posts
                 .Include(p => p.PostArticles).ThenInclude(pa => pa.Article)
                 .Include(p => p.PostTags)
@@ -301,15 +329,14 @@ namespace PixelDread.Controllers
             post.Name = postDto.Name;
             post.CategoryId = postDto.CategoryId;
 
-            // Odstranění stávajících článků a jejich vazeb
+            // Odstraníme stávající články a jejich vazby
             foreach (var pa in post.PostArticles.ToList())
             {
-                // U mediálních článků můžete (podle potřeby) odstranit i související FileInformations
                 _context.Articles.Remove(pa.Article);
                 _context.PostArticles.Remove(pa);
             }
 
-            // Vytvoření nových článků podle předaných dat
+            // Vytvoříme nové články dle předaných dat
             var newPostArticles = new List<PostArticle>();
             foreach (var articleDto in postDto.Articles)
             {
@@ -371,9 +398,10 @@ namespace PixelDread.Controllers
                     });
                 }
             }
+            await _context.SaveChangesAsync();
             _context.PostArticles.AddRange(newPostArticles);
 
-            // Aktualizace tagů – odstranění stávajících a přidání nových
+            // Aktualizace tagů – odstraníme stávající a přidáme nové
             _context.PostTags.RemoveRange(post.PostTags);
             if (postDto.TagIds != null && postDto.TagIds.Any())
             {
@@ -387,23 +415,53 @@ namespace PixelDread.Controllers
                 }
             }
 
-            // Aktualizace OGData, pokud je předána
-            if (postDto.OGDataId.HasValue)
+            // Aktualizace OGData, pokud jsou data předána
+            if (postDto.OGData != null)
             {
-                var ogData = await _context.OGDatas.FindAsync(postDto.OGDataId.Value);
-                if (ogData != null)
+                // Pokud příspěvek již OGData má, provedeme update
+                if (post.OGData != null)
                 {
-                    post.OGData = ogData;
-                    post.OGDataId = ogData.Id;
-                    ogData.PostId = post.Id;
+                    post.OGData.Title = postDto.OGData.Title;
+                    post.OGData.Description = postDto.OGData.Description;
+                    post.OGData.Slug = postDto.OGData.Slug;
+                    if (postDto.OGData.FileInformationsId.HasValue)
+                    {
+                        var fileInfo = await _context.FileInformations.FindAsync(postDto.OGData.FileInformationsId.Value);
+                        if (fileInfo == null)
+                        {
+                            return BadRequest("FileInformationsId does not exist.");
+                        }
+                        post.OGData.FileInformationsId = fileInfo.Id;
+                    }
+                }
+                else
+                {
+                    // Pokud OGData ještě neexistuje, vytvoříme novou entitu a navážeme ji
+                    var newOgData = new OGData
+                    {
+                        Title = postDto.OGData.Title,
+                        Description = postDto.OGData.Description,
+                        Slug = postDto.OGData.Slug,
+                        PostId = post.Id
+                    };
+                    if (postDto.OGData.FileInformationsId.HasValue)
+                    {
+                        var fileInfo = await _context.FileInformations.FindAsync(postDto.OGData.FileInformationsId.Value);
+                        if (fileInfo == null)
+                        {
+                            return BadRequest("FileInformationsId does not exist.");
+                        }
+                        newOgData.FileInformationsId = fileInfo.Id;
+                    }
+                    _context.OGDatas.Add(newOgData);
+                    await _context.SaveChangesAsync();
+                    post.OGData = newOgData;
+                    post.OGDataId = newOgData.Id;
                 }
             }
 
             await _context.SaveChangesAsync();
             return Ok(post);
         }
-
     }
-
-
 }

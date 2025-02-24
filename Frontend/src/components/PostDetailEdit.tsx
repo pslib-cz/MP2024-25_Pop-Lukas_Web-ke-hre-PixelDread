@@ -183,9 +183,6 @@ const PostDetailEdit: React.FC = () => {
         >
           Uložit změny
         </button>
-        <button onClick={fetchData} style={{ marginLeft: "10px" }}>
-          Obnovit
-        </button>
       </div>
     </div>
   );

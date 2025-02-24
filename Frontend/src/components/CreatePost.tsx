@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import CreatePostModal from "./modals/CreatePostModal";
-import { Article, ArticleText, ArticleFAQ, ArticleLink, ArticleMedia } from "../types/articles";
+import CreatePostModal, { CreatePostData } from "./modals/CreatePostModal";
+import {
+  Article,
+  ArticleText,
+  ArticleFAQ,
+  ArticleLink,
+  ArticleMedia,
+} from "../types/articles";
 import { createPost } from "../api/postService";
-import uploadFile from "../api/fileService"; // funkce, která nahrává soubor a vrací JSON s id
+import uploadFile from "../api/fileService";
 import { Category } from "../types/category";
-// Převod řetězcového typu na číselnou hodnotu odpovídající enumu na backendu
+
+// Pomocná funkce pro převedení textového označení typu článku na enum z backendu
 const mapArticleTypeToEnum = (type: string): string => {
   switch (type) {
     case "text":
@@ -20,77 +27,127 @@ const mapArticleTypeToEnum = (type: string): string => {
   }
 };
 
-interface CreatePostModalProps {
+interface CreatePostProps {
   category: Category;
 }
 
-const CreatePost: React.FC<CreatePostModalProps> = ({ category }) => {
+const CreatePost: React.FC<CreatePostProps> = ({ category }) => {
   const [showModal, setShowModal] = useState(false);
 
-  const handleSavePost = async (postData: { name: string; articles: Article[]; categoryId: number; tagIds?: number[]; ogDataId?: number }) => {
+  // Hlavní funkce pro uložení příspěvku
+  const handleSavePost = async (postData: CreatePostData) => {
+    // Bez článků nemá smysl pokračovat
     if (postData.articles.length === 0) return;
 
-    // Projdeme články a pokud jde o mediální článek s přiloženým souborem, provedeme upload
+    // 1) Upload souborů u mediálních článků
     const processedArticles: Article[] = await Promise.all(
       postData.articles.map(async (article) => {
-        
         if (article.type === "media") {
           const mediaArticle = article as ArticleMedia;
           if (mediaArticle.file) {
             const uploadResult = await uploadFile(mediaArticle.file);
-            // Předpokládáme, že uploadResult obsahuje vlastnost id
-            return { ...mediaArticle, file: null, fileInformationsId: uploadResult.id };
+            return {
+              ...mediaArticle,
+              file: null,
+              fileInformationsId: uploadResult.id,
+            };
           }
         }
         return article;
       })
     );
 
-    const formData = new FormData();
-  
-    formData.append("Name", postData.name || "");
+    // 2) Upload souboru pro OGData (pokud existuje)
+    let ogDataWithFileId = postData.ogData;
+    if (postData.ogData?.file) {
+      const uploadResult = await uploadFile(postData.ogData.file);
+      ogDataWithFileId = {
+        ...postData.ogData,
+        file: null,
+        fileInformationsId: uploadResult.id,
+      };
+    }
 
-      formData.append("CategoryId", category.id.toString());
+    // 3) Naplníme FormData
+    const formData = new FormData();
+
+    // Základní údaje příspěvku
+    formData.append("Name", postData.name || "");
+    formData.append("CategoryId", category.id.toString());
+
+    // Tagy
     if (postData.tagIds && postData.tagIds.length > 0) {
       postData.tagIds.forEach((tagId, index) => {
         formData.append(`TagIds[${index}]`, tagId.toString());
       });
     }
-    if (postData.ogDataId && postData.ogDataId !== 0) {
-      formData.append("OGDataId", postData.ogDataId.toString());
+
+    // OGData
+    if (ogDataWithFileId) {
+      formData.append("OGData.Title", ogDataWithFileId.title || "");
+      formData.append("OGData.Description", ogDataWithFileId.description || "");
+      formData.append("OGData.Slug", ogDataWithFileId.slug || "");
+      if (ogDataWithFileId.fileInformationsId) {
+        formData.append(
+          "OGData.FileInformationsId",
+          ogDataWithFileId.fileInformationsId.toString()
+        );
+      }
     }
 
+    // 4) Zpracujeme články dle typu
     processedArticles.forEach((article, index) => {
-      formData.append(`Articles[${index}][type]`, mapArticleTypeToEnum(article.type));
+      formData.append(
+        `Articles[${index}][type]`,
+        mapArticleTypeToEnum(article.type)
+      );
       formData.append(`Articles[${index}][order]`, article.order.toString());
+
       switch (article.type) {
         case "text": {
           const textArticle = article as ArticleText;
-          formData.append(`Articles[${index}][content]`, textArticle.content);
+          formData.append(
+            `Articles[${index}][content]`,
+            textArticle.content ?? ""
+          );
           break;
         }
         case "faq": {
           const faqArticle = article as ArticleFAQ;
-          formData.append(`Articles[${index}][question]`, faqArticle.question);
-          formData.append(`Articles[${index}][answer]`, faqArticle.answer);
+          formData.append(
+            `Articles[${index}][question]`,
+            faqArticle.question ?? ""
+          );
+          formData.append(
+            `Articles[${index}][answer]`,
+            faqArticle.answer ?? ""
+          );
           break;
         }
         case "link": {
           const linkArticle = article as ArticleLink;
-          formData.append(`Articles[${index}][url]`, linkArticle.url);
+          formData.append(`Articles[${index}][url]`, linkArticle.url ?? "");
           if (linkArticle.placeholder) {
-            formData.append(`Articles[${index}][placeholder]`, linkArticle.placeholder);
+            formData.append(
+              `Articles[${index}][placeholder]`,
+              linkArticle.placeholder
+            );
           }
           break;
         }
         case "media": {
           const mediaArticle = article as ArticleMedia;
-          console.log("Media article:", mediaArticle);
           if (mediaArticle.fileInformationsId) {
-            formData.append(`Articles[${index}][FileInformationsId]`, mediaArticle.fileInformationsId.toString());
+            formData.append(
+              `Articles[${index}][FileInformationsId]`,
+              mediaArticle.fileInformationsId.toString()
+            );
           }
           if (mediaArticle.description) {
-            formData.append(`Articles[${index}][description]`, mediaArticle.description);
+            formData.append(
+              `Articles[${index}][description]`,
+              mediaArticle.description
+            );
           }
           if (mediaArticle.alt) {
             formData.append(`Articles[${index}][alt]`, mediaArticle.alt);
@@ -102,6 +159,7 @@ const CreatePost: React.FC<CreatePostModalProps> = ({ category }) => {
       }
     });
 
+    // 5) Odeslání na backend
     try {
       const response = await createPost(formData);
       console.log("Post created successfully:", response);
@@ -110,10 +168,18 @@ const CreatePost: React.FC<CreatePostModalProps> = ({ category }) => {
       console.error("Error creating post:", error);
     }
   };
+
   return (
     <div>
       <button onClick={() => setShowModal(true)}>Create Post</button>
-      {showModal && <CreatePostModal show={showModal} onClose={() => setShowModal(false)} onSave={handleSavePost} categoryId={category.id}/>}
+      {showModal && (
+        <CreatePostModal
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          onSave={handleSavePost}
+          categoryId={category.id}
+        />
+      )}
     </div>
   );
 };

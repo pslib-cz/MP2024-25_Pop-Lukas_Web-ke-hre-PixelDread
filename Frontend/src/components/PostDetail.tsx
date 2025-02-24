@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import { getPostById } from "../api/postService";
 import { getArticlesByPostId } from "../api/articleService";
@@ -8,6 +9,7 @@ import ArticleTextComponent from "./articles/ArticleTextComponent";
 import ArticleFAQComponent from "./articles/ArticleFAQComponent";
 import ArticleLinkComponent from "./articles/ArticleLinkComponent";
 import ArticleMediaComponent from "./articles/ArticleMediaComponent";
+import { API_URL } from "../api/axiosInstance";
 
 const PostDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -42,37 +44,58 @@ const PostDetail: React.FC = () => {
     return <div>Post not found.</div>;
   }
 
+  // Pokud OGData obsahuje pouze FileInformationsId, sestavíme URL pomocí GET endpointu z FileControlleru
+  const ogTitle = post.ogData?.title || post.name;
+  const ogDescription = post.ogData?.description || "Detail příspěvku";
+  const ogImage = post.ogData?.fileInformationsId
+  ? `${API_URL}/File/${post.ogData.fileInformationsId}`
+  : null;
+
   return (
-    <div>
-      <h1>{post.name}</h1>
-      {articles.length > 0 ? (
-        articles.map((article) => {
-          if (!article || !article.type) return null;
-          const key = article.id || article.order;
-          return (
-            <div
-              key={key}
-              style={{ border: "1px solid #ccc", padding: "10px", marginBottom: "10px" }}
-            >
-              {article.type === "text" && (
+    <HelmetProvider>
+      <div>
+        <Helmet>
+          <title>{ogTitle} | Můj Blog</title>
+          <meta name="description" content={ogDescription} />
+          <meta property="og:title" content={ogTitle} />
+          <meta property="og:description" content={ogDescription} />
+          <meta property="og:url" content={window.location.href} />
+          {ogImage && <meta property="og:image" content={ogImage} />}
+        </Helmet>
+        <h1>{post.name}</h1>
+        {articles.length > 0 ? (
+          articles.map((article) => {
+            if (!article || !article.type) return null;
+            const key = article.id || article.order;
+            return (
+              <div
+                key={key}
+                style={{
+                  border: "1px solid #ccc",
+                  padding: "10px",
+                  marginBottom: "10px",
+                }}
+              >
+                {article.type === "text" && (
                   <ArticleTextComponent article={article as ArticleText} />
-              )}
-              {article.type === "faq" && (
+                )}
+                {article.type === "faq" && (
                   <ArticleFAQComponent article={article as ArticleFAQ} />
-              )}
-              {article.type === "link" && (
+                )}
+                {article.type === "link" && (
                   <ArticleLinkComponent article={article as ArticleLink} />
-              )}
-              {article.type === "media" && (
+                )}
+                {article.type === "media" && (
                   <ArticleMediaComponent article={article as ArticleMedia} />
-              )}
-            </div>
-          );
-        })
-      ) : (
-        <p>No articles found for this post.</p>
-      )}
-    </div>
+                )}
+              </div>
+            );
+          })
+        ) : (
+          <p>No articles found for this post.</p>
+        )}
+      </div>
+    </HelmetProvider>
   );
 };
 

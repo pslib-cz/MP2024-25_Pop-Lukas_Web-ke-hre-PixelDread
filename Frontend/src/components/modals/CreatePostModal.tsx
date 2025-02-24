@@ -1,24 +1,66 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
-import { Article, ArticleType } from "../../types/articles";
+import CreatableSelect from "react-select/creatable";
 import ArticleForm from "../ArticleForm";
+import { Article, ArticleType } from "../../types/articles";
+import { getTags, createTag } from "../../api/tagService";
+import OGDataAdderModal, { OGData } from "./OGDataAdderModal";
+
+interface TagOption {
+  value: number;
+  label: string;
+}
+
+export interface CreatePostData {
+  name: string;
+  categoryId: number;
+  articles: Article[];
+  tagIds?: number[];
+  ogData?: OGData;
+}
 
 interface CreatePostModalProps {
   show: boolean;
   categoryId: number;
   onClose: () => void;
-  onSave: (postData: { name: string; categoryId: number; articles: Article[] }) => void;
+  onSave: (postData: CreatePostData) => void;
 }
+
+const BLOG_CATEGORY_ID = 1;
 
 const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave, categoryId }) => {
   const [postName, setPostName] = useState<string>("");
   const [articles, setArticles] = useState<Article[]>([]);
   const [selectedType, setSelectedType] = useState<ArticleType | null>(null);
+  const [availableTags, setAvailableTags] = useState<TagOption[]>([]);
+  const [selectedTags, setSelectedTags] = useState<TagOption[]>([]);
+  const [showOgDataModal, setShowOgDataModal] = useState<boolean>(false);
+  const [ogData, setOgData] = useState<OGData | undefined>(undefined);
+
+  useEffect(() => {
+    if (categoryId === BLOG_CATEGORY_ID) {
+      const fetchTags = async () => {
+        try {
+          const tags = await getTags();
+          const tagOptions: TagOption[] = tags.map((tag: any) => ({
+            value: tag.id,
+            label: tag.name,
+          }));
+          setAvailableTags(tagOptions);
+        } catch (error) {
+          console.error("Chyba při načítání tagů:", error);
+        }
+      };
+      fetchTags();
+    }
+  }, [categoryId]);
 
   const resetForm = () => {
     setPostName("");
     setArticles([]);
     setSelectedType(null);
+    setSelectedTags([]);
+    setOgData(undefined);
   };
 
   const handleSaveArticle = (article: Article) => {
@@ -26,16 +68,17 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave
     setSelectedType(null);
   };
 
-  // Přidána funkce pro odstranění článku podle indexu
   const removeArticle = (indexToRemove: number) => {
-    const updated = articles.filter((_, index) => index !== indexToRemove)
+    const updated = articles
+      .filter((_, index) => index !== indexToRemove)
       .map((article, index) => ({ ...article, order: index + 1 }));
     setArticles(updated);
   };
 
   const handleSubmit = () => {
     if (articles.length === 0) return;
-    onSave({ name: postName, articles, categoryId: categoryId });
+    const tagIds = categoryId === BLOG_CATEGORY_ID ? selectedTags.map((tag) => tag.value) : undefined;
+    onSave({ name: postName, articles, categoryId, tagIds, ogData });
   };
 
   const handleDragEnd = (result: DropResult) => {
@@ -47,12 +90,23 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave
     setArticles(updatedArticles);
   };
 
+  const handleCreateTag = async (inputValue: string) => {
+    try {
+      const newTag = await createTag(inputValue);
+      const newOption = { value: newTag.id, label: newTag.name };
+      setAvailableTags((prev) => [...prev, newOption]);
+      setSelectedTags((prev) => [...prev, newOption]);
+    } catch (error) {
+      console.error("Chyba při vytváření tagu:", error);
+    }
+  };
+
   if (!show) return null;
 
   return (
-    <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", background: "rgba(0,0,0,0.5)" }}>
-      <div style={{ background: "white", padding: "20px", margin: "auto", maxWidth: "400px" }}>
-        <div>
+    <div style={modalStyle}>
+      <div style={modalContentStyle}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
           <h2>Create New Post</h2>
           <button onClick={() => { resetForm(); onClose(); }}>&times;</button>
         </div>
@@ -65,13 +119,36 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave
             onChange={(e) => setPostName(e.target.value)}
           />
         </div>
-        <div>
+        {categoryId === BLOG_CATEGORY_ID && (
+          <>
+            <div style={{ marginTop: "10px" }}>
+              <label>Vyberte tagy (nebo vytvořte nový):</label>
+              <CreatableSelect
+                isMulti
+                options={availableTags}
+                value={selectedTags}
+                onChange={(newValue) => setSelectedTags(newValue as TagOption[])}
+                onCreateOption={handleCreateTag}
+                placeholder="Vyberte nebo vytvořte tagy..."
+              />
+            </div>
+            <div style={{ marginTop: "10px" }}>
+              {ogData ? (
+                <div>
+                  <strong>OGData:</strong> {ogData.title || "Bez titulu"}
+                  <button onClick={() => setShowOgDataModal(true)} style={{ marginLeft: "10px" }}>
+                    Upravit OGData
+                  </button>
+                </div>
+              ) : (
+                <button onClick={() => setShowOgDataModal(true)}>Přidat OGData</button>
+              )}
+            </div>
+          </>
+        )}
+        <div style={{ marginTop: "10px" }}>
           {(["text", "faq", "link", "media"] as ArticleType[]).map((type) => (
-            <div
-              key={type}
-              onClick={() => setSelectedType(type)}
-              style={{ cursor: "pointer", margin: "5px 0" }}
-            >
+            <div key={type} onClick={() => setSelectedType(type)} style={{ cursor: "pointer", margin: "5px 0" }}>
               {type.toUpperCase()}
             </div>
           ))}
@@ -111,13 +188,44 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave
             )}
           </Droppable>
         </DragDropContext>
-        <div>
-          <button onClick={() => { resetForm(); onClose(); }}>Cancel</button>{" "}
-          <button onClick={handleSubmit} disabled={articles.length === 0}>Create Post</button>
+        <div style={{ marginTop: "20px" }}>
+          <button onClick={() => { resetForm(); onClose(); }}>Cancel</button>
+          <button onClick={handleSubmit} disabled={articles.length === 0} style={{ marginLeft: "10px" }}>
+            Create Post
+          </button>
         </div>
+        {showOgDataModal && (
+          <OGDataAdderModal
+            onClose={() => setShowOgDataModal(false)}
+            onSave={(data) => {
+              setOgData(data);
+              setShowOgDataModal(false);
+            }}
+          />
+        )}
       </div>
     </div>
   );
+};
+
+const modalStyle: React.CSSProperties = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  background: "rgba(0,0,0,0.5)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};
+
+const modalContentStyle: React.CSSProperties = {
+  background: "white",
+  padding: "20px",
+  borderRadius: "8px",
+  position: "relative",
+  width: "500px",
 };
 
 export default CreatePostModal;
