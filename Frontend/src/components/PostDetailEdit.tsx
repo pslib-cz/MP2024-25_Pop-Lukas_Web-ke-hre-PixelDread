@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { getPostById, updatePost } from "../api/postService";
 import { getArticlesByPostId } from "../api/articleService";
 import { Post } from "../types/post";
-import { ArticleMedia, ArticleUnion } from "../types/articles";
+import { ArticleUnion } from "../types/articles";
 import EditableArticle from "./EditableArticle";
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
 

@@ -443,7 +443,7 @@ namespace PixelDread.Controllers
                         Description = postDto.OGData.Description,
                         Slug = postDto.OGData.Slug,
                         PostId = post.Id
-                    };
+                    }; 
                     if (postDto.OGData.FileInformationsId.HasValue)
                     {
                         var fileInfo = await _context.FileInformations.FindAsync(postDto.OGData.FileInformationsId.Value);

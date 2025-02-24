@@ -12,7 +12,7 @@ import ArticleMediaComponent from "./articles/ArticleMediaComponent";
 import { API_URL } from "../api/axiosInstance";
 
 const PostDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<Post | null>(null);
   const [articles, setArticles] = useState<ArticleUnion[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
