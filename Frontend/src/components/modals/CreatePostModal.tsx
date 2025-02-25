@@ -4,10 +4,9 @@ import CreatableSelect from "react-select/creatable";
 import ArticleForm from "../ArticleForm";
 import { Article, ArticleType } from "../../types/articles";
 import { getTags, createTag } from "../../api/tagService";
-import { checkSlugExists } from "../../api/postService";
 import { OGData } from "./OGDataAdderModal";
 import OGDataAdderModal from "./OGDataAdderModal";
-
+import { checkSlugExists } from "../../api/postService";
 interface TagOption {
   value: number;
   label: string;
@@ -72,17 +71,18 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, categoryId, onC
     }
   }, [categoryId]);
 
-  // Check duplicate slug if blog category and slug is non-empty
+  // Debounce slug duplicate check
   useEffect(() => {
     if (categoryId === BLOG_CATEGORY_ID && slug.trim() !== "") {
-      (async () => {
+      const debounceTimeout = setTimeout(async () => {
         try {
           const exists = await checkSlugExists(slug);
           setDuplicateSlugError(exists ? "Slug already exists. Please choose another one." : "");
         } catch (error) {
           console.error("Error checking slug:", error);
         }
-      })();
+      }, 500);
+      return () => clearTimeout(debounceTimeout);
     } else {
       setDuplicateSlugError("");
     }
@@ -113,7 +113,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, categoryId, onC
   const handleSubmit = () => {
     if (articles.length === 0 || (categoryId === BLOG_CATEGORY_ID && (!slug.trim() || duplicateSlugError))) return;
     const tagIds = categoryId === BLOG_CATEGORY_ID ? selectedTags.map((tag) => tag.value) : undefined;
-    // For blog posts, if ogData is not provided, create minimal OGData using the slug.
+    // For blog posts, if no ogData was provided, create a minimal OGData object using the slug.
     const finalOgData =
       categoryId === BLOG_CATEGORY_ID
         ? ogData || { title: "", description: "", slug: slug.trim(), file: null }
@@ -140,6 +140,8 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, categoryId, onC
       console.error("Error creating tag:", error);
     }
   };
+
+  if (!show) return null;
 
   return (
     <div style={modalStyle}>

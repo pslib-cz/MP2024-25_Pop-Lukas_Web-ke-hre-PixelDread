@@ -704,6 +704,27 @@
   },
   {
     "ContainingType": "PixelDread.Controllers.PostController",
+    "Method": "UpdatePostName",
+    "RelativePath": "api/Post/{id}/name",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PixelDread.Controllers.PostController",
     "Method": "AddTagsToPost",
     "RelativePath": "api/Post/{postId}/tags",
     "HttpMethod": "POST",

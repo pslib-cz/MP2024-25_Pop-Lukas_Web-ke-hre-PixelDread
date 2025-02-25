@@ -48,11 +48,11 @@ const BlogManagePage: React.FC = () => {
         <div key={post.id} style={{ border: "1px solid #ccc", padding: "10px", marginBottom: "10px" }}>
           <h2>{post.name}</h2>
           {/* Link to view details */}
-          <Link to={`/blog/${post.id}`} style={{ marginRight: "10px" }}>
+          <Link to={`/blog/${post.ogData?.slug}`} style={{ marginRight: "10px" }}>
             View Post
           </Link>
           {/* Link to edit details */}
-          <Link to={`/admin/blog/edit/${post.id}`}>
+          <Link to={`/admin/blog/edit/${post.ogData?.slug}`} style={{ marginRight: "10px" }}>
             Edit Post
           </Link>
         </div>

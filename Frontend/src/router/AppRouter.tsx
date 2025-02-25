@@ -38,6 +38,7 @@ const AppRouter: React.FC = () => {
           <Route index element={<AdminPage />} />
           <Route path="manageAdmins" element={<Admins />} />
           <Route path="blog" element={<BlogManagePage />} />
+          <Route path="blog/:slug" element={<PostDetail />} />
           <Route path="blog/edit/:slug" element={<PostDetailEdit />} />
           <Route path="faq" element={<FAQManagePage />} />
           <Route path="patch" element={<PatchManagePage />} />

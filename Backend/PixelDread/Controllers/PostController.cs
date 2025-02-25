@@ -160,6 +160,165 @@ namespace PixelDread.Controllers
         }
 
         // Vytvoření příspěvku
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdatePost(int id, [FromForm] PostDto postDto)
+        {
+            // Ensure the post contains at least one article.
+            if (postDto.Articles == null || postDto.Articles.Count == 0)
+            {
+                return BadRequest("Post must contain at least one article.");
+            }
+
+            // Load the existing post along with related entities.
+            var post = await _context.Posts
+                .Include(p => p.PostArticles).ThenInclude(pa => pa.Article)
+                .Include(p => p.PostTags)
+                .Include(p => p.OGData)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            // Update basic post properties.
+            post.Name = postDto.Name;
+            post.CategoryId = postDto.CategoryId;
+
+            // Remove existing articles and their relationships.
+            foreach (var pa in post.PostArticles.ToList())
+            {
+                _context.Articles.Remove(pa.Article);
+                _context.PostArticles.Remove(pa);
+            }
+
+            // Create new articles based on the provided data.
+            var newPostArticles = new List<PostArticle>();
+            foreach (var articleDto in postDto.Articles)
+            {
+                Article article = null;
+                switch (articleDto.Type)
+                {
+                    case ArticleType.Text:
+                        article = new ArticleText
+                        {
+                            Content = articleDto.Content ?? ""
+                        };
+                        break;
+                    case ArticleType.FAQ:
+                        article = new ArticleFAQ
+                        {
+                            Question = articleDto.Question ?? "",
+                            Answer = articleDto.Answer ?? ""
+                        };
+                        break;
+                    case ArticleType.Link:
+                        article = new ArticleLink
+                        {
+                            Url = articleDto.Url ?? "",
+                            Placeholder = articleDto.Placeholder
+                        };
+                        break;
+                    case ArticleType.Media:
+                        var mediaArticle = new ArticleMedia
+                        {
+                            Description = articleDto.Description ?? "",
+                            Alt = articleDto.Alt ?? ""
+                        };
+                        if (!articleDto.FileInformationsId.HasValue)
+                        {
+                            return BadRequest("FileId is required for media article.");
+                        }
+                        var file = await _context.FileInformations.FindAsync(articleDto.FileInformationsId.Value);
+                        if (file == null)
+                        {
+                            return BadRequest("File not found.");
+                        }
+                        mediaArticle.FileInformationsId = file.Id;
+                        article = mediaArticle;
+                        break;
+                    default:
+                        continue;
+                }
+                if (article != null)
+                {
+                    article.PostId = post.Id;
+                    _context.Articles.Add(article);
+                    newPostArticles.Add(new PostArticle
+                    {
+                        PostId = post.Id,
+                        Article = article,
+                        ArticleType = articleDto.Type,
+                        Order = articleDto.Order
+                    });
+                }
+            }
+            await _context.SaveChangesAsync();
+            _context.PostArticles.AddRange(newPostArticles);
+
+            // Update tags: remove existing and add new ones.
+            _context.PostTags.RemoveRange(post.PostTags);
+            if (postDto.TagIds != null && postDto.TagIds.Any())
+            {
+                foreach (var tagId in postDto.TagIds)
+                {
+                    var tag = await _context.Tags.FindAsync(tagId);
+                    if (tag != null)
+                    {
+                        _context.PostTags.Add(new PostTag { PostId = post.Id, TagId = tagId });
+                    }
+                }
+            }
+
+            // Update OGData
+            if (postDto.OGData != null)
+            {
+                if (post.OGData != null)
+                {
+                    // Update Title and Description only; do not update the slug.
+                    post.OGData.Title = postDto.OGData.Title;
+                    post.OGData.Description = postDto.OGData.Description;
+                    // Slug remains unchanged.
+                    if (postDto.OGData.FileInformationsId.HasValue)
+                    {
+                        var fileInfo = await _context.FileInformations.FindAsync(postDto.OGData.FileInformationsId.Value);
+                        if (fileInfo == null)
+                        {
+                            return BadRequest("FileInformationsId does not exist.");
+                        }
+                        post.OGData.FileInformationsId = fileInfo.Id;
+                    }
+                }
+                else
+                {
+                    // No OGData exists; create a new one including the provided slug.
+                    var newOgData = new OGData
+                    {
+                        Title = postDto.OGData.Title,
+                        Description = postDto.OGData.Description,
+                        Slug = postDto.OGData.Slug,
+                        PostId = post.Id
+                    };
+                    if (postDto.OGData.FileInformationsId.HasValue)
+                    {
+                        var fileInfo = await _context.FileInformations.FindAsync(postDto.OGData.FileInformationsId.Value);
+                        if (fileInfo == null)
+                        {
+                            return BadRequest("FileInformationsId does not exist.");
+                        }
+                        newOgData.FileInformationsId = fileInfo.Id;
+                    }
+                    _context.OGDatas.Add(newOgData);
+                    await _context.SaveChangesAsync();
+                    post.OGData = newOgData;
+                    post.OGDataId = newOgData.Id;
+                }
+            }
+
+            await _context.SaveChangesAsync();
+            return Ok(post);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreatePost([FromForm] PostDto postDto)
         {
@@ -329,165 +488,17 @@ namespace PixelDread.Controllers
                 .AnyAsync(p => p.OGData != null && p.OGData.Slug.ToLower() == slug.ToLower());
             return Ok(exists);
         }
-        // PUT: api/Post/{id} – update příspěvku (analogicky si upravte dle potřeby)
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePost(int id, [FromForm] PostDto postDto)
+        [HttpPut("{id}/name")]
+        public async Task<IActionResult> UpdatePostName(int id, [FromForm] string name)
         {
-            // Kontrola, zda příspěvek obsahuje alespoň jeden článek
-            if (postDto.Articles == null || postDto.Articles.Count == 0)
-            {
-                return BadRequest("Příspěvek musí obsahovat alespoň jeden článek.");
-            }
-
-            // Načteme existující příspěvek včetně článků, tagů a OGData
-            var post = await _context.Posts
-                .Include(p => p.PostArticles).ThenInclude(pa => pa.Article)
-                .Include(p => p.PostTags)
-                .Include(p => p.OGData)
-                .FirstOrDefaultAsync(p => p.Id == id);
-
+            var post = await _context.Posts.FindAsync(id);
             if (post == null)
             {
                 return NotFound();
             }
-
-            // Aktualizace základních údajů příspěvku
-            post.Name = postDto.Name;
-            post.CategoryId = postDto.CategoryId;
-
-            // Odstraníme stávající články a jejich vazby
-            foreach (var pa in post.PostArticles.ToList())
-            {
-                _context.Articles.Remove(pa.Article);
-                _context.PostArticles.Remove(pa);
-            }
-
-            // Vytvoříme nové články dle předaných dat
-            var newPostArticles = new List<PostArticle>();
-            foreach (var articleDto in postDto.Articles)
-            {
-                Article article = null;
-                switch (articleDto.Type)
-                {
-                    case ArticleType.Text:
-                        article = new ArticleText
-                        {
-                            Content = articleDto.Content ?? ""
-                        };
-                        break;
-                    case ArticleType.FAQ:
-                        article = new ArticleFAQ
-                        {
-                            Question = articleDto.Question ?? "",
-                            Answer = articleDto.Answer ?? ""
-                        };
-                        break;
-                    case ArticleType.Link:
-                        article = new ArticleLink
-                        {
-                            Url = articleDto.Url ?? "",
-                            Placeholder = articleDto.Placeholder
-                        };
-                        break;
-                    case ArticleType.Media:
-                        var mediaArticle = new ArticleMedia
-                        {
-                            Description = articleDto.Description ?? "",
-                            Alt = articleDto.Alt ?? ""
-                        };
-                        if (!articleDto.FileInformationsId.HasValue)
-                        {
-                            return BadRequest("FileId is required for media article.");
-                        }
-                        var file = await _context.FileInformations.FindAsync(articleDto.FileInformationsId.Value);
-                        if (file == null)
-                        {
-                            return BadRequest("File not found.");
-                        }
-                        mediaArticle.FileInformationsId = file.Id;
-                        article = mediaArticle;
-                        break;
-                    default:
-                        continue;
-                }
-
-                if (article != null)
-                {
-                    article.PostId = post.Id;
-                    _context.Articles.Add(article);
-                    newPostArticles.Add(new PostArticle
-                    {
-                        PostId = post.Id,
-                        Article = article,
-                        ArticleType = articleDto.Type,
-                        Order = articleDto.Order
-                    });
-                }
-            }
-            await _context.SaveChangesAsync();
-            _context.PostArticles.AddRange(newPostArticles);
-
-            // Aktualizace tagů – odstraníme stávající a přidáme nové
-            _context.PostTags.RemoveRange(post.PostTags);
-            if (postDto.TagIds != null && postDto.TagIds.Any())
-            {
-                foreach (var tagId in postDto.TagIds)
-                {
-                    var tag = await _context.Tags.FindAsync(tagId);
-                    if (tag != null)
-                    {
-                        _context.PostTags.Add(new PostTag { PostId = post.Id, TagId = tagId });
-                    }
-                }
-            }
-
-            // Aktualizace OGData, pokud jsou data předána
-            if (postDto.OGData != null)
-            {
-                // Pokud příspěvek již OGData má, provedeme update
-                if (post.OGData != null)
-                {
-                    post.OGData.Title = postDto.OGData.Title;
-                    post.OGData.Description = postDto.OGData.Description;
-                    post.OGData.Slug = postDto.OGData.Slug;
-                    if (postDto.OGData.FileInformationsId.HasValue)
-                    {
-                        var fileInfo = await _context.FileInformations.FindAsync(postDto.OGData.FileInformationsId.Value);
-                        if (fileInfo == null)
-                        {
-                            return BadRequest("FileInformationsId does not exist.");
-                        }
-                        post.OGData.FileInformationsId = fileInfo.Id;
-                    }
-                }
-                else
-                {
-                    // Pokud OGData ještě neexistuje, vytvoříme novou entitu a navážeme ji
-                    var newOgData = new OGData
-                    {
-                        Title = postDto.OGData.Title,
-                        Description = postDto.OGData.Description,
-                        Slug = postDto.OGData.Slug,
-                        PostId = post.Id
-                    }; 
-                    if (postDto.OGData.FileInformationsId.HasValue)
-                    {
-                        var fileInfo = await _context.FileInformations.FindAsync(postDto.OGData.FileInformationsId.Value);
-                        if (fileInfo == null)
-                        {
-                            return BadRequest("FileInformationsId does not exist.");
-                        }
-                        newOgData.FileInformationsId = fileInfo.Id;
-                    }
-                    _context.OGDatas.Add(newOgData);
-                    await _context.SaveChangesAsync();
-                    post.OGData = newOgData;
-                    post.OGDataId = newOgData.Id;
-                }
-            }
-
+            post.Name = name;
             await _context.SaveChangesAsync();
             return Ok(post);
         }
     }
-}
+}   
