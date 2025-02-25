@@ -25,9 +25,10 @@ export interface Post {
   category?: Category;
   postArticles: PostArticle[];
   ogData?: {
-    title: string;
-    description: string;
+    title?: string;
+    description?: string;
     fileInformationsId?: number;
+    slug?: string;
   };
 }
 

@@ -302,7 +302,33 @@ namespace PixelDread.Controllers
 
             return CreatedAtAction(nameof(GetPostById), new { id = post.Id }, post);
         }
+        [HttpGet("slug/{slug}")]
+        public async Task<IActionResult> GetPostBySlug(string slug)
+        {
+            var post = await _context.Posts
+                .Include(p => p.OGData)
+                    .ThenInclude(o => o.FileInformations)
+                .Include(p => p.Category)
+                .Include(p => p.User)
+                .Include(p => p.PostTags).ThenInclude(pt => pt.Tag)
+                .Include(p => p.PostArticles).ThenInclude(pa => pa.Article)
+                .FirstOrDefaultAsync(p => p.OGData.Slug == slug);
 
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(post);
+        }
+        [HttpGet("slug-exists/{slug}")]
+        public async Task<IActionResult> CheckSlugExists(string slug)
+        {
+            // Check if any post has an OGData with the given slug (case-insensitive)
+            bool exists = await _context.Posts
+                .AnyAsync(p => p.OGData != null && p.OGData.Slug.ToLower() == slug.ToLower());
+            return Ok(exists);
+        }
         // PUT: api/Post/{id} – update příspěvku (analogicky si upravte dle potřeby)
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePost(int id, [FromForm] PostDto postDto)

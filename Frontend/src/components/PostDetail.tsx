@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useParams } from "react-router-dom";
-import { getPostById } from "../api/postService";
+import { getPostBySlug } from "../api/postService";
 import { getArticlesByPostId } from "../api/articleService";
 import { Post } from "../types/post";
-import { ArticleText, ArticleFAQ, ArticleLink, ArticleMedia, ArticleUnion } from "../types/articles";
+import {
+  ArticleText,
+  ArticleFAQ,
+  ArticleLink,
+  ArticleMedia,
+  ArticleUnion,
+} from "../types/articles";
 import ArticleTextComponent from "./articles/ArticleTextComponent";
 import ArticleFAQComponent from "./articles/ArticleFAQComponent";
 import ArticleLinkComponent from "./articles/ArticleLinkComponent";
@@ -12,19 +18,21 @@ import ArticleMediaComponent from "./articles/ArticleMediaComponent";
 import { API_URL } from "../api/axiosInstance";
 
 const PostDetail: React.FC = () => {
+  // Use slug from the URL instead of id
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<Post | null>(null);
   const [articles, setArticles] = useState<ArticleUnion[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (id) {
+    if (slug) {
       const fetchData = async () => {
         try {
-          const fetchedPost = await getPostById(Number(id));
+          // Retrieve the post using the slug
+          const fetchedPost = await getPostBySlug(slug);
           setPost(fetchedPost);
-          const fetchedArticles = await getArticlesByPostId(Number(id));
-          // Seřadíme články podle pořadí
+          // Now, get the articles using the post's id
+          const fetchedArticles = await getArticlesByPostId(fetchedPost.id);
           fetchedArticles.sort((a, b) => a.order - b.order);
           setArticles(fetchedArticles);
         } catch (error) {
@@ -35,7 +43,7 @@ const PostDetail: React.FC = () => {
       };
       fetchData();
     }
-  }, [id]);
+  }, [slug]);
 
   if (loading) {
     return <div>Loading post...</div>;
@@ -44,12 +52,14 @@ const PostDetail: React.FC = () => {
     return <div>Post not found.</div>;
   }
 
-  // Pokud OGData obsahuje pouze FileInformationsId, sestavíme URL pomocí GET endpointu z FileControlleru
-  const ogTitle = post.ogData?.title ? `${post.ogData.title} | Můj Blog` : "Detail příspěvku";
+  // Use OGData for meta tags. Prepare a fallback for the slug:
+  // If post.OGData?.slug exists, use it; otherwise, fallback to the post id.
+  const postSlug = post.ogData?.slug || post.id.toString();
+  const ogTitle = post.ogData?.title || post.name;
   const ogDescription = post.ogData?.description || "Detail příspěvku";
   const ogImage = post.ogData?.fileInformationsId
-  ? `${API_URL}/File/${post.ogData.fileInformationsId}`
-  : null;
+    ? `${API_URL}/File/${post.ogData.fileInformationsId}`
+    : null;
 
   return (
     <HelmetProvider>
@@ -59,7 +69,8 @@ const PostDetail: React.FC = () => {
           <meta name="description" content={ogDescription} />
           <meta property="og:title" content={ogTitle} />
           <meta property="og:description" content={ogDescription} />
-          <meta property="og:url" content={window.location.href} />
+          {/* Use the fallback slug in the canonical URL */}
+          <meta property="og:url" content={`${window.location.origin}/blog/${postSlug}`} />
           {ogImage && <meta property="og:image" content={ogImage} />}
         </Helmet>
         <h1>{post.name}</h1>

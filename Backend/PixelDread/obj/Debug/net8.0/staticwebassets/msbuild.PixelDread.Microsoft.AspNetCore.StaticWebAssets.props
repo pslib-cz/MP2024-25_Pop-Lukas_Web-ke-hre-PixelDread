@@ -396,6 +396,42 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\c99cf8e6-ff7c-429a-a202-6c7f2cae6233_fake ahh info.png'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\ca8f88ec-e493-4fcb-9b31-cf28495c2230_yks.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>PixelDread</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/PixelDread</BasePath>
+      <RelativePath>uploads/ca8f88ec-e493-4fcb-9b31-cf28495c2230_yks.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>4341331lpm</Fingerprint>
+      <Integrity>EBa34aWfJ8y1+ibtJ9Clz/hukBTi11h31o8UUfM2jZE=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\ca8f88ec-e493-4fcb-9b31-cf28495c2230_yks.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\cc3058e6-532d-4d4d-a7ba-a4c63228e284_9a9956c0-6c42-4634-94bc-80fa19dc154c_cv.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>PixelDread</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/PixelDread</BasePath>
+      <RelativePath>uploads/cc3058e6-532d-4d4d-a7ba-a4c63228e284_9a9956c0-6c42-4634-94bc-80fa19dc154c_cv.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>38x1goecwg</Fingerprint>
+      <Integrity>c674PGTfhEJtOBlQklVwndpQ2ypeD6Wx/1UfsfudD/U=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\cc3058e6-532d-4d4d-a7ba-a4c63228e284_9a9956c0-6c42-4634-94bc-80fa19dc154c_cv.png'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\dc4a03af-f337-49f7-b69f-23a55198786b_fake ahh info.png'))">
       <SourceType>Package</SourceType>
       <SourceId>PixelDread</SourceId>

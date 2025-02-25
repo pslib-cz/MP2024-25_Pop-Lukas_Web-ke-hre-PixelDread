@@ -20,4 +20,6 @@ wwwroot\uploads\bee872af-bf19-497a-8978-2605ead871f0_shamrock-malphite-malphite.
 wwwroot\uploads\c3b74333-1dc7-4f68-a8b4-260298c78a5d_fake ahh info.png
 wwwroot\uploads\c7d7fa9e-1ab1-4861-adf3-673ccc632fe7_fake ahh info.png
 wwwroot\uploads\c99cf8e6-ff7c-429a-a202-6c7f2cae6233_fake ahh info.png
+wwwroot\uploads\ca8f88ec-e493-4fcb-9b31-cf28495c2230_yks.png
+wwwroot\uploads\cc3058e6-532d-4d4d-a7ba-a4c63228e284_9a9956c0-6c42-4634-94bc-80fa19dc154c_cv.png
 wwwroot\uploads\dc4a03af-f337-49f7-b69f-23a55198786b_fake ahh info.png

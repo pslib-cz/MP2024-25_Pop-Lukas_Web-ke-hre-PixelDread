@@ -5,9 +5,10 @@ import { Post } from "../types/post";
 import FirstTwoArticles from "./FirstTwoArticles";
 import { Category } from "../types/category";
 import ArticlesFromPost from "./ArticlesFromPost";
+
 interface PostListProps {
   category?: Category; // Pokud je předána, API vrátí jen příspěvky s tímto CategoryId.
-  hasDetails?: boolean; // Pokud true, příspěvky jsou klikací s odkazem /{categoryName}/{post.id} a zobrazí se náhled (FirstTwoArticles).
+  hasDetails?: boolean; // Pokud true, příspěvky jsou klikací s odkazem a zobrazí se náhled (FirstTwoArticles).
 }
 
 const PostList: React.FC<PostListProps> = ({ category, hasDetails = false }) => {
@@ -47,7 +48,9 @@ const PostList: React.FC<PostListProps> = ({ category, hasDetails = false }) => 
         <p>No posts found.</p>
       ) : (
         posts.map((post) => {
+          // Pokud má detaily a kategorie je předána, použijeme slug z OGData, pokud existuje.
           if (hasDetails && category) {
+            const postSlug = post.ogData?.slug || post.id;
             return (
               <div
                 key={post.id}
@@ -58,7 +61,7 @@ const PostList: React.FC<PostListProps> = ({ category, hasDetails = false }) => 
                 }}
               >
                 <Link
-                  to={`/${category.name.toLowerCase()}/${post.id}`}
+                  to={`/${category.name.toLowerCase()}/${postSlug}`}
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
                   {post.name ? <h3>{post.name}</h3> : <h3>Post {post.id}</h3>}
@@ -76,15 +79,14 @@ const PostList: React.FC<PostListProps> = ({ category, hasDetails = false }) => 
                   marginBottom: "10px",
                 }}
               >
-                <ArticlesFromPost id={post.id} />               
+                <ArticlesFromPost id={post.id} />
               </div>
             );
           }
-        }
-        )
+        })
       )}
     </div>
   );
-}
+};
 
 export default PostList;

@@ -4,7 +4,9 @@ import CreatableSelect from "react-select/creatable";
 import ArticleForm from "../ArticleForm";
 import { Article, ArticleType } from "../../types/articles";
 import { getTags, createTag } from "../../api/tagService";
-import OGDataAdderModal, { OGData } from "./OGDataAdderModal";
+import { checkSlugExists } from "../../api/postService";
+import { OGData } from "./OGDataAdderModal";
+import OGDataAdderModal from "./OGDataAdderModal";
 
 interface TagOption {
   value: number;
@@ -13,6 +15,7 @@ interface TagOption {
 
 export interface CreatePostData {
   name: string;
+  slug: string;
   categoryId: number;
   articles: Article[];
   tagIds?: number[];
@@ -28,14 +31,28 @@ interface CreatePostModalProps {
 
 const BLOG_CATEGORY_ID = 1;
 
-const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave, categoryId }) => {
+const normalizeSlug = (input: string): string => {
+  return input
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/[^\w\-]+/g, "")
+    .replace(/\-\-+/g, "-")
+    .replace(/^-+/, "")
+    .replace(/-+$/, "");
+};
+
+const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, categoryId, onClose, onSave }) => {
   const [postName, setPostName] = useState<string>("");
+  const [slug, setSlug] = useState<string>("");
   const [articles, setArticles] = useState<Article[]>([]);
   const [selectedType, setSelectedType] = useState<ArticleType | null>(null);
   const [availableTags, setAvailableTags] = useState<TagOption[]>([]);
   const [selectedTags, setSelectedTags] = useState<TagOption[]>([]);
-  const [showOgDataModal, setShowOgDataModal] = useState<boolean>(false);
   const [ogData, setOgData] = useState<OGData | undefined>(undefined);
+  const [showOgDataModal, setShowOgDataModal] = useState<boolean>(false);
+  const [duplicateSlugError, setDuplicateSlugError] = useState<string>("");
 
   useEffect(() => {
     if (categoryId === BLOG_CATEGORY_ID) {
@@ -48,19 +65,37 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave
           }));
           setAvailableTags(tagOptions);
         } catch (error) {
-          console.error("Chyba při načítání tagů:", error);
+          console.error("Error fetching tags:", error);
         }
       };
       fetchTags();
     }
   }, [categoryId]);
 
+  // Check duplicate slug if blog category and slug is non-empty
+  useEffect(() => {
+    if (categoryId === BLOG_CATEGORY_ID && slug.trim() !== "") {
+      (async () => {
+        try {
+          const exists = await checkSlugExists(slug);
+          setDuplicateSlugError(exists ? "Slug already exists. Please choose another one." : "");
+        } catch (error) {
+          console.error("Error checking slug:", error);
+        }
+      })();
+    } else {
+      setDuplicateSlugError("");
+    }
+  }, [slug, categoryId]);
+
   const resetForm = () => {
     setPostName("");
+    setSlug("");
     setArticles([]);
     setSelectedType(null);
     setSelectedTags([]);
     setOgData(undefined);
+    setDuplicateSlugError("");
   };
 
   const handleSaveArticle = (article: Article) => {
@@ -76,9 +111,14 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave
   };
 
   const handleSubmit = () => {
-    if (articles.length === 0) return;
+    if (articles.length === 0 || (categoryId === BLOG_CATEGORY_ID && (!slug.trim() || duplicateSlugError))) return;
     const tagIds = categoryId === BLOG_CATEGORY_ID ? selectedTags.map((tag) => tag.value) : undefined;
-    onSave({ name: postName, articles, categoryId, tagIds, ogData });
+    // For blog posts, if ogData is not provided, create minimal OGData using the slug.
+    const finalOgData =
+      categoryId === BLOG_CATEGORY_ID
+        ? ogData || { title: "", description: "", slug: slug.trim(), file: null }
+        : ogData;
+    onSave({ name: postName, slug: slug.trim(), articles, categoryId, tagIds, ogData: finalOgData });
   };
 
   const handleDragEnd = (result: DropResult) => {
@@ -97,11 +137,9 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave
       setAvailableTags((prev) => [...prev, newOption]);
       setSelectedTags((prev) => [...prev, newOption]);
     } catch (error) {
-      console.error("Chyba při vytváření tagu:", error);
+      console.error("Error creating tag:", error);
     }
   };
-
-  if (!show) return null;
 
   return (
     <div style={modalStyle}>
@@ -122,27 +160,34 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave
         {categoryId === BLOG_CATEGORY_ID && (
           <>
             <div style={{ marginTop: "10px" }}>
-              <label>Vyberte tagy (nebo vytvořte nový):</label>
+              <label>Slug (Required)</label>
+              <input
+                type="text"
+                placeholder="Enter slug..."
+                value={slug}
+                onChange={(e) => setSlug(normalizeSlug(e.target.value))}
+                required
+              />
+              {duplicateSlugError && (
+                <div style={{ color: "red", marginTop: "5px" }}>{duplicateSlugError}</div>
+              )}
+            </div>
+            <div style={{ marginTop: "10px" }}>
+              <label>Select or Create Tags:</label>
               <CreatableSelect
                 isMulti
                 options={availableTags}
                 value={selectedTags}
                 onChange={(newValue) => setSelectedTags(newValue as TagOption[])}
                 onCreateOption={handleCreateTag}
-                placeholder="Vyberte nebo vytvořte tagy..."
+                placeholder="Select or create tags..."
               />
             </div>
             <div style={{ marginTop: "10px" }}>
-              {ogData ? (
-                <div>
-                  <strong>OGData:</strong> {ogData.title || "Bez titulu"}
-                  <button onClick={() => setShowOgDataModal(true)} style={{ marginLeft: "10px" }}>
-                    Upravit OGData
-                  </button>
-                </div>
-              ) : (
-                <button onClick={() => setShowOgDataModal(true)}>Přidat OGData</button>
-              )}
+              <button onClick={() => setOgData(undefined)}>Clear OGData</button>
+              <button onClick={() => setShowOgDataModal(true)} style={{ marginLeft: "10px" }}>
+                Add/Edit OGData
+              </button>
             </div>
           </>
         )}
@@ -190,20 +235,24 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, onClose, onSave
         </DragDropContext>
         <div style={{ marginTop: "20px" }}>
           <button onClick={() => { resetForm(); onClose(); }}>Cancel</button>
-          <button onClick={handleSubmit} disabled={articles.length === 0} style={{ marginLeft: "10px" }}>
+          <button
+            onClick={handleSubmit}
+            disabled={articles.length === 0 || (categoryId === BLOG_CATEGORY_ID && (!slug.trim() || !!duplicateSlugError))}
+            style={{ marginLeft: "10px" }}
+          >
             Create Post
           </button>
         </div>
-        {showOgDataModal && (
-          <OGDataAdderModal
-            onClose={() => setShowOgDataModal(false)}
-            onSave={(data) => {
-              setOgData(data);
-              setShowOgDataModal(false);
-            }}
-          />
-        )}
       </div>
+      {showOgDataModal && (
+        <OGDataAdderModal
+          onClose={() => setShowOgDataModal(false)}
+          onSave={(data) => {
+            setOgData(data);
+            setShowOgDataModal(false);
+          }}
+        />
+      )}
     </div>
   );
 };

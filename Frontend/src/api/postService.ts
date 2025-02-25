@@ -66,3 +66,12 @@ export const updatePost = async (id: number, postDto: any): Promise<any> => {
   });
   return response.data;
 };
+
+export const getPostBySlug = async (slug: string): Promise<any> => {
+  const response = await axiosInstance.get(`/Post/slug/${slug}`);
+  return response.data;
+};
+export const checkSlugExists = async (slug: string): Promise<boolean> => {
+  const response = await axiosInstance.get(`/Post/slug-exists/${slug}`);
+  return response.data; // expected to be a boolean
+};

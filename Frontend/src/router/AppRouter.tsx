@@ -26,7 +26,7 @@ const AppRouter: React.FC = () => {
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/blog" element={<BlogPage />} />
-          <Route path="/blog/:id" element={<PostDetail />} />
+          <Route path="/blog/:slug" element={<PostDetail />} />
           <Route path="/patch" element={<PatchNotesPage />} />
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/gdpr" element={<GDPR />} />
@@ -38,7 +38,7 @@ const AppRouter: React.FC = () => {
           <Route index element={<AdminPage />} />
           <Route path="manageAdmins" element={<Admins />} />
           <Route path="blog" element={<BlogManagePage />} />
-          <Route path="blog/edit/:id" element={<PostDetailEdit />} />
+          <Route path="blog/edit/:slug" element={<PostDetailEdit />} />
           <Route path="faq" element={<FAQManagePage />} />
           <Route path="patch" element={<PatchManagePage />} />
           <Route path="*" element={<NotFoundPage />} /> 
