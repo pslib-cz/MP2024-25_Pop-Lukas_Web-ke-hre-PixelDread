@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import CreatePostModal, { CreatePostData } from "./modals/CreatePostModal";
+import CreatePostModal, { CreatePostData, AllowedArticleTypes } from "./modals/CreatePostModal";
 import { Article, ArticleMedia } from "../types/articles";
 import { createPost } from "../api/postService";
 import uploadFile from "../api/fileService";
 import { Category } from "../types/category";
 
-// Helper function to map article types to backend enum values
 const mapArticleTypeToEnum = (type: string): string => {
   switch (type) {
     case "text":
@@ -24,9 +23,9 @@ const mapArticleTypeToEnum = (type: string): string => {
 interface CreatePostProps {
   category: Category;
   onClose?: () => void;
+  allowedArticleTypes?: AllowedArticleTypes; // Přidáme allowedArticleTypes jako optional prop
 }
 
-// Extend the OGData interface to include a required slug for blog posts
 interface BlogOGData {
   title: string;
   description: string;
@@ -35,14 +34,14 @@ interface BlogOGData {
   fileInformationsId?: number;
 }
 
-const CreatePost: React.FC<CreatePostProps> = ({ category, onClose }) => {
+const CreatePost: React.FC<CreatePostProps> = ({ category, onClose, allowedArticleTypes }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleSavePost = async (postData: CreatePostData) => {
     if (postData.articles.length === 0) return;
 
     // 1) Upload files for media articles
-    const processedArticles: Article[] = await Promise.all(
+    const processedArticles = await Promise.all(
       postData.articles.map(async (article) => {
         if (article.type === "media") {
           const mediaArticle = article as ArticleMedia;
@@ -74,8 +73,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ category, onClose }) => {
     const formData = new FormData();
     formData.append("Name", postData.name || "");
     formData.append("CategoryId", category.id.toString());
-    // For blog posts, always append the slug (this input is in CreatePostModal)
-    if (category.id === 1) { // Assuming BLOG_CATEGORY_ID = 1
+    if (category.id === 1) {
       formData.append("Slug", postData.slug);
     }
 
@@ -85,7 +83,6 @@ const CreatePost: React.FC<CreatePostProps> = ({ category, onClose }) => {
       });
     }
 
-    // For blog posts, create a minimal OGData object if none is provided
     if (category.id === 1) {
       const finalOgData: BlogOGData = ogDataWithFileId
         ? { ...ogDataWithFileId, slug: postData.slug.trim() }
@@ -151,6 +148,9 @@ const CreatePost: React.FC<CreatePostProps> = ({ category, onClose }) => {
           onClose={() => setShowModal(false)}
           onSave={handleSavePost}
           categoryId={category.id}
+          allowedArticleTypes={
+            allowedArticleTypes || { text: true, faq: true, link: true, media: true }
+          }
         />
       )}
     </div>

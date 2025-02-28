@@ -7,6 +7,12 @@ import { getTags, createTag } from "../../api/tagService";
 import { OGData } from "./OGDataAdderModal";
 import OGDataAdderModal from "./OGDataAdderModal";
 import { checkSlugExists } from "../../api/postService";
+import ArticleTextComponent from "../articles/ArticleTextComponent";
+import ArticleFAQComponent from "../articles/ArticleFAQComponent";
+import ArticleLinkComponent from "../articles/ArticleLinkComponent";
+import ArticleMediaComponent from "../articles/ArticleMediaComponent";
+import MediaPreview from "../articles/MediaPreview"; // Import the MediaPreview component
+
 interface TagOption {
   value: number;
   label: string;
@@ -21,11 +27,19 @@ export interface CreatePostData {
   ogData?: OGData;
 }
 
+export interface AllowedArticleTypes {
+  text?: boolean;
+  faq?: boolean;
+  link?: boolean;
+  media?: boolean;
+}
+
 interface CreatePostModalProps {
   show: boolean;
   categoryId: number;
   onClose: () => void;
   onSave: (postData: CreatePostData) => void;
+  allowedArticleTypes?: AllowedArticleTypes;
 }
 
 const BLOG_CATEGORY_ID = 1;
@@ -42,7 +56,13 @@ const normalizeSlug = (input: string): string => {
     .replace(/-+$/, "");
 };
 
-const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, categoryId, onClose, onSave }) => {
+const CreatePostModal: React.FC<CreatePostModalProps> = ({
+  show,
+  categoryId,
+  onClose,
+  onSave,
+  allowedArticleTypes,
+}) => {
   const [postName, setPostName] = useState<string>("");
   const [slug, setSlug] = useState<string>("");
   const [articles, setArticles] = useState<Article[]>([]);
@@ -71,7 +91,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, categoryId, onC
     }
   }, [categoryId]);
 
-  // Debounce slug duplicate check
+  // Debounce duplicate slug check
   useEffect(() => {
     if (categoryId === BLOG_CATEGORY_ID && slug.trim() !== "") {
       const debounceTimeout = setTimeout(async () => {
@@ -111,9 +131,13 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, categoryId, onC
   };
 
   const handleSubmit = () => {
-    if (articles.length === 0 || (categoryId === BLOG_CATEGORY_ID && (!slug.trim() || duplicateSlugError))) return;
+    if (
+      articles.length === 0 ||
+      (categoryId === BLOG_CATEGORY_ID && (!slug.trim() || duplicateSlugError))
+    )
+      return;
     const tagIds = categoryId === BLOG_CATEGORY_ID ? selectedTags.map((tag) => tag.value) : undefined;
-    // For blog posts, if no ogData was provided, create a minimal OGData object using the slug.
+    // For blog posts, if no OGData was provided, create a minimal OGData object using the slug.
     const finalOgData =
       categoryId === BLOG_CATEGORY_ID
         ? ogData || { title: "", description: "", slug: slug.trim(), file: null }
@@ -140,6 +164,13 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, categoryId, onC
       console.error("Error creating tag:", error);
     }
   };
+
+  // Build allowed article types array based on props (default to all allowed if not provided)
+  const allowedTypes: ArticleType[] = [];
+  if (allowedArticleTypes?.text !== false) allowedTypes.push("text");
+  if (allowedArticleTypes?.faq !== false) allowedTypes.push("faq");
+  if (allowedArticleTypes?.link !== false) allowedTypes.push("link");
+  if (allowedArticleTypes?.media !== false) allowedTypes.push("media");
 
   if (!show) return null;
 
@@ -194,52 +225,88 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ show, categoryId, onC
           </>
         )}
         <div style={{ marginTop: "10px" }}>
-          {(["text", "faq", "link", "media"] as ArticleType[]).map((type) => (
-            <div key={type} onClick={() => setSelectedType(type)} style={{ cursor: "pointer", margin: "5px 0" }}>
+          {allowedTypes.map((type) => (
+            <div
+              key={type}
+              onClick={() => setSelectedType(type)}
+              style={{ cursor: "pointer", margin: "5px 0" }}
+            >
               {type.toUpperCase()}
             </div>
           ))}
         </div>
         {selectedType && <ArticleForm type={selectedType} onSave={handleSaveArticle} />}
-        <DragDropContext onDragEnd={handleDragEnd}>
-          <Droppable droppableId="articles">
-            {(provided) => (
-              <div {...provided.droppableProps} ref={provided.innerRef}>
-                {articles.map((article, index) => (
-                  <Draggable key={index} draggableId={index.toString()} index={index}>
-                    {(provided) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        style={{
-                          border: "1px solid #ccc",
-                          padding: "5px",
-                          marginBottom: "5px",
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          ...provided.draggableProps.style,
-                        }}
-                      >
-                        <span>
-                          <strong>{article.type.toUpperCase()}:</strong> {JSON.stringify(article)}
-                        </span>
-                        <button onClick={() => removeArticle(index)}>Remove</button>
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        {/* Preview Section with scroll */}
+        <div style={{ marginTop: "20px", maxHeight: "300px", overflowY: "auto", border: "1px solid #ddd", padding: "10px" }}>
+          <h3>Preview</h3>
+          <DragDropContext onDragEnd={handleDragEnd}>
+            <Droppable droppableId="articles">
+              {(provided) => (
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  {articles.map((article, index) => {
+                    const key = article.id || index;
+                    return (
+                      <Draggable key={key} draggableId={String(key)} index={index}>
+                        {(provided) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            style={{
+                              border: "1px solid #ccc",
+                              padding: "10px",
+                              marginBottom: "10px",
+                              ...provided.draggableProps.style,
+                            }}
+                          >
+                            {article.type === "text" && (
+                              <ArticleTextComponent article={article as any} />
+                            )}
+                            {article.type === "faq" && (
+                              <ArticleFAQComponent article={article as any} />
+                            )}
+                            {article.type === "link" && (
+                              <ArticleLinkComponent article={article as any} />
+                            )}
+                            {article.type === "media" && (
+                              <>
+                                {(article as any).file ? (
+                                  <MediaPreview
+                                    file={(article as any).file}
+                                    alt={(article as any).alt || "Media image"}
+                                  />
+                                ) : (article as any).fileInformationsId ? (
+                                  <MediaPreview
+                                    file={null}
+                                    fileInformationsId={(article as any).fileInformationsId}
+                                    alt={(article as any).alt || "Media image"}
+                                  />
+                                ) : (
+                                  <div style={{ fontStyle: "italic", color: "#888" }}>
+                                    Image file pending upload
+                                  </div>
+                                )}
+                              </>
+                            )}
+                          </div>
+                        )}
+                      </Draggable>
+                    );
+                  })}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </div>
         <div style={{ marginTop: "20px" }}>
           <button onClick={() => { resetForm(); onClose(); }}>Cancel</button>
           <button
             onClick={handleSubmit}
-            disabled={articles.length === 0 || (categoryId === BLOG_CATEGORY_ID && (!slug.trim() || !!duplicateSlugError))}
+            disabled={
+              articles.length === 0 ||
+              (categoryId === BLOG_CATEGORY_ID && (!slug.trim() || !!duplicateSlugError))
+            }
             style={{ marginLeft: "10px" }}
           >
             Create Post

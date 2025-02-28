@@ -55,7 +55,8 @@ const PostDetail: React.FC = () => {
   // Use OGData for meta tags. Prepare a fallback for the slug:
   // If post.OGData?.slug exists, use it; otherwise, fallback to the post id.
   const postSlug = post.ogData?.slug || post.id.toString();
-  const ogTitle = post.ogData?.title || post.name;
+  
+  const ogTitle = post.ogData?.title || post.name ? post.name : "Detail příspěvku";
   const ogDescription = post.ogData?.description || "Detail příspěvku";
   const ogImage = post.ogData?.fileInformationsId
     ? `${API_URL}/File/${post.ogData.fileInformationsId}`

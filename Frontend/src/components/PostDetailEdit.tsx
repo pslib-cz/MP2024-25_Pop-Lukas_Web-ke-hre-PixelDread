@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPostBySlug, updatePost } from "../api/postService";
-import { getArticlesByPostId } from "../api/articleService";
+import { getArticlesByPostId, deleteArticle } from "../api/articleService";
 import { Post } from "../types/post";
 import { ArticleUnion } from "../types/articles";
 import EditableArticle from "./EditableArticle";
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
 import EditPostNameModal from "./modals/EditPostNameModal";
 import EditOGDataModal, { OGData } from "./modals/EditOGDataModal";
+import EditArticleModal from "./modals/EditArticleModal";
+import ConfirmationModal from "./modals/ConfirmationModal";
 
 const PostDetailEdit: React.FC = () => {
-  // Use slug from URL parameters
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<Post | null>(null);
   const [articles, setArticles] = useState<ArticleUnion[]>([]);
@@ -19,9 +20,13 @@ const PostDetailEdit: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [articlesLoading, setArticlesLoading] = useState<boolean>(true);
 
-  // Modal states for editing post name and OGData
+  // Stav pro modály
   const [showNameModal, setShowNameModal] = useState<boolean>(false);
   const [showOGDataModal, setShowOGDataModal] = useState<boolean>(false);
+  const [articleToEdit, setArticleToEdit] = useState<ArticleUnion | null>(null);
+  const [showEditArticleModal, setShowEditArticleModal] = useState<boolean>(false);
+  const [articleToDelete, setArticleToDelete] = useState<ArticleUnion | null>(null);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState<boolean>(false);
 
   const fetchData = async () => {
     if (slug) {
@@ -91,7 +96,6 @@ const PostDetailEdit: React.FC = () => {
       }
     });
 
-    // Append OGData values if available
     if (ogData) {
       formData.append("OGData.Title", ogData.title || "");
       formData.append("OGData.Description", ogData.description || "");
@@ -104,10 +108,21 @@ const PostDetailEdit: React.FC = () => {
     try {
       await updatePost(post!.id, formData);
       console.log("Changes saved successfully.");
-      await fetchData(); // Refresh data after saving
+      await fetchData();
     } catch (error) {
       console.error("Error updating post:", error);
     }
+  };
+
+  // Callbacky pro ArticleOptionsModal
+  const handleArticleEdit = (article: ArticleUnion) => {
+    setArticleToEdit(article);
+    setShowEditArticleModal(true);
+  };
+
+  const handleArticleDelete = (article: ArticleUnion) => {
+    setArticleToDelete(article);
+    setShowDeleteConfirmation(true);
   };
 
   if (loading) {
@@ -156,6 +171,9 @@ const PostDetailEdit: React.FC = () => {
               <div>
                 <strong>Description:</strong> {ogData.description}
               </div>
+              <div>
+                <strong>Slug:</strong> {ogData.slug}
+              </div>
             </div>
           ) : (
             <p>No OGData set. Click to add.</p>
@@ -168,11 +186,7 @@ const PostDetailEdit: React.FC = () => {
           {(provided) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
               {articles.map((article, index) => (
-                <Draggable
-                  key={article.id || index}
-                  draggableId={String(article.id || index)}
-                  index={index}
-                >
+                <Draggable key={article.id || index} draggableId={String(article.id || index)} index={index}>
                   {(provided) => (
                     <div
                       ref={provided.innerRef}
@@ -185,7 +199,13 @@ const PostDetailEdit: React.FC = () => {
                         ...provided.draggableProps.style,
                       }}
                     >
-                      <EditableArticle article={article} isEditing={false} canBeEdited={true} />
+                      <EditableArticle
+                        article={article}
+                        isEditing={false}
+                        canBeEdited={true}
+                        onEdit={() => handleArticleEdit(article)}
+                        onDelete={() => handleArticleDelete(article)}
+                      />
                     </div>
                   )}
                 </Draggable>
@@ -219,6 +239,32 @@ const PostDetailEdit: React.FC = () => {
             setShowOGDataModal(false);
           }}
           onClose={() => setShowOGDataModal(false)}
+        />
+      )}
+      {showEditArticleModal && articleToEdit && (
+        <EditArticleModal
+          article={articleToEdit}
+          onSave={(updatedArticle) => {
+            setShowEditArticleModal(false);
+            fetchData();
+          }}
+          onClose={() => setShowEditArticleModal(false)}
+        />
+      )}
+      {showDeleteConfirmation && articleToDelete && (
+        <ConfirmationModal
+          title="Confirm Deletion"
+          message="Are you sure you want to delete this article?"
+          onConfirm={async () => {
+            try {
+              await deleteArticle(articleToDelete.id!);
+              setArticles((prev) => prev.filter((a) => a.id !== articleToDelete.id));
+            } catch (error) {
+              console.error("Error deleting article:", error);
+            }
+            setShowDeleteConfirmation(false);
+          }}
+          onCancel={() => setShowDeleteConfirmation(false)}
         />
       )}
     </div>

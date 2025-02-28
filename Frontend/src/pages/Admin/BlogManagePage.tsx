@@ -14,6 +14,12 @@ const BlogManagePage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [showEditTagModal, setShowEditTagModal] = useState<boolean>(false);
   const closeEditTagModal = () => setShowEditTagModal(false);
+  const allowedArticleTypes = {
+    text: true,
+    faq: false,
+    link: true,
+    media: true,
+  };
   const fetchPosts = async () => {
     try {
       const postsData = await getPosts();
@@ -40,7 +46,7 @@ const BlogManagePage: React.FC = () => {
     
     <div style={{ padding: "20px" }}>
       <h1>Blog Manage Page</h1>
-      <CreatePost category={Blog} onClose={handleOnclose}/>	
+      <CreatePost category={Blog} onClose={handleOnclose} allowedArticleTypes={allowedArticleTypes}/>	
       <button onClick={() => setShowEditTagModal(true)}>Edit Tags</button>
       {showEditTagModal && <EditTagModal onClose={closeEditTagModal} />}
       {posts.length === 0 && <p>No posts found.</p>}
