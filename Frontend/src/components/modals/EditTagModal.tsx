@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
 import { getTags, updateTag, deleteTag } from "../../api/tagService";
 import ConfirmationModal from "./ConfirmationModal";
 import NotificationModal from "./NotificationModal";
 import AddTagModal from "./AddTagModal";
+import EditTagNameModal from "./EditTagNameModal";
+import styles from "./EditTagModal.module.css";
 
 interface Tag {
   id: number;
@@ -13,17 +16,16 @@ interface EditTagModalProps {
   onClose: () => void;
 }
 
-
 const EditTagModal: React.FC<EditTagModalProps> = ({ onClose }) => {
   const [tags, setTags] = useState<Tag[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-  const [editingTagId, setEditingTagId] = useState<number | null>(null);
-  const [editedName, setEditedName] = useState<string>("");
   const [tagToDelete, setTagToDelete] = useState<Tag | null>(null);
   const [notification, setNotification] = useState<{ title: string; message: string } | null>(null);
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
-  // Načtení tagů při prvním renderu
+  const [tagForEdit, setTagForEdit] = useState<Tag | null>(null);
+
+  // Fetch tags on initial render
   useEffect(() => {
     const fetchTags = async () => {
       setLoading(true);
@@ -31,7 +33,7 @@ const EditTagModal: React.FC<EditTagModalProps> = ({ onClose }) => {
         const fetchedTags = await getTags();
         setTags(fetchedTags);
       } catch (err) {
-        setError("Chyba při načítání tagů.");
+        setError("Error loading tags.");
       } finally {
         setLoading(false);
       }
@@ -39,170 +41,149 @@ const EditTagModal: React.FC<EditTagModalProps> = ({ onClose }) => {
     fetchTags();
   }, []);
 
-  // Spustí režim editace pro daný tag
-  const handleEdit = (tag: Tag) => {
-    setEditingTagId(tag.id);
-    setEditedName(tag.name);
-  };
-
-  // Uloží aktualizovaného tagu
-  const handleSave = async (tagId: number) => {
-    // Kontrola, zda nový název již není použit u jiného tagu (ignorujeme aktuálně editovaný tag)
+  // Handle update of tag name via EditTagNameModal
+  const handleUpdateTagName = async (newName: string, tagId: number) => {
     if (
       tags.some(
         (t) =>
           t.id !== tagId &&
-          t.name.trim().toLowerCase() === editedName.trim().toLowerCase()
+          t.name.trim().toLowerCase() === newName.trim().toLowerCase()
       )
     ) {
       setNotification({
-        title: "Chyba",
-        message: "Tag s tímto názvem již existuje. Prosím vyberte jiný název.",
+        title: "Error",
+        message: "A tag with this name already exists. Please choose a different name.",
       });
       return;
     }
-
     try {
-      await updateTag(tagId, { id: tagId, name: editedName });
-      setTags(tags.map(tag => tag.id === tagId ? { ...tag, name: editedName } : tag));
-      setEditingTagId(null);
-      setEditedName("");
+      await updateTag(tagId, { id: tagId, name: newName });
+      setTags(tags.map((tag) => (tag.id === tagId ? { ...tag, name: newName } : tag)));
+      setTagForEdit(null);
     } catch (err) {
-      console.error("Chyba při aktualizaci tagu.");
+      console.error("Error updating tag.");
       setNotification({
-        title: "Chyba",
-        message: "Při aktualizaci tagu došlo k chybě.",
+        title: "Error",
+        message: "An error occurred while updating the tag.",
       });
     }
   };
 
-  // Zahájí proces mazání – otevře ConfirmationModal
+  // Initiate deletion – open ConfirmationModal
   const handleDelete = (tag: Tag) => {
     setTagToDelete(tag);
   };
 
-  // Potvrzení smazání tagu
+  // Confirm deletion of tag
   const confirmDelete = async () => {
     if (!tagToDelete) return;
     try {
       await deleteTag(tagToDelete.id);
-      setTags(tags.filter(tag => tag.id !== tagToDelete.id));
+      setTags(tags.filter((tag) => tag.id !== tagToDelete.id));
       setTagToDelete(null);
     } catch (err) {
-      console.error("Chyba při mazání tagu.");
+      console.error("Error deleting tag.");
       setNotification({
-        title: "Chyba",
-        message: "Při mazání tagu došlo k chybě.",
+        title: "Error",
+        message: "An error occurred while deleting the tag.",
       });
     }
   };
 
-  // Zrušení mazání
+  // Cancel deletion
   const cancelDelete = () => {
     setTagToDelete(null);
   };
+
   const handleTagAdded = (newTag: Tag) => {
     setTags([...tags, newTag]);
   };
 
-  if (loading) return <div>Načítám tagy...</div>;
+  if (loading) return <div>Loading tags...</div>;
   if (error) return <div>{error}</div>;
 
   return (
-    <div style={modalStyle}>
-      <div style={modalContentStyle}>
-        <button onClick={onClose} style={closeButtonStyle}>
-          X
+    <div className={styles["edit-tag-modal__overlay"]}>
+      <div className={styles["edit-tag-modal__modal"]}>
+        <button className={styles["edit-tag-modal__close-button"]} onClick={onClose}>
+          ✕
         </button>
-        <h2>Edit Tagy</h2>
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {tags.map(tag => (
-            <li key={tag.id} style={{ marginBottom: "10px", display: "flex", alignItems: "center" }}>
-              {editingTagId === tag.id ? (
-                <>
-                  <input
-                    type="text"
-                    value={editedName}
-                    onChange={(e) => setEditedName(e.target.value)}
-                  />
-                  <button onClick={() => handleSave(tag.id)} style={{ marginLeft: "5px" }}>
-                    Uložit
-                  </button>
-                  <button onClick={() => setEditingTagId(null)} style={{ marginLeft: "5px" }}>
-                    Zrušit
-                  </button>
-                </>
-              ) : (
-                <>
-                  <span style={{ flex: 1 }}>{tag.name}</span>
-                  <button onClick={() => handleEdit(tag)} style={{ marginRight: "5px" }}>
-                    Upravit
-                  </button>
-                  <button onClick={() => handleDelete(tag)}>Smazat</button>
-                </>
-              )}
+        <h2 className={styles["edit-tag-modal__header"]}>Edit Tags</h2>
+        <ul className={styles["edit-tag-modal__list"]}>
+          {tags.map((tag) => (
+            <li key={tag.id} className={styles["edit-tag-modal__list-item"]}>
+              <span className={styles["edit-tag-modal__tag-name"]}>{tag.name}</span>
+              <button
+                onClick={() => setTagForEdit(tag)}
+                className={styles["edit-tag-modal__button"]}
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDelete(tag)}
+                className={styles["edit-tag-modal__button"]}
+              >
+                Delete
+              </button>
             </li>
           ))}
         </ul>
-        <div style={{ marginTop: "20px" }}>
-          <button onClick={() => setShowAddModal(true)}>Přidat tag</button>
+        <div className={styles["edit-tag-modal__actions"]}>
+          <button
+            onClick={() => setShowAddModal(true)}
+            className={styles["edit-tag-modal__button"]}
+          >
+            Add Tag
+          </button>
         </div>
-        {showAddModal && (
-        <AddTagModal
-          onClose={() => setShowAddModal(false)}
-          onTagAdded={handleTagAdded}
-        />
-      )}
-        {tagToDelete && (
-          <ConfirmationModal
-            title="Potvrzení smazání"
-            message={`Opravdu chcete smazat tag "${tagToDelete.name}"?`}
-            confirmText="Smazat"
-            cancelText="Zrušit"
-            onConfirm={confirmDelete}
-            onCancel={cancelDelete}
-          />
-        )}
-        {notification && (
-          <NotificationModal
-            title={notification.title}
-            message={notification.message}
-            onClose={() => setNotification(null)}
-          />
-        )}
       </div>
+      {showAddModal &&
+        ReactDOM.createPortal(
+          <div className={styles["edit-tag-modal__sub-overlay"]}>
+            <AddTagModal
+              onClose={() => setShowAddModal(false)}
+              onTagAdded={handleTagAdded}
+            />
+          </div>,
+          document.body
+        )}
+      {tagToDelete &&
+        ReactDOM.createPortal(
+          <div className={styles["edit-tag-modal__sub-overlay"]}>
+            <ConfirmationModal
+              title="Confirm Deletion"
+              message={`Are you sure you want to delete the tag "${tagToDelete.name}"?`}
+              confirmText="Delete"
+              cancelText="Cancel"
+              onConfirm={confirmDelete}
+              onCancel={cancelDelete}
+            />
+          </div>,
+          document.body
+        )}
+      {notification &&
+        ReactDOM.createPortal(
+          <div className={styles["edit-tag-modal__sub-overlay"]}>
+            <NotificationModal
+              title={notification.title}
+              message={notification.message}
+              onClose={() => setNotification(null)}
+            />
+          </div>,
+          document.body
+        )}
+      {tagForEdit &&
+        ReactDOM.createPortal(
+            <EditTagNameModal
+              currentName={tagForEdit.name}
+              tagId={tagForEdit.id}
+              onSave={(newName) => handleUpdateTagName(newName, tagForEdit.id)}
+              onClose={() => setTagForEdit(null)}
+            />,
+          document.body
+        )}
     </div>
   );
-};
-
-const modalStyle: React.CSSProperties = {
-  position: "fixed",
-  top: 0,
-  left: 0,
-  width: "100%",
-  height: "100%",
-  background: "rgba(0,0,0,0.5)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-};
-
-const modalContentStyle: React.CSSProperties = {
-  background: "white",
-  padding: "20px",
-  borderRadius: "8px",
-  position: "relative",
-  width: "400px",
-};
-
-const closeButtonStyle: React.CSSProperties = {
-  position: "absolute",
-  top: "10px",
-  right: "10px",
-  background: "transparent",
-  border: "none",
-  fontSize: "16px",
-  cursor: "pointer",
 };
 
 export default EditTagModal;

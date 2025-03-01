@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Admin } from "../../types/admin";
+import ReactDOM from "react-dom";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import { getAdmins, getCurrentUserId, deleteAdmin as deleteAdminAPI } from "../../api/adminService";
 import CreateAdminModal from "../../components/modals/CreateAdminModal";
 import ConfirmationModal from "../../components/modals/ConfirmationModal";
-import { HelmetProvider } from "react-helmet-async";
-const Admins: React.FC = () => {
+import { Admin } from "../../types/admin";
+import styles from "./AdminMagagePage.module.css";
+
+const AdminManagePage: React.FC = () => {
   const [admins, setAdmins] = useState<Admin[]>([]);
   const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState<boolean>(false);
@@ -14,8 +17,6 @@ const Admins: React.FC = () => {
     onConfirm?: () => void;
   } | null>(null);
   const [currentAdminId, setCurrentAdminId] = useState<string>("");
-
-
 
   const fetchAdmins = async () => {
     try {
@@ -27,8 +28,6 @@ const Admins: React.FC = () => {
   };
 
   useEffect(() => {
-    
-
     const fetchCurrentAdminId = async () => {
       try {
         const id = await getCurrentUserId();
@@ -37,7 +36,6 @@ const Admins: React.FC = () => {
         console.error("Error fetching current admin id:", error);
       }
     };
-
     fetchAdmins();
     fetchCurrentAdminId();
   }, []);
@@ -47,6 +45,7 @@ const Admins: React.FC = () => {
   };
 
   const openDeleteModal = (admin: Admin) => {
+    // Prevent self-deletion
     if (admin.id === currentAdminId) {
       setConfirmationModalProps({
         title: "Delete Not Allowed",
@@ -71,43 +70,61 @@ const Admins: React.FC = () => {
     setShowConfirmationModal(true);
   };
 
+  // Render modals using React Portals
+  const createModalPortal = showCreateModal ? ReactDOM.createPortal(
+    <div className={styles["admins__full-overlay"]}>
+      <CreateAdminModal
+        onClose={() => setShowCreateModal(false)}
+        onSave={(savedAdmin) => {
+          setAdmins((prev) => [...prev, savedAdmin]);
+          setShowCreateModal(false);
+          fetchAdmins();
+        }}
+      />
+    </div>,
+    document.body
+  ) : null;
+
+  const confirmationModalPortal = showConfirmationModal && confirmationModalProps ? ReactDOM.createPortal(
+    <div className={styles["admins__full-overlay"]}>
+      <ConfirmationModal
+        title={confirmationModalProps.title}
+        message={confirmationModalProps.message}
+        onConfirm={confirmationModalProps.onConfirm}
+        onCancel={() => setShowConfirmationModal(false)}
+      />
+    </div>,
+    document.body
+  ) : null;
+
   return (
     <HelmetProvider>
-      <title>Manage admins</title>
-    <div>
-      <h1>Admins</h1>
-      <button onClick={openCreateModal}>Create Admin</button>
-      <div>
-        {admins.map((admin) => (
-          <div key={admin.id}>
-            <p>{admin.email}</p>
-            <button onClick={() => openDeleteModal(admin)}>Delete</button>
-          </div>
-        ))}
+      <Helmet>
+        <title>Manage Admins</title>
+      </Helmet>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Admins</h1>
+        <button className={styles.createButton} onClick={openCreateModal}>
+          Create Admin
+        </button>
+        <div className={styles.adminList}>
+          {admins.map((admin) => (
+            <div key={admin.id} className={styles.adminItem}>
+              <p className={styles.adminEmail}>{admin.email}</p>
+              <button
+                className={styles.deleteButton}
+                onClick={() => openDeleteModal(admin)}
+              >
+                Delete
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
-
-      {showCreateModal && (
-        <CreateAdminModal
-          onClose={() => setShowCreateModal(false)}
-          onSave={(savedAdmin) => {
-            setAdmins((prev) => [...prev, savedAdmin]);
-            setShowCreateModal(false);
-            fetchAdmins();
-          }}
-        />
-      )}
-
-      {showConfirmationModal && confirmationModalProps && (
-        <ConfirmationModal
-          title={confirmationModalProps.title}
-          message={confirmationModalProps.message}
-          onCancel={() => setShowConfirmationModal(false)}
-          onConfirm={confirmationModalProps.onConfirm}
-        />
-      )}
-    </div>
+      {createModalPortal}
+      {confirmationModalPortal}
     </HelmetProvider>
   );
 };
 
-export default Admins;
+export default AdminManagePage;

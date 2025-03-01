@@ -1,29 +1,38 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
-import { useAuth } from "../../context/AuthContext";
 
 const Navbar: React.FC = () => {
-  const { isAuthenticated, logout } = useAuth();
-  const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleLogout = async () => {
-    await logout();
-    navigate("/login");
-  };
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
 
   return (
     <nav className={styles.navbar}>
-      <div className={styles["navbar__links"]}>
-        <Link className={styles["navbar__link"]} to="/">Home</Link>
-        <Link className={styles["navbar__link"]} to="/blog">Blog</Link>
-        <Link className={styles["navbar__link"]} to="/faq">FAQ</Link>
-        <Link className={styles["navbar__link"]} to="/patch">Patch notes</Link>
-        {isAuthenticated && (
-          <button className={styles["navbar__logout"]} onClick={handleLogout}>
-            Logout
-          </button>
-        )}
+      <div className={styles.navbar__container}>
+        <div className={styles.navbar__brand}>Pixel Dread</div>
+        <div
+          className={`${styles.hamburger} ${menuOpen ? styles.hamburger__open : ""}`}
+          onClick={toggleMenu}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div className={`${styles.menu} ${menuOpen ? styles.menu__open : ""}`}>
+          <Link to="/" className={styles.menu__link} onClick={() => setMenuOpen(false)}>
+            Home
+          </Link>
+          <Link to="/blog" className={styles.menu__link} onClick={() => setMenuOpen(false)}>
+            Blog
+          </Link>
+          <Link to="/faq" className={styles.menu__link} onClick={() => setMenuOpen(false)}>
+            FAQ
+          </Link>
+          <Link to="/patch" className={styles.menu__link} onClick={() => setMenuOpen(false)}>
+            Patch Notes
+          </Link>
+        </div>
       </div>
     </nav>
   );

@@ -1,0 +1,16 @@
+
+  /* Block: media-image */
+  .media-image__loading {
+    color: var(--primary-text-color);
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  /* Image styling - responsivní, mobile-first */
+  .media-image__img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+  

@@ -1,50 +1,52 @@
 import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 import { useParams } from "react-router-dom";
+import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+
 import { getPostBySlug, updatePost } from "../api/postService";
 import { getArticlesByPostId, deleteArticle } from "../api/articleService";
 import { Post } from "../types/post";
 import { ArticleUnion } from "../types/articles";
-import EditableArticle from "./EditableArticle";
-import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
+
+import EditableArticle from "./articles/EditableArticle";
 import EditPostNameModal from "./modals/EditPostNameModal";
-import EditOGDataModal, { OGData } from "./modals/EditOGDataModal";
 import EditArticleModal from "./modals/EditArticleModal";
 import ConfirmationModal from "./modals/ConfirmationModal";
+
+import styles from "./PostDetailEdit.module.css";
 
 const PostDetailEdit: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<Post | null>(null);
   const [articles, setArticles] = useState<ArticleUnion[]>([]);
   const [postName, setPostName] = useState<string>("");
-  const [ogData, setOgData] = useState<OGData | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
   const [articlesLoading, setArticlesLoading] = useState<boolean>(true);
 
   // Stav pro modály
   const [showNameModal, setShowNameModal] = useState<boolean>(false);
-  const [showOGDataModal, setShowOGDataModal] = useState<boolean>(false);
   const [articleToEdit, setArticleToEdit] = useState<ArticleUnion | null>(null);
   const [showEditArticleModal, setShowEditArticleModal] = useState<boolean>(false);
   const [articleToDelete, setArticleToDelete] = useState<ArticleUnion | null>(null);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState<boolean>(false);
 
+  // Načtení dat
   const fetchData = async () => {
-    if (slug) {
-      try {
-        const fetchedPost = await getPostBySlug(slug);
-        setPost(fetchedPost);
-        setPostName(fetchedPost.name || "");
-        setOgData(fetchedPost.OGData);
-        setArticlesLoading(true);
-        const fetchedArticles = await getArticlesByPostId(fetchedPost.id);
-        fetchedArticles.sort((a, b) => a.order - b.order);
-        setArticles(fetchedArticles);
-      } catch (error) {
-        console.error("Error fetching post:", error);
-      } finally {
-        setLoading(false);
-        setArticlesLoading(false);
-      }
+    if (!slug) return;
+    try {
+      const fetchedPost = await getPostBySlug(slug);
+      setPost(fetchedPost);
+      setPostName(fetchedPost.name || "");
+      setArticlesLoading(true);
+      const fetchedArticles = await getArticlesByPostId(fetchedPost.id);
+      fetchedArticles.sort((a, b) => a.order - b.order);
+      setArticles(fetchedArticles);
+    } catch (error) {
+      console.error("Error fetching post:", error);
+    } finally {
+      setLoading(false);
+      setArticlesLoading(false);
     }
   };
 
@@ -52,61 +54,54 @@ const PostDetailEdit: React.FC = () => {
     fetchData();
   }, [slug]);
 
+  // Reorder articles pomocí drag & drop
   const handleDragEnd = (result: DropResult) => {
     if (!result.destination) return;
-    const reorderedArticles = Array.from(articles);
-    const [movedArticle] = reorderedArticles.splice(result.source.index, 1);
-    reorderedArticles.splice(result.destination.index, 0, movedArticle);
-    const updatedArticles = reorderedArticles.map((article, index) => ({
+    const reordered = Array.from(articles);
+    const [moved] = reordered.splice(result.source.index, 1);
+    reordered.splice(result.destination.index, 0, moved);
+    const updated = reordered.map((article, index) => ({
       ...article,
       order: index + 1,
     }));
-    setArticles(updatedArticles);
+    setArticles(updated);
   };
 
+  // Uložení změn postu
   const handleSave = async () => {
+    if (!post) return;
     const formData = new FormData();
     formData.append("Name", postName);
-    if (post?.category?.id !== undefined) {
+    if (post.category?.id !== undefined) {
       formData.append("CategoryId", post.category.id.toString());
     }
     articles.forEach((article, index) => {
       formData.append(`Articles[${index}][type]`, article.type);
       formData.append(`Articles[${index}][order]`, article.order.toString());
       if (article.type === "text") {
-        formData.append(`Articles[${index}][content]`, (article as any).content || "");
+        formData.append(`Articles[${index}][content]`, article.content || "");
       } else if (article.type === "faq") {
-        formData.append(`Articles[${index}][question]`, (article as any).question || "");
-        formData.append(`Articles[${index}][answer]`, (article as any).answer || "");
+        formData.append(`Articles[${index}][question]`, article.question || "");
+        formData.append(`Articles[${index}][answer]`, article.answer || "");
       } else if (article.type === "link") {
-        formData.append(`Articles[${index}][url]`, (article as any).url || "");
-        if ((article as any).placeholder) {
-          formData.append(`Articles[${index}][placeholder]`, (article as any).placeholder);
+        formData.append(`Articles[${index}][url]`, article.url || "");
+        if (article.placeholder) {
+          formData.append(`Articles[${index}][placeholder]`, article.placeholder);
         }
       } else if (article.type === "media") {
-        if ((article as any).fileInformationsId !== undefined) {
-          formData.append(`Articles[${index}][FileInformationsId]`, (article as any).fileInformationsId.toString());
+        if (article.fileInformationsId !== undefined) {
+          formData.append(`Articles[${index}][FileInformationsId]`, article.fileInformationsId.toString());
         }
-        if ((article as any).description !== undefined) {
-          formData.append(`Articles[${index}][description]`, (article as any).description);
+        if (article.description !== undefined) {
+          formData.append(`Articles[${index}][description]`, article.description);
         }
-        if ((article as any).alt !== undefined) {
-          formData.append(`Articles[${index}][alt]`, (article as any).alt);
+        if (article.alt !== undefined) {
+          formData.append(`Articles[${index}][alt]`, article.alt);
         }
       }
     });
-
-    if (ogData) {
-      formData.append("OGData.Title", ogData.title || "");
-      formData.append("OGData.Description", ogData.description || "");
-      formData.append("OGData.Slug", ogData.slug || "");
-      if (ogData.fileInformationsId) {
-        formData.append("OGData.FileInformationsId", ogData.fileInformationsId.toString());
-      }
-    }
-
     try {
-      await updatePost(post!.id, formData);
+      await updatePost(post.id, formData);
       console.log("Changes saved successfully.");
       await fetchData();
     } catch (error) {
@@ -114,7 +109,6 @@ const PostDetailEdit: React.FC = () => {
     }
   };
 
-  // Callbacky pro ArticleOptionsModal
   const handleArticleEdit = (article: ArticleUnion) => {
     setArticleToEdit(article);
     setShowEditArticleModal(true);
@@ -125,149 +119,114 @@ const PostDetailEdit: React.FC = () => {
     setShowDeleteConfirmation(true);
   };
 
-  if (loading) {
-    return <div>Loading post details...</div>;
-  }
-  if (!post) {
-    return <div>Post not found.</div>;
-  }
-  if (articlesLoading) {
-    return <div>Loading articles...</div>;
-  }
+  if (loading) return <div className={styles.loading}>Loading post details...</div>;
+  if (!post) return <div className={styles.error}>Post not found.</div>;
+  if (articlesLoading) return <div className={styles.loading}>Loading articles...</div>;
+
+  // Vytvoříme portál pro ConfirmationModal
+  const confirmationPortal = showDeleteConfirmation && articleToDelete
+    ? ReactDOM.createPortal(
+        <div className={styles.fullScreenOverlay}>
+          <ConfirmationModal
+            title="Confirm Deletion"
+            message="Are you sure you want to delete this article?"
+            onConfirm={async () => {
+              try {
+                await deleteArticle(articleToDelete.id!);
+                setArticles((prev) => prev.filter((a) => a.id !== articleToDelete.id));
+              } catch (error) {
+                console.error("Error deleting article:", error);
+              }
+              setShowDeleteConfirmation(false);
+            }}
+            onCancel={() => setShowDeleteConfirmation(false)}
+          />
+        </div>,
+        document.body
+      )
+    : null;
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Edit Post</h1>
-      <div style={{ marginBottom: "20px" }}>
-        <label>Post Name:</label>
-        <div
-          style={{
-            width: "100%",
-            padding: "8px",
-            marginTop: "5px",
-            border: "1px solid #ccc",
-            cursor: "pointer",
-          }}
-          onClick={() => setShowNameModal(true)}
-        >
-          {postName || "Click to edit post name"}
+    <HelmetProvider>
+      <Helmet>
+        <title>Edit Post - {postName}</title>
+      </Helmet>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Edit Post</h1>
+        <div className={styles.formGroup}>
+          <label className={styles.label}>Post Name:</label>
+          <div className={styles.nameContainer}>
+            <div>{postName || "No post name"}</div>
+            <button className={styles.editButton} onClick={() => setShowNameModal(true)}>
+              Edit
+            </button>
+          </div>
         </div>
-      </div>
-      <div style={{ marginBottom: "20px" }}>
-        <label>OGData:</label>
-        <div
-          onClick={() => setShowOGDataModal(true)}
-          style={{
-            cursor: "pointer",
-            border: "1px solid #ccc",
-            padding: "10px",
-          }}
-        >
-          {ogData ? (
-            <div>
-              <div>
-                <strong>Title:</strong> {ogData.title}
+
+        <h2 className={styles.subtitle}>Articles</h2>
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <Droppable droppableId="articles">
+            {(provided) => (
+              <div className={styles.articles} {...provided.droppableProps} ref={provided.innerRef}>
+                {articles.map((article, index) => (
+                  <Draggable key={article.id || index} draggableId={String(article.id || index)} index={index}>
+                    {(provided) => (
+                      <div
+                        className={styles.article}
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <EditableArticle
+                          article={article}
+                          isEditing={false}
+                          canBeEdited={true}
+                          onEdit={() => handleArticleEdit(article)}
+                          onDelete={() => handleArticleDelete(article)}
+                        />
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
               </div>
-              <div>
-                <strong>Description:</strong> {ogData.description}
-              </div>
-              <div>
-                <strong>Slug:</strong> {ogData.slug}
-              </div>
-            </div>
-          ) : (
-            <p>No OGData set. Click to add.</p>
-          )}
+            )}
+          </Droppable>
+        </DragDropContext>
+
+        <div className={styles.actions}>
+          <button className={styles.saveButton} onClick={handleSave}>
+            Save Changes
+          </button>
         </div>
+
+        {showNameModal && (
+          <EditPostNameModal
+            currentName={postName}
+            postId={post.id}
+            onSave={(newName: string) => {
+              setPostName(newName);
+              setShowNameModal(false);
+            }}
+            onClose={() => setShowNameModal(false)}
+          />
+        )}
+
+        {showEditArticleModal && articleToEdit && (
+          <EditArticleModal
+            article={articleToEdit}
+            onSave={(updatedArticle: ArticleUnion) => {
+              setShowEditArticleModal(false);
+              fetchData();
+            }}
+            onClose={() => setShowEditArticleModal(false)}
+          />
+        )}
+
+        {/* Portál pro ConfirmationModal */}
+        {confirmationPortal}
       </div>
-      <h2>Articles</h2>
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId="articles">
-          {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              {articles.map((article, index) => (
-                <Draggable key={article.id || index} draggableId={String(article.id || index)} index={index}>
-                  {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={{
-                        border: "1px solid #ccc",
-                        padding: "10px",
-                        marginBottom: "10px",
-                        ...provided.draggableProps.style,
-                      }}
-                    >
-                      <EditableArticle
-                        article={article}
-                        isEditing={false}
-                        canBeEdited={true}
-                        onEdit={() => handleArticleEdit(article)}
-                        onDelete={() => handleArticleDelete(article)}
-                      />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-      <div>
-        <button onClick={handleSave} style={{ padding: "10px 20px", marginTop: "20px" }}>
-          Save Changes
-        </button>
-      </div>
-      {showNameModal && (
-        <EditPostNameModal
-          currentName={postName}
-          postId={post!.id}
-          onSave={(newName) => {
-            setPostName(newName);
-            setShowNameModal(false);
-          }}
-          onClose={() => setShowNameModal(false)}
-        />
-      )}
-      {showOGDataModal && (
-        <EditOGDataModal
-          initialOGData={ogData}
-          onSave={(data) => {
-            setOgData(data);
-            setShowOGDataModal(false);
-          }}
-          onClose={() => setShowOGDataModal(false)}
-        />
-      )}
-      {showEditArticleModal && articleToEdit && (
-        <EditArticleModal
-          article={articleToEdit}
-          onSave={(updatedArticle) => {
-            setShowEditArticleModal(false);
-            fetchData();
-          }}
-          onClose={() => setShowEditArticleModal(false)}
-        />
-      )}
-      {showDeleteConfirmation && articleToDelete && (
-        <ConfirmationModal
-          title="Confirm Deletion"
-          message="Are you sure you want to delete this article?"
-          onConfirm={async () => {
-            try {
-              await deleteArticle(articleToDelete.id!);
-              setArticles((prev) => prev.filter((a) => a.id !== articleToDelete.id));
-            } catch (error) {
-              console.error("Error deleting article:", error);
-            }
-            setShowDeleteConfirmation(false);
-          }}
-          onCancel={() => setShowDeleteConfirmation(false)}
-        />
-      )}
-    </div>
+    </HelmetProvider>
   );
 };
 

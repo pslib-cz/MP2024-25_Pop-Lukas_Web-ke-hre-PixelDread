@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getFileById } from "../../api/fileService";
+import styles from "./MediaImage.module.css";
 
 interface MediaImageProps {
   fileId: number;
@@ -31,10 +32,10 @@ const MediaImage: React.FC<MediaImageProps> = ({ fileId, alt }) => {
   }, [fileId]);
 
   if (!imageUrl) {
-    return <div>Loading image...</div>;
+    return <div className={styles["media-image__loading"]}>Loading image...</div>;
   }
 
-  return <img src={imageUrl} alt={alt || "Media image"} />;
+  return <img className={styles["media-image__img"]} src={imageUrl} alt={alt || "Media image"} />;
 };
 
 export default MediaImage;

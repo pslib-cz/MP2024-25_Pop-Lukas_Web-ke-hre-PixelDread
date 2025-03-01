@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./NotificationModal.module.css";
 
 export interface NotificationModalProps {
   title: string;
@@ -8,11 +9,13 @@ export interface NotificationModalProps {
 
 const NotificationModal: React.FC<NotificationModalProps> = ({ title, message, onClose }) => {
   return (
-    <div>
-      <h2>{title}</h2>
-      <p>{message}</p>
-      <div>
-        <button onClick={onClose}>OK</button>
+    <div className={styles["notification-modal"]}>
+      <h2 className={styles["notification-modal__header"]}>{title}</h2>
+      <p className={styles["notification-modal__message"]}>{message}</p>
+      <div className={styles["notification-modal__actions"]}>
+        <button className={styles["notification-modal__button"]} onClick={onClose}>
+          OK
+        </button>
       </div>
     </div>
   );

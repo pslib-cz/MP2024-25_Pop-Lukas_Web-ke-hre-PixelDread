@@ -1,0 +1,53 @@
+
+  
+  /* Block: article-options */
+  .article-options {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--modal-background);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 10px;
+    z-index: 10;
+    width: 200px;
+  }
+  
+  /* Header s tlačítkem pro zavření */
+  .article-options__header {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  /* Tlačítko pro zavření */
+  .article-options__close {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  /* Kontejner pro akce */
+  .article-options__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5px;
+  }
+  
+  /* Styl tlačítek */
+  .article-options__button {
+    margin: 5px 0;
+    background: var(--button-background);
+    color: var(--button-text-color);
+    border: none;
+    padding: 8px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .article-options__button:hover {
+    background: var(--button-background-hover);
+  }
+  

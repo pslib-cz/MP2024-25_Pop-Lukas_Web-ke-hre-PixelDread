@@ -1,6 +1,7 @@
 import React from "react";
+import styles from "./ArticleOptionsModal.module.css";
 
-interface ArticleOptionsModalProps {
+export interface ArticleOptionsModalProps {
   onDelete: () => void;
   onEdit: () => void;
   onClose: () => void;
@@ -12,38 +13,17 @@ const ArticleOptionsModal: React.FC<ArticleOptionsModalProps> = ({
   onClose,
 }) => {
   return (
-    <div
-      style={{
-        position: "absolute",
-        top: "0",
-        right: "0",
-        background: "#fff",
-        border: "1px solid #ccc",
-        borderRadius: "4px",
-        padding: "10px",
-        zIndex: 10,
-        width: "200px",
-      }}
-    >
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <button
-          onClick={onClose}
-          style={{
-            border: "none",
-            background: "transparent",
-            cursor: "pointer",
-            fontSize: "16px",
-          }}
-        >
-          ×
+    <div className={styles["article-options"]}>
+      <div className={styles["article-options__header"]}>
+        <button onClick={onClose} className={styles["article-options__close"]}>
+          ✕
         </button>
       </div>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-
-        <button onClick={onDelete} style={{ margin: "5px 0" }}>
+      <div className={styles["article-options__actions"]}>
+        <button onClick={onDelete} className={styles["article-options__button"]}>
           Odstranit článek
         </button>
-        <button onClick={onEdit} style={{ margin: "5px 0" }}>
+        <button onClick={onEdit} className={styles["article-options__button"]}>
           Upravit článek
         </button>
       </div>

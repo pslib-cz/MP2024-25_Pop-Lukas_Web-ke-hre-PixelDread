@@ -1,16 +1,28 @@
 :root {
-  --primary-color: #007bff;
-  --secondary-color: #6c757d;
-  --background-color: #f8f9fa;
-  --text-color: #343a40;
-  --border-color: #dee2e6;
+  --modal-background: #ffffff;
+  --modal-overlay-bg: rgba(0, 0, 0, 0.5);
+  --modal-border-radius: 8px;
+  --modal-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --primary-text-color: #333333;
+  --secondary-text-color: #555555;
+  --button-background: #3498db;
+  --button-background-hover: #2980b9;
+  --button-text-color: #ffffff;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --input-background:  #f0f0f0;
+  --border-color: #ccc;
+  --border-radius: 4px;
+  --input-border-color: #ccc;
+  --error-text-color: red;
+  --navbar-bg: #333;
+  --navbar-text: #fff;
+  --navbar-hover-bg: #444;
 }
 
-body {
+html, body {
+  font-family: 'Arial', sans-serif;
+  height: 100%;
   margin: 0;
   padding: 0;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  font-family: Arial, sans-serif;
 }
 

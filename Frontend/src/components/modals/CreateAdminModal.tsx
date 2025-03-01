@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Admin } from "../../types/admin";
 import { createAdmin } from "../../api/adminService";
+import styles from "./CreateAdminModal.module.css";
 
 interface CreateAdminModalProps {
   onClose: () => void;
@@ -14,7 +15,6 @@ const CreateAdminModal: React.FC<CreateAdminModalProps> = ({ onClose, onSave }) 
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [serverError, setServerError] = useState<string | null>(null);
-
   const [touched, setTouched] = useState({
     email: false,
     password: false,
@@ -55,54 +55,59 @@ const CreateAdminModal: React.FC<CreateAdminModalProps> = ({ onClose, onSave }) 
   };
 
   return (
-    <div>
-      <h2>Create Admin</h2>
-      {serverError && <p style={{ color: "red" }}>{serverError}</p>}
+    <div className={styles["create-admin"]}>
+      <h2 className={styles["create-admin__header"]}>Create Admin</h2>
+      {serverError && <p className={styles["create-admin__error-text"]}>{serverError}</p>}
 
-      <div>
-        <label>Email:</label>
+      <div className={styles["create-admin__form-group"]}>
+        <label className={styles["create-admin__label"]}>Email:</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           onBlur={() => setTouched((prev) => ({ ...prev, email: true }))}
+          className={styles["create-admin__input"]}
         />
         {touched.email && errors.email && (
-          <p style={{ color: "red", margin: 0 }}>{errors.email}</p>
+          <p className={styles["create-admin__error-text"]}>{errors.email}</p>
         )}
       </div>
 
-      <div>
-        <label>Password:</label>
+      <div className={styles["create-admin__form-group"]}>
+        <label className={styles["create-admin__label"]}>Password:</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           onBlur={() => setTouched((prev) => ({ ...prev, password: true }))}
           placeholder="Minimum of 6 characters"
+          className={styles["create-admin__input"]}
         />
         {touched.password && errors.password && (
-          <p style={{ color: "red", margin: 0 }}>{errors.password}</p>
+          <p className={styles["create-admin__error-text"]}>{errors.password}</p>
         )}
       </div>
 
-      <div>
-        <label>Confirm Password:</label>
+      <div className={styles["create-admin__form-group"]}>
+        <label className={styles["create-admin__label"]}>Confirm Password:</label>
         <input
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           onBlur={() => setTouched((prev) => ({ ...prev, confirmPassword: true }))}
           placeholder="Confirm your password"
+          className={styles["create-admin__input"]}
         />
         {touched.confirmPassword && errors.confirmPassword && (
-          <p style={{ color: "red", margin: 0 }}>{errors.confirmPassword}</p>
+          <p className={styles["create-admin__error-text"]}>{errors.confirmPassword}</p>
         )}
       </div>
 
-      <div>
-        <button onClick={onClose}>Cancel</button>
-        <button onClick={handleSubmit} disabled={!isValid}>
+      <div className={styles["create-admin__buttons"]}>
+        <button onClick={onClose} className={styles["create-admin__button"]}>
+          Cancel
+        </button>
+        <button onClick={handleSubmit} disabled={!isValid} className={styles["create-admin__button"]}>
           Create
         </button>
       </div>

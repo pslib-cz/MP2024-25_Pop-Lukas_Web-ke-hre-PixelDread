@@ -1,51 +1,117 @@
 :root {
-    /* Definice barevných proměnných */
-    --color-primary: #333;
-    --color-secondary: #fff;
-    --color-hover: #ccc;
-    --color-button-bg: transparent;
-    --color-button-border: #fff;
-    --color-button-hover-bg: #fff;
-    --color-button-hover-text: #333;
+  --navbar-bg: #333;
+  --navbar-text: #fff;
+  --navbar-hover-bg: #444;
+}
+
+/* Block: navbar */
+.navbar {
+  background-color: var(--navbar-bg);
+  padding: 10px;
+}
+
+.navbar__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.navbar__brand {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--navbar-text);
+}
+
+/* Hamburger menu */
+.hamburger {
+  width: 32px;
+  height: 24px;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s;
+  display: block;
+}
+
+.hamburger span {
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  background: var(--navbar-text);
+  border-radius: 2px;
+  left: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburger span:nth-child(1) {
+  top: 0;
+}
+
+.hamburger span:nth-child(2) {
+  top: 10px;
+}
+
+.hamburger span:nth-child(3) {
+  top: 20px;
+}
+
+.hamburger__open span:nth-child(1) {
+  top: 10px;
+  transform: rotate(45deg);
+}
+
+.hamburger__open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger__open span:nth-child(3) {
+  top: 10px;
+  transform: rotate(-45deg);
+}
+
+/* Mobile menu */
+.menu {
+  display: none;
+  flex-direction: column;
+  background-color: var(--navbar-bg);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  transition: all 0.3s;
+}
+
+.menu__open {
+  display: flex;
+}
+
+.menu__link {
+  color: var(--navbar-text);
+  text-decoration: none;
+  padding: 10px 20px;
+  transition: background 0.3s;
+}
+
+.menu__link:hover {
+  background-color: var(--navbar-hover-bg);
+  border-radius: 4px;
+}
+
+/* Desktop view */
+@media (min-width: 768px) {
+  .hamburger {
+    display: none;
   }
-  
-  .navbar {
+  .menu {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--color-primary);
-    padding: 1rem;
+    flex-direction: row;
+    position: static;
+    width: auto;
+    background: none;
   }
-  
-  .navbar__links {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  .menu__link {
+    padding: 10px 15px;
   }
-  
-  .navbar__link {
-    color: var(--color-secondary);
-    text-decoration: none;
-    font-size: 1rem;
-    transition: color 0.2s ease;
-  }
-  
-  .navbar__link:hover {
-    color: var(--color-hover);
-  }
-  
-  .navbar__logout {
-    margin-left: 1rem;
-    background-color: var(--color-button-bg);
-    border: 1px solid var(--color-button-border);
-    color: var(--color-secondary);
-    padding: 0.4rem 0.8rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
-  }
-  
-  .navbar__logout:hover {
-    background-color: var(--color-button-hover-bg);
-    color: var(--color-button-hover-text);
-  }
-  
+}

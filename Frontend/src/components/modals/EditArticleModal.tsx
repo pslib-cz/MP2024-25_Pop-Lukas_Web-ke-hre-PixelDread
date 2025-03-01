@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ArticleUnion } from "../../types/articles";
-import EditableArticle from "../EditableArticle";
+import EditableArticle from "../articles/EditableArticle";
 import { updateArticle, deleteArticle } from "../../api/articleService";
 
 interface EditArticleModalProps {

@@ -1,0 +1,90 @@
+
+  
+  /* Block: create-admin */
+  .create-admin {
+    background-color: var(--modal-background);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    max-width: 400px;
+    width: 90%;
+    margin: 1rem auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .create-admin__header {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-text-color);
+    text-align: center;
+  }
+  
+  .create-admin__form-group {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .create-admin__label {
+    margin-bottom: 0.5rem;
+    color: var(--secondary-text-color);
+    font-size: 1rem;
+  }
+  
+  .create-admin__input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid var(--input-border-color);
+    border-radius: var(--border-radius);
+  }
+  
+  .create-admin__error-text {
+    color: var(--error-text-color);
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+  }
+  
+  .create-admin__buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .create-admin__button {
+    background-color: var(--button-background);
+    color: var(--button-text-color);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-admin__button:hover {
+    background-color: var(--button-background-hover);
+  }
+  
+  .create-admin__button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  /* Mobile-first adjustments */
+  @media (min-width: 768px) {
+    .create-admin {
+      max-width: 500px;
+    }
+    .create-admin__header {
+      font-size: 2rem;
+    }
+    .create-admin__label {
+      font-size: 1.125rem;
+    }
+    .create-admin__input {
+      font-size: 1.125rem;
+    }
+    .create-admin__button {
+      font-size: 1.125rem;
+    }
+  }
+  

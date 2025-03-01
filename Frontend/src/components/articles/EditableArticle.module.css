@@ -1,0 +1,64 @@
+
+  .editable-article__wrapper {
+    border: 1px solid var(--border-color);
+    padding: 1.5em;
+    margin-bottom: 1.5em;
+    position: relative;
+    background-color: var(--background-color);
+  }
+  
+  /* Options button (otevírá menu) */
+  .editable-article__options-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    background: var(--input-background);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  
+  .editable-article__faq-group,
+  .editable-article__link-group,
+  .editable-article__media-group {
+    margin-bottom: 1rem;
+  }
+  
+  /* Všechny input skupiny */
+  .editable-article__input-group {
+    margin-bottom: 5px;
+    width: 100%;
+  }
+  
+  .editable-article__label {
+    display: block;
+    margin-bottom: 2px;
+    color: var(--secondary-text-color);
+  }
+  
+  .editable-article__input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 1.5em;
+    font-size: 1rem;
+  }
+  
+  .editable-article__textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    resize: vertical;
+  }
+  
+  .editable-article__current-image {
+    margin-top: 1.5em;
+  }
+  
+  /* Styl pro input file */
+  .editable-article__input-file {
+    margin-top: 1.5em;
+  }
+  

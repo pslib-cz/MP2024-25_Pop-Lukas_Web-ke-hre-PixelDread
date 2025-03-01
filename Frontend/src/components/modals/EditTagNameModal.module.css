@@ -1,0 +1,73 @@
+.edit-tag-name-modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--modal-overlay-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+}
+
+.edit-tag-name-modal__modal {
+  background: var(--modal-background);
+  padding: 1rem;
+  border-radius: var(--modal-border-radius);
+  box-shadow: var(--modal-shadow);
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+}
+
+.edit-tag-name-modal__close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.edit-tag-name-modal__header {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-text-color);
+}
+
+.edit-tag-name-modal__input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.edit-tag-name-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.edit-tag-name-modal__button {
+  background: var(--button-background);
+  color: var(--button-text-color);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-left: 0.5rem;
+}
+
+.edit-tag-name-modal__button:hover {
+  background: var(--button-background-hover);
+}
+
+@media (min-width: 768px) {
+  .edit-tag-name-modal__modal {
+    max-width: 500px;
+  }
+}

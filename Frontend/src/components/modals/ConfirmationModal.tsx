@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./ConfirmationModal.module.css";
 
 export interface ConfirmationModalProps {
   title: string;
@@ -18,12 +19,18 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   onCancel,
 }) => {
   return (
-    <div>
-      <h2>{title}</h2>
-      <p>{message}</p>
-      <div>
-        <button onClick={onCancel}>{cancelText}</button>
-        {onConfirm && <button onClick={onConfirm}>{confirmText}</button>}
+    <div className={styles["confirmation-modal"]}>
+      <h2 className={styles["confirmation-modal__header"]}>{title}</h2>
+      <p className={styles["confirmation-modal__message"]}>{message}</p>
+      <div className={styles["confirmation-modal__actions"]}>
+        <button className={styles["confirmation-modal__button"]} onClick={onCancel}>
+          {cancelText}
+        </button>
+        {onConfirm && (
+          <button className={styles["confirmation-modal__button"]} onClick={onConfirm}>
+            {confirmText}
+          </button>
+        )}
       </div>
     </div>
   );
