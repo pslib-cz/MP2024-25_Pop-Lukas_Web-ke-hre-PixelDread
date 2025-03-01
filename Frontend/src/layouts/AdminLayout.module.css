@@ -1,12 +1,63 @@
+/* Block: admin-layout */
+.adminLayout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--modal-background);
+}
 
-.admin-layout {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+/* Content area */
+.adminLayout__content {
+  flex: 1;
+  padding: 1rem;
+}
+
+/* Access Denied styles */
+.denied {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--modal-background);
+  text-align: center;
+  padding: 1rem;
+}
+
+.denied__title {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-text-color);
+}
+
+.denied__message {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--secondary-text-color);
+}
+
+.denied__loginLink {
+  background-color: var(--button-background);
+  color: var(--button-text-color);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.denied__loginLink:hover {
+  background-color: var(--button-background-hover);
+}
+
+/* Mobile-first adjustments */
+@media (min-width: 768px) {
+  .adminLayout__content {
+    padding: 2rem;
   }
-  
-  .admin-layout__content {
-    flex: 1;
-    padding: 20px;
+  .denied__title {
+    font-size: 2rem;
   }
-  
+  .denied__message {
+    font-size: 1.125rem;
+  }
+}

@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
-import { getPosts } from "../../api/postService";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+
+import { getPostsByCategory, deletePost } from "../../api/postService";
 import { Post } from "../../types/post";
 import CreatePost from "../../components/CreatePost";
-import { HelmetProvider } from "react-helmet-async";
-
 import { Blog } from "../../data/categories";
 import EditTagModal from "../../components/modals/EditTagModal";
+import ConfirmationModal from "../../components/modals/ConfirmationModal";
+
+import styles from "./BlogManagePage.module.css";
 
 const BlogManagePage: React.FC = () => {
-  const handleOnclose = () => {fetchPosts()};
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [showEditTagModal, setShowEditTagModal] = useState<boolean>(false);
-  const closeEditTagModal = () => setShowEditTagModal(false);
-  const allowedArticleTypes = {
-    text: true,
-    faq: false,
-    link: true,
-    media: true,
-  };
+  const [postToDelete, setPostToDelete] = useState<Post | null>(null);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState<boolean>(false);
+
   const fetchPosts = async () => {
     try {
-      const postsData = await getPosts();
+      const postsData = await getPostsByCategory(Blog.id);
       setPosts(postsData);
     } catch (error) {
       console.error("Error fetching posts:", error);
@@ -30,40 +29,95 @@ const BlogManagePage: React.FC = () => {
       setLoading(false);
     }
   };
-  useEffect(() => {
-    
 
+  useEffect(() => {
     fetchPosts();
   }, []);
 
-  if (loading) {
-    return <div>Loading posts...</div>;
-  }
+  const handleOnClose = () => {
+    fetchPosts();
+  };
+
+  const openDeleteModal = (post: Post) => {
+    setPostToDelete(post);
+    setShowDeleteConfirmation(true);
+  };
+
+  // Create a portal for the ConfirmationModal full-screen overlay
+  const confirmationPortal = showDeleteConfirmation && postToDelete
+    ? ReactDOM.createPortal(
+        <div className={styles.fullScreenOverlay}>
+          <ConfirmationModal
+            title="Confirm Delete"
+            message={`Are you sure you want to delete the post "${postToDelete.name}"?`}
+            onConfirm={async () => {
+              try {
+                await deletePost(postToDelete.id);
+                setPosts((prev) => prev.filter((p) => p.id !== postToDelete.id));
+              } catch (error) {
+                console.error("Error deleting post:", error);
+              }
+              setShowDeleteConfirmation(false);
+            }}
+            onCancel={() => setShowDeleteConfirmation(false)}
+          />
+        </div>,
+        document.body
+      )
+    : null;
 
   return (
-        <HelmetProvider>
-          <title >Blog Manage</title>
-    
-    <div style={{ padding: "20px" }}>
-      <h1>Blog Manage Page</h1>
-      <CreatePost category={Blog} onClose={handleOnclose} allowedArticleTypes={allowedArticleTypes}/>	
-      <button onClick={() => setShowEditTagModal(true)}>Edit Tags</button>
-      {showEditTagModal && <EditTagModal onClose={closeEditTagModal} />}
-      {posts.length === 0 && <p>No posts found.</p>}
-      {posts.map((post) => (
-        <div key={post.id} style={{ border: "1px solid #ccc", padding: "10px", marginBottom: "10px" }}>
-          <h2>{post.name}</h2>
-          {/* Link to view details */}
-          <Link to={`/blog/${post.ogData?.slug}`} style={{ marginRight: "10px" }}>
-            View Post
-          </Link>
-          {/* Link to edit details */}
-          <Link to={`/admin/blog/edit/${post.ogData?.slug}`} style={{ marginRight: "10px" }}>
-            Edit Post
-          </Link>
+    <HelmetProvider>
+      <Helmet>
+        <title>Blog Manage</title>
+      </Helmet>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Blog Manage Page</h1>
+        <div className={styles.controls}>
+          <CreatePost
+            category={Blog}
+            onClose={handleOnClose}
+            allowedArticleTypes={{ text: true, faq: false, link: true, media: true }}
+          />
+          <button
+            className={styles.editTagButton}
+            onClick={() => setShowEditTagModal(true)}
+          >
+            Edit Tags
+          </button>
         </div>
-      ))}
-    </div>
+        {showEditTagModal && (
+          <EditTagModal onClose={() => setShowEditTagModal(false)} />
+        )}
+        {loading ? (
+          <div className={styles.loading}>Loading posts...</div>
+        ) : posts.length === 0 ? (
+          <p className={styles.noPosts}>No posts found.</p>
+        ) : (
+          <div className={styles.postsList}>
+            {posts.map((post) => (
+              <div key={post.id} className={styles.postItem}>
+                <h2 className={styles.postTitle}>{post.name}</h2>
+                <div className={styles.postLinks}>
+                  <Link to={`/blog/${post.ogData?.slug}`} className={styles.postLink}>
+                    View Post
+                  </Link>
+                  <Link to={`/admin/blog/edit/${post.ogData?.slug}`} className={styles.postLink}>
+                    Edit Post
+                  </Link>
+                  <button
+                    className={styles.deleteButton}
+                    onClick={() => openDeleteModal(post)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      {confirmationPortal}
     </HelmetProvider>
   );
 };

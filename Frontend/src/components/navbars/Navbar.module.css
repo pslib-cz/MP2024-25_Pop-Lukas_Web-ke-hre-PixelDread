@@ -4,7 +4,6 @@
   --navbar-hover-bg: #444;
 }
 
-/* Block: navbar */
 .navbar {
   background-color: var(--navbar-bg);
   padding: 10px;
@@ -28,7 +27,7 @@
 /* Hamburger menu */
 .hamburger {
   width: 32px;
-  height: 24px;
+  height: 21px; /* Adjusted height for equal spacing */
   position: relative;
   cursor: pointer;
   transition: transform 0.3s;
@@ -45,29 +44,31 @@
   transition: all 0.3s ease-in-out;
 }
 
+/* For a container of 21px, we use a 3px gap at top, between spans, and bottom */
 .hamburger span:nth-child(1) {
-  top: 0;
+  top: 3px;
 }
 
 .hamburger span:nth-child(2) {
-  top: 10px;
+  top: 9px;
 }
 
 .hamburger span:nth-child(3) {
-  top: 20px;
+  top: 15px;
 }
 
-.hamburger__open span:nth-child(1) {
-  top: 10px;
+/* When open, transform spans into an "X" */
+.hamburger_open span:nth-child(1) {
+  top: 9px;
   transform: rotate(45deg);
 }
 
-.hamburger__open span:nth-child(2) {
+.hamburger_open span:nth-child(2) {
   opacity: 0;
 }
 
-.hamburger__open span:nth-child(3) {
-  top: 10px;
+.hamburger_open span:nth-child(3) {
+  top: 9px;
   transform: rotate(-45deg);
 }
 
@@ -105,7 +106,7 @@
     display: none;
   }
   .menu {
-    display: flex;
+    display: flex !important;
     flex-direction: row;
     position: static;
     width: auto;

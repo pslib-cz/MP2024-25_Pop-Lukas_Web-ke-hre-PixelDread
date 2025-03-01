@@ -65,7 +65,6 @@ const PostList: React.FC<PostListProps> = ({ category, hasDetails = false }) => 
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
                   {post.name ? <h3>{post.name}</h3> : <h3>Post {post.id}</h3>}
-                  <FirstTwoArticles postId={post.id} />
                 </Link>
               </div>
             );

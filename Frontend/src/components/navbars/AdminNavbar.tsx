@@ -22,20 +22,20 @@ const AdminNavbar: React.FC = () => {
           <span></span>
         </div>
         <div className={`${styles.menu} ${menuOpen ? styles.menu__open : ""}`}>
-          <Link to="/admin/blog" className={styles.menu__link} onClick={() => setMenuOpen(false)}>
-            ManageBlog
-          </Link>
-          <Link to="/admin/faq" className={styles.menu__link} onClick={() => setMenuOpen(false)}>
-            ManageFAQ
-          </Link>
-          <Link to="/admin/patch" className={styles.menu__link} onClick={() => setMenuOpen(false)}>
-            ManagePatchNotes
-          </Link>
           <Link to="/admin" className={styles.menu__link} onClick={() => setMenuOpen(false)}>
             Dashboard
           </Link>
+          <Link to="/admin/blog" className={styles.menu__link} onClick={() => setMenuOpen(false)}>
+            Manage blog
+          </Link>
+          <Link to="/admin/faq" className={styles.menu__link} onClick={() => setMenuOpen(false)}>
+            Manage FAQ
+          </Link>
+          <Link to="/admin/patch" className={styles.menu__link} onClick={() => setMenuOpen(false)}>
+            Manage patch notes
+          </Link>
           <Link to="/admin/manageAdmins" className={styles.menu__link} onClick={() => setMenuOpen(false)}>
-            ManageAdmins
+            Manage admins
           </Link>
           <Link to="/" className={styles.menu__link} onClick={() => setMenuOpen(false)}>
             Home

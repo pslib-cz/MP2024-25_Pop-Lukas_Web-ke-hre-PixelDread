@@ -23,7 +23,9 @@ wwwroot\uploads\97e0fa7c-8e76-4128-a1ba-1aee12c35940_cv.png
 wwwroot\uploads\9a9956c0-6c42-4634-94bc-80fa19dc154c_cv.png
 wwwroot\uploads\9c9e78b0-cc2b-485e-9108-eb320ba06f68_idk.png
 wwwroot\uploads\af9bce56-9995-4f90-9402-53e74b2a7584_yks.png
+wwwroot\uploads\b1b3aeea-bdc4-4cfc-aa88-eb5af4020bdb_vstupzakazan.jpg
 wwwroot\uploads\b716bba9-b40c-441d-a2bc-00ff5907fcb0_antiprokes.jpg
+wwwroot\uploads\bc1d78c0-4b3d-43e1-9bd3-419dd0a46c27_vstupzakazan.jpg
 wwwroot\uploads\bee872af-bf19-497a-8978-2605ead871f0_shamrock-malphite-malphite.png
 wwwroot\uploads\c3b74333-1dc7-4f68-a8b4-260298c78a5d_fake ahh info.png
 wwwroot\uploads\c7d7fa9e-1ab1-4861-adf3-673ccc632fe7_fake ahh info.png

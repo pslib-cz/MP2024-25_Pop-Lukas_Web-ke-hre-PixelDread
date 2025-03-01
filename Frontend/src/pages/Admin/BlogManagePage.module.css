@@ -1,0 +1,144 @@
+:root {
+  --background-color: #ffffff;
+  --primary-text-color: #333333;
+  --secondary-text-color: #555555;
+  --button-background: #3498db;
+  --button-background-hover: #2980b9;
+  --button-text-color: #ffffff;
+  --border-radius: 4px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --modal-overlay-bg: rgba(0, 0, 0, 0.5);
+}
+
+/* Main container */
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: var(--background-color);
+}
+
+/* Title */
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary-text-color);
+  text-align: center;
+}
+
+/* Controls container */
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+
+/* Edit Tags button */
+.editTagButton {
+  background-color: var(--button-background);
+  color: var(--button-text-color);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.editTagButton:hover {
+  background-color: var(--button-background-hover);
+}
+
+/* Loading and no posts messages */
+.loading,
+.noPosts {
+  text-align: center;
+  color: var(--secondary-text-color);
+  margin-top: 2rem;
+}
+
+/* Posts list */
+.postsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Each post item */
+.postItem {
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+/* Post title */
+.postTitle {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-text-color);
+}
+
+/* Container for post links */
+.postLinks {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Individual post link */
+.postLink {
+  color: var(--button-background);
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.postLink:hover {
+  color: var(--button-background-hover);
+}
+
+/* Delete button */
+.deleteButton {
+  background-color: var(--button-background);
+  color: var(--button-text-color);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.deleteButton:hover {
+  background-color: var(--button-background-hover);
+}
+
+/* Full screen overlay for ConfirmationModal */
+.fullScreenOverlay {
+  position: fixed;
+  inset: 0;
+  background: var(--modal-overlay-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Mobile-first adjustments */
+@media (min-width: 768px) {
+  .container {
+    padding: 2rem;
+  }
+  .title {
+    font-size: 2rem;
+  }
+  .postTitle {
+    font-size: 1.5rem;
+  }
+  .postLink {
+    font-size: 1.125rem;
+  }
+}

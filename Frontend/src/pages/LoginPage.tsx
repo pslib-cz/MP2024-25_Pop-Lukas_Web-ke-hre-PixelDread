@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import styles from "./LoginPage.module.css";
-import { HelmetProvider } from "react-helmet-async";
-
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -11,7 +10,7 @@ const LoginPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { login } = useAuth(); // Použití AuthContextu
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,7 +20,7 @@ const LoginPage: React.FC = () => {
     }
     setError(null);
     setLoading(true);
-    const success = await login(email, password); 
+    const success = await login(email, password);
     setLoading(false);
     if (success) {
       navigate("/admin");
@@ -32,36 +31,37 @@ const LoginPage: React.FC = () => {
 
   return (
     <HelmetProvider>
-      <title>Login</title>
-    <div className={styles["login-page"]}>
-      <h2 className={styles["login-page__title"]}>Login</h2>
-      <form className={styles["login-page__form"]} onSubmit={handleSubmit}>
-        <div className={styles["login-page__group"]}>
-          <label className={styles["login-page__label"]}>Email:</label>
-          <input
-            type="email"
-            className={styles["login-page__input"]}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className={styles["login-page__group"]}>
-          <label className={styles["login-page__label"]}>Password:</label>
-          <input
-            type="password"
-            className={styles["login-page__input"]}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        {error && <p className={styles["login-page__error"]}>{error}</p>}
-        <button type="submit" className={styles["login-page__button"]} disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
-        </button>
-      </form>
-    </div>    
+      <Helmet>
+        <title>Login</title>
+      </Helmet>
+      <div className={styles.login}>
+        <h2 className={styles.login__title}>Login</h2>
+        <form className={styles.login__form} onSubmit={handleSubmit}>
+          <div className={styles.login__group}>
+            <label className={styles.login__label}>Email:</label>
+            <input
+              type="email"
+              className={styles.login__input}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className={styles.login__group}>
+            <label className={styles.login__label}>Password:</label>
+            <input
+              type="password"
+              className={styles.login__input}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          {error && <p className={styles.login__error}>{error}</p>}
+          <button type="submit" className={styles.login__button} disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
+        </form>
+      </div>
     </HelmetProvider>
-
   );
 };
 
