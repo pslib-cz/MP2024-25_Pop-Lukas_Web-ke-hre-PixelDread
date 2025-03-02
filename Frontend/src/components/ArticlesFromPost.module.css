@@ -1,0 +1,30 @@
+
+  /* Container for the post articles */
+  .articles-from-post {
+    font-family: var(--pixel-font);
+    color: var(--secondary-text-color);
+    padding: 1rem;
+
+  }
+  
+  /* Post title */
+  .articles-from-post__title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Each article item */
+  .articles-from-post__item {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  /* Loading and not found messages */
+  .articles-from-post__loading,
+  .articles-from-post__not-found,
+  .articles-from-post__no-articles {
+    text-align: center;
+    padding: 2rem;
+  }
+  

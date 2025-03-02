@@ -1,0 +1,22 @@
+
+  .patch-notes-page {
+    color: var(--secondary-text-color);
+    font-family: var(--pixel-font);
+  }
+  
+  .patch-notes-page__title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Responsive enhancements for larger screens */
+  @media (min-width: 768px) {
+    .patch-notes-page {
+      padding: calc(1rem * 2);
+    }
+    .patch-notes-page__title {
+      font-size: 2.5rem;
+      margin-bottom: calc(1rem * 1.5);
+    }
+  }
+  

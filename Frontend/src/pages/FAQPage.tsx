@@ -1,16 +1,19 @@
 import React from "react";
 import PostList from "../components/PostList";
 import { FAQ } from "../data/categories";
-import { HelmetProvider } from "react-helmet-async";
+import { HelmetProvider, Helmet } from "react-helmet-async";
+import styles from "./FAQPage.module.css";
 
 const FAQPage: React.FC = () => {
   return (
     <HelmetProvider>
-      <title>FAQ</title>
-    <div>
-        <h1>FAQ</h1>
+      <Helmet>
+        <title>FAQ</title>
+      </Helmet>
+      <div className={styles["faq-page"]}>
+        <h1 className={styles["faq-page__title"]}>FAQ</h1>
         <PostList hasDetails={false} category={FAQ} />
-    </div>
+      </div>
     </HelmetProvider>
   );
 };

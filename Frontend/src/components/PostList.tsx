@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getPosts, getPostsByCategory } from "../api/postService";
 import { Post } from "../types/post";
-import FirstTwoArticles from "./FirstTwoArticles";
 import { Category } from "../types/category";
 import ArticlesFromPost from "./ArticlesFromPost";
+import styles from "./PostList.module.css";
 
 interface PostListProps {
-  category?: Category; // Pokud je předána, API vrátí jen příspěvky s tímto CategoryId.
-  hasDetails?: boolean; // Pokud true, příspěvky jsou klikací s odkazem a zobrazí se náhled (FirstTwoArticles).
+  category?: Category; // If provided, API returns only posts with this CategoryId.
+  hasDetails?: boolean; // If true, posts are clickable with a preview (FirstTwoArticles).
 }
 
 const PostList: React.FC<PostListProps> = ({ category, hasDetails = false }) => {
@@ -43,41 +43,31 @@ const PostList: React.FC<PostListProps> = ({ category, hasDetails = false }) => 
   }
 
   return (
-    <div>
+    <div className={styles["post-list"]}>
       {posts.length === 0 ? (
         <p>No posts found.</p>
       ) : (
         posts.map((post) => {
-          // Pokud má detaily a kategorie je předána, použijeme slug z OGData, pokud existuje.
           if (hasDetails && category) {
             const postSlug = post.ogData?.slug || post.id;
             return (
-              <div
-                key={post.id}
-                style={{
-                  border: "1px solid #ccc",
-                  padding: "10px",
-                  marginBottom: "10px",
-                }}
-              >
+              <div key={post.id} className={styles["post-list__item"]}>
                 <Link
                   to={`/${category.name.toLowerCase()}/${postSlug}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
+                  className={styles["post-list__link"]}
+                  onClick={() => {}}
                 >
-                  {post.name ? <h3>{post.name}</h3> : <h3>Post {post.id}</h3>}
+                  {post.name ? (
+                    <h3 className={styles["post-list__title"]}>{post.name}</h3>
+                  ) : (
+                    <h3 className={styles["post-list__title"]}>Post {post.id}</h3>
+                  )}
                 </Link>
               </div>
             );
           } else {
             return (
-              <div
-                key={post.id}
-                style={{
-                  border: "1px solid #ccc",
-                  padding: "10px",
-                  marginBottom: "10px",
-                }}
-              >
+              <div key={post.id} className={styles["post-list__item"]}>
                 <ArticlesFromPost id={post.id} />
               </div>
             );

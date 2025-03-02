@@ -92,6 +92,7 @@
   .home__gplay {
     align-self: flex-start;
     margin: 0;  
+    grid-column: 1 / 3 
   }
 }
 

@@ -2,16 +2,24 @@ import React, { useEffect, useState } from "react";
 import { getPostById } from "../api/postService";
 import { getArticlesByPostId } from "../api/articleService";
 import { Post } from "../types/post";
-import { ArticleText, ArticleFAQ, ArticleLink, ArticleMedia, ArticleUnion } from "../types/articles";
+import {
+  ArticleText,
+  ArticleFAQ,
+  ArticleLink,
+  ArticleMedia,
+  ArticleUnion,
+} from "../types/articles";
 import ArticleTextComponent from "./articles/ArticleTextComponent";
 import ArticleFAQComponent from "./articles/ArticleFAQComponent";
 import ArticleLinkComponent from "./articles/ArticleLinkComponent";
 import ArticleMediaComponent from "./articles/ArticleMediaComponent";
+import styles from "./ArticlesFromPost.module.css";
+
 interface ArticlesFromPostProps {
   id: number;
 }
 
-const ArticlesFromPost: React.FC<ArticlesFromPostProps> = ({ id }) => { 
+const ArticlesFromPost: React.FC<ArticlesFromPostProps> = ({ id }) => {
   const [post, setPost] = useState<Post | null>(null);
   const [articles, setArticles] = useState<ArticleUnion[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -23,7 +31,7 @@ const ArticlesFromPost: React.FC<ArticlesFromPostProps> = ({ id }) => {
           const fetchedPost = await getPostById(Number(id));
           setPost(fetchedPost);
           const fetchedArticles = await getArticlesByPostId(Number(id));
-          // Seřadíme články podle pořadí
+          // Sort articles by order
           fetchedArticles.sort((a, b) => a.order - b.order);
           setArticles(fetchedArticles);
         } catch (error) {
@@ -37,24 +45,29 @@ const ArticlesFromPost: React.FC<ArticlesFromPostProps> = ({ id }) => {
   }, [id]);
 
   if (loading) {
-    return <div>Loading post...</div>;
+    return (
+      <div className={styles["articles-from-post__loading"]}>
+        Loading post...
+      </div>
+    );
   }
   if (!post) {
-    return <div>Post not found.</div>;
+    return (
+      <div className={styles["articles-from-post__not-found"]}>
+        Post not found.
+      </div>
+    );
   }
 
   return (
-    <div>
-      <h1>{post.name}</h1>
+    <div className={styles["articles-from-post"]}>
+      <h1 className={styles["articles-from-post__title"]}>{post.name}</h1>
       {articles.length > 0 ? (
         articles.map((article) => {
           if (!article || !article.type) return null;
           const key = article.id || article.order;
           return (
-            <div
-              key={key}
-              style={{ border: "1px solid #ccc", padding: "10px", marginBottom: "10px" }}
-            >
+            <div key={key} className={styles["articles-from-post__item"]}>
               {article.type === "text" && (
                 <ArticleTextComponent article={article as ArticleText} />
               )}
@@ -71,7 +84,9 @@ const ArticlesFromPost: React.FC<ArticlesFromPostProps> = ({ id }) => {
           );
         })
       ) : (
-        <p>No articles found for this post.</p>
+        <p className={styles["articles-from-post__no-articles"]}>
+          No articles found for this post.
+        </p>
       )}
     </div>
   );

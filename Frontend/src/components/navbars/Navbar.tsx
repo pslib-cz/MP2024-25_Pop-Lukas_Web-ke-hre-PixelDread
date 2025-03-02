@@ -27,7 +27,6 @@ const Navbar: React.FC = () => {
           <span></span>
         </div>
         <div className={`${styles.menu} ${menuOpen ? styles.menu__open : ""}`}>
-          {/* Removed the Home link since the logo serves as the link to the base page */}
           <Link to="/blog" className={styles.menu__link} onClick={() => setMenuOpen(false)}>
             Blog
           </Link>
