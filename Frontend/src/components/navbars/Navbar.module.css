@@ -1,15 +1,15 @@
-:root {
-  --navbar-bg: #333;
-  --navbar-text: #fff;
-  --navbar-hover-bg: #444;
-}
-
 .navbar {
   background-color: var(--navbar-bg);
-  padding: 10px;
+  padding: 0 1.5em;
+  height: 48px; /* Small navbar height */
+  display: flex;
+  align-items: center;
+  font-family: var(--pixel-font);
+  font-size: 16px;
 }
 
 .navbar__container {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
@@ -19,15 +19,14 @@
 }
 
 .navbar__brand {
-  font-size: 1.25rem;
-  font-weight: bold;
+  font-size: 16px;
   color: var(--navbar-text);
 }
 
-/* Hamburger menu */
+/* Hamburger menu for smallest screens */
 .hamburger {
-  width: 32px;
-  height: 21px; /* Adjusted height for equal spacing */
+  width: 32px;   /* Smaller hamburger */
+  height: 32px;
   position: relative;
   cursor: pointer;
   transition: transform 0.3s;
@@ -36,7 +35,7 @@
 
 .hamburger span {
   position: absolute;
-  height: 3px;
+  height: 3px; /* Thinner spans */
   width: 100%;
   background: var(--navbar-text);
   border-radius: 2px;
@@ -44,31 +43,30 @@
   transition: all 0.3s ease-in-out;
 }
 
-/* For a container of 21px, we use a 3px gap at top, between spans, and bottom */
+/* Equally spaced spans for 32px container */
 .hamburger span:nth-child(1) {
-  top: 3px;
+  top: 7px;
 }
 
 .hamburger span:nth-child(2) {
-  top: 9px;
-}
-
-.hamburger span:nth-child(3) {
   top: 15px;
 }
 
-/* When open, transform spans into an "X" */
-.hamburger_open span:nth-child(1) {
-  top: 9px;
+.hamburger span:nth-child(3) {
+  top: 23px;
+}
+
+.hamburger__open span:nth-child(1) {
+  top: 15px;
   transform: rotate(45deg);
 }
 
-.hamburger_open span:nth-child(2) {
+.hamburger__open span:nth-child(2) {
   opacity: 0;
 }
 
-.hamburger_open span:nth-child(3) {
-  top: 9px;
+.hamburger__open span:nth-child(3) {
+  top: 15px;
   transform: rotate(-45deg);
 }
 
@@ -78,7 +76,7 @@
   flex-direction: column;
   background-color: var(--navbar-bg);
   position: absolute;
-  top: 100%;
+  top: 48px; /* below the small navbar */
   left: 0;
   width: 100%;
   transition: all 0.3s;
@@ -98,6 +96,49 @@
 .menu__link:hover {
   background-color: var(--navbar-hover-bg);
   border-radius: 4px;
+}
+
+/* For larger mobiles (min-width: 400px) update sizes */
+@media (min-width: 400px) {
+  .navbar {
+    height: 64px; /* Larger navbar height */
+    font-size: 20px;
+  }
+  .navbar__brand {
+    font-size: 20px;
+  }
+  /* Update hamburger for larger devices */
+  .hamburger {
+    width: 48px;
+    height: 48px;
+  }
+  .hamburger span {
+    height: 5px; /* Thicker spans */
+  }
+  /* Adjust positions for thicker spans in a 48px container */
+  .hamburger span:nth-child(1) {
+    top: 10px;
+  }
+  .hamburger span:nth-child(2) {
+    top: 22px;
+  }
+  .hamburger span:nth-child(3) {
+    top: 34px;
+  }
+  .hamburger__open span:nth-child(1) {
+    top: 22px;
+    transform: rotate(45deg);
+  }
+  .hamburger__open span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger__open span:nth-child(3) {
+    top: 22px;
+    transform: rotate(-45deg);
+  }
+  .menu {
+    top: 64px; /* below the larger navbar */
+  }
 }
 
 /* Desktop view */

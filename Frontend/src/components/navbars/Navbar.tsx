@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbar__container}>
-        <div className={styles.navbar__brand}>Pixel Dread</div>
+        <div className={styles.navbar__brand}>PIXEL DREAD</div>
         <div
           className={`${styles.hamburger} ${menuOpen ? styles.hamburger__open : ""}`}
           onClick={toggleMenu}

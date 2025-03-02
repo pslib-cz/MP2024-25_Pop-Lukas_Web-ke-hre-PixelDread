@@ -4,7 +4,7 @@
   --modal-border-radius: 8px;
   --modal-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   --primary-text-color: #333333;
-  --secondary-text-color: #555555;
+  --secondary-text-color: #FAFAF9;
   --button-background: #3498db;
   --button-background-hover: #2980b9;
   --button-text-color: #ffffff;
@@ -14,9 +14,17 @@
   --border-radius: 4px;
   --input-border-color: #ccc;
   --error-text-color: red;
-  --navbar-bg: #333;
+  --navbar-bg: #161E34;
   --navbar-text: #fff;
-  --navbar-hover-bg: #444;
+  --pixel-font: 'Press Start 2P', cursive;
+  --navbar-hover-bg: #1f2e4b;
+}
+
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url('./fonts/PressStart2P-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 html, body {
