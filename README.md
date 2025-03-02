@@ -12,10 +12,11 @@
 ## Prostředky
 - Frontend: React, TypeScript
 - Backend: ASP.NET Core
-- Design: Figma
+- Design: [Figma](https://www.figma.com/design/jPMdwB6Az2nJIwEaIDJdTp/MP-POP-v2?node-id=0-1&t=aTvgI04bP9lEuTYD-1)
 - Deployment: Docker
 - Hosting: VPS
 
+[Dokument]()
 
 
 
