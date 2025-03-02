@@ -1,0 +1,51 @@
+/* src/components/WaveText.module.css */
+
+/* 
+  We use inline-flex on .waveText to allow wrapping
+  ONLY between words (the .word elements). 
+*/
+.waveText {
+  display: inline-flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem; /* optional spacing between words */
+}
+
+.word {
+  display: inline-flex;
+  white-space: nowrap; /* prevents splitting inside a word */
+}
+
+.letter {
+  display: inline-block;
+  position: relative;
+  /* Total duration: 7s => ~1s wave + 6s pause */
+  animation: jump 4.5s infinite ease-in-out;
+}
+
+/*
+  The wave portion happens in the first ~1 second (0–14% of 7s = ~1s),
+  then there's a ~6s pause before the next wave.
+*/
+@keyframes jump {
+  /* Start on baseline */
+  0% {
+    transform: translateY(0);
+    z-index: 1;
+  }
+  /* Peak jump around 7% (~0.49s) */
+  7% {
+    transform: translateY(-20px);
+    z-index: 10;
+  }
+  /* Return to baseline around 14% (~0.98s) */
+  14% {
+    transform: translateY(0);
+    z-index: 1;
+  }
+  /* Stay idle for the rest of the cycle (14–100% => ~6s) */
+  100% {
+    transform: translateY(0);
+    z-index: 1;
+  }
+}

@@ -5,12 +5,19 @@ import styles from "./Navbar.module.css";
 const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const toggleMenu = () => setMenuOpen(prev => !prev);
 
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbar__container}>
-        <div className={styles.navbar__brand}>PIXEL DREAD</div>
+        {/* Clickable brand that links to the base (home) page */}
+        <Link 
+          to="/" 
+          className={styles.navbar__brand} 
+          onClick={() => setMenuOpen(false)}
+        >
+          PIXEL DREAD
+        </Link>
         <div
           className={`${styles.hamburger} ${menuOpen ? styles.hamburger__open : ""}`}
           onClick={toggleMenu}
@@ -20,9 +27,7 @@ const Navbar: React.FC = () => {
           <span></span>
         </div>
         <div className={`${styles.menu} ${menuOpen ? styles.menu__open : ""}`}>
-          <Link to="/" className={styles.menu__link} onClick={() => setMenuOpen(false)}>
-            Home
-          </Link>
+          {/* Removed the Home link since the logo serves as the link to the base page */}
           <Link to="/blog" className={styles.menu__link} onClick={() => setMenuOpen(false)}>
             Blog
           </Link>
@@ -30,7 +35,7 @@ const Navbar: React.FC = () => {
             FAQ
           </Link>
           <Link to="/patch" className={styles.menu__link} onClick={() => setMenuOpen(false)}>
-            Patch Notes
+            Patch-notes
           </Link>
         </div>
       </div>

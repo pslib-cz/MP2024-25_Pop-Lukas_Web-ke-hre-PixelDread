@@ -312,18 +312,6 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"quz6ts1n3b"},{"Name":"integrity","Value":"sha256-/gc0McJcWMWViRbrVSUPKjXEhWJcosnkVmaM7EfnqXI="},{"Name":"label","Value":"_content/PixelDread/uploads/b1b3aeea-bdc4-4cfc-aa88-eb5af4020bdb_vstupzakazan.jpg"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"26968"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022/gc0McJcWMWViRbrVSUPKjXEhWJcosnkVmaM7EfnqXI=\u0022"},{"Name":"Last-Modified","Value":"Sat, 01 Mar 2025 20:55:47 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/PixelDread/uploads/b716bba9-b40c-441d-a2bc-00ff5907fcb0_antiprokes.a3kzbgnmc4.jpg">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\b716bba9-b40c-441d-a2bc-00ff5907fcb0_antiprokes.jpg'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"a3kzbgnmc4"},{"Name":"integrity","Value":"sha256-dmttyiBbsWIkyfNqqh/aGwmM62PGcxG/4RB9Wzrt92M="},{"Name":"label","Value":"_content/PixelDread/uploads/b716bba9-b40c-441d-a2bc-00ff5907fcb0_antiprokes.jpg"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"19147"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022dmttyiBbsWIkyfNqqh/aGwmM62PGcxG/4RB9Wzrt92M=\u0022"},{"Name":"Last-Modified","Value":"Fri, 28 Feb 2025 01:18:08 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/PixelDread/uploads/b716bba9-b40c-441d-a2bc-00ff5907fcb0_antiprokes.jpg">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\b716bba9-b40c-441d-a2bc-00ff5907fcb0_antiprokes.jpg'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-dmttyiBbsWIkyfNqqh/aGwmM62PGcxG/4RB9Wzrt92M="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"19147"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022dmttyiBbsWIkyfNqqh/aGwmM62PGcxG/4RB9Wzrt92M=\u0022"},{"Name":"Last-Modified","Value":"Fri, 28 Feb 2025 01:18:08 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/PixelDread/uploads/bc1d78c0-4b3d-43e1-9bd3-419dd0a46c27_vstupzakazan.jpg">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\bc1d78c0-4b3d-43e1-9bd3-419dd0a46c27_vstupzakazan.jpg'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>

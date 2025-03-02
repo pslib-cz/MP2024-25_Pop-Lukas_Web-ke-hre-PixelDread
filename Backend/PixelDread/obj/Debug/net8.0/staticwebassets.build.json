@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "UVa6NX4CM1n1KDLvLco3gDMyQUmpnwCg5R+8HFQbTqI=",
+  "Hash": "EvRTbDZHmz1bbWU8DE9gowirM6fMU2ZYfXIt3Uothbk=",
   "Source": "PixelDread",
   "BasePath": "_content/PixelDread",
   "Mode": "Default",
@@ -561,27 +561,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\b1b3aeea-bdc4-4cfc-aa88-eb5af4020bdb_vstupzakazan.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\b716bba9-b40c-441d-a2bc-00ff5907fcb0_antiprokes.jpg",
-      "SourceId": "PixelDread",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\",
-      "BasePath": "_content/PixelDread",
-      "RelativePath": "uploads/b716bba9-b40c-441d-a2bc-00ff5907fcb0_antiprokes#[.{fingerprint}]?.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "a3kzbgnmc4",
-      "Integrity": "dmttyiBbsWIkyfNqqh/aGwmM62PGcxG/4RB9Wzrt92M=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\b716bba9-b40c-441d-a2bc-00ff5907fcb0_antiprokes.jpg"
     },
     {
       "Identity": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\bc1d78c0-4b3d-43e1-9bd3-419dd0a46c27_vstupzakazan.jpg",
@@ -2924,88 +2903,6 @@
         {
           "Name": "integrity",
           "Value": "sha256-/gc0McJcWMWViRbrVSUPKjXEhWJcosnkVmaM7EfnqXI="
-        }
-      ]
-    },
-    {
-      "Route": "uploads/b716bba9-b40c-441d-a2bc-00ff5907fcb0_antiprokes.a3kzbgnmc4.jpg",
-      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\b716bba9-b40c-441d-a2bc-00ff5907fcb0_antiprokes.jpg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "19147"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"dmttyiBbsWIkyfNqqh/aGwmM62PGcxG/4RB9Wzrt92M=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 28 Feb 2025 01:18:08 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "a3kzbgnmc4"
-        },
-        {
-          "Name": "label",
-          "Value": "uploads/b716bba9-b40c-441d-a2bc-00ff5907fcb0_antiprokes.jpg"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-dmttyiBbsWIkyfNqqh/aGwmM62PGcxG/4RB9Wzrt92M="
-        }
-      ]
-    },
-    {
-      "Route": "uploads/b716bba9-b40c-441d-a2bc-00ff5907fcb0_antiprokes.jpg",
-      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\b716bba9-b40c-441d-a2bc-00ff5907fcb0_antiprokes.jpg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "19147"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"dmttyiBbsWIkyfNqqh/aGwmM62PGcxG/4RB9Wzrt92M=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 28 Feb 2025 01:18:08 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-dmttyiBbsWIkyfNqqh/aGwmM62PGcxG/4RB9Wzrt92M="
         }
       ]
     },
