@@ -10,7 +10,6 @@ import { checkSlugExists } from "../../api/postService";
 import ArticleTextComponent from "../articles/ArticleTextComponent";
 import ArticleFAQComponent from "../articles/ArticleFAQComponent";
 import ArticleLinkComponent from "../articles/ArticleLinkComponent";
-import ArticleMediaComponent from "../articles/ArticleMediaComponent";
 import MediaPreview from "../articles/MediaPreview"; // Import the MediaPreview component
 
 interface TagOption {
@@ -123,13 +122,13 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
     setSelectedType(null);
   };
 
-  const removeArticle = (indexToRemove: number) => {
+/*  const removeArticle = (indexToRemove: number) => {
     const updated = articles
       .filter((_, index) => index !== indexToRemove)
       .map((article, index) => ({ ...article, order: index + 1 }));
     setArticles(updated);
   };
-
+*/
   const handleSubmit = () => {
     if (
       articles.length === 0 ||

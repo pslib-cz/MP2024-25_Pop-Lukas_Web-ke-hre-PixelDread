@@ -7,7 +7,6 @@ import AdminPage from "../pages/Admin/AdminPage";
 import AdminLayout from "../layouts/AdminLayout";
 import MainLayout from "../layouts/MainLayout";
 import PostDetail from "../components/PostDetail";
-import PostList from "../components/PostList";
 import Admins from "../pages/Admin/AdminManagePage";
 import NotFoundPage from "../pages/NotFoundPage";
 import GDPR from "../pages/GDPR";

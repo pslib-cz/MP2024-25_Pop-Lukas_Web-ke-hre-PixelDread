@@ -215,7 +215,7 @@ const PostDetailEdit: React.FC = () => {
         {showEditArticleModal && articleToEdit && (
           <EditArticleModal
             article={articleToEdit}
-            onSave={(updatedArticle: ArticleUnion) => {
+            onSave={() => {
               setShowEditArticleModal(false);
               fetchData();
             }}

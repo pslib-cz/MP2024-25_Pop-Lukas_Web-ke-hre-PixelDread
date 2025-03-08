@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CreatePostModal, { CreatePostData, AllowedArticleTypes } from "./modals/CreatePostModal";
-import { Article, ArticleMedia } from "../types/articles";
+import { ArticleMedia } from "../types/articles";
 import { createPost } from "../api/postService";
 import uploadFile from "../api/fileService";
 import { Category } from "../types/category";
