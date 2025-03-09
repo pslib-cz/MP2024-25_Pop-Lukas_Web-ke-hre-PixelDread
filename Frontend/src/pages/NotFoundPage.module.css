@@ -11,15 +11,15 @@
 /* Block: not-found-page */
 .container {
   text-align: center;
+  font-family: var(--pixel-font);
+  color: var(--secondary-text-color);
   margin-top: 4rem;
   padding: 0 1rem;
-  background-color: var(--background-color);
 }
 
 .header {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: var(--primary-text-color);
 }
 
 .message {

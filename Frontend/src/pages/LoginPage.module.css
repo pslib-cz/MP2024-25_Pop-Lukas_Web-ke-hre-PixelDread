@@ -10,13 +10,17 @@
   --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
 /* Block: login */
 .login {
   background-color: var(--background-color);
   padding: 1rem;
-  max-width: 400px;
-  width: 90%;
-  margin: 2rem auto;
+  width: 400px;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
 }
@@ -76,7 +80,6 @@
 /* Adjustments for larger screens */
 @media (min-width: 768px) {
   .login {
-    max-width: 500px;
     padding: 2rem;
   }
   

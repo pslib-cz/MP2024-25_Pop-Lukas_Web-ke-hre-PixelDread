@@ -34,32 +34,34 @@ const LoginPage: React.FC = () => {
       <Helmet>
         <title>Login</title>
       </Helmet>
-      <div className={styles.login}>
-        <h2 className={styles.login__title}>Login</h2>
-        <form className={styles.login__form} onSubmit={handleSubmit}>
-          <div className={styles.login__group}>
-            <label className={styles.login__label}>Email:</label>
-            <input
-              type="email"
-              className={styles.login__input}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className={styles.login__group}>
-            <label className={styles.login__label}>Password:</label>
-            <input
-              type="password"
-              className={styles.login__input}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          {error && <p className={styles.login__error}>{error}</p>}
-          <button type="submit" className={styles.login__button} disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
-          </button>
-        </form>
+      <div className={styles["login-page"]}>
+        <div className={styles.login}>
+          <h2 className={styles.login__title}>Login</h2>
+          <form className={styles.login__form} onSubmit={handleSubmit}>
+            <div className={styles.login__group}>
+              <label className={styles.login__label}>Email:</label>
+              <input
+                type="email"
+                className={styles.login__input}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className={styles.login__group}>
+              <label className={styles.login__label}>Password:</label>
+              <input
+                type="password"
+                className={styles.login__input}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            {error && <p className={styles.login__error}>{error}</p>}
+            <button type="submit" className={styles.login__button} disabled={loading}>
+              {loading ? "Logging in..." : "Login"}
+            </button>
+          </form>
+        </div>
       </div>
     </HelmetProvider>
   );
