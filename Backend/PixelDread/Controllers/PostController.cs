@@ -119,7 +119,7 @@ namespace PixelDread.Controllers
 
             if (!posts.Any())
             {
-                return NotFound($"No posts found for category ID {categoryId}.");
+                return NoContent();
             }
 
             return Ok(posts);

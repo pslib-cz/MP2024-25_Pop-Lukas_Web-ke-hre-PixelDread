@@ -14,6 +14,15 @@ export interface PostArticle {
   article: ArticleUnion;
 }
 
+export interface PostTag {
+  postId: number;
+  tagId: number;
+  tag: {
+    id: number;
+    name: string;
+  };
+}
+
 export interface Post {
   id: number;
   name: string;
@@ -24,6 +33,7 @@ export interface Post {
   categoryId?: number;
   category?: Category;
   postArticles: PostArticle[];
+  postTags?: PostTag[];
   ogData?: {
     title?: string;
     description?: string;

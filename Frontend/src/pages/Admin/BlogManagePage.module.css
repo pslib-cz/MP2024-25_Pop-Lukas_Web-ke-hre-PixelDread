@@ -15,7 +15,6 @@
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
-  padding: 1rem;
   background-color: var(--background-color);
 }
 
@@ -72,12 +71,15 @@
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Post title */
 .postTitle {
   font-size: 1.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin-bottom: 0.5rem;
   color: var(--primary-text-color);
 }

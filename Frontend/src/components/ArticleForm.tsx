@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Article, ArticleType } from "../types/articles";
 import TextEditor from "./TextEditor"; // Ujistěte se, že cesta odpovídá
 
-// Definice vlastního typu, který zahrnuje všechny možné klíče z jednotlivých typů článků.
-interface ArticleFormData {
+export interface ArticleFormData {
   type: ArticleType;
   order: number;
   content?: string;
@@ -19,10 +18,23 @@ interface ArticleFormData {
 interface ArticleFormProps {
   type: ArticleType;
   onSave: (article: Article) => void;
+  initialData?: ArticleFormData; // Nepovinný prop pro editaci
 }
 
-const ArticleForm: React.FC<ArticleFormProps> = ({ type, onSave }) => {
-  const [formData, setFormData] = useState<ArticleFormData>({ type, order: 0 });
+const ArticleForm: React.FC<ArticleFormProps> = ({ type, onSave, initialData }) => {
+  // Inicializujeme stav buď s initialData, nebo s výchozí hodnotou
+  const [formData, setFormData] = useState<ArticleFormData>(() =>
+    initialData ? initialData : { type, order: 0 }
+  );
+
+  // Pokud se změní initialData (například při editaci jiného článku), aktualizujeme stav
+  useEffect(() => {
+    if (initialData) {
+      setFormData(initialData);
+    } else {
+      setFormData({ type, order: 0 });
+    }
+  }, [initialData, type]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -60,11 +72,20 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ type, onSave }) => {
         <>
           <div>
             <label>Question</label>
-            <input type="text" name="question" onChange={handleChange} />
+            <input
+              type="text"
+              name="question"
+              value={formData.question || ""}
+              onChange={handleChange}
+            />
           </div>
           <div>
             <label>Answer</label>
-            <textarea name="answer" onChange={handleChange} />
+            <textarea
+              name="answer"
+              value={formData.answer || ""}
+              onChange={handleChange}
+            />
           </div>
         </>
       )}
@@ -72,11 +93,21 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ type, onSave }) => {
         <>
           <div>
             <label>URL</label>
-            <input type="text" name="url" onChange={handleChange} />
+            <input
+              type="text"
+              name="url"
+              value={formData.url || ""}
+              onChange={handleChange}
+            />
           </div>
           <div>
             <label>Placeholder (Optional)</label>
-            <input type="text" name="placeholder" onChange={handleChange} />
+            <input
+              type="text"
+              name="placeholder"
+              value={formData.placeholder || ""}
+              onChange={handleChange}
+            />
           </div>
         </>
       )}
@@ -88,15 +119,27 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ type, onSave }) => {
           </div>
           <div>
             <label>Description</label>
-            <input type="text" name="description" onChange={handleChange} />
+            <input
+              type="text"
+              name="description"
+              value={formData.description || ""}
+              onChange={handleChange}
+            />
           </div>
           <div>
             <label>Alt Text</label>
-            <input type="text" name="alt" onChange={handleChange} />
+            <input
+              type="text"
+              name="alt"
+              value={formData.alt || ""}
+              onChange={handleChange}
+            />
           </div>
         </>
       )}
-      <button onClick={handleSubmit}>Add Article</button>
+      <button onClick={handleSubmit}>
+        {initialData ? "Save Changes" : "Add Article"}
+      </button>
     </div>
   );
 };

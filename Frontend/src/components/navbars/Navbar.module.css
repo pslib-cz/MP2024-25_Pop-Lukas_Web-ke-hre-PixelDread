@@ -7,13 +7,14 @@
   font-family: var(--pixel-font);
   font-size: 16px;
   white-space: nowrap;
+  z-index: 1000;
 
 }
 
 .navbar__container {
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 auto;  
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -75,11 +76,12 @@
 
 /* Mobile menu */
 .menu {
+  z-index: 999;
   display: none;
   flex-direction: column;
   background-color: var(--navbar-bg);
   position: absolute;
-  top: 48px; /* below the small navbar */
+  top: 40px; /* below the small navbar */
   left: 0;
   width: 100%;
   transition: all 0.3s;
@@ -150,7 +152,7 @@
     display: none;
   }
   .menu {
-    display: flex !important;
+    display: flex;
     flex-direction: row;
     position: static;
     width: auto;

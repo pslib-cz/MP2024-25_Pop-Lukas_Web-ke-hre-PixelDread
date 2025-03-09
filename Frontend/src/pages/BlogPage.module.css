@@ -1,1 +1,22 @@
+/* Mobile-first BlogPage styles */
+.blog-page {
+    color: var(--secondary-text-color);
+    font-family: var(--pixel-font);
+  }
 
+  .blog-page__title {
+    font-weight: 400;
+    font-size: 2rem;
+    margin: 2rem 0;
+  }
+  
+  /* Larger screens enhancements */
+  @media (min-width: 768px) {
+
+    
+    .blog-page__title {
+        font-size: 2.5rem;
+    }
+    
+  }
+  

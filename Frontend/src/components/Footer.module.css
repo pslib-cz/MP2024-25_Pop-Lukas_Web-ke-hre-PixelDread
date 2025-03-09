@@ -1,0 +1,27 @@
+.footer {
+    justify-self: flex-end;
+    padding: 1rem;
+    text-align: center;
+    font-family: var(--pixel-font);
+    font-size: 10px;
+    background-color: var(--navbar-bg);
+    color: var(--secondary-text-color);
+
+  }
+  .footer__link {
+    color: var(--secondary-text-color);
+    text-decoration: none;
+  }
+  .footer__content__pd
+    {
+        white-space: nowrap;
+    }
+  .footer__content {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  

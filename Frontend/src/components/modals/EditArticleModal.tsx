@@ -19,7 +19,7 @@ const EditArticleModal: React.FC<EditArticleModalProps> = ({ article, onSave, on
   const handleSave = async () => {
     // Vytvoříme FormData pro update článku
     const formData = new FormData();
-    // Přidáme typ článku – i když backend jej pravděpodobně nevrátí, posíláme jej kvůli našemu workaroundu
+    // Přidáme typ článku – posíláme jej, aby byl zachován
     formData.append("Type", editedArticle.type);
     if (editedArticle.type === "text") {
       formData.append("Content", (editedArticle as any).content || "");
@@ -43,23 +43,34 @@ const EditArticleModal: React.FC<EditArticleModalProps> = ({ article, onSave, on
       }
     }
 
-    try {
-      const updated = await updateArticle(editedArticle.id!, formData);
-      // Pokud v odpovědi chybí article.type, doplníme jej z původního editedArticle
-      
-      onSave(updated);
+    if (editedArticle.id) {
+      // Pokud článek již existuje na serveru, provedeme PUT request
+      try {
+        const updated: ArticleUnion = await updateArticle(editedArticle.id, formData);
+        
+        onSave(updated);
+        onClose();
+      } catch (error) {
+        console.error("Chyba při aktualizaci článku:", error);
+      }
+    } else {
+      // Pokud článek ještě není uložen (nemá id), jen předáme upravený objekt lokálně
+      onSave(editedArticle);
       onClose();
-    } catch (error) {
-      console.error("Chyba při aktualizaci článku:", error);
     }
   };
 
   const handleDelete = async () => {
-    try {
-      await deleteArticle(editedArticle.id!);
+    if (editedArticle.id) {
+      try {
+        await deleteArticle(editedArticle.id);
+        onClose();
+      } catch (error) {
+        console.error("Chyba při smazání článku:", error);
+      }
+    } else {
+      // Pro nový článek stačí modal zavřít – rodičovská komponenta by měla článek odstranit ze svého stavu
       onClose();
-    } catch (error) {
-      console.error("Chyba při smazání článku:", error);
     }
   };
 
@@ -67,7 +78,10 @@ const EditArticleModal: React.FC<EditArticleModalProps> = ({ article, onSave, on
     <div
       style={{
         position: "fixed",
-        top: 0, left: 0, right: 0, bottom: 0,
+        top: 0, 
+        left: 0, 
+        right: 0, 
+        bottom: 0,
         background: "rgba(0, 0, 0, 0.5)",
         display: "flex",
         justifyContent: "center",
@@ -85,7 +99,6 @@ const EditArticleModal: React.FC<EditArticleModalProps> = ({ article, onSave, on
           maxWidth: "600px",
         }}
       >
-        {/* Tlačítko pro zavření modalu */}
         <div
           onClick={onClose}
           style={{

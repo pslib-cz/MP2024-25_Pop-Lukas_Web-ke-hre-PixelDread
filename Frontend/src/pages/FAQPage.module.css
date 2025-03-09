@@ -4,19 +4,18 @@
   .faq-page {
     color: var(--secondary-text-color);
     font-family: var(--pixel-font);
-    padding: 1rem;
   }
   
   .faq-page__title {
     font-size: 2rem;
+    margin: 2rem 0;
+    font-weight: 400;
+
   }
   
   /* Larger screens enhancements */
   @media (min-width: 768px) {
-    .faq-page {
-      padding: calc(1rem * 2);
-    }
-    
+ 
     .faq-page__title {
       font-size: 2.5rem;
       margin-bottom: calc(1rem * 1.5);

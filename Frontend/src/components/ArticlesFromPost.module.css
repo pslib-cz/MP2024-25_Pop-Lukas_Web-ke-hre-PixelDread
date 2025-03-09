@@ -3,7 +3,6 @@
   .articles-from-post {
     font-family: var(--pixel-font);
     color: var(--secondary-text-color);
-    padding: 1rem;
 
   }
   
@@ -15,7 +14,7 @@
   
   /* Each article item */
   .articles-from-post__item {
-    padding: 1rem;
+    padding: 1rem 0;
     margin-bottom: 1rem;
     border-bottom: 1px solid #eee;
   }

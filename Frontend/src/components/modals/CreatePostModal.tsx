@@ -10,7 +10,9 @@ import { checkSlugExists } from "../../api/postService";
 import ArticleTextComponent from "../articles/ArticleTextComponent";
 import ArticleFAQComponent from "../articles/ArticleFAQComponent";
 import ArticleLinkComponent from "../articles/ArticleLinkComponent";
-import MediaPreview from "../articles/MediaPreview"; // Import the MediaPreview component
+import { ArticleUnion } from "../../types/articles";
+import MediaPreview from "../articles/MediaPreview";
+import EditArticleModal from "../modals/EditArticleModal"; // Ujistěte se, že cesta sedí
 
 interface TagOption {
   value: number;
@@ -62,6 +64,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
   onSave,
   allowedArticleTypes,
 }) => {
+  // Stavy formuláře
   const [postName, setPostName] = useState<string>("");
   const [slug, setSlug] = useState<string>("");
   const [articles, setArticles] = useState<Article[]>([]);
@@ -69,9 +72,15 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
   const [availableTags, setAvailableTags] = useState<TagOption[]>([]);
   const [selectedTags, setSelectedTags] = useState<TagOption[]>([]);
   const [ogData, setOgData] = useState<OGData | undefined>(undefined);
-  const [showOgDataModal, setShowOgDataModal] = useState<boolean>(false);
   const [duplicateSlugError, setDuplicateSlugError] = useState<string>("");
+  // Stav pro zobrazení modalu OGData
+  const [showOgDataModal, setShowOgDataModal] = useState<boolean>(false);
+  // Stav aktuálního kroku (1 - základní údaje, 2 - články)
+  const [currentStep, setCurrentStep] = useState<number>(1);
+  // Stav pro úpravu článku (uložíme i index článku)
+  const [articleToEdit, setArticleToEdit] = useState<{ article: Article; index: number } | null>(null);
 
+  // Načtení tagů pro blog
   useEffect(() => {
     if (categoryId === BLOG_CATEGORY_ID) {
       const fetchTags = async () => {
@@ -115,6 +124,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
     setSelectedTags([]);
     setOgData(undefined);
     setDuplicateSlugError("");
+    setCurrentStep(1);
   };
 
   const handleSaveArticle = (article: Article) => {
@@ -122,13 +132,16 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
     setSelectedType(null);
   };
 
-/*  const removeArticle = (indexToRemove: number) => {
-    const updated = articles
-      .filter((_, index) => index !== indexToRemove)
-      .map((article, index) => ({ ...article, order: index + 1 }));
-    setArticles(updated);
+  // Aktualizace článku v poli podle indexu
+  const handleUpdateArticle = (updatedArticle: Article) => {
+    if (articleToEdit) {
+      const updatedArticles = [...articles];
+      updatedArticles[articleToEdit.index] = updatedArticle;
+      setArticles(updatedArticles);
+      setArticleToEdit(null);
+    }
   };
-*/
+
   const handleSubmit = () => {
     if (
       articles.length === 0 ||
@@ -136,7 +149,6 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
     )
       return;
     const tagIds = categoryId === BLOG_CATEGORY_ID ? selectedTags.map((tag) => tag.value) : undefined;
-    // For blog posts, if no OGData was provided, create a minimal OGData object using the slug.
     const finalOgData =
       categoryId === BLOG_CATEGORY_ID
         ? ogData || { title: "", description: "", slug: slug.trim(), file: null }
@@ -173,6 +185,169 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
 
   if (!show) return null;
 
+  // Renderování jednotlivých kroků
+  const renderStepContent = () => {
+    switch (currentStep) {
+      case 1:
+        return (
+          <>
+            <div>
+              <label>Post Name (Optional)</label>
+              <input
+                type="text"
+                placeholder="Enter post name..."
+                value={postName}
+                onChange={(e) => setPostName(e.target.value)}
+              />
+            </div>
+            {categoryId === BLOG_CATEGORY_ID && (
+              <>
+                <div style={{ marginTop: "10px" }}>
+                  <label>Slug (Required)</label>
+                  <input
+                    type="text"
+                    placeholder="Enter slug..."
+                    value={slug}
+                    onChange={(e) => setSlug(normalizeSlug(e.target.value))}
+                    required
+                  />
+                  {duplicateSlugError && (
+                    <div style={{ color: "red", marginTop: "5px" }}>{duplicateSlugError}</div>
+                  )}
+                </div>
+                <div style={{ marginTop: "10px" }}>
+                  <label>Select or Create Tags:</label>
+                  <CreatableSelect
+                    isMulti
+                    options={availableTags}
+                    value={selectedTags}
+                    onChange={(newValue) => setSelectedTags(newValue as TagOption[])}
+                    onCreateOption={handleCreateTag}
+                    placeholder="Select or create tags..."
+                  />
+                </div>
+                <div style={{ marginTop: "10px" }}>
+                  <button onClick={() => setOgData(undefined)}>Clear OGData</button>
+                  <button onClick={() => setShowOgDataModal(true)} style={{ marginLeft: "10px" }}>
+                    Add/Edit OGData
+                  </button>
+                </div>
+              </>
+            )}
+          </>
+        );
+      case 2:
+        return (
+          <>
+            <div style={{ marginTop: "10px" }}>
+              {allowedTypes.map((type) => (
+                <div
+                  key={type}
+                  onClick={() => setSelectedType(type)}
+                  style={{ cursor: "pointer", margin: "5px 0" }}
+                >
+                  {type.toUpperCase()}
+                </div>
+              ))}
+            </div>
+            {selectedType && <ArticleForm type={selectedType} onSave={handleSaveArticle} />}
+            <div
+              style={{
+                marginTop: "20px",
+                maxHeight: "300px",
+                overflowY: "auto",
+                border: "1px solid #ddd",
+                padding: "10px",
+              }}
+            >
+              <h3>Articles Added</h3>
+              <DragDropContext onDragEnd={handleDragEnd}>
+                <Droppable droppableId="articles">
+                  {(provided) => (
+                    <div {...provided.droppableProps} ref={provided.innerRef}>
+                      {articles.map((article, index) => {
+                        const key = article.id || index;
+                        return (
+                          <Draggable key={key} draggableId={String(key)} index={index}>
+                            {(provided) => (
+                              <div
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                style={{
+                                  border: "1px solid #ccc",
+                                  padding: "10px",
+                                  marginBottom: "10px",
+                                  display: "flex",
+                                  justifyContent: "space-between",
+                                  alignItems: "center",
+                                  ...provided.draggableProps.style,
+                                }}
+                              >
+                                <div style={{ flex: 1 }}>
+                                  {article.type === "text" && (
+                                    <ArticleTextComponent article={article as any} />
+                                  )}
+                                  {article.type === "faq" && (
+                                    <ArticleFAQComponent article={article as any} />
+                                  )}
+                                  {article.type === "link" && (
+                                    <ArticleLinkComponent article={article as any} />
+                                  )}
+                                  {article.type === "media" && (
+                                    <>
+                                      {(article as any).file ? (
+                                        <MediaPreview
+                                          file={(article as any).file}
+                                          alt={(article as any).alt || "Media image"}
+                                        />
+                                      ) : (article as any).fileInformationsId ? (
+                                        <MediaPreview
+                                          file={null}
+                                          fileInformationsId={(article as any).fileInformationsId}
+                                          alt={(article as any).alt || "Media image"}
+                                        />
+                                      ) : (
+                                        <div style={{ fontStyle: "italic", color: "#888" }}>
+                                          Image file pending upload
+                                        </div>
+                                      )}
+                                    </>
+                                  )}
+                                </div>
+                                <button
+                                  style={{ marginLeft: "10px" }}
+                                  onClick={() => setArticleToEdit({ article, index })}
+                                >
+                                  Edit
+                                </button>
+                              </div>
+                            )}
+                          </Draggable>
+                        );
+                      })}
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </DragDropContext>
+            </div>
+          </>
+        );
+      default:
+        return null;
+    }
+  };
+
+  // Funkce pro posun do dalšího kroku či zpět
+  const goNext = () => {
+    if (currentStep < 2) setCurrentStep(currentStep + 1);
+  };
+
+  const goPrevious = () => {
+    if (currentStep > 1) setCurrentStep(currentStep - 1);
+  };
+
   return (
     <div style={modalStyle}>
       <div style={modalContentStyle}>
@@ -180,136 +355,25 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
           <h2>Create New Post</h2>
           <button onClick={() => { resetForm(); onClose(); }}>&times;</button>
         </div>
-        <div>
-          <label>Post Name (Optional)</label>
-          <input
-            type="text"
-            placeholder="Enter post name..."
-            value={postName}
-            onChange={(e) => setPostName(e.target.value)}
-          />
-        </div>
-        {categoryId === BLOG_CATEGORY_ID && (
-          <>
-            <div style={{ marginTop: "10px" }}>
-              <label>Slug (Required)</label>
-              <input
-                type="text"
-                placeholder="Enter slug..."
-                value={slug}
-                onChange={(e) => setSlug(normalizeSlug(e.target.value))}
-                required
-              />
-              {duplicateSlugError && (
-                <div style={{ color: "red", marginTop: "5px" }}>{duplicateSlugError}</div>
-              )}
-            </div>
-            <div style={{ marginTop: "10px" }}>
-              <label>Select or Create Tags:</label>
-              <CreatableSelect
-                isMulti
-                options={availableTags}
-                value={selectedTags}
-                onChange={(newValue) => setSelectedTags(newValue as TagOption[])}
-                onCreateOption={handleCreateTag}
-                placeholder="Select or create tags..."
-              />
-            </div>
-            <div style={{ marginTop: "10px" }}>
-              <button onClick={() => setOgData(undefined)}>Clear OGData</button>
-              <button onClick={() => setShowOgDataModal(true)} style={{ marginLeft: "10px" }}>
-                Add/Edit OGData
+        {renderStepContent()}
+        <div style={{ marginTop: "20px", display: "flex", justifyContent: "space-between" }}>
+          <button onClick={() => { resetForm(); onClose(); }}>Discard</button>
+          <div>
+            {currentStep > 1 && <button onClick={goPrevious}>Previous</button>}
+            {currentStep < 2 && <button onClick={goNext} style={{ marginLeft: "10px" }}>Next</button>}
+            {currentStep === 2 && (
+              <button
+                onClick={handleSubmit}
+                disabled={
+                  articles.length === 0 ||
+                  (categoryId === BLOG_CATEGORY_ID && (!slug.trim() || !!duplicateSlugError))
+                }
+                style={{ marginLeft: "10px" }}
+              >
+                Create Post
               </button>
-            </div>
-          </>
-        )}
-        <div style={{ marginTop: "10px" }}>
-          {allowedTypes.map((type) => (
-            <div
-              key={type}
-              onClick={() => setSelectedType(type)}
-              style={{ cursor: "pointer", margin: "5px 0" }}
-            >
-              {type.toUpperCase()}
-            </div>
-          ))}
-        </div>
-        {selectedType && <ArticleForm type={selectedType} onSave={handleSaveArticle} />}
-        {/* Preview Section with scroll */}
-        <div style={{ marginTop: "20px", maxHeight: "300px", overflowY: "auto", border: "1px solid #ddd", padding: "10px" }}>
-          <h3>Preview</h3>
-          <DragDropContext onDragEnd={handleDragEnd}>
-            <Droppable droppableId="articles">
-              {(provided) => (
-                <div {...provided.droppableProps} ref={provided.innerRef}>
-                  {articles.map((article, index) => {
-                    const key = article.id || index;
-                    return (
-                      <Draggable key={key} draggableId={String(key)} index={index}>
-                        {(provided) => (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            style={{
-                              border: "1px solid #ccc",
-                              padding: "10px",
-                              marginBottom: "10px",
-                              ...provided.draggableProps.style,
-                            }}
-                          >
-                            {article.type === "text" && (
-                              <ArticleTextComponent article={article as any} />
-                            )}
-                            {article.type === "faq" && (
-                              <ArticleFAQComponent article={article as any} />
-                            )}
-                            {article.type === "link" && (
-                              <ArticleLinkComponent article={article as any} />
-                            )}
-                            {article.type === "media" && (
-                              <>
-                                {(article as any).file ? (
-                                  <MediaPreview
-                                    file={(article as any).file}
-                                    alt={(article as any).alt || "Media image"}
-                                  />
-                                ) : (article as any).fileInformationsId ? (
-                                  <MediaPreview
-                                    file={null}
-                                    fileInformationsId={(article as any).fileInformationsId}
-                                    alt={(article as any).alt || "Media image"}
-                                  />
-                                ) : (
-                                  <div style={{ fontStyle: "italic", color: "#888" }}>
-                                    Image file pending upload
-                                  </div>
-                                )}
-                              </>
-                            )}
-                          </div>
-                        )}
-                      </Draggable>
-                    );
-                  })}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
-        </div>
-        <div style={{ marginTop: "20px" }}>
-          <button onClick={() => { resetForm(); onClose(); }}>Cancel</button>
-          <button
-            onClick={handleSubmit}
-            disabled={
-              articles.length === 0 ||
-              (categoryId === BLOG_CATEGORY_ID && (!slug.trim() || !!duplicateSlugError))
-            }
-            style={{ marginLeft: "10px" }}
-          >
-            Create Post
-          </button>
+            )}
+          </div>
         </div>
       </div>
       {showOgDataModal && (
@@ -319,6 +383,15 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
             setOgData(data);
             setShowOgDataModal(false);
           }}
+        />
+      )}
+      {articleToEdit && (
+        <EditArticleModal
+          article={articleToEdit.article as ArticleUnion}
+          onSave={(updatedArticle) => {
+            handleUpdateArticle(updatedArticle);
+          }}
+          onClose={() => setArticleToEdit(null)}
         />
       )}
     </div>

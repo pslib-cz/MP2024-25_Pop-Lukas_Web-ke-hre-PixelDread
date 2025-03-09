@@ -1,0 +1,43 @@
+.faq {
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+  
+  .faq__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    cursor: pointer;
+  }
+  
+  .faq__question {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  .faq__arrow {
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Stav odpovědi při zavřeném stavu */
+  .faq__answer {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease, padding 0.3s ease;
+    overflow: hidden;
+  }
+  
+  /* Stav odpovědi při otevřeném stavu */
+  .faq__answer--open {
+    padding: 0.75rem;
+    font-weight: 400;
+    max-height: 300px; /* Nastavte na hodnotu, která pokryje očekávanou výšku obsahu */
+    opacity: 1;
+    transform: translateY(0);
+    border-top: 1px solid var(--secondary-text-color)
+  }
+  
