@@ -33,7 +33,7 @@
   
   /* Stav odpovědi při otevřeném stavu */
   .faq__answer--open {
-    padding: 0.75rem;
+    padding: 0 0.75rem;
     font-weight: 400;
     max-height: 300px; /* Nastavte na hodnotu, která pokryje očekávanou výšku obsahu */
     opacity: 1;

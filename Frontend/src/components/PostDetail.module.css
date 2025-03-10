@@ -7,6 +7,8 @@
   .post-detail__title {
     font-size: 1.5rem;
     margin-bottom: 1rem;
+    overflow-wrap: break-word;
+    line-height: 1.5;
   }
   
   .post-detail__articles {
@@ -23,7 +25,6 @@
   /* Větší obrazovky */
   @media (min-width: 768px) {
     .post-detail__articles {
-      flex-direction: row;
       flex-wrap: wrap;
       gap: 1rem;
     }
