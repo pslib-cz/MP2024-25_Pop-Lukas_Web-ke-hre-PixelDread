@@ -1,0 +1,18 @@
+.admin-page {
+  }
+    
+  /* Styl tlačítka (Logout) */
+  .admin-page__button {
+    background-color: var(--button-background);
+    color: var(--button-text-color);
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Hover efekt tlačítka */
+  .admin-page__button:hover {
+    background-color: var(--button-background-hover);
+  }

@@ -17,7 +17,7 @@
     padding: 20px;
     border-radius: var(--modal-border-radius);
     position: relative;
-    width: 90%;
+    width: 80%;
     max-width: 500px;
     box-shadow: var(--modal-shadow);
   }

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import CreatePostModal, { CreatePostData, AllowedArticleTypes } from "./modals/CreatePostModal";
-import { ArticleMedia } from "../types/articles";
+import { ArticleMedia, Article } from "../types/articles";
 import { createPost } from "../api/postService";
 import uploadFile from "../api/fileService";
 import { Category } from "../types/category";
-
+import styles from "./CreatePost.module.css";
+// Mapování typu článku na enum (jako string)
 const mapArticleTypeToEnum = (type: string): string => {
   switch (type) {
     case "text":
@@ -20,10 +21,28 @@ const mapArticleTypeToEnum = (type: string): string => {
   }
 };
 
+// Specifické typy článků
+interface TextArticle extends Article {
+  type: "text";
+  content: string;
+}
+
+interface FAQArticle extends Article {
+  type: "faq";
+  question: string;
+  answer: string;
+}
+
+interface LinkArticle extends Article {
+  type: "link";
+  url: string;
+  placeholder?: string;
+}
+
 interface CreatePostProps {
   category: Category;
   onClose?: () => void;
-  allowedArticleTypes?: AllowedArticleTypes; // Přidáme allowedArticleTypes jako optional prop
+  allowedArticleTypes?: AllowedArticleTypes; // Optional prop
 }
 
 interface BlogOGData {
@@ -40,7 +59,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ category, onClose, allowedArtic
   const handleSavePost = async (postData: CreatePostData) => {
     if (postData.articles.length === 0) return;
 
-    // 1) Upload files for media articles
+    // 1) Upload files pro media články
     const processedArticles = await Promise.all(
       postData.articles.map(async (article) => {
         if (article.type === "media") {
@@ -58,7 +77,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ category, onClose, allowedArtic
       })
     );
 
-    // 2) Upload file for OGData if exists
+    // 2) Upload file pro OGData, pokud existuje
     let ogDataWithFileId = postData.ogData;
     if (postData.ogData?.file) {
       const uploadResult = await uploadFile(postData.ogData.file);
@@ -69,7 +88,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ category, onClose, allowedArtic
       };
     }
 
-    // 3) Build FormData
+    // 3) Sestavení FormData
     const formData = new FormData();
     formData.append("Name", postData.name || "");
     formData.append("CategoryId", category.id.toString());
@@ -105,26 +124,29 @@ const CreatePost: React.FC<CreatePostProps> = ({ category, onClose, allowedArtic
     processedArticles.forEach((article, index) => {
       formData.append(`Articles[${index}][type]`, mapArticleTypeToEnum(article.type));
       formData.append(`Articles[${index}][order]`, article.order.toString());
-
       if (article.type === "text") {
-        formData.append(`Articles[${index}][content]`, (article as any).content ?? "");
+        const textArticle = article as TextArticle;
+        formData.append(`Articles[${index}][content]`, textArticle.content ?? "");
       } else if (article.type === "faq") {
-        formData.append(`Articles[${index}][question]`, (article as any).question ?? "");
-        formData.append(`Articles[${index}][answer]`, (article as any).answer ?? "");
+        const faqArticle = article as FAQArticle;
+        formData.append(`Articles[${index}][question]`, faqArticle.question ?? "");
+        formData.append(`Articles[${index}][answer]`, faqArticle.answer ?? "");
       } else if (article.type === "link") {
-        formData.append(`Articles[${index}][url]`, (article as any).url ?? "");
-        if ((article as any).placeholder) {
-          formData.append(`Articles[${index}][placeholder]`, (article as any).placeholder);
+        const linkArticle = article as LinkArticle;
+        formData.append(`Articles[${index}][url]`, linkArticle.url ?? "");
+        if (linkArticle.placeholder) {
+          formData.append(`Articles[${index}][placeholder]`, linkArticle.placeholder);
         }
       } else if (article.type === "media") {
-        if ((article as any).fileInformationsId !== undefined) {
-          formData.append(`Articles[${index}][FileInformationsId]`, (article as any).fileInformationsId.toString());
+        const mediaArticle = article as ArticleMedia;
+        if (mediaArticle.fileInformationsId !== undefined) {
+          formData.append(`Articles[${index}][FileInformationsId]`, mediaArticle.fileInformationsId.toString());
         }
-        if ((article as any).description !== undefined) {
-          formData.append(`Articles[${index}][description]`, (article as any).description);
+        if (mediaArticle.description !== undefined) {
+          formData.append(`Articles[${index}][description]`, mediaArticle.description);
         }
-        if ((article as any).alt !== undefined) {
-          formData.append(`Articles[${index}][alt]`, (article as any).alt);
+        if (mediaArticle.alt !== undefined) {
+          formData.append(`Articles[${index}][alt]`, mediaArticle.alt);
         }
       }
     });
@@ -140,17 +162,17 @@ const CreatePost: React.FC<CreatePostProps> = ({ category, onClose, allowedArtic
   };
 
   return (
-    <div>
-      <button onClick={() => setShowModal(true)}>Create Post</button>
+    <div className={styles["create-post"]}>
+      <button className={styles["create-post__button"]} onClick={() => setShowModal(true)}>
+        Create Post
+      </button>
       {showModal && (
         <CreatePostModal
           show={showModal}
           onClose={() => setShowModal(false)}
           onSave={handleSavePost}
           categoryId={category.id}
-          allowedArticleTypes={
-            allowedArticleTypes || { text: true, faq: true, link: true, media: true }
-          }
+          allowedArticleTypes={allowedArticleTypes || { text: true, faq: true, link: true, media: true }}
         />
       )}
     </div>

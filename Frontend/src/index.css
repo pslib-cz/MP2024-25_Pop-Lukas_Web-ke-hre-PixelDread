@@ -3,14 +3,26 @@
   --modal-overlay-bg: rgba(0, 0, 0, 0.5);
   --modal-border-radius: 8px;
   --modal-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
   --primary-text-color: #000000;
   --secondary-text-color: #FAFAF9;
+
   --button-background: #3498db;
   --button-background-hover: #2980b9;
-  --button-text-color: #ffffff;
+
+  --secondary-button-background: #666666;
+  --secondary-button-background-hover: #555555;
+
+  --cancel-button-background: #e74c3c;
+  --cancel-button-background-hover: #c0392b;
+
+  --button-text-color: #FAFAF9;
+  --button-secondary-text-color: #000000;
   --shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
   --input-background:  #f0f0f0;
   --border-color: #ccc;
+
   --border-radius: 4px;
   --input-border-color: #ccc;
   --error-text-color: red;
@@ -33,4 +45,3 @@ html, body {
   margin: 0;
   padding: 0;
 }
-
