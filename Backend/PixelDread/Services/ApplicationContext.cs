@@ -152,6 +152,8 @@
                     new Category { Id = 2, Name = "FAQ" },
                     new Category { Id = 3, Name = "PatchNotes" }
                 );
-            }
+              
+        
+           }
         }
     }

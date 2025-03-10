@@ -11,7 +11,7 @@ using PixelDread.Services;
 namespace PixelDread.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20250224004806_Slahoun")]
+    [Migration("20250310162856_Slahoun")]
     partial class Slahoun
     {
         /// <inheritdoc />
@@ -48,7 +48,7 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4cbf45c7-355f-4758-a7fc-04d2f169940d",
+                            Id = "6c963d4c-0975-4e08-a26e-4f3cf7aa2161",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -143,17 +143,17 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "85b772a4-1162-4098-9555-0dc0a377067f",
+                            Id = "a10c578a-e8b3-4c8e-a364-b6c937125fdd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "21c8a1e4-715b-40db-9dbb-c2a28ba87b20",
+                            ConcurrencyStamp = "f7c09313-0147-4a23-9c03-0b5f7599cbb8",
                             Email = "lukas@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "LUKAS@GMAIL.COM",
                             NormalizedUserName = "LUKAS@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPPIFsJGq3koTZJ3Ncwlz+Mxyl0kU0Alxlm1PmG7pUhqdJirAsG2Exsz27eeHq3Apg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENw0EtYucoqBayuLeUzWtPqnchbUK9XziWhfOJ/5G1FkYqN49rjRh3uxEmT/ci++HQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "71688929-1435-406c-85eb-1f733e34128c",
+                            SecurityStamp = "22fc6eaa-48af-4cf1-bf2a-d5ee97b235c9",
                             TwoFactorEnabled = false,
                             UserName = "lukas@gmail.com"
                         });
@@ -187,7 +187,7 @@ namespace PixelDread.Migrations
                             Id = 1,
                             ClaimType = "Admin",
                             ClaimValue = "true",
-                            UserId = "85b772a4-1162-4098-9555-0dc0a377067f"
+                            UserId = "a10c578a-e8b3-4c8e-a364-b6c937125fdd"
                         });
                 });
 
@@ -230,8 +230,8 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "85b772a4-1162-4098-9555-0dc0a377067f",
-                            RoleId = "4cbf45c7-355f-4758-a7fc-04d2f169940d"
+                            UserId = "a10c578a-e8b3-4c8e-a364-b6c937125fdd",
+                            RoleId = "6c963d4c-0975-4e08-a26e-4f3cf7aa2161"
                         });
                 });
 

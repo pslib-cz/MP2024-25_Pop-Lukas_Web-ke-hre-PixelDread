@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "b8mtuzBl2ItoN5l3I0fAw3cI5+6QMnJCQk2IwVxKsWY=",
+  "Hash": "5ycTaDuBeQkbCivoiWVQmUhSJAJX2DIN/3v/FplxntI=",
   "Source": "PixelDread",
   "BasePath": "_content/PixelDread",
   "Mode": "Default",
@@ -57,6 +57,48 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\1461bb63-a8b3-4860-8b90-455b73ef9be7_Snímek obrazovky 2025-02-10 091823.png"
+    },
+    {
+      "Identity": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\40b8124e-b474-4643-b108-03d2b2031e4c_Snímek obrazovky 2024-02-13 235907.png",
+      "SourceId": "PixelDread",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\",
+      "BasePath": "_content/PixelDread",
+      "RelativePath": "uploads/40b8124e-b474-4643-b108-03d2b2031e4c_Snímek obrazovky 2024-02-13 235907#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "3auelzvmej",
+      "Integrity": "NV7QhSgo89iWV39Y685sOdHYRR9LqWyFRK0BG4i0mG4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\40b8124e-b474-4643-b108-03d2b2031e4c_Snímek obrazovky 2024-02-13 235907.png"
+    },
+    {
+      "Identity": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\471f4b38-1adc-46be-9bee-ad8457334861_Snímek obrazovky 2024-01-16 111458.png",
+      "SourceId": "PixelDread",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\",
+      "BasePath": "_content/PixelDread",
+      "RelativePath": "uploads/471f4b38-1adc-46be-9bee-ad8457334861_Snímek obrazovky 2024-01-16 111458#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "188dkpn7hl",
+      "Integrity": "4TKnazSEk85GlZQ9pkqmG2DSh1QinWYChWiSSd3yOZo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\471f4b38-1adc-46be-9bee-ad8457334861_Snímek obrazovky 2024-01-16 111458.png"
     },
     {
       "Identity": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\8fcc0c78-68a4-4231-b82b-8c649e34f28c_gplay.png",
@@ -284,6 +326,170 @@
         {
           "Name": "integrity",
           "Value": "sha256-HMadUmwJbbsfBdPjTAT70FeAWJ3yiBbA9a4CvIuICus="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/40b8124e-b474-4643-b108-03d2b2031e4c_Snímek obrazovky 2024-02-13 235907.3auelzvmej.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\40b8124e-b474-4643-b108-03d2b2031e4c_Snímek obrazovky 2024-02-13 235907.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "328068"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"NV7QhSgo89iWV39Y685sOdHYRR9LqWyFRK0BG4i0mG4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 10 Mar 2025 12:57:38 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "3auelzvmej"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/40b8124e-b474-4643-b108-03d2b2031e4c_Snímek obrazovky 2024-02-13 235907.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-NV7QhSgo89iWV39Y685sOdHYRR9LqWyFRK0BG4i0mG4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/40b8124e-b474-4643-b108-03d2b2031e4c_Snímek obrazovky 2024-02-13 235907.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\40b8124e-b474-4643-b108-03d2b2031e4c_Snímek obrazovky 2024-02-13 235907.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "328068"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"NV7QhSgo89iWV39Y685sOdHYRR9LqWyFRK0BG4i0mG4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 10 Mar 2025 12:57:38 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-NV7QhSgo89iWV39Y685sOdHYRR9LqWyFRK0BG4i0mG4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/471f4b38-1adc-46be-9bee-ad8457334861_Snímek obrazovky 2024-01-16 111458.188dkpn7hl.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\471f4b38-1adc-46be-9bee-ad8457334861_Snímek obrazovky 2024-01-16 111458.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "155339"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4TKnazSEk85GlZQ9pkqmG2DSh1QinWYChWiSSd3yOZo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 10 Mar 2025 12:57:38 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "188dkpn7hl"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/471f4b38-1adc-46be-9bee-ad8457334861_Snímek obrazovky 2024-01-16 111458.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-4TKnazSEk85GlZQ9pkqmG2DSh1QinWYChWiSSd3yOZo="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/471f4b38-1adc-46be-9bee-ad8457334861_Snímek obrazovky 2024-01-16 111458.png",
+      "AssetFile": "C:\\Users\\lukas\\Downloads\\MaturitniPrace\\MP2024-25_Pop-Lukas_Web-ke-hre-PixelDread\\Backend\\PixelDread\\wwwroot\\uploads\\471f4b38-1adc-46be-9bee-ad8457334861_Snímek obrazovky 2024-01-16 111458.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "155339"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4TKnazSEk85GlZQ9pkqmG2DSh1QinWYChWiSSd3yOZo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 10 Mar 2025 12:57:38 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-4TKnazSEk85GlZQ9pkqmG2DSh1QinWYChWiSSd3yOZo="
         }
       ]
     },

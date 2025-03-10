@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PixelDread.DTO;
 using PixelDread.Models;
@@ -49,7 +51,7 @@ namespace PixelDread.Controllers
 
             if (articles == null || !articles.Any())
             {
-                return NotFound($"No articles found for post with ID {postId}.");
+                return NoContent();
             }
 
             // Map each base Article to an anonymous object with a "Type" and the relevant fields
@@ -109,6 +111,8 @@ namespace PixelDread.Controllers
 
         // PUT: api/Article/{id}
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> UpdateArticle(int id, [FromForm] ArticleDto articleDto)
         {
             var article = await _context.Articles.FindAsync(id);
@@ -186,6 +190,8 @@ namespace PixelDread.Controllers
 
         // DELETE: api/Article/{id}
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> DeleteArticle(int id)
         {
             var article = await _context.Articles.FindAsync(id);

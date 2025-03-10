@@ -39,6 +39,7 @@ namespace PixelDread.Controllers
         }
         [Authorize(Roles = "Admin")]
         [HttpPost]
+
         public async Task<ActionResult<Tag>> PostTag(Tag tag)
         {
             _context.Tags.Add(tag);

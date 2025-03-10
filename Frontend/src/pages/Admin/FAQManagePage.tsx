@@ -1,13 +1,13 @@
-import CreatePost from "../../components/CreatePost";
-import { FAQ } from "../../data/categories";
-import { HelmetProvider } from "react-helmet-async";
+
+import { HelmetProvider } from "react-helmet-async"
+import PostDetailEditSimple from "../../components/PostDetailEditSimple";
 const FAQManagePage = () => {
     return(
         <HelmetProvider>
             <title>FAQ Manage Page</title>
         <div>
             <h1>FAQ Manage Page</h1>
-            <CreatePost category={FAQ}/>	
+            <PostDetailEditSimple postId="1" showEditHeader={false} showEditNameButton={false}/>        
         </div>
         </HelmetProvider>
 

@@ -12,7 +12,9 @@ import ArticleFAQComponent from "../articles/ArticleFAQComponent";
 import ArticleLinkComponent from "../articles/ArticleLinkComponent";
 import { ArticleUnion } from "../../types/articles";
 import MediaPreview from "../articles/MediaPreview";
-import EditArticleModal from "../modals/EditArticleModal"; // Ujistěte se, že cesta sedí
+import EditArticleModal from "../modals/EditArticleModal";
+import ConfirmationModal from "../modals/ConfirmationModal";
+import styles from "./CreatePostModal.module.css";
 
 interface TagOption {
   value: number;
@@ -64,7 +66,6 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
   onSave,
   allowedArticleTypes,
 }) => {
-  // Stavy formuláře
   const [postName, setPostName] = useState<string>("");
   const [slug, setSlug] = useState<string>("");
   const [articles, setArticles] = useState<Article[]>([]);
@@ -73,14 +74,19 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
   const [selectedTags, setSelectedTags] = useState<TagOption[]>([]);
   const [ogData, setOgData] = useState<OGData | undefined>(undefined);
   const [duplicateSlugError, setDuplicateSlugError] = useState<string>("");
-  // Stav pro zobrazení modalu OGData
   const [showOgDataModal, setShowOgDataModal] = useState<boolean>(false);
-  // Stav aktuálního kroku (1 - základní údaje, 2 - články)
   const [currentStep, setCurrentStep] = useState<number>(1);
-  // Stav pro úpravu článku (uložíme i index článku)
   const [articleToEdit, setArticleToEdit] = useState<{ article: Article; index: number } | null>(null);
+  const [showDiscardConfirmation, setShowDiscardConfirmation] = useState<boolean>(false);
 
-  // Načtení tagů pro blog
+  // Zjištění, zda byl formulář upraven (dirty)
+  const isDirty =
+    postName.trim() !== "" ||
+    slug.trim() !== "" ||
+    articles.length > 0 ||
+    selectedTags.length > 0 ||
+    ogData !== undefined;
+
   useEffect(() => {
     if (categoryId === BLOG_CATEGORY_ID) {
       const fetchTags = async () => {
@@ -99,7 +105,6 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
     }
   }, [categoryId]);
 
-  // Debounce duplicate slug check
   useEffect(() => {
     if (categoryId === BLOG_CATEGORY_ID && slug.trim() !== "") {
       const debounceTimeout = setTimeout(async () => {
@@ -132,7 +137,6 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
     setSelectedType(null);
   };
 
-  // Aktualizace článku v poli podle indexu
   const handleUpdateArticle = (updatedArticle: Article) => {
     if (articleToEdit) {
       const updatedArticles = [...articles];
@@ -176,7 +180,16 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
     }
   };
 
-  // Build allowed article types array based on props (default to all allowed if not provided)
+  // Zavření modalu – pokud byl formulář upraven, zobrazí se potvrzovací dialog
+  const handleCloseModal = () => {
+    if (isDirty) {
+      setShowDiscardConfirmation(true);
+    } else {
+      resetForm();
+      onClose();
+    }
+  };
+
   const allowedTypes: ArticleType[] = [];
   if (allowedArticleTypes?.text !== false) allowedTypes.push("text");
   if (allowedArticleTypes?.faq !== false) allowedTypes.push("faq");
@@ -185,7 +198,6 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
 
   if (!show) return null;
 
-  // Renderování jednotlivých kroků
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:
@@ -202,7 +214,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
             </div>
             {categoryId === BLOG_CATEGORY_ID && (
               <>
-                <div style={{ marginTop: "10px" }}>
+                <div className={styles["create-post-modal__group"]}>
                   <label>Slug (Required)</label>
                   <input
                     type="text"
@@ -212,10 +224,10 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
                     required
                   />
                   {duplicateSlugError && (
-                    <div style={{ color: "red", marginTop: "5px" }}>{duplicateSlugError}</div>
+                    <div className={styles["create-post-modal__error"]}>{duplicateSlugError}</div>
                   )}
                 </div>
-                <div style={{ marginTop: "10px" }}>
+                <div className={styles["create-post-modal__group"]}>
                   <label>Select or Create Tags:</label>
                   <CreatableSelect
                     isMulti
@@ -226,9 +238,9 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
                     placeholder="Select or create tags..."
                   />
                 </div>
-                <div style={{ marginTop: "10px" }}>
+                <div className={styles["create-post-modal__group"]}>
                   <button onClick={() => setOgData(undefined)}>Clear OGData</button>
-                  <button onClick={() => setShowOgDataModal(true)} style={{ marginLeft: "10px" }}>
+                  <button onClick={() => setShowOgDataModal(true)} className={styles["create-post-modal__button--secondary"]}>
                     Add/Edit OGData
                   </button>
                 </div>
@@ -239,27 +251,19 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
       case 2:
         return (
           <>
-            <div style={{ marginTop: "10px" }}>
+            <div className={styles["create-post-modal__group"]}>
               {allowedTypes.map((type) => (
                 <div
                   key={type}
                   onClick={() => setSelectedType(type)}
-                  style={{ cursor: "pointer", margin: "5px 0" }}
+                  className={styles["create-post-modal__article-type"]}
                 >
                   {type.toUpperCase()}
                 </div>
               ))}
             </div>
             {selectedType && <ArticleForm type={selectedType} onSave={handleSaveArticle} />}
-            <div
-              style={{
-                marginTop: "20px",
-                maxHeight: "300px",
-                overflowY: "auto",
-                border: "1px solid #ddd",
-                padding: "10px",
-              }}
-            >
+            <div className={styles["create-post-modal__articles"]}>
               <h3>Articles Added</h3>
               <DragDropContext onDragEnd={handleDragEnd}>
                 <Droppable droppableId="articles">
@@ -274,17 +278,9 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
                                 ref={provided.innerRef}
                                 {...provided.draggableProps}
                                 {...provided.dragHandleProps}
-                                style={{
-                                  border: "1px solid #ccc",
-                                  padding: "10px",
-                                  marginBottom: "10px",
-                                  display: "flex",
-                                  justifyContent: "space-between",
-                                  alignItems: "center",
-                                  ...provided.draggableProps.style,
-                                }}
+                                className={styles["create-post-modal__article"]}
                               >
-                                <div style={{ flex: 1 }}>
+                                <div className={styles["create-post-modal__article-content"]}>
                                   {article.type === "text" && (
                                     <ArticleTextComponent article={article as any} />
                                   )}
@@ -308,7 +304,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
                                           alt={(article as any).alt || "Media image"}
                                         />
                                       ) : (
-                                        <div style={{ fontStyle: "italic", color: "#888" }}>
+                                        <div className={styles["create-post-modal__pending"]}>
                                           Image file pending upload
                                         </div>
                                       )}
@@ -316,7 +312,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
                                   )}
                                 </div>
                                 <button
-                                  style={{ marginLeft: "10px" }}
+                                  className={styles["create-post-modal__button"]}
                                   onClick={() => setArticleToEdit({ article, index })}
                                 >
                                   Edit
@@ -339,7 +335,6 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
     }
   };
 
-  // Funkce pro posun do dalšího kroku či zpět
   const goNext = () => {
     if (currentStep < 2) setCurrentStep(currentStep + 1);
   };
@@ -349,18 +344,22 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
   };
 
   return (
-    <div style={modalStyle}>
-      <div style={modalContentStyle}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+    <div className={styles["create-post-modal"]}>
+      <div className={styles["create-post-modal__content"]}>
+        <div className={styles["create-post-modal__header"]}>
           <h2>Create New Post</h2>
-          <button onClick={() => { resetForm(); onClose(); }}>&times;</button>
+          <button onClick={handleCloseModal} className={styles["create-post-modal__close"]}>
+            &times;
+          </button>
         </div>
         {renderStepContent()}
-        <div style={{ marginTop: "20px", display: "flex", justifyContent: "space-between" }}>
-          <button onClick={() => { resetForm(); onClose(); }}>Discard</button>
+        <div className={styles["create-post-modal__actions"]}>
+          <button onClick={handleCloseModal} className={styles["create-post-modal__button"]}>
+            Discard
+          </button>
           <div>
-            {currentStep > 1 && <button onClick={goPrevious}>Previous</button>}
-            {currentStep < 2 && <button onClick={goNext} style={{ marginLeft: "10px" }}>Next</button>}
+            {currentStep > 1 && <button onClick={goPrevious} className={styles["create-post-modal__button"]}>Previous</button>}
+            {currentStep < 2 && <button onClick={goNext} className={styles["create-post-modal__button"]}>Next</button>}
             {currentStep === 2 && (
               <button
                 onClick={handleSubmit}
@@ -368,7 +367,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
                   articles.length === 0 ||
                   (categoryId === BLOG_CATEGORY_ID && (!slug.trim() || !!duplicateSlugError))
                 }
-                style={{ marginLeft: "10px" }}
+                className={styles["create-post-modal__button"]}
               >
                 Create Post
               </button>
@@ -394,28 +393,24 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
           onClose={() => setArticleToEdit(null)}
         />
       )}
+      {showDiscardConfirmation && (
+        <div className={styles["create-post-modal__overlay"]}>
+          <ConfirmationModal
+            title="Confirm Discard"
+            message="Are you sure you want to discard your changes?"
+            confirmText="Yes"
+            cancelText="No"
+            onConfirm={() => {
+              resetForm();
+              onClose();
+              setShowDiscardConfirmation(false);
+            }}
+            onCancel={() => setShowDiscardConfirmation(false)}
+          />
+        </div>
+      )}
     </div>
   );
-};
-
-const modalStyle: React.CSSProperties = {
-  position: "fixed",
-  top: 0,
-  left: 0,
-  width: "100%",
-  height: "100%",
-  background: "rgba(0,0,0,0.5)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-};
-
-const modalContentStyle: React.CSSProperties = {
-  background: "white",
-  padding: "20px",
-  borderRadius: "8px",
-  position: "relative",
-  width: "500px",
 };
 
 export default CreatePostModal;

@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PixelDread.DTO;
 using PixelDread.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using PixelDread.Services;
 
 namespace PixelDread.Controllers
@@ -52,13 +49,15 @@ namespace PixelDread.Controllers
 
             if (post == null)
             {
-                return NotFound();
+                return NoContent();
             }
 
             return Ok(post);
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> DeletePost(int id)
         {
             var post = await _context.Posts
@@ -124,6 +123,8 @@ namespace PixelDread.Controllers
 
             return Ok(posts);
         }
+        [Authorize(Roles = "Admin")]
+
 
         [HttpPost("{postId}/tags")]
         public async Task<IActionResult> AddTagsToPost(int postId, [FromBody] List<int> tagIds)
@@ -160,6 +161,8 @@ namespace PixelDread.Controllers
         }
 
         // Vytvoření příspěvku
+        [Authorize(Roles = "Admin")]
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePost(int id, [FromForm] PostDto postDto)
         {
@@ -320,6 +323,8 @@ namespace PixelDread.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> CreatePost([FromForm] PostDto postDto)
         {
             if (postDto.Articles == null || postDto.Articles.Count == 0)
@@ -489,6 +494,8 @@ namespace PixelDread.Controllers
             return Ok(exists);
         }
         [HttpPut("{id}/name")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> UpdatePostName(int id, [FromForm] string name)
         {
             var post = await _context.Posts.FindAsync(id);
@@ -501,4 +508,4 @@ namespace PixelDread.Controllers
             return Ok(post);
         }
     }
-}   
+}

@@ -36,6 +36,42 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\1461bb63-a8b3-4860-8b90-455b73ef9be7_Snímek obrazovky 2025-02-10 091823.png'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\40b8124e-b474-4643-b108-03d2b2031e4c_Snímek obrazovky 2024-02-13 235907.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>PixelDread</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/PixelDread</BasePath>
+      <RelativePath>uploads/40b8124e-b474-4643-b108-03d2b2031e4c_Snímek obrazovky 2024-02-13 235907.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>3auelzvmej</Fingerprint>
+      <Integrity>NV7QhSgo89iWV39Y685sOdHYRR9LqWyFRK0BG4i0mG4=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\40b8124e-b474-4643-b108-03d2b2031e4c_Snímek obrazovky 2024-02-13 235907.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\471f4b38-1adc-46be-9bee-ad8457334861_Snímek obrazovky 2024-01-16 111458.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>PixelDread</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/PixelDread</BasePath>
+      <RelativePath>uploads/471f4b38-1adc-46be-9bee-ad8457334861_Snímek obrazovky 2024-01-16 111458.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>188dkpn7hl</Fingerprint>
+      <Integrity>4TKnazSEk85GlZQ9pkqmG2DSh1QinWYChWiSSd3yOZo=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\471f4b38-1adc-46be-9bee-ad8457334861_Snímek obrazovky 2024-01-16 111458.png'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\8fcc0c78-68a4-4231-b82b-8c649e34f28c_gplay.png'))">
       <SourceType>Package</SourceType>
       <SourceId>PixelDread</SourceId>
