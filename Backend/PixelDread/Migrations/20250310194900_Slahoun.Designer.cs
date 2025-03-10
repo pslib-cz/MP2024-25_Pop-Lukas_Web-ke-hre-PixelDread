@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PixelDread.Services;
 
@@ -10,9 +11,11 @@ using PixelDread.Services;
 namespace PixelDread.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20250310194900_Slahoun")]
+    partial class Slahoun
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.12");
@@ -45,7 +48,7 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "794566b4-29f5-4e7f-b37e-c0b6e80dd81d",
+                            Id = "5607b709-7151-4f1f-9028-c94412e96b66",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -140,17 +143,17 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c251ed84-12d8-4a20-a2b6-603348953709",
+                            Id = "6c4d317d-efc9-4ccd-a2dd-f064d7d0c5d0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "255f9066-d020-4fe1-ac4f-07ed763671f0",
+                            ConcurrencyStamp = "b8f80d43-1f8e-43c2-9b5b-2b552e1af2fa",
                             Email = "lukas@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "LUKAS@GMAIL.COM",
                             NormalizedUserName = "LUKAS@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDpNTxKmbB7awsYnXBz2tn8LnKVeaJHqpEmAa4hYht6OmYWjlTQxRG9NGVcKGZ4acQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEL4OykOndSHFjRQsH673tffFgRXu2Fr1gn0x+E4ncxbLwCxevWXPJ20mc2mo94y64g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e1d49897-59bf-4bcd-8876-45a5303f15f3",
+                            SecurityStamp = "023f5e79-2a00-4b64-a366-86ca0fca7dda",
                             TwoFactorEnabled = false,
                             UserName = "lukas@gmail.com"
                         });
@@ -184,7 +187,7 @@ namespace PixelDread.Migrations
                             Id = 1,
                             ClaimType = "Admin",
                             ClaimValue = "true",
-                            UserId = "c251ed84-12d8-4a20-a2b6-603348953709"
+                            UserId = "6c4d317d-efc9-4ccd-a2dd-f064d7d0c5d0"
                         });
                 });
 
@@ -227,8 +230,8 @@ namespace PixelDread.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "c251ed84-12d8-4a20-a2b6-603348953709",
-                            RoleId = "794566b4-29f5-4e7f-b37e-c0b6e80dd81d"
+                            UserId = "6c4d317d-efc9-4ccd-a2dd-f064d7d0c5d0",
+                            RoleId = "5607b709-7151-4f1f-9028-c94412e96b66"
                         });
                 });
 
@@ -397,6 +400,15 @@ namespace PixelDread.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Posts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 2,
+                            UserId = "6c4d317d-efc9-4ccd-a2dd-f064d7d0c5d0",
+                            Visibility = false
+                        });
                 });
 
             modelBuilder.Entity("PixelDread.Models.PostArticle", b =>

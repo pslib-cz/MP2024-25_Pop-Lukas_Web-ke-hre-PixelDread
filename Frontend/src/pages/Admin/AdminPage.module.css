@@ -1,6 +1,4 @@
-.admin-page {
-  }
-    
+  
   /* Styl tlačítka (Logout) */
   .admin-page__button {
     background-color: var(--button-background);
