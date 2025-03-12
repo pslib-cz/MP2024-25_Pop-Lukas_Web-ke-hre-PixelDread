@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getPosts, getPostsByCategory } from "../api/postService";
+import { getPostsByCategory } from "../api/postService";
 import { Post } from "../types/post";
 import { Category } from "../types/category";
 import ArticlesFromPost from "./ArticlesFromPost";
@@ -31,9 +31,7 @@ const PostList: React.FC<PostListProps> = ({ category, hasDetails = false }) => 
         let data: any;
         if (category) {
           data = await getPostsByCategory(category.id);
-        } else {
-          data = await getPosts();
-        }
+        } 
         // Normalizace dat na pole
         const postsArray = Array.isArray(data)
           ? data
@@ -146,7 +144,7 @@ const PostList: React.FC<PostListProps> = ({ category, hasDetails = false }) => 
                         )}
                       </div>
                       <h3 className={styles["post-list__title"]}>
-                        {post.name ? post.name : `Post ${post.id}`}
+                        {post.name ? post.name : ``}
                       </h3>
                       <div className={styles["post-list__tags"]}>
                         {(post.postTags || []).map((pt) => (
