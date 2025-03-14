@@ -12,11 +12,11 @@
 ## Prostředky
 - Frontend: React, TypeScript
 - Backend: ASP.NET Core
-- Design: [Figma](https://www.figma.com/design/jPMdwB6Az2nJIwEaIDJdTp/MP-POP-v2?node-id=0-1&t=aTvgI04bP9lEuTYD-1)
+- Design:Figma
 - Deployment: Docker
 - Hosting: VPS
 
-[Dokument]()
+Dokument se nachází pod jménem MP2025-Pop-Lukáš-Web-ke-hře-Pixel-Dread
 
 
 
