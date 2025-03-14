@@ -33,14 +33,13 @@
   .editable-article__label {
     display: block;
     margin-bottom: 2px;
-    color: var(--secondary-text-color);
+    color: var(--primary-text-color);
   }
   
   .editable-article__input {
     width: 100%;
     padding: 0.5rem;
     border: 1px solid var(--border-color);
-    border-radius: 1.5em;
     font-size: 1rem;
   }
   
@@ -48,7 +47,6 @@
     width: 100%;
     padding: 0.5rem;
     border: 1px solid var(--border-color);
-    border-radius: 4px;
     font-size: 1rem;
     resize: vertical;
   }

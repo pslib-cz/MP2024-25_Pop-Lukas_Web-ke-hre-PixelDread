@@ -1,5 +1,6 @@
 /* Mobile-first GDPR page styles */
 .gdpr {
+  padding-top: 2rem;
   font-family: var(--pixel-font);
   color: var(--secondary-text-color);
   line-height: 1.5;
@@ -18,6 +19,7 @@
 
 .gdpr__intro {
   margin-top: 0.5rem;
+  font-family: var(--long-text-font);
   font-size: 1rem;
 }
 
@@ -33,23 +35,30 @@
 
 .gdpr__text {
   font-size: 1rem;
+  font-family: var(--long-text-font);
   margin: 0.5rem 0;
 }
 
 /* List styles */
 .gdpr__list {
+  font-family: var(--long-text-font);
+
   list-style: disc;
   padding-left: 1.5rem;
   margin: 0.5rem 0;
 }
 
 .gdpr__list-item {
+  font-family: var(--long-text-font);
+
   font-size: 1rem;
   margin-bottom: 0.5rem;
 }
 
 /* Link styles */
 .gdpr__link {
+  font-family: var(--long-text-font);
+
   text-decoration: underline;
   color: var(--secondary-text-color);
 }

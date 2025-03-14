@@ -37,7 +37,7 @@ const ArticleFAQComponent: React.FC<ArticleFAQProps> = ({ article }) => {
           isOpen ? styles["faq__answer--open"] : ""
         }`}
       >
-        <p>{article.answer}</p>
+        <p className={styles.text}>{article.answer}</p>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 
 import { getPostsByCategory, deletePost } from "../../api/postService";
 import { Post } from "../../types/post";
-import CreatePost from "../../components/CreatePost";
+import CreatePost from "../../components/posts/CreatePost";
 import { Blog } from "../../data/categories";
 import EditTagModal from "../../components/modals/EditTagModal";
 import ConfirmationModal from "../../components/modals/ConfirmationModal";
@@ -99,12 +99,16 @@ const BlogManagePage: React.FC = () => {
               <div key={post.id} className={styles.postItem}>
                 <h2 className={styles.postTitle}>{post.name}</h2>
                 <div className={styles.postLinks}>
+                  <button className={styles.viewButton}>
                   <Link to={`/blog/${post.ogData?.slug}`} className={styles.postLink}>
-                    View Post
+                    View
                   </Link>
+                  </button>
+                  <button className={styles.editButton}>
                   <Link to={`/admin/blog/edit/${post.ogData?.slug}`} className={styles.postLink}>
-                    Edit Post
+                    Edit
                   </Link>
+                  </button>
                   <button
                     className={styles.deleteButton}
                     onClick={() => openDeleteModal(post)}

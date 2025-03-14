@@ -4,6 +4,9 @@ import styles from "./HomePage.module.css";
 import pixelDreadHeader from "../images/pixelDreadHeader.png";
 import gplay from "../images/gplay.png";
 import WaveText from "../components/WaveText";
+import ImageGallery from "../components/ImageGallery";
+import PromoPage from "../components/Promo";
+import Story from "../components/Story";
 
 const HomePage: React.FC = () => {
   return (
@@ -41,12 +44,15 @@ const HomePage: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom section for additional content */}
         <div className={styles.bottomSection}>
-          <div className={styles.extraContent}>
-            <h2>More Content Below</h2>
-            <p>This section appears after scrolling down.</p>
-          </div>
+          <h2 className={styles.galleryTitle}>GALLERY</h2>
+         <ImageGallery />
+        </div>
+        <div className={styles.bottomSection}>
+          <PromoPage />
+        </div>
+        <div>
+          <Story />
         </div>
       </div>
     </HelmetProvider>

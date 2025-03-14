@@ -28,7 +28,8 @@
   --error-text-color: red;
   --navbar-bg: #161E34;
   --navbar-text: #fff;
-  --pixel-font: 'Press Start 2P', cursive;
+  --pixel-font: 'Press Start 2P';
+  --long-text-font: 'Open Sans', sans-serif;
   --navbar-hover-bg: #1f2e4b;
 }
 
@@ -38,6 +39,7 @@
   font-weight: normal;
   font-style: normal;
 }
+
 
 html, body {
   font-family: 'Arial', sans-serif;

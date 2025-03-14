@@ -1,0 +1,93 @@
+
+
+/* Tag Filter styling */
+.post-list__filter {
+  margin-bottom: 2rem;
+}
+
+/* Responsive grid layout */
+.post-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Each post item */
+.post-list__item {
+  font-family: var(--pixel-font);
+  color: var(--secondary-text-color);
+  background-color: var(--navbar-bg);
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 1rem;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Link styling inside post item */
+.post-list__link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* Preview container: maintain a 16:9 aspect ratio */
+.post-list__preview {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  overflow: hidden;
+  background-color: var(--navbar-bg);
+  
+}
+
+/* Image styling */
+.post-list__image {
+  border-radius: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Post title styling */
+.post-list__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+/* Post tags container */
+.post-list__tags {
+  margin-top: 1rem;
+}
+
+/* Individual tag styling */
+.post-list__tag {
+  display: inline-block;
+  background-color: var(--primary-color, #007acc);
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+/* Medium screens: 2 columns */
+@media (min-width: 768px) {
+  .post-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Larger screens: 3 columns */
+@media (min-width: 1024px) {
+  .post-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

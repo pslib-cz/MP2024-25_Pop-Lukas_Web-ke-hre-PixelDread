@@ -33,7 +33,7 @@ const Navbar: React.FC = () => {
           <Link to="/faq" className={styles.menu__link} onClick={() => setMenuOpen(false)}>
             FAQ
           </Link>
-          <Link to="/patch" className={styles.menu__link} onClick={() => setMenuOpen(false)}>
+          <Link to="/patch" className={styles.menu__link + " " + styles.last} onClick={() => setMenuOpen(false)}>
             Patch-notes
           </Link>
         </div>

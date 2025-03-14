@@ -32,7 +32,7 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.MaxDepth = 64;
 
     });
-/*
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("MyCors", policyBuilder =>
@@ -42,7 +42,7 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
-*/
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -60,7 +60,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseCors("MyCors"); //bypass by docker
+app.UseCors("MyCors"); //bypass by docker
 
 app.UseHttpsRedirection();
 

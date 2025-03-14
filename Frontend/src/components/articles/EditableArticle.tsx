@@ -9,7 +9,7 @@ import {
 import TextEditor, { TextEditorHandle } from "../TextEditor";
 import MediaImage from "./MediaImage";
 import ArticleOptionsModal from "../modals/ArticleOptionsModal";
-import ReadOnlyArticle from "../ReadOnlyArticle";
+import ReadOnlyArticle from "./ReadOnlyArticle";
 
 import styles from "./EditableArticle.module.css";
 

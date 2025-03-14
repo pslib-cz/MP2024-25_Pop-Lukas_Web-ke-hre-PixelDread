@@ -6,7 +6,7 @@ import LoginPage from "../pages/LoginPage";
 import AdminPage from "../pages/Admin/AdminPage";
 import AdminLayout from "../layouts/AdminLayout";
 import MainLayout from "../layouts/MainLayout";
-import PostDetail from "../components/PostDetail";
+import PostDetail from "../components/posts/PostDetail";
 import Admins from "../pages/Admin/AdminManagePage";
 import NotFoundPage from "../pages/NotFoundPage";
 import GDPR from "../pages/GDPR";
@@ -16,8 +16,10 @@ import FAQManagePage from "../pages/Admin/FAQManagePage";
 import PatchManagePage from "../pages/Admin/PatchManagePage";
 import PatchNotesPage from "../pages/PatchNotesPage";
 import FAQPage from "../pages/FAQPage";
-import PostDetailEdit from "../components/PostDetailEdit";
-import PostDetailEditSimple from "../components/PostDetailEditSimple";
+import PostDetailEdit from "../components/posts/PostDetailEdit";
+import PostDetailEditSimple from "../components/posts/PostDetailEditSimple";
+import PolicyPage from "../pages/PolicyPage";
+import NotFoundPageWhite from "../pages/NotFoundPageWhite";
 
 const AppRouter: React.FC = () => {
   return (
@@ -30,6 +32,7 @@ const AppRouter: React.FC = () => {
           <Route path="/patch" element={<PatchNotesPage />} />
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/gdpr" element={<GDPR />} />
+          <Route path="/policy" element={<PolicyPage />} />
           <Route path="/cookie-policy" element={<Cookies />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="*" element={<NotFoundPage />} />
@@ -43,7 +46,7 @@ const AppRouter: React.FC = () => {
           <Route path="faq" element={<FAQManagePage />} />
           <Route path="patch" element={<PatchManagePage />} />
           <Route path="patch/edit/:id" element={<PostDetailEditSimple />} />
-          <Route path="*" element={<NotFoundPage />} /> 
+          <Route path="*" element={<NotFoundPageWhite />} /> 
         </Route>
       </Routes>
     </Router>

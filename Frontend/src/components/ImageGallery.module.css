@@ -1,0 +1,36 @@
+/* ImageSlider.module.css */
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1.5rem 0;
+  }
+  
+  :global(.custom-pagination) {
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    justify-content: center;
+    background-color: transparent;
+    gap: 5px;
+    z-index: 10;
+  }
+  
+  :global(.swiper-pagination-bullet) {
+    background-color: transparent;
+    border: 1px solid var(--secondary-text-color);
+    color: transparent;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  :global(.swiper-pagination-bullet-active) {
+    background-color: var(--button-background);
+  }
+ 
+  

@@ -14,7 +14,7 @@
   
   /* Each article item */
   .articles-from-post__item {
-    padding: 1rem 0;
+    padding: 1rem 0 0 0;
     margin-bottom: 1rem;
     border-bottom: 1px solid #eee;
   }

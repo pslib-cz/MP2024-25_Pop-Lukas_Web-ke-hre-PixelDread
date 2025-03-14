@@ -14,7 +14,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60vh;
+  height: 80vh;
 }
 /* Block: login */
 .login {
@@ -45,7 +45,7 @@
 
 .login__label {
   margin-bottom: 0.5rem;
-  color: var(--secondary-text-color);
+  color: var(--primary-text-color);
   font-size: 1rem;
 }
 
@@ -70,6 +70,8 @@
   border-radius: var(--border-radius);
   cursor: pointer;
   transition: background-color 0.3s;
+  width: 200px;
+  align-self: center;
 }
 
 .login__button:hover {

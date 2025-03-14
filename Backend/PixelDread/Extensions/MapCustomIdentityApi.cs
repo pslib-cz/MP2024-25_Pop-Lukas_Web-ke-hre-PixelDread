@@ -45,7 +45,7 @@ public static class IdentityApiEndpointRouteBuilderExtensions
 
         var routeGroup = endpoints.MapGroup("");
 
-        routeGroup.MapPost("/register", [Authorize(Policy = "AdminPolicy")] async Task<Results<Ok, ValidationProblem>>
+        routeGroup.MapPost("/register", [Authorize(Roles = "Admin")]        async Task<Results<Ok, ValidationProblem>>
             ([FromBody] RegisterCustomRequest registration, HttpContext context, [FromServices] IServiceProvider sp) =>
         {
             var userManager = sp.GetRequiredService<UserManager<TUser>>();

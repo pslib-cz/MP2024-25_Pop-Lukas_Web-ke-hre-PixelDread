@@ -24,6 +24,8 @@
     font-size: 1rem;
     line-height: 2;
     margin-top: 1rem;
+    font-family: var(--long-text-font);
+
 
   }
   
@@ -47,6 +49,7 @@
   
   .cookie-policy__text {
     font-size: 1rem;
+    font-family: var(--long-text-font);
     line-height: 2;
     margin-bottom: 1rem;
     font-weight: 400;

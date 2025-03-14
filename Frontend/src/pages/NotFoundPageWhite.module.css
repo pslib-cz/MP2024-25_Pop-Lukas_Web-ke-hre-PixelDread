@@ -1,0 +1,55 @@
+:root {
+    --background-color: #ffffff;
+    --primary-text-color: #333333;
+    --secondary-text-color: #555555;
+    --button-background: #3498db;
+    --button-background-hover: #2980b9;
+    --button-text-color: #ffffff;
+    --border-radius: 4px;
+  }
+  
+  /* Block: not-found-page */
+  .container {
+    text-align: center;
+    font-family: var(--pixel-font);
+    color: var(--primary-text-color);
+    margin-top: 4rem;
+    padding: 0 1rem;
+  }
+  
+  .header {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .message {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    color: var(--primary-text-color);
+  }
+  
+  .button {
+    background-color: var(--button-background);
+    color: var(--button-text-color);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .button:hover {
+    background-color: var(--button-background-hover);
+  }
+  
+  /* Mobile-first adjustments */
+  @media (min-width: 768px) {
+    .header {
+      font-size: 2.5rem;
+    }
+    
+    .message {
+      font-size: 1.125rem;
+    }
+  }
+  

@@ -1,0 +1,44 @@
+/* Mobile-first styly */
+.post-detail {
+    color: var(--secondary-text-color);
+    font-family: var(--long-text-font);
+    padding-top: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .post-detail__title {
+    font-family: var(--pixel-font);
+    font-size: 1.5rem;
+    line-height: 1.5;
+    margin-bottom: 3rem;
+    overflow-wrap: break-word;
+  }
+  
+  .post-detail__articles {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+    gap: 0.5rem;
+  }
+  
+  .post-detail__article {
+    border-radius: 4px;
+  }
+  
+  /* Větší obrazovky */
+  @media (min-width: 768px) {
+    .post-detail__articles {
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .post-detail__article {
+      flex: 1 1 calc(50% - 1rem);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .post-detail__article {
+      flex: 1 1 calc(33.33% - 1rem);
+    }
+  }
+  

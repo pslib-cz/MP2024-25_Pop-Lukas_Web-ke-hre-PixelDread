@@ -349,7 +349,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
         <div className={styles["create-post-modal__header"]}>
           <h2>Create New Post</h2>
           <button onClick={handleCloseModal} className={styles["create-post-modal__close"]}>
-            &times;
+          ✕
           </button>
         </div>
         {renderStepContent()}

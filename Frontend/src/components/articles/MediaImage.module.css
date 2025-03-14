@@ -9,8 +9,13 @@
   /* Image styling - responsivní, mobile-first */
   .media-image__img {
     display: block;
-    max-width: 100%;
+    max-width: 75%;
     height: auto;
-    margin: 0 auto;
+  }
+  @media (min-width: 768px) {
+    .media-image__img {
+      max-width: 600px;
+    }
+    
   }
   

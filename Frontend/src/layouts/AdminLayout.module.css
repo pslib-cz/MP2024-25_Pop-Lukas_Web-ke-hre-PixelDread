@@ -33,7 +33,7 @@
 .denied__message {
   font-size: 1rem;
   margin-bottom: 1rem;
-  color: var(--secondary-text-color);
+  color: var(--primary-text-color);
 }
 
 .denied__loginLink {

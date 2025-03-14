@@ -97,6 +97,13 @@
   padding: 10px 20px;
   transition: background 0.3s;
 }
+.menu__link:hover {
+  background-color: var(--navbar-hover-bg);
+  border-radius: 4px;
+}
+.menu__link.last {
+  padding-bottom: 1rem;
+}
 
 .menu__link:hover {
   background-color: var(--navbar-hover-bg);
@@ -142,7 +149,7 @@
     transform: rotate(-45deg);
   }
   .menu {
-    top: 64px; /* below the larger navbar */
+    top: 48px; /* below the larger navbar */
   }
 }
 

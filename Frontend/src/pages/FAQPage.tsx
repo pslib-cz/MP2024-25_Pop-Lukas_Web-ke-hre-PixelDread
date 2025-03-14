@@ -1,5 +1,5 @@
 import React from "react";
-import PostList from "../components/PostList";
+import PostList from "../components/posts/PostList";
 import { FAQ } from "../data/categories";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import styles from "./FAQPage.module.css";

@@ -1,0 +1,91 @@
+
+/*tohle uprav, aby to bylo i na větší pc*/
+.section {
+    margin-left: -2rem; /* Posuneme o 2em doleva */
+    margin-right: -2rem; /* Posuneme o 2em doprava */
+    height: 100vh; /* Výška 50 % viewportu */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--navbar-bg);
+    color: var(--navbar-text);
+    font-size: 16px;
+    font-family: var(--pixel-font);
+    line-height: 1.5;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    width: 100%;
+    padding: 1rem;
+
+}
+
+.textContainer {
+    flex: 1;
+    padding: 3rem;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.text {
+    font-size: 1.2rem;
+}
+
+.imageContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image {
+    width: 100% - 2rem;
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Responzivní změna pořadí na mobilech */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+
+    .textContainer {
+        padding: 3rem;
+    }
+}
+
+
+.slider-container {
+    width: 100%;
+    position: relative;
+  }
+  
+  .custom-swiper {
+    width: 100%;
+  }
+  
+  .custom-swiper img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .swiper-pagination {
+    position: absolute;
+    bottom: -20px; /* Posunutí teček pod slider */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  

@@ -1,0 +1,13 @@
+ .create-post__button {
+    background: var(--button-background);
+    color: var(--button-text-color);
+    padding: 8px 16px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .create-post__button:hover {
+    background: var(--button-background-hover);
+  }
